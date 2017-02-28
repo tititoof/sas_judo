@@ -31,10 +31,10 @@ class ArticleController extends Controller
         $list       = [];
         $listAlbums = [];
         foreach ($categories as $category) {
-            $list[] = [ 'text' => $category->name, 'value' => $category->id ];
+            $list[] = [ 'label' => $category->name, 'value' => $category->id ];
         }
         foreach ($albums as $album) {
-            $listAlbums[] = [ 'text' => $album->name, 'value' => $album->id ];
+            $listAlbums[] = [ 'label' => $album->name, 'value' => $album->id ];
         }
         return response()->json(['categories' => $list, 'albums' => $listAlbums]);
     }
@@ -72,10 +72,10 @@ class ArticleController extends Controller
         $listAlbums = [];
         $articleAlbums = [];
         foreach ($categories as $category) {
-            $list[] = [ 'text' => $category->name, 'value' => $category->id ];
+            $list[] = [ 'label' => $category->name, 'value' => $category->id ];
         }
         foreach ($albums as $album) {
-            $listAlbums[] = [ 'text' => $album->name, 'value' => $album->id ];
+            $listAlbums[] = [ 'label' => $album->name, 'value' => $album->id ];
         }
         return response()->json(['success' => true, 'object' => $article, 'menus' => $list,
             'categories' => $article->categories, 'allAlbums' => $listAlbums, 'albums' => $article->albums]);

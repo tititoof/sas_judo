@@ -3,9 +3,10 @@
         <h1>
             Liste des albums
             <small>
-                <ui-icon-button type="flat" icon="add" color="primary"
-                                v-link="{ name: 'admin_albums_new' }"
-                >
+                <ui-icon-button
+                    type="secondary" icon="add" color="accent" size="large"
+                    @click.prevent="create()"
+                    >
                 </ui-icon-button>
             </small>
         </h1>
@@ -20,22 +21,29 @@
             </tr>
             </thead>
             <tbody>
-            <tr
-                    v-for="album in albums"
-            >
+            <tr v-for="album in albums">
                 <td>
-                    <ui-icon-button type="flat" icon="edit" color="warning" @click="edit(album.id)"></ui-icon-button>
-                    <ui-icon-button type="flat" icon="delete" color="danger" @click="destroy(album.id)"></ui-icon-button>
+                    <ui-icon-button
+                        type="secondary" icon="edit" color="orange" size="large"
+                        @click="edit(album.id)"></ui-icon-button>
+                    <ui-icon-button
+                        type="secondary" size="large" icon="delete" color="red"
+                        @click="destroy(album.id)"></ui-icon-button>
                 </td>
                 <td>{{ album.name }}</td>
             </tr>
             </tbody>
         </table>
         <ui-confirm
-                header="Suppression" type="danger" confirm-button-text="Supprimer"
-                confirm-button-icon="delete" deny-button-text="Cancel" @confirmed="deleteConfirmed"
-                @denied="deleteDenied" :show.sync="show.deleteConfirm" close-on-confirm
-        >
+            title="Suppression" type="primary"
+            confirm-button-icon="delete"
+            confirm-button-text="Supprimer"
+            deny-button-text="Annuler"
+            ref="deleteConfirm"
+            @confirm="deleteConfirmed"
+            @deny="deleteDenied"
+            close-on-confirm
+            >
             &ecirc;tes-vous s&ucirc;r de vouloir supprimer l'album ?
         </ui-confirm>
     </div>
@@ -72,12 +80,12 @@
             destroy(id) {
                 const _self = this;
                 _self.deleteId = id;
-                _self.show.deleteConfirm = true;
+                _self.$refs['deleteConfirm'].open();
             },
             deleteConfirmed() {
                 const _self = this;
                 _self.$http.delete('api/album/' + _self.deleteId).then(function(response) {
-                    _self.$dispatch('sas-snackbar', 'Album supprimé');
+                    _self.$emit('sas-snackbar', 'Album supprimé');
                     _self.index();
                 }, function(response) {
                     console.log(response);
@@ -87,14 +95,18 @@
 
             },
             edit(id) {
-                console.log(id);
-                router.go({ name: 'admin_albums_edit', params: { albumId: id } });
+                router.push({ name: 'admin_albums_edit', params: { albumId: id } });
+            },
+            create() {
+                router.push({ name: 'admin_albums_new'});
             }
         },
-        ready() {
-            const _self = this;
-            auth.check();
-            _self.index();
+        mounted() {
+            this.$nextTick(function () {
+                const _self = this;
+                auth.check(_self);
+                _self.index();
+            });
         }
     }
 </script>

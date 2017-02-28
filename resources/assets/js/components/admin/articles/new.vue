@@ -3,31 +3,46 @@
         <h1>
             Nouvel article
             <small>
-                <ui-button type="flat" color="accent" @click="this.store()">Cr&eacute;er</ui-button>
+                <ui-button
+                   type="secondary" color="accent" size="large"
+                   @click.prevent="store()">
+                    Cr&eacute;er
+                </ui-button>
             </small>
         </h1>
         <ui-select
-                name="categories" label="Menus" :options="menus" :value.sync="categoriesSelected"
+                name="categories" label="Menus"
+                :options="menus"
+                v-model="categoriesSelected"
                 placeholder="Choisir le ou les menus" show-search multiple z-index="1"
         ></ui-select>
         <ui-textbox
-                label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" :value.sync="name"
+                label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" v-model="name"
         >
         </ui-textbox>
-        <vue-html5-editor :content.sync="content" :height="500" :z-index="1"></vue-html5-editor>
+        <quill ref="qc"
+            :options="optionsEditor">
+        </quill>
         <ui-select
-                name="albums" label="Albums" :options="albums" :value.sync="AlbumsSelected"
+                name="albums" label="Albums"
+                :options="albums"
+                v-model="AlbumsSelected"
                 placeholder="Choisir le ou les albums" show-search multiple z-index="1"
         ></ui-select>
-        <ui-button type="flat" color="accent" @click="this.addAlbum()">Ajouter un album</ui-button>
+        <ui-button
+            type="secondary" color="accent" size="large"
+            @click="addAlbum()"
+            >
+            Ajouter un album
+        </ui-button>
     </div>
 </template>
 <script>
     import auth from '../../../auth';
     import Keen from 'keen-ui';
-    import Vue from './../../../app.js';
-    import {router} from './../../../app.js';
-
+    import { app } from './../../../app.js';
+    import { router } from './../../../app.js';
+    import Quill from './../../editor/v-quill';
     export default {
         data() {
             return {
@@ -37,7 +52,40 @@
                 content: '',
                 categoriesSelected: [],
                 albums: [],
-                AlbumsSelected: []
+                AlbumsSelected: [],
+                optionsEditor: {
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                            ['blockquote', 'code-block'],
+
+                            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                            [{ 'direction': 'rtl' }],                         // text direction
+
+                            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                            [ 'link', 'image', 'video', 'formula' ],
+                            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                            [{ 'font': [] }],
+                            [{ 'align': [] }],
+                            ['clean']                                         // remove formatting button
+                        ],
+                    },
+                    theme: 'snow'
+                }
+            }
+        },
+        directives: {
+        },
+        components: {
+            Quill
+        },
+        computed: {
+            editor() {
+                return this.$refs.myTextEditor.quillEditor
             }
         },
         methods: {
@@ -61,12 +109,14 @@
                 const _self = this;
                 let categories  = [],
                     albums      = [];
+                _self.content   = _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML;
                 _self.categoriesSelected.forEach(function(category) {
                     categories.push(category.value);
                 });
                 _self.AlbumsSelected.forEach(function(album) {
                     albums.push(album.value);
                 });
+
                 _self.$http.post('api/article', {
                     'name': _self.name,
                     'categories': categories,
@@ -75,12 +125,12 @@
                     'albums': albums
                 }).then(
                     (response) => {
-                        _self.$dispatch('sas-snackbar', 'Article ajouté');
+                        _self.$emit('sas-snackbar', 'Article ajouté');
                         let id = response.data.article_id;
                         if (album) {
-                            router.go({ name: 'admin_albums_new', params: { articleId: id } });
+                            router.push({ name: 'admin_albums_new', params: { articleId: id } });
                         } else {
-                            router.go({ name: 'admin_articles_index' });
+                            router.push({ name: 'admin_articles_index' });
                         }
                     },
                     (response) => {
@@ -94,10 +144,25 @@
                 _self.save(true);
             }
         },
-        ready() {
-            const _self = this;
-            auth.check();
-            _self.index();
+        mounted() {
+            this.$nextTick(function () {
+                const _self = this;
+                auth.check(_self);
+                _self.index();
+            });
+        },
+        onEditorBlur(editor) {
+            console.log('editor blur!', editor)
+        },
+        onEditorFocus(editor) {
+            console.log('editor focus!', editor)
+        },
+        onEditorReady(editor) {
+            console.log('editor ready!', editor)
+        },
+        onEditorChange({ editor, html, text }) {
+            // console.log('editor change!', editor, html, text)
+            this.content = html
         }
     }
 </script>

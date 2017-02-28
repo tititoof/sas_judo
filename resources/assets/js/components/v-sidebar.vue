@@ -64,44 +64,46 @@
 </style>
 <template>
     <div>
-        <nav class="sidenav"
-             v-show="isVisible">
-            <button class="closebtn ui-icon-button ui-icon-button-flat color-success"
-                    @click.prevent="toggle">
-                <i class="ui-icon material-icons ui-icon-button-icon clear" aria-hidden="true">clear</i>
-            </button>
-            <!--<a href="#" class="closebtn"-->
-            <!--@click.prevent="toggle"></a>-->
-            <ul class="">
-                <li v-for="item in menu" class="">
-                    <a @click.prevent="getPage(item.link)" href="#"> {{ item.text }}</a>
-                </li>
-            </ul>
-        </nav>
+        <transition
+            name="slideLeft"
+            >
+            <nav class="sidenav"
+                 v-show="visible">
+                <button class="closebtn ui-icon-button ui-icon-button-flat color-success"
+                        @click.prevent="toggle">
+                    <i class="ui-icon material-icons ui-icon-button-icon clear" aria-hidden="true">clear</i>
+                </button>
+                <ul class="">
+                    <li v-for="item in menu" class="">
+                        <a @click.prevent="getPage(item.link)" href="#"> {{ item.text }}</a>
+                    </li>
+                </ul>
+            </nav>
+        </transition>
     </div>
 </template>
 <script>
-//    module.exports = {
     export default {
         name: "sidebar",
         props: {
-            menu: Array,
-            isVisible: Boolean
+            menu: Array
+        },
+        data() {
+            return {
+                visible: false
+            }
         },
         methods: {
             toggle: function() {
-                var _self = this;
-                _self.isVisible = !_self.isVisible;
+                const _self = this;
+                _self.visible = !_self.visible;
             },
             getPage: function(link) {
-                this.$dispatch('v-sidebar:click', link);
+                this.$emit('v-sidebar-click', link);
             }
         },
-        events: {
-            'v-sidebar:toggle': function() {
-                console.log('toggle');
-                this.toggle();
-            }
+        mounted() {
+            this.$root.$on('v-sidebar-toggle', this.toggle);
         }
     }
 </script>

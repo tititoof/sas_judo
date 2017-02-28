@@ -78,14 +78,13 @@ class AlbumController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Album $album
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Album $album)
     {
-        //
+        $albumRepo = new AlbumRepository;
+        return response()->json($albumRepo->delete($album));
     }
 
     public function syncPicture(Picture $picture, Album $album)

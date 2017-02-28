@@ -1,4 +1,4 @@
-import app from './app.js';
+// import {app} from './app.js';
 import {router} from './app.js';
 
 export default {
@@ -6,8 +6,8 @@ export default {
         authenticated: false,
         profile: null
     },
-    register(context, name, email, password) {
-        app.$http.post('api/register', { name: name, email: email, password: password })
+    register(context, name, email, password, password_confirm) {
+        context.$http.post('api/register', { name: name, email: email, password: password, 'password-confirm': password_confirm })
             .then(response => {
                 context.success = true
             }, response => {
@@ -15,7 +15,7 @@ export default {
                 context.error   = true;
             });
     },
-    check() {
+    check(app) {
         if (localStorage.getItem('id_token') !== null) {
             app.$http.get('api/user').then(
                 (response) => {
@@ -23,18 +23,19 @@ export default {
                     this.user.profile       = response.data.data;
                 }, (response) => {
                     this.user.authenticated = false;
-                })
+                }
+            );
         }
     },
     signin(context, email, password) {
-        app.$http.post('api/signin', { email: email, password: password })
+        context.$http.post('api/signin', { email: email, password: password })
             .then(response => {
                 context.error = false;
                 localStorage.setItem('id_token', response.data.meta.token);
-                Vue.http.headers.common['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
+                context.$http.headers.common['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
                 this.user.authenticated = true;
                 this.user.profile       = response.data.data;
-                router.go({ name: 'dashboard' })
+                router.push({ name: 'dashboard' })
             }, response => {
                 context.error = true;
             })
@@ -42,7 +43,7 @@ export default {
     signout() {
         localStorage.removeItem('id_token');
         this.user.authenticated = false;
-        this.user.profile = null;
-        router.go({ name: 'home' })
+        this.user.profile       = null;
+        router.push({ name: 'home' });
     }
 }

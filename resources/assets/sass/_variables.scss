@@ -1,4 +1,5 @@
 
+
 // Body
 $body-bg: #f5f8fa;
 
@@ -35,3 +36,17 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+$brand-warning: #cbb956;
+
+
+
+.ui-toolbar-colored {
+  background-color: #99c9a2;
+}
+.ui-toolbar--type-colored {
+  background-color: #99c9a2;
+}
+
+.sidebar-menu {
+  border-right: 1px solid #e5e5e5;
+}

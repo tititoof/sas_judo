@@ -3,13 +3,23 @@
         <h1>
             Edition de l'album
             <small>
-                <ui-button type="flat" color="accent" @click="this.update()">Modifier</ui-button>
+                <ui-button
+                    type="secondary" color="accent" size="large"
+                    @click.prevent="update()">
+                    Modifier
+                </ui-button>
             </small>
         </h1>
         <ui-textbox
                 label="Nom" name="name" type="text" placeholder="Entrer le nom de l'album" :value.sync="name"
         ></ui-textbox>
-        <file-upload class="bg-info" name="pictures" id="pictures" accept="image/*" action="/api/picture" :button-text="uploadName" multiple></file-upload>
+        <file-upload
+            v-on:onFileChange="onFileChange"
+            v-on:onFileUpload="onFileUpload"
+            v-on:onAllFilesUploaded="onAllFilesUploaded"
+            ref="fu"
+            class="bg-info" name="pictures" id="pictures" accept="image/*" action="/api/picture" :button-text="uploadName" multiple>
+        </file-upload>
         <ul class="pagination">
             <li v-for="file in files">
                 {{ file.name }} ({{ file.size }})
@@ -18,7 +28,7 @@
         <ui-collapsible header="Images de l'abum" :open="false">
             <div class="row text-center portfolio" style="height:500px; max-height:500px; overflow-y: auto">
                 <div class="col-lg-3 col-sm-3 col-xs-4"
-                     v-for="(index, picture) in pictures" style="max-height: 200px">
+                     v-for="(picture, index) in pictures" style="max-height: 200px">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#">
@@ -26,7 +36,10 @@
                             </a>
                         </div>
                         <div class="panel-footer">
-                            <ui-icon-button type="flat" icon="delete" color="warning" @click="togglePicture(picture.id)"> Retirer</ui-icon-button>
+                            <ui-icon-button
+                                icon="delete" type="secondary" color="red" size="large"
+                                @click.prevent="togglePicture(picture.id)">
+                            </ui-icon-button>
                         </div>
                     </div>
                     <div class="clear" v-if="(index % 4 == 0) && (index != 0)"></div>
@@ -36,7 +49,7 @@
         <ui-collapsible header="Images enregistrées" :open="false">
             <div class="row text-center portfolio" style="height:500px; max-height:500px; overflow-y: auto">
                 <div class="col-lg-3 col-sm-3 col-xs-4"
-                     v-for="(index, picture) in allPictures" style="max-height: 200px">
+                     v-for="(picture, index) in allPictures" style="max-height: 200px">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#">
@@ -44,7 +57,10 @@
                             </a>
                         </div>
                         <div class="panel-footer">
-                            <ui-icon-button type="flat" icon="add" color="success" @click="togglePicture(picture.id)"> Ajouter </ui-icon-button>
+                            <ui-icon-button
+                                icon="add" type="secondary" color="green" size="large"
+                                @click.prevent="togglePicture(picture.id)">
+                            </ui-icon-button>
                         </div>
                     </div>
                     <div class="clear" v-if="(index % 4 == 0) && (index != 0)"></div>
@@ -70,6 +86,7 @@
                 pictures:   [],
                 upload:     {},
                 active:     false,
+                uploadName: 'Télécharger'
             }
         },
         components: {
@@ -77,7 +94,6 @@
         },
         computed: {
             presentInArray: function (picture) {
-                console.log(!this.pictures.includes(picture));
                 return !this.pictures.includes(picture);
             }
         },
@@ -103,7 +119,11 @@
             },
             update() {
                 const _self = this;
-                _self.$broadcast('sendFiles');
+                if (_self.files.length > 0) {
+                    _self.$refs.fu.fileUpload();
+                } else {
+                    _self.onAllFilesUploaded();
+                }
             },
             index() {
                 const _self = this;
@@ -122,30 +142,22 @@
                         console.log(response);
                     }
                 );
-            }
-        },
-        ready() {
-            const _self = this;
-            auth.check();
-            _self.albumId = _self.$route.params.albumId;
-            _self.index();
-        },
-        events: {
-            'onFileChange': function(file, res) {
+            },
+            onFileChange: function(file, res) {
                 const _self = this;
                 _self.files = file;
             },
-            'onFileUpload': function(file, res) {
+            onFileUpload: function(file, res) {
                 const _self = this;
                 _self.files_id.push(res.picture_id);
             },
-            'onAllFilesUploaded': function() {
+            onAllFilesUploaded: function() {
                 const _self = this;
                 let data    = new FormData();
                 data.append('name', _self.name);
                 data.append('pictures', _self.files_id);
                 data.append('user_id', auth.user.profile.id);
-                _self.$http.post('api/album', data).then(
+                _self.$http.patch('api/album/' + _self.albumId, data).then(
                     (response) => {
                         console.log(response);
                     },
@@ -154,6 +166,14 @@
                     }
                 )
             }
+        },
+        mounted() {
+            this.$nextTick(function () {
+                const _self = this;
+                auth.check(_self);
+                _self.albumId = _self.$route.params.albumId;
+                _self.index();
+            });
         }
     }
 </script>

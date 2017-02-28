@@ -3,31 +3,47 @@
         <h1>
             Editer article
             <small>
-                <ui-button type="flat" color="accent" @click="this.update()">Modifier</ui-button>
+                <ui-button
+                        type="secondary" color="accent" size="large"
+                        @click.prevent="update()">
+                    Modifier
+                </ui-button>
             </small>
         </h1>
         <ui-select
-                name="categories" label="Menus" :value.sync="menus" :options="allMenus"
+                name="categories" label="Menus"
+                :options="allMenus"
+                v-model="menus"
                 placeholder="Choisir le ou les menus" show-search multiple z-index="1"
         ></ui-select>
         <ui-textbox
-                label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" :value.sync="name"
+                label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" v-model="name"
         >
         </ui-textbox>
-        <vue-html5-editor :content.sync="content" :height="500" :z-index="1"></vue-html5-editor>
+        <quill ref="qc"
+               :options="optionsEditor">
+        </quill>
         <ui-select
             name="albums" label="Albums" placeholder="Choisir le ou les albums" show-search multiple z-index="1"
             id="albums"
-            :options="albums" :value.sync="albumsSelected" :default="albumsDefault"
-            ></ui-select>
-        <ui-button type="flat" color="accent" @click="this.addAlbum()">Ajouter un album</ui-button>
-    </div>
+            v-model="albumsSelected"
+            :options="albums"
+            >
+
+        </ui-select>
+        <ui-button
+                type="secondary" color="accent" size="large"
+                @click.prevent="addAlbum()">
+            Ajouter un album
+        </ui-button>
+0    </div>
 </template>
 <script>
     import auth from '../../../auth';
     import Keen from 'keen-ui';
-    import Vue from './../../../app.js';
+    import {app} from './../../../app.js';
     import {router} from './../../../app.js';
+    import Quill from './../../editor/v-quill';
     export default {
         data() {
             return {
@@ -39,8 +55,34 @@
                 content:        '',
                 albums:         [],
                 albumsDefault:  [],
-                albumsSelected: []
+                albumsSelected: [],
+                optionsEditor: {
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                            ['blockquote', 'code-block'],
+
+                            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                            [{ 'direction': 'rtl' }],                         // text direction
+
+                            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                            [ 'link', 'image', 'video', 'formula' ],
+                            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                            [{ 'font': [] }],
+                            [{ 'align': [] }],
+                            ['clean']                                         // remove formatting button
+                        ],
+                    },
+                    theme: 'snow'
+                }
             }
+        },
+        components: {
+            Quill
         },
         methods: {
             index() {
@@ -51,29 +93,24 @@
                             newAlbumId  = _self.$route.params.albumId;
                         _self.name      = data.object.name;
                         _self.content   = data.object.content;
+                        _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML = _self.content;
                         _self.allMenus  = data.menus;
                         data.object.categories.forEach(function(category) {
-                            _self.menus.push({ 'text': category.name, 'value': category.id });
+                            _self.menus.push({ 'label': category.name, 'value': category.id });
                         });
                         _self.albums = data.allAlbums;
-//                        _self.albumsDefault = "[";
                         data.albums.forEach(function(album) {
-//                            _self.albumsDefault += album.id + ",";
-                            _self.$broadcast('ui-select::set-selected', album.id, 'albums');
-                            _self.albumsDefault.push({ 'text': album.name, 'value': album.id });
+                            _self.albumsDefault.push({ 'label': album.name, 'value': album.id });
                         });
 
                         if (newAlbumId !== 0) {
                             _self.albums.forEach(function(album) {
                                 if (newAlbumId == album.value) {
-//                                    _self.albumsDefault += album.id + ",";
-                                    _self.albumsDefault.push({ 'text': album.name, 'value': album.id })
+                                    _self.albumsDefault.push({ 'label': album.name, 'value': album.id })
                                 }
                             });
                         }
                         console.log(_self.albumsDefault);
-//                        _self.albumsDefault = _self.albumsDefault.substring(0, _self.albumsDefault.length - 1);
-//                        _self.albumsDefault += "]";
                     },
                     (response) => {
                         console.log(response);
@@ -102,11 +139,11 @@
                     'user_id': auth.user.profile.id, 'albums': albums
                 }).then(
                     (response) => {
-                        _self.$dispatch('sas-snackbar', 'Article modifié');
+                        _self.$emit('sas-snackbar', 'Article modifié');
                         if (newAlbum) {
-                            router.go({ name: 'admin_albums_new', params: { articleId: _self.articleId } });
+                            router.push({ name: 'admin_albums_new', params: { articleId: _self.articleId } });
                         } else {
-                            router.go({ name: 'admin_articles_index' });
+                            router.push({ name: 'admin_articles_index' });
                         }
                     },
                     (response) => {
@@ -115,11 +152,13 @@
                 );
             }
         },
-        ready() {
-            const _self = this;
-            auth.check();
-            _self.articleId = _self.$route.params.articleId;
-            _self.index();
+        mounted() {
+            this.$nextTick(function () {
+                const _self = this;
+                auth.check(_self);
+                _self.articleId = _self.$route.params.articleId;
+                _self.index();
+            });
         }
     }
 </script>

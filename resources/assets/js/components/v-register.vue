@@ -3,7 +3,7 @@
         <div class=" alert alert-danger" v-if="error && !success">
             <p>There was an error, unable to complete registration</p>
         </div>
-        <div class="alert alert-success" v-if="sucess">
+        <div class="alert alert-success" v-if="success">
             <p>Registration complete</p>
         </div>
         <form autocomplete="off" v-on:submit="register" v-if="!success">
@@ -22,6 +22,11 @@
                 <input type="password" name="paswword" id="password" class="form-control" v-model="password" required>
                 <span class="help-block" v-if="error && response.password">{{ response.password }}</span>
             </div>
+            <div class="form-group" v-bind:class=" { 'has-error': error && response.password-confirm }">
+                <label for="passwordconfirm">Confirm Password</label>
+                <input type="password" name="passwordconfirm" id="passwordconfirm" class="form-control" v-model="password_confirm" required>
+                <span class="help-block" v-if="error && response.password-confirm">{{ response.password-confirm }}</span>
+            </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
     </div>
@@ -34,6 +39,7 @@
                 name: null,
                 email: null,
                 password: null,
+                password_confirm: null,
                 success: false,
                 error: false,
                 response: null
@@ -42,7 +48,7 @@
         methods: {
             register(event) {
                 event.preventDefault();
-                auth.register(this, this.name, this.email, this.password);
+                auth.register(this, this.name, this.email, this.password, this.password_confirm);
             }
         }
     }

@@ -1,18 +1,18 @@
 <template>
     <div class="col-xs-12">
         <h1>
-            Liste des menus
+            Liste des saisons
             <small>
                 <ui-icon-button
-                    type="secondary" icon="add" color="accent" size="large"
-                    @click.prevent="create()"
-                    >
+                        type="secondary" icon="add" color="accent" size="large"
+                        @click.prevent="create()"
+                >
                 </ui-icon-button>
             </small>
         </h1>
         <table
-            class="table table-striped"
-            v-if="categories.length > 0">
+                class="table table-striped"
+                v-if="seasons.length > 0">
             <thead>
             <tr>
                 <th>#</th>
@@ -20,32 +20,32 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="category in categories">
+            <tr v-for="season in seasons">
                 <td>
                     <ui-icon-button
-                        type="secondary" icon="edit" color="orange" size="large"
-                        @click.prevent="edit(category.id)">
+                            type="secondary" icon="edit" color="orange" size="large"
+                            @click.prevent="edit(season.id)">
                     </ui-icon-button>
                     <ui-icon-button
-                        type="secondary" size="large" icon="delete" color="red"
-                        @click.prevent="destroy(category.id)">
+                            type="secondary" size="large" icon="delete" color="red"
+                            @click.prevent="destroy(season.id)">
                     </ui-icon-button>
                 </td>
-                <td>{{ category.name }}</td>
+                <td>{{ season.name }}</td>
             </tr>
             </tbody>
         </table>
         <ui-confirm
-            title="Suppression" type="primary"
-            confirm-button-icon="delete"
-            confirm-button-text="Supprimer"
-            deny-button-text="Annuler"
-            ref="deleteConfirm"
-            @confirm="deleteConfirmed"
-            @deny="deleteDenied"
-            close-on-confirm
-            >
-            &ecirc;tes-vous s&ucirc;r de vouloir supprimer le menu ?
+                title="Suppression" type="primary"
+                confirm-button-icon="delete"
+                confirm-button-text="Supprimer"
+                deny-button-text="Annuler"
+                ref="deleteConfirm"
+                @confirm="deleteConfirmed"
+                @deny="deleteDenied"
+                close-on-confirm
+        >
+            &ecirc;tes-vous s&ucirc;r de vouloir supprimer la saison ?
         </ui-confirm>
     </div>
 </template>
@@ -59,7 +59,7 @@
         data() {
             return {
                 auth: auth,
-                categories: [],
+                seasons: [],
                 deleteId: Number,
                 show: {
                     deleteConfirm: false
@@ -69,7 +69,7 @@
         methods: {
             edit(id) {
                 const _self = this;
-                router.push({ name: 'admin_categories_edit', params: { categoryId: id } });
+                router.push({ name: 'admin_seasons_edit', params: { seasonId: id } });
             },
             destroy(id) {
                 const _self = this;
@@ -78,7 +78,7 @@
             },
             deleteConfirmed() {
                 const _self = this;
-                _self.$http.delete('api/category/' + _self.deleteId).then(function(response) {
+                _self.$http.delete('api/season/' + _self.deleteId).then(function(response) {
                     _self.$emit('sas-snackbar', 'Menu supprimé');
                     _self.index();
                 }, function(response) {
@@ -90,14 +90,14 @@
             },
             index() {
                 const _self = this;
-                _self.$http.get('api/category', { 'user_id': auth.user.profile.id }).then(function(response) {
-                    _self.categories = response.data.categories;
+                _self.$http.get('api/season').then(function(response) {
+                    _self.seasons = response.data.seasons;
                 }, function(response) {
                     console.log("error ! :'(");
                 })
             },
             create() {
-                router.push({ name: 'admin_categories_new' });
+                router.push({ name: 'admin_seasons_new' });
             }
         },
         components: {
@@ -112,3 +112,6 @@
         }
     }
 </script>
+<style>
+
+</style>

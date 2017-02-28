@@ -3,18 +3,23 @@
         <h1>
             Nouveau menu
             <small>
-                <ui-button type="flat" color="accent" @click="this.createAction()">Cr&eacute;er</ui-button>
+                <ui-button
+                    type="secondary" color="accent" size="large"
+                    @click.prevent="store()">
+                    Cr&eacute;er
+                </ui-button>
             </small>
         </h1>
         <ui-textbox
-                label="Nom" name="name" type="text" placeholder="Entrer le nom du menu" :value.sync="name"
+            label="Nom" name="name" type="text" placeholder="Entrer le nom du menu"
+            v-model="name"
         ></ui-textbox>
     </div>
 </template>
 <script>
     import auth from '../../../auth';
     import Keen from 'keen-ui';
-    import Vue from './../../../app.js';
+    import {app} from './../../../app.js';
     import {router} from './../../../app.js';
     export default {
         data() {
@@ -25,18 +30,21 @@
             }
         },
         methods: {
-            createAction() {
+            store() {
                 const _self = this;
                 _self.$http.post('api/category', {'name': _self.name}).then(function(response) {
-                    _self.$dispatch('sas-snackbar', 'Menu ajouté');
-                    router.go({ name: 'admin_categories' });
+                    _self.$emit('sas-snackbar', 'Menu ajouté');
+                    router.push({ name: 'admin_categories_index' });
                 }, function(response) {
                     console.log(response);
                 });
             }
         },
-        ready() {
-            auth.check();
+        mounted() {
+            this.$nextTick(function () {
+                let _self = this;
+                auth.check(_self);
+            });
         }
     }
 </script>

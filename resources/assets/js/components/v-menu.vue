@@ -1,46 +1,47 @@
 <template>
     <div>
         <sidebar
-                :is-visible.sync="sideBarIsVisible"
-                :menu="sideBarMenu"
-                class="animated sidebar-menu"
-                transition="left"
-        >
+            v-bind:menu="sideBarMenu"
+            :visible="sidebarShow"
+            ref="sidebar"
+            class="animated sidebar-menu"
+            transition="left"
+            >
         </sidebar>
-        <ui-toolbar type="colored"
-                    text-color="white" flat
-                    :loading="loading"
-                    :brand="siteTitle"
-                    :show-brand="true"
-                    @nav-icon-clicked="menuClick">
+        <ui-toolbar
+            :title="siteTitle"
+            type="colored"
+            text-color="white"
+            @nav-icon-click="menuClick">
             <div slot="actions">
                 <ui-button
-                        v-if="auth.user.authenticated"
-                        type="clear"
-                        color="white"
-                        icon="account_circle"
-                        has-dropdown-menu
-                        :menu-options="menu"
-                        :text="auth.user.profile.name"
-                        dropdown-position="bottom right"
-                        @menu-option-selected="userButtonSelected"
-                >
+                    type="secondary"
+                    size="large"
+                    @click.prevent="signinAction()"
+                    ref="signinButton"
+                    v-if="!auth.user.authenticated"
+                    >
+                Se Connecter
                 </ui-button>
                 <ui-button
-                        type="clear"
-                        color="white"
-                        text="Se Connecter"
-                        v-link="{ name: 'signin' }"
-                        v-if="!auth.user.authenticated"
-                >
+                    type="secondary"
+                    size="large"
+                    ref="registerButton"
+                    @click.prevent="registerAction()"
+                    v-if="!auth.user.authenticated"
+                    >
+                S'enregister
                 </ui-button>
                 <ui-button
-                        type="clear"
-                        color="white"
-                        text="S'enregister"
-                        v-link="{ name: 'register' }"
-                        v-if="!auth.user.authenticated"
-                >
+                    v-if="auth.user.authenticated"
+                    type="secondary"
+                    color="white"
+                    size="large"
+                    icon="account_circle"
+                    dropdown-position="bottom right"
+                    @click.prevent="disconnectAction()"
+                    >
+                {{ auth.user.profile.name }}
                 </ui-button>
             </div>
         </ui-toolbar>
@@ -48,7 +49,7 @@
 </template>
 <script>
     import sidebar from './v-sidebar.vue';
-    import Vue from './../app.js';
+    import {app} from './../app.js';
     import {router} from './../app.js';
     import Keen from 'keen-ui';
     import auth from '../auth';
@@ -59,7 +60,7 @@
                 auth: auth,
                 loading: false,
                 siteTitle: "SAS Judo Jujitsu",
-                sideBarIsVisible: false,
+                sidebarShow: false,
                 sideBarMenu: [{
                     id: "toto",
                     text: "Les news",
@@ -103,34 +104,44 @@
                 }],
                 menu: [{
                     id: 'settings',
-                    text: 'Paramètres'
+                    label: 'Paramètres'
+                }, {
+                        type: 'divider'
                 }, {
                     id: 'disconnect',
-                    text: 'Déconnexion'
+                    label: 'Déconnexion'
                 }]
             }
-     },
+        },
         components: {
             sidebar
-     },
+        },
         directives: {
-     },
-     methods: {
-         menuClick: function() {
-             const _self = this;
-             _self.$broadcast('v-sidebar:toggle');
-         },
-         userButtonSelected: function(option) {
-             const _self = this;
-             switch(option.id) {
-                 case 'disconnect':
-                     auth.signout();
-                     break;
-             }
-         },
-         calendriersAction: function() {
-             console.log('Action !!!!');
-         }
-     }
+        },
+        methods: {
+            menuClick: function() {
+                this.$refs.sidebar.toggle();
+            },
+            disconnectAction: function () {
+                auth.signout();
+            },
+            userButtonSelected: function(option) {
+                const _self = this;
+                switch(option.id) {
+                    case 'disconnect':
+                        auth.signout();
+                        break;
+                }
+            },
+            calendriersAction: function() {
+                console.log('Action !!!!');
+            },
+            signinAction: function() {
+                router.push({ name: 'signin' });
+            },
+            registerAction: function() {
+                router.push({ name: 'register' });
+            }
+        }
     }
 </script>

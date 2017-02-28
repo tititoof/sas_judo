@@ -3,13 +3,23 @@
         <h1>
             Nouvel album
             <small>
-                <ui-button type="flat" color="accent" @click="this.store()">Cr&eacute;er</ui-button>
+                <ui-button
+                        type="secondary" color="accent" size="large"
+                        @click.prevent="store()">
+                    Cr&eacute;er
+                </ui-button>
             </small>
         </h1>
         <ui-textbox
-                label="Nom" name="name" type="text" placeholder="Entrer le nom de l'album" :value.sync="name"
+            label="Nom" name="name" type="text" placeholder="Entrer le nom de l'album" v-model="name"
         ></ui-textbox>
-        <file-upload class="bg-info" name="pictures" id="pictures" accept="image/*" action="/api/picture" :button-text="uploadName" multiple></file-upload>
+        <file-upload
+            v-on:onFileChange="onFileChange"
+            v-on:onFileUpload="onFileUpload"
+            v-on:onAllFilesUploaded="onAllFilesUploaded"
+            ref="fu"
+            class="bg-info" name="pictures" id="pictures" accept="image/*" action="/api/picture"
+            :button-text="uploadName" multiple></file-upload>
         <ul>
             <li v-for="file in files">
                 {{ file.name }} ({{ file.size }})
@@ -31,7 +41,8 @@
                 files_id:   [],
                 upload:     {},
                 active:     false,
-                articleId:  null
+                articleId:  null,
+                uploadName: 'Télécharger'
             }
         },
         components: {
@@ -40,24 +51,17 @@
         methods: {
             store() {
                 const _self = this;
-                _self.$broadcast('sendFiles');
-            }
-        },
-        ready() {
-            const _self = this;
-            auth.check();
-            _self.articleId = _self.$route.params.articleId;
-        },
-        events: {
-            'onFileChange': function(file, res) {
+                _self.$refs.fu.fileUpload();
+            },
+            onFileChange: function(file, res) {
                 const _self = this;
                 _self.files = file;
             },
-            'onFileUpload': function(file, res) {
+            onFileUpload: function(file, res) {
                 const _self = this;
                 _self.files_id.push(res.picture_id);
             },
-            'onAllFilesUploaded': function() {
+            onAllFilesUploaded: function() {
                 const _self = this;
                 let data    = new FormData();
                 data.append('name', _self.name);
@@ -67,9 +71,9 @@
                     (response) => {
                         let albumId = response.data.album_id;
                         if ( (_self.articleId !== 0) && (_self.articleId !== null) ) {
-                            router.go({ name: 'admin_articles_edit', params: { articleId: _self.articleId, albumId: albumId } });
+                            router.push({ name: 'admin_articles_edit', params: { articleId: _self.articleId, albumId: albumId } });
                         } else {
-                            router.go({ name: 'admin_albums_index' });
+                            router.push({ name: 'admin_albums_index' });
                         }
                     },
                     (response) => {
@@ -77,6 +81,13 @@
                     }
                 )
             }
+        },
+        mounted() {
+            this.$nextTick(function () {
+                const _self = this;
+                auth.check(_self);
+                _self.articleId = _self.$route.params.articleId;
+            });
         }
     }
 </script>

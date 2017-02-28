@@ -1,6 +1,5 @@
 <template>
     <div>
-        dzadzadzad
         <my-menu></my-menu>
         <div class="panel panel-default" id="toto">
             <div class="panel-heading">
@@ -8,39 +7,36 @@
                     <ul class="list-inline">
                         <li>
                             <router-link :to="{ name: 'home' }">Accueil</router-link>
-                            <!--<a v-link="{ name: 'home' }">Accueil</a>-->
                         </li>
                         <li class="pull-right" v-if="auth.user.authenticated">
                             <router-link :to="{ name: 'admin_categories_index' }">Menus</router-link>
-                            <!--<a v-link="{ name: 'admin_categories_index' }">Menus</a>-->
                         </li>
                         <li class="pull-right" v-if="auth.user.authenticated">
                             <router-link :to="{ name: 'admin_articles_index' }">Articles</router-link>
-                            <!--<a v-link="{ name: 'admin_articles_index' }">Articles</a>-->
                         </li>
                         <li class="pull-right" v-if="auth.user.authenticated">
                             <router-link :to="{ name: 'admin_albums_index' }">Albums</router-link>
-                            <!--<a v-link="{ name: 'admin_albums_index' }">Albums</a>-->
                         </li>
                         <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_categories_index' }">Comp&eacute;titions</router-link>
-                            <!--<a v-link="{ name: 'admin_categories_index' }">Comp&eacute;titions</a>-->
+                            <router-link :to="{ name: 'admin_judo_event_index' }">&Eacute;v&egrave;nements</router-link>
                         </li>
                         <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_categories_index' }">&Eacute;v&egrave;nements</router-link>
-                            <!--<a v-link="{ name: 'admin_categories_index' }">&Eacute;v&egrave;nements</a>-->
+                            <router-link :to="{ name: 'admin_seasons_index' }">Saisons</router-link>
                         </li>
                         <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_categories_index' }">Saisons</router-link>
-                            <!--<a v-link="{ name: 'admin_categories_index' }">Saisons</a>-->
+                            <router-link :to="{ name: 'admin_users_index' }">Utilisateurs</router-link>
                         </li>
                     </ul>
                 </nav>
             </div>
             <div class="panel-body">
-                <router-view></router-view>
+                <router-view
+                    v-on:sas-snackbar="showSnackBar"></router-view>
                 <ui-snackbar-container
-                        :position="position" :queue-snackbars="queueSnackbars"
+                        ref="snackbarContainer"
+                        :position="position"
+                        :queue-snackbars="queueSnackbars"
+                        transition="slideUp"
                 ></ui-snackbar-container>
             </div>
         </div>
@@ -54,34 +50,31 @@
         data() {
             return {
                 auth: auth,
-                position: "left"
+                position: "left",
+                queueSnackbars: true
             }
         },
         methods: {
             signout() {
                 auth.signout()
-            }
-        },
-        components: {
-            myMenu
-        },
-        ready() {
-            auth.check()
-        },
-        mounted: function() {
-            this.$nextTick(function() {
-                auth.check();
-            });
-        },
-        events: {
-            'sas-snackbar': function(msg) {
+            },
+            showSnackBar(msg) {
                 const _self = this;
-                _self.$broadcast('ui-snackbar::create', {
+                _self.$refs.snackbarContainer.createSnackbar({
                     message: msg,
                     actionColor: 'accent',
                     duration: 5000
                 });
             }
+        },
+        components: {
+            myMenu
+        },
+        mounted: function() {
+            this.$nextTick(function () {
+                const _self = this;
+                auth.check(_self);
+            });
         }
     }
 </script>

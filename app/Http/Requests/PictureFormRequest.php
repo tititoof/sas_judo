@@ -24,15 +24,20 @@ class PictureFormRequest extends FormRequest
      */
     public function rules()
     {
-//        $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
-        $rules = [
-//            'name'         => 'required|max:255|unique:pictures,name',
-            'image.*'      => 'required|image',
-            'local_image'  => 'integer',
-        ];
-//        if (null !== $id) {
-//            $rules = array_merge($rules, ['name' => 'required|max:255|unique:pictures,name,'.$id,]);
-//        }
+        $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
+        if (null !== $id) {
+            $rules = [
+                'name'         => 'required|max:255|unique:pictures,name,'.$id,
+                'image.*'      => 'required|image',
+                'local_image'  => 'integer',
+            ];
+        } else {
+            $rules = [
+                'name'         => 'required|max:255|unique:pictures,name',
+                'image.*'      => 'required|image',
+                'local_image'  => 'integer',
+            ];
+        }
         return $rules;
     }
 }

@@ -45,21 +45,21 @@
         methods: {
             fileInputClick: function() {
                 // click actually triggers after the file dialog opens
-                this.$dispatch('onFileClick', this.myFiles);
+                this.$emit('onFileClick', this.myFiles);
             },
             fileInputChange: function() {
                 // get the group of files assigned to this field
                 let ident = this.id || this.name;
                 this.myFiles = document.getElementById(ident).files;
-                this.$dispatch('onFileChange', this.myFiles);
+                this.$emit('onFileChange', this.myFiles);
             },
             _onProgress: function(e) {
                 // this is an internal call in XHR to update the progress
                 e.percent = (e.loaded / e.total) * 100;
-                this.$dispatch('onFileProgress', e);
+                this.$emit('onFileProgress', e);
             },
             _handleUpload: function(file) {
-                this.$dispatch('beforeFileUpload', file);
+                this.$emit('beforeFileUpload', file);
                 let form = new FormData();
                 let xhr = new XMLHttpRequest();
                 try {
@@ -67,7 +67,7 @@
                     // our request will have the file in the ['file'] key
                     form.append('file', file);
                 } catch (err) {
-                    this.$dispatch('onFileError', file, err);
+                    this.$emit('onFileError', file, err);
                     return;
                 }
 
@@ -81,13 +81,13 @@
                         }
                         if (xhr.status < 400) {
                             let res = JSON.parse(xhr.responseText);
-                            this.$dispatch('onFileUpload', file, res);
+                            this.$emit('onFileUpload', file, res);
                             resolve(file);
                         } else {
                             let err = JSON.parse(xhr.responseText);
                             err.status = xhr.status;
                             err.statusText = xhr.statusText;
-                            this.$dispatch('onFileError', file, err);
+                            this.$emit('onFileError', file, err);
                             reject(err);
                         }
                     }.bind(this);
@@ -96,7 +96,7 @@
                         let err = JSON.parse(xhr.responseText);
                         err.status = xhr.status;
                         err.statusText = xhr.statusText;
-                        this.$dispatch('onFileError', file, err);
+                        this.$emit('onFileError', file, err);
                         reject(err);
                     }.bind(this);
 
@@ -107,7 +107,7 @@
                         }
                     }
                     xhr.send(form);
-                    this.$dispatch('afterFileUpload', file);
+                    this.$emit('afterFileUpload', file);
                 }.bind(this));
             },
             fileUpload: function() {
@@ -119,14 +119,14 @@
                     // wait for everything to finish
                     Promise.all(arrayOfPromises).then(function(allFiles) {
                         console.log('onAllFilesUploaded');
-                        this.$dispatch('onAllFilesUploaded', allFiles);
+                        this.$emit('onAllFilesUploaded', allFiles);
                     }.bind(this)).catch(function(err) {
-                        this.$dispatch('onFileError', this.myFiles, err);
+                        this.$emit('onFileError', this.myFiles, err);
                     }.bind(this));
                 } else {
                     // someone tried to upload without adding files
                     let err = new Error("No files to upload for this field");
-                    this.$dispatch('onFileError', this.myFiles, err);
+                    this.$emit('onFileError', this.myFiles, err);
                 }
             }
         },

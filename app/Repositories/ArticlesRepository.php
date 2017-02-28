@@ -13,12 +13,21 @@ use App\Models\Article;
 
 class ArticlesRepository
 {
+    /**
+     * @param ArticleFormRequest $request
+     * @return array
+     */
     public function save(ArticleFormRequest $request)
     {
         $article = new Article;
         return $this->update($request, $article);
     }
 
+    /**
+     * @param ArticleFormRequest $request
+     * @param Article $article
+     * @return array
+     */
     public function update(ArticleFormRequest $request, Article $article)
     {
         try {
@@ -34,9 +43,15 @@ class ArticlesRepository
         }
     }
 
+    /**
+     * @param Article $article
+     * @return array
+     */
     public function delete(Article $article)
     {
         try {
+            $article->categories()->detach();
+            $article->albums()->detach();
             $article->delete();
             return ['success' => true, 'errors' => '',];
         } catch (\Exception $exception) {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Providers\AuthServiceProvider;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesFormRequest extends FormRequest
 {
@@ -13,7 +15,11 @@ class CategoriesFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::check();
+        if (AuthServiceProvider::allow('is-admin')) {
+            true;
+        }
+        return false;
+//        return \Auth::check();
     }
 
     /**

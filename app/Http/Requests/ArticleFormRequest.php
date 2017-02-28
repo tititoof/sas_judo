@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Providers\AuthServiceProvider;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleFormRequest extends FormRequest
 {
@@ -13,7 +15,10 @@ class ArticleFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (AuthServiceProvider::allow('is-admin')) {
+            true;
+        }
+        return false;
     }
 
     /**

@@ -1,0 +1,85 @@
+<template>
+    <div class="col-xs-12">
+        <h1>
+            &Eacute;dition saison
+            <small>
+                <ui-button
+                        type="secondary" color="accent"
+                        @click.prevent="update()">
+                    Modifier
+                </ui-button>
+            </small>
+        </h1>
+        <ui-textbox
+                label="Nom" name="name" type="text" placeholder="Entrer le nom du menu"
+                v-model="name"
+        ></ui-textbox>
+        <ui-datepicker
+                icon="events"
+                picker-type="modal"
+                placeholder="Sélectionner une date"
+                :lang="pickerLang"
+                v-model="startAt"
+        >Date de d&eacute;but</ui-datepicker>
+        <ui-datepicker
+                icon="events"
+                picker-type="modal"
+                placeholder="Sélectionner une date"
+                :lang="pickerLang"
+                v-model="endAt"
+        >Date de fin</ui-datepicker>
+    </div>
+</template>
+<script>
+    import auth from '../../../auth';
+    import vMenu from '../../v-menu.vue';
+    import Keen from 'keen-ui';
+    import {app} from './../../../app.js';
+    import {router} from './../../../app.js';
+    import languageFr from '../../data/date-picker-lang.fr.js';
+    export default {
+        data() {
+            return {
+                auth:       auth,
+                seasonId:   null,
+                name:       '',
+                startAt:    null,
+                endAt:      null,
+                pickerLang: languageFr
+            }
+        },
+        methods: {
+            update() {
+                const _self = this;
+                _self.$http
+                    .patch('api/season/' + _self.seasonId,
+                        {'name': _self.name, 'start_at': _self.startAt, 'end_at': _self.endAt}).then(
+                    (response) => {
+                        _self.$emit('sas-snackbar', 'Saison modifiée');
+                        router.push({ name: 'admin_seasons_index' });
+                    }, (response) => {
+                        console.log(response);
+                    }
+                );
+            }
+        },
+        components: {
+            vMenu
+        },
+        mounted() {
+            this.$nextTick(function () {
+                const _self = this;
+                auth.check(_self);
+                _self.seasonId = _self.$route.params.seasonId;
+                _self.$http.get('api/season/' + _self.seasonId + '/edit').then(function(response) {
+                    let data = response.data.object;
+                    _self.name      = data.name;
+                    _self.startAt   = new Date(data.start_at);
+                    _self.endAt     = new Date(data.end_at);
+                }, function(response) {
+                    console.log("error ! :'(");
+                });
+            });
+        }
+    }
+</script>

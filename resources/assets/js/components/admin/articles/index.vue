@@ -3,8 +3,9 @@
         <h1>
             Liste des articles
             <small>
-                <ui-icon-button type="flat" icon="add" color="primary"
-                    v-link="{ name: 'admin_articles_new' }"
+                <ui-icon-button
+                    type="secondary" icon="add" color="accent" size="large"
+                    @click.prevent="create()"
                 >
                 </ui-icon-button>
             </small>
@@ -20,21 +21,28 @@
             </tr>
             </thead>
             <tbody>
-            <tr
-                v-for="article in articles"
-                >
+            <tr v-for="article in articles">
                 <td>
-                    <ui-icon-button type="flat" icon="edit" color="warning" @click="edit(article.id)"></ui-icon-button>
-                    <ui-icon-button type="flat" icon="delete" color="danger" @click="destroy(article.id)"></ui-icon-button>
+                    <ui-icon-button
+                        type="secondary" icon="edit" color="orange" size="large"
+                        @click="edit(article.id)"></ui-icon-button>
+                    <ui-icon-button
+                        type="secondary" size="large" icon="delete" color="red"
+                        @click="destroy(article.id)"></ui-icon-button>
                 </td>
                 <td>{{ article.name }}</td>
             </tr>
             </tbody>
         </table>
         <ui-confirm
-            header="Suppression" type="danger" confirm-button-text="Supprimer"
-            confirm-button-icon="delete" deny-button-text="Cancel" @confirmed="deleteConfirmed"
-            @denied="deleteDenied" :show.sync="show.deleteConfirm" close-on-confirm
+            title="Suppression" type="primary"
+            confirm-button-icon="delete"
+            confirm-button-text="Supprimer"
+            deny-button-text="Annuler"
+            ref="deleteConfirm"
+            @confirm="deleteConfirmed"
+            @deny="deleteDenied"
+            close-on-confirm
             >
             &ecirc;tes-vous s&ucirc;r de vouloir supprimer l'article ?
         </ui-confirm>
@@ -58,7 +66,6 @@
             }
         },
         components: {
-//            FileUpload: require('vue-upload-component')
         },
         methods: {
             index() {
@@ -75,12 +82,12 @@
             destroy(id) {
                 const _self = this;
                 _self.deleteId = id;
-                _self.show.deleteConfirm = true;
+                _self.$refs['deleteConfirm'].open();
             },
             deleteConfirmed() {
                 const _self = this;
                 _self.$http.delete('api/article/' + _self.deleteId).then(function(response) {
-                    _self.$dispatch('sas-snackbar', 'Article supprimé');
+                    _self.$emit('sas-snackbar', 'Article supprimé');
                     _self.index();
                 }, function(response) {
                     console.log(response);
@@ -90,14 +97,18 @@
 
             },
             edit(id) {
-                console.log(id);
-                router.go({ name: 'admin_articles_edit', params: { articleId: id } });
+                router.push({ name: 'admin_articles_edit', params: { articleId: id } });
+            },
+            create() {
+                router.push({ name: 'admin_articles_new' });
             }
         },
-        ready() {
-            const _self = this;
-            auth.check();
-            _self.index();
+        mounted() {
+            this.$nextTick(function () {
+                const _self = this;
+                auth.check(_self);
+                _self.index();
+            });
         }
     }
 </script>
