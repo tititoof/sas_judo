@@ -44,4 +44,8 @@ Route::group(['middleware' => ['jwt.auth', 'can:is-admin']], function () {
     Route::resource('judoevent', 'Admin\JudoeventController');
     // Users
     Route::resource('admin/user', 'Admin\UserController');
+    Route::put('user/{user}/toggle/admin', 'Admin\UserController@toggleAdmin');
+    Route::put('user/{user}/toggle/teacher', 'Admin\UserController@toggleTeacher');
+    // Courses
+    Route::resource('course', 'Admin\CourseController');
 });

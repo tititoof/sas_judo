@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -45,12 +46,24 @@ class UserController extends Controller
         //
     }
 
+    public function toggleAdmin(User $user)
+    {
+      $repo = new UserRepository;
+      return response()->json($repo->toggleAdmin($user));
+    }
+
+    public function toggleTeacher(User $user)
+    {
+      $repo = new UserRepository;
+      return response()->json($repo->toggleTeacher($user));
+    }
+
     /**
      * @param User $user
      */
     public function edit(User $user)
     {
-        //
+        return response()->json(['object' => $user]);
     }
 
     /**
@@ -59,7 +72,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+      $repo = new UserRepository;
+      $user = $repo->update($request, $user);
+      return response()->json(['success' => true, 'object' => $user]);
     }
 
     /**
@@ -67,6 +82,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $repo = new UserRepository;
+        return reponse()->json($repo->delete($user));
     }
 }

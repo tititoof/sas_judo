@@ -109,6 +109,22 @@ let routes = [
         name: 'admin_users_index',
         path: '/admin_users_index',
         component: require('./components/admin/users/index.vue')
+    }, {
+        name: 'admin_users_edit',
+        path: '/admin_users_edit/:userId',
+        component: require('./components/admin/users/edit.vue')
+    }, {
+      name:       'admin_courses_index',
+      path:       '/admin_courses_index',
+      component:  require('./components/admin/courses/index.vue')
+    }, {
+      name:       'admin_courses_new',
+      path:       '/admin_courses_new',
+      component:  require('./components/admin/courses/new.vue')
+    }, {
+      name:       'admin_courses_edit',
+      path:       '/admin_courses_edit/:id',
+      component:  require('./components/admin/courses/edit.vue')
     }
 ];
 export const router = new VueRouter({
@@ -126,4 +142,3 @@ export const app = new Vue({
     render: h => h(App)
 }).$mount('#app');
 // export default app;
-

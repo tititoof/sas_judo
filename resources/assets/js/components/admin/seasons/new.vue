@@ -4,29 +4,29 @@
             Nouvelle saison
             <small>
                 <ui-button
-                        type="secondary" color="accent" size="large"
-                        @click.prevent="store()">
-                    Cr&eacute;er
+                  type="secondary" color="accent" size="large"
+                  @click.prevent="store()">
+                  Cr&eacute;er
                 </ui-button>
             </small>
         </h1>
         <ui-textbox
-                label="Nom" name="name" type="text" placeholder="Entrer le nom du menu"
-                v-model="name"
+          label="Nom" name="name" type="text" placeholder="Entrer le nom du menu"
+          v-model="name"
         ></ui-textbox>
         <ui-datepicker
-            icon="events"
-            picker-type="modal"
-            placeholder="Sélectionner une date"
-            :lang="pickerLang"
-            v-model="startAt"
+          icon="events"
+          picker-type="modal"
+          placeholder="Sélectionner une date"
+          :lang="pickerLang"
+          v-model="startAt"
         >Date de d&eacute;but</ui-datepicker>
         <ui-datepicker
-                icon="events"
-                picker-type="modal"
-                placeholder="Sélectionner une date"
-                :lang="pickerLang"
-                v-model="endAt"
+          icon="events"
+          picker-type="modal"
+          placeholder="Sélectionner une date"
+          :lang="pickerLang"
+          v-model="endAt"
         >Date de fin</ui-datepicker>
     </div>
 </template>

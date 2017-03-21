@@ -7,23 +7,23 @@
             class="table table-striped"
             v-if="users.length > 0">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Admin ?</th>
-                <th>Professeur ?</th>
-            </tr>
+              <tr>
+                  <th>#</th>
+                  <th>Nom</th>
+                  <th>Admin ?</th>
+                  <th>Professeur ?</th>
+              </tr>
             </thead>
             <tbody>
                 <tr v-for="user in users">
                     <td>
                         <ui-icon-button
-                                type="secondary" icon="edit" color="orange" size="large"
-                                @click.prevent="edit(user.id)">
+                            type="secondary" icon="edit" color="orange" size="large"
+                            @click.prevent="edit(user.id)">
                         </ui-icon-button>
                         <ui-icon-button
-                                type="secondary" size="large" icon="delete" color="red"
-                                @click.prevent="destroy(user.id)">
+                            type="secondary" size="large" icon="delete" color="red"
+                            @click.prevent="destroy(user.id)">
                         </ui-icon-button>
                     </td>
                     <td>{{ user.name }}</td>
@@ -92,7 +92,7 @@
             },
             edit(id) {
                 const _self = this;
-                router.push({ name: 'admin_seasons_edit', params: { seasonId: id } });
+                router.push({ name: 'admin_users_edit', params: { userId: id } });
             },
             destroy(id) {
                 const _self = this;
@@ -101,8 +101,8 @@
             },
             deleteConfirmed() {
                 const _self = this;
-                _self.$http.delete('api/season/' + _self.deleteId).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Menu supprimé');
+                _self.$http.delete('api/admin/user/' + _self.deleteId).then(function(response) {
+                    _self.$emit('sas-snackbar', 'Utilisateur supprimé');
                     _self.index();
                 }, function(response) {
                     console.log(response);
@@ -111,6 +111,30 @@
             deleteDenied() {
 
             },
+            toggleAdmin(id) {
+              const _self = this;
+              _self.$http.put('api/user/' + id + '/toggle/admin').then(
+                (response) => {
+                  _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                  _self.index();
+                },
+                (response) => {
+                  console.log(response);
+                }
+              );
+            },
+            toggleTeacher(id) {
+              const _self = this;
+              _self.$http.put('api/user/' + id + '/toggle/teacher').then(
+                (response) => {
+                  _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                  _self.index();
+                },
+                (response) => {
+                  console.log(response);
+                }
+              );
+            }
         },
         components: {
             vMenu

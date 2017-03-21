@@ -26,6 +26,9 @@
                         <li class="pull-right" v-if="auth.user.authenticated">
                             <router-link :to="{ name: 'admin_users_index' }">Utilisateurs</router-link>
                         </li>
+                        <li class="pull-right" v-if="auth.user.authenticated">
+                            <router-link :to="{ name: 'admin_courses_index' }">Cours</router-link>
+                        </li>
                     </ul>
                 </nav>
             </div>

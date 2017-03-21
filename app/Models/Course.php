@@ -20,4 +20,12 @@ class Course extends Model
     {
         return $this->belongsTo('App\Models\Season');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function teacher()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

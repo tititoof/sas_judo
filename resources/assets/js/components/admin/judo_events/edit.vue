@@ -106,14 +106,14 @@
                             startAt = new moment(data.start_at),
                             endAt   = new moment(data.end_at);
                         _self.getType(data.type);
-                        _self.name          = data.name;
-                        _self.description   = data.description;
-                        _self.startAt       = new Date(startAt.format('YYYY-MM-DD'));
-                        _self.endAt         = new Date(endAt.format('YYYY-MM-DD'));
-                        _self.startTimeAt.HH = startAt.format('HH');
-                        _self.startTimeAt.mm = startAt.format('mm');
-                        _self.endTimeAt.HH = endAt.format('HH');
-                        _self.endTimeAt.mm = endAt.format('mm');
+                        _self.name            = data.name;
+                        _self.description     = data.description;
+                        _self.startAt         = new Date(startAt.format('YYYY-MM-DD'));
+                        _self.endAt           = new Date(endAt.format('YYYY-MM-DD'));
+                        _self.startTimeAt.HH  = startAt.format('HH');
+                        _self.startTimeAt.mm  = startAt.format('mm');
+                        _self.endTimeAt.HH    = endAt.format('HH');
+                        _self.endTimeAt.mm    = endAt.format('mm');
                     },
                     (response) => {
                         console.log(response);

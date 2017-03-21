@@ -11,6 +11,8 @@ namespace App\Repositories;
 
 use App\Models\Season;
 use Illuminate\Http\Request;
+use App\Repositories\UserRepository;
+use App\Repositories\SeasonsRepository;
 
 class SeasonsRepository
 {
@@ -20,7 +22,7 @@ class SeasonsRepository
      */
     public function save(Request $request)
     {
-        return $this->update($request, new Season());
+        return $this->update($request, new Season;
     }
 
     /**
@@ -50,4 +52,5 @@ class SeasonsRepository
         }
         return ['success' => true, 'errors' => '',];
     }
+
 }
