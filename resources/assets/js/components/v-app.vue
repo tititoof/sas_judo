@@ -8,27 +8,29 @@
                         <li>
                             <router-link :to="{ name: 'home' }">Accueil</router-link>
                         </li>
-                        <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_categories_index' }">Menus</router-link>
-                        </li>
-                        <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_articles_index' }">Articles</router-link>
-                        </li>
-                        <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_albums_index' }">Albums</router-link>
-                        </li>
-                        <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_judo_event_index' }">&Eacute;v&egrave;nements</router-link>
-                        </li>
-                        <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_seasons_index' }">Saisons</router-link>
-                        </li>
-                        <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_users_index' }">Utilisateurs</router-link>
-                        </li>
-                        <li class="pull-right" v-if="auth.user.authenticated">
-                            <router-link :to="{ name: 'admin_courses_index' }">Cours</router-link>
-                        </li>
+                        <template v-if="auth.checkIsAdmin()">
+                            <li class="pull-right">
+                                <router-link :to="{ name: 'admin_categories_index' }">Menus</router-link>
+                            </li>
+                            <li class="pull-right">
+                                <router-link :to="{ name: 'admin_articles_index' }">Articles</router-link>
+                            </li>
+                            <li class="pull-right">
+                                <router-link :to="{ name: 'admin_albums_index' }">Albums</router-link>
+                            </li>
+                            <li class="pull-right">
+                                <router-link :to="{ name: 'admin_judo_event_index' }">&Eacute;v&egrave;nements</router-link>
+                            </li>
+                            <li class="pull-right">
+                                <router-link :to="{ name: 'admin_seasons_index' }">Saisons</router-link>
+                            </li>
+                            <li class="pull-right">
+                                <router-link :to="{ name: 'admin_users_index' }">Utilisateurs</router-link>
+                            </li>
+                            <li class="pull-right">
+                                <router-link :to="{ name: 'admin_courses_index' }">Cours</router-link>
+                            </li>
+                        </template>
                     </ul>
                 </nav>
             </div>

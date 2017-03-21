@@ -7,7 +7,7 @@ export default {
         profile: null
     },
     register(context, name, email, password, password_confirm) {
-        context.$http.post('api/register', { name: name, email: email, password: password, 'password-confirm': password_confirm })
+        context.$http.post('api/register', { name: name, email: email, password: password, 'password_confirmation': password_confirm })
             .then(response => {
                 context.success = true
             }, response => {
@@ -33,8 +33,9 @@ export default {
                 context.error = false;
                 localStorage.setItem('id_token', response.data.meta.token);
                 context.$http.headers.common['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
-                this.user.authenticated = true;
-                this.user.profile       = response.data.data;
+                this.user.authenticated     = true;
+                this.user.profile           = response.data.data;
+                this.user.profile.is_admin  = false;
                 router.push({ name: 'dashboard' })
             }, response => {
                 context.error = true;
@@ -45,5 +46,14 @@ export default {
         this.user.authenticated = false;
         this.user.profile       = null;
         router.push({ name: 'home' });
+    },
+    checkIsAdmin() {
+        const _self = this;
+        if ( (_self.user.hasOwnProperty('profile')) && (_self.user.profile !== null)) {
+            if (_self.user.profile.hasOwnProperty('is_admin')) {
+                return (_self.user.profile.is_admin == 1) ? true : false;
+            }
+        }
+        return false;
     }
 }

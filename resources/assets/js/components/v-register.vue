@@ -7,7 +7,7 @@
             <p>Registration complete</p>
         </div>
         <form autocomplete="off" v-on:submit="register" v-if="!success">
-            <div class="form-group" v-bind:class=" { 'has-error': error && response.username }">
+            <div class="form-group" v-bind:class=" { 'has-error': error && response.name }">
                 <label for="name">Name</label>
                 <input type="text" id="name" class="form-control" v-model="name" required>
                 <span class="help-block" v-if="error && response.name"> {{ response.name }}</span>

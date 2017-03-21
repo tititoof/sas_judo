@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Providers\AuthServiceProvider;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,10 +16,7 @@ class ArticleFormRequest extends FormRequest
      */
     public function authorize()
     {
-        if (AuthServiceProvider::allow('is-admin')) {
-            true;
-        }
-        return false;
+        return \Auth::user()->is_admin;
     }
 
     /**

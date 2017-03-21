@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PictureFormRequest extends FormRequest
@@ -13,8 +14,7 @@ class PictureFormRequest extends FormRequest
      */
     public function authorize()
     {
-//        return Auth::check();
-        return true;
+        return \Auth::user()->is_admin;
     }
 
     /**

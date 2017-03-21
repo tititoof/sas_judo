@@ -12,9 +12,10 @@ class UserController extends Controller
     {
         $data = [];
         if (!empty($request->user())) {
-            $data['id']     = $request->user()->id;
-            $data['name']   = $request->user()->name;
-            $data['email']  = $request->user()->email;
+            $data['id']         = $request->user()->id;
+            $data['name']       = $request->user()->name;
+            $data['email']      = $request->user()->email;
+            $data['is_admin']   = $request->user()->is_admin;
         }
         return response()->json(['data' => $data]);
     }

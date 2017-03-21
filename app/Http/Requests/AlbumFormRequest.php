@@ -13,8 +13,7 @@ class AlbumFormRequest extends FormRequest
      */
     public function authorize()
     {
-//        return \Auth::check();
-        return true;
+        return \Auth::user()->is_admin;
     }
 
     /**
