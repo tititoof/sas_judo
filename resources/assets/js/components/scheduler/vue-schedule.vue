@@ -1,7 +1,7 @@
 <template>
     <div class="schedule">
         <div class="time-ground">
-            <ul>
+            <ul style="list-style-type: none;">
                 <li v-for="time in timeGround">
                     <span>{{ time }}</span>
                     <p :style="timeListSty"></p>
@@ -9,18 +9,18 @@
             </ul>
         </div>
         <div class="task-ground">
-            <ul>
-                <li v-for="week in weekGround" class="task-list">
+            <ul style="list-style-type: none;">
+                <li v-for="(week, index) in weekGround" class="task-list">
                     <p> {{ week }} </p>
                     <ul :style="taskListSty">
-                        <li class="task-list-item"
-                            v-for="detail in taskDetail[$index]"
-                            :style="detail.styleObj"
-                            @click="showDetail(detail, week)"
-                            >
-                            <p> {{ detail.dateStart }} - {{ detail.dateEnd }} </p>
-                            <h3> {{ detail.title }} </h3>
-                        </li>
+                        <template v-for="detail in tasksList[index]">
+                            <li class="task-list-item"
+                                :style="detail.styleObj"
+                                >
+                                <p> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
+                                <h3> {{ detail.title }} </h3>
+                            </li>
+                        </template>
                     </ul>
                 </li>
             </ul>
@@ -33,8 +33,8 @@
             timeGround: {
                 coerce(value) {
                     if (value && value.length == 2) {
-                        let startTime = value[0].split(":")[0] * 1,
-                            endTime = value[1].split(":")[0] * 1;
+                        let startTime   = value[0].split(":")[0] * 1,
+                            endTime     = value[1].split(":")[0] * 1;
                         value = [];
                         for (let i = startTime; i <= endTime; i++) {
                             let hour = i < 10 ? "0" + i : "" + i;
@@ -51,13 +51,14 @@
                 type:       Array,
                 default:    [ 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche' ]
             },
-            taskDetail: {
-                type:       Array,
-                default:    []
-            },
+
             color: {
                 type:       Array,
                 default()   { return [ "#2B2E4A", "#521262", "#903749", "#53354A", "#40514E", "#537780" ] }
+            },
+            taskDetail: {
+                type:       Array,
+                default:    []
             }
         },
         data() {
@@ -74,11 +75,12 @@
                     detail: 'Metting (German: Mettingen) is a commune in the Moselle department in Grand Est in north-eastern France.'
                 },
                 taskListSty:        {
-                    height: '900px'
+                    height: '800px'
                 },
                 timeListSty:        {
                     width: '100%'
-                }
+                },
+                tasksList:          this.taskDetail
             }
         },
         created() {
@@ -87,45 +89,56 @@
                 minTime = _self.timeGround[0],
                 maxMin = maxTime.split(':')[0] * 60 + maxTime.split(':')[1] * 1,
                 minMin = minTime.split(':')[0] * 60 + minTime.split(':')[1] * 1;
-            for (let i = 0; i < _self.taskDetail.length; i++) {
-                for (let j = 0; j < _self.taskDetail[i].length; j++) {
-                    let startMin = _self.taskDetail[i][j].dateStart.split(':')[0] * 60 + _self.taskDetail[i][j].dateStart.split(':')[1] * 1,
-                        endMin      = _self.taskDetail[i][j].dateEnd.split(':')[0] * 60 + _self.taskDetail[i][j].dateEnd.split(':')[1] * 1;
+            for (let i = 0; i < _self.tasksList.length; i++) {
+                for (let j = 0; j < _self.tasksList[i].length; j++) {
+                    let startMin = _self.tasksList[i][j].dateStart.split(':')[0] * 60 + _self.tasksList[i][j].dateStart.split(':')[1] * 1,
+                        endMin   = _self.tasksList[i][j].dateEnd.split(':')[0] * 60 + _self.tasksList[i][j].dateEnd.split(':')[1] * 1;
                     if (startMin < minMin || endMin > maxMin) {
-                        _self.taskDetail[i].splice(j, 1);
+                        _self.tasksList[i].splice(j, 1);
                         j--;
                         continue;
                     }
                     let difMin = endMin - startMin;
-                    _self.taskDetail[i][j].styleObj = {
+                    _self.tasksList[i][j].styleObj = {
                         height: difMin * 100 / 60 + 'px',
                         top: ((startMin - (_self.timeGround[0].split(":")[0] * 60 + _self.timeGround[0].split(":")[1] * 1)) * 100 / 60) + 50 + 'px',
-                        backgroundColor: _self.color[~~(Math.random() * _self.color.length)]
+                        backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
+                        left: (3.8 + (13.80 * i)) + '%',
+                        width: '12.28%'
                     }
                 }
             }
         },
-        compiled() {
-            this.taskListSty.height = (this.timeGround.length - 1) * 100 + 'px';
-            this.timeListSty.width = this.weekGround.length * 20 + '%';
+        mounted () {
+            this.$nextTick(function() {
+                const _self = this;
+                _self.taskListSty.height = (_self.timeGround.length - 1) * 100 + 'px';
+                _self.timeListSty.width  = _self.weekGround.length * 14.28 + '%';
+            });
         },
         methods: {
-            showDetail(obj, week){
-                obj.week = week;
-                this.showModalDetail = obj;
-                this.showModal = true;
+//            showDetail(obj, week){
+//                obj.week = week;
+//                this.showModalDetail = obj;
+//                this.showModal = true;
+//            }
+        },
+        watch: {
+            taskDetail: function() {
+                const _self = this;
+                _self.tasksList = _self.taskDetail;
             }
         }
     }
 </script>
-<style scoped>
+<style>
     .schedule{
         width: 80%;
         max-width: 1400px;
         margin: 0 auto;
         position: relative;
     }
-    .time-ground{
+    .time-ground {
         display: block;
         position: absolute;
         left: 0;
@@ -154,7 +167,7 @@
     }
     .task-list{
         float: left;
-        width: 20%;
+        width: 14.28%;
         box-sizing:border-box;
         border:1px solid #EAEAEA;
     }
@@ -166,9 +179,10 @@
     .task-list-item{
         position: absolute;
         background-color: #577F92;
-        width: 20%;
+        width: 14.28%;
         height: 50px;
         cursor: pointer;
+        list-style-type: none;
     }
     .task-list-item p{
         text-align: left;

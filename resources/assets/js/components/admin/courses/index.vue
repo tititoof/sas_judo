@@ -10,6 +10,11 @@
         </ui-icon-button>
       </small>
     </h1>
+      <scheduler
+        :time-ground='["15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00" ]'
+        :week-ground="['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']"
+        :task-detail="listCourses">
+      </scheduler>
     <table
       class="table table-striped"
       v-if="courses.length > 0">
@@ -59,13 +64,15 @@
   import auth from '../../../auth';
   import vMenu from '../../v-menu.vue';
   import Keen from 'keen-ui';
+  import scheduler from '../../scheduler/vue-schedule.vue';
   import {app} from './../../../app.js';
   import {router} from './../../../app.js';
   export default {
     data() {
       return {
         courses:  [],
-        deleteId: '',
+          listCourses: [],
+        deleteId: ''
       }
     },
     methods: {
@@ -73,13 +80,14 @@
         const _self = this;
         _self.$http.get('api/course').then(
           (response) => {
-              let data = response.data;
-              _self.courses = data.objects;
+              let data          = response.data;
+              _self.courses     = data.objects;
+              _self.listCourses = data.scheduler;
           },
           (response) => {
               console.log(response);
           }
-        )
+        );
       },
       create() {
         router.push({ name: 'admin_courses_new' });
@@ -91,7 +99,6 @@
 
       },
       edit(id) {
-          const _self = this;
           router.push({ name: 'admin_courses_edit', params: { id: id } });
       },
       destroy(id) {
@@ -101,7 +108,7 @@
       },
     },
     components: {
-        vMenu
+        vMenu, scheduler
     },
     mounted() {
       this.$nextTick(function() {

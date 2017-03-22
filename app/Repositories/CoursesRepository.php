@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Course;
 use App\Models\Season;
 use App\Repositories\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CoursesRepository
@@ -74,7 +75,32 @@ class CoursesRepository
     return $courses;
   }
 
-  private function getDays()
+    public function getSchedulerCourses()
+    {
+        $year = Carbon::now();
+        $season = Season::where('start_at', '<=', $year)
+                        ->where('end_at', '>=', $year)
+                        ->first()
+                        ->get();
+        $yearCourses = Course::where('season_id', '=', $season[0]->id)->get();
+        $days = collect(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
+        $courses = $days->map(function($day, $key) use ($yearCourses) {
+
+            return $yearCourses->map(function($item, $index) use ($day) {
+                $course = new \stdClass();
+                if ($day == $item->day) {
+                    $course->dateStart  = $item->start_at;
+                    $course->dateEnd    = $item->end_at;
+                    $course->title      = $item->name.' ('.$item->teacher->name.')';
+                }
+                return $course;
+            });
+        });
+//        array_filter($courses, function($var) { return !is_null($var); } );
+        return $courses;
+    }
+
+    private function getDays()
   {
     $days = collect(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']);
     $days = $days->map(function($day, $key) {
@@ -82,5 +108,7 @@ class CoursesRepository
     });
     return $days;
   }
+
+
 
 }
