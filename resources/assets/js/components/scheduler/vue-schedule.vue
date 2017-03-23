@@ -80,53 +80,61 @@
                 timeListSty:        {
                     width: '100%'
                 },
-                tasksList:          this.taskDetail
+                tasksList:          []
             }
         },
         created() {
             const _self = this;
-            let maxTime = _self.timeGround[_self.timeGround.length - 1],
-                minTime = _self.timeGround[0],
-                maxMin = maxTime.split(':')[0] * 60 + maxTime.split(':')[1] * 1,
-                minMin = minTime.split(':')[0] * 60 + minTime.split(':')[1] * 1;
-            for (let i = 0; i < _self.tasksList.length; i++) {
-                for (let j = 0; j < _self.tasksList[i].length; j++) {
-                    let startMin = _self.tasksList[i][j].dateStart.split(':')[0] * 60 + _self.tasksList[i][j].dateStart.split(':')[1] * 1,
-                        endMin   = _self.tasksList[i][j].dateEnd.split(':')[0] * 60 + _self.tasksList[i][j].dateEnd.split(':')[1] * 1;
-                    if (startMin < minMin || endMin > maxMin) {
-                        _self.tasksList[i].splice(j, 1);
-                        j--;
-                        continue;
-                    }
-                    let difMin = endMin - startMin;
-                    _self.tasksList[i][j].styleObj = {
-                        height: difMin * 100 / 60 + 'px',
-                        top: ((startMin - (_self.timeGround[0].split(":")[0] * 60 + _self.timeGround[0].split(":")[1] * 1)) * 100 / 60) + 50 + 'px',
-                        backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
-                        left: (3.8 + (13.80 * i)) + '%',
-                        width: '12.28%'
-                    }
-                }
-            }
         },
         mounted () {
             this.$nextTick(function() {
                 const _self = this;
                 _self.taskListSty.height = (_self.timeGround.length - 1) * 100 + 'px';
                 _self.timeListSty.width  = _self.weekGround.length * 14.28 + '%';
+                _self.init();
             });
         },
         methods: {
-//            showDetail(obj, week){
-//                obj.week = week;
-//                this.showModalDetail = obj;
-//                this.showModal = true;
-//            }
+          init: function() {
+            const _self = this;
+            let maxTime = _self.timeGround[_self.timeGround.length - 1],
+                minTime = _self.timeGround[0],
+                maxMin = maxTime.split(':')[0] * 60 + maxTime.split(':')[1] * 1,
+                minMin = minTime.split(':')[0] * 60 + minTime.split(':')[1] * 1;
+
+            for (let i = 0; i < _self.taskDetail.length; i++) {
+              _self.tasksList[i] = [];
+              let k = 0;
+                for (let j = 0; j < _self.taskDetail[i].length; j++) {
+                  _self.tasksList[i][k] = {};
+                    if (_self.taskDetail[i][j].hasOwnProperty('dateStart')) {
+                      let startMin = _self.taskDetail[i][j].dateStart.split(':')[0] * 60 + _self.taskDetail[i][j].dateStart.split(':')[1] * 1,
+                          endMin   = _self.taskDetail[i][j].dateEnd.split(':')[0] * 60 + _self.taskDetail[i][j].dateEnd.split(':')[1] * 1;
+                      if (startMin < minMin || endMin > maxMin) {
+                          k--;
+                          continue;
+                      }
+                      let difMin = endMin - startMin;
+                      _self.tasksList[i][k].dateStart = _self.taskDetail[i][j].dateStart;
+                      _self.tasksList[i][k].dateEnd   = _self.taskDetail[i][j].dateEnd;
+                      _self.tasksList[i][k].title     = _self.taskDetail[i][j].title;
+                      _self.tasksList[i][k].styleObj  = {
+                          height: difMin * 100 / 60 + 'px',
+                          top: ((startMin - (_self.timeGround[0].split(":")[0] * 60 + _self.timeGround[0].split(":")[1] * 1)) * 100 / 60) + 50 + 'px',
+                          backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
+                          left: (3.8 + (13.80 * i)) + '%',
+                          width: '12.28%'
+                      }
+                      k++;
+                    }
+                }
+            }
+          }
         },
         watch: {
             taskDetail: function() {
                 const _self = this;
-                _self.tasksList = _self.taskDetail;
+                _self.init();
             }
         }
     }

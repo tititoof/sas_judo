@@ -28,7 +28,7 @@ export const router = new VueRouter({
 Vue.use(VueResource);
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.getElementsByName('csrf-token')[0].getAttribute('content');
 Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
-Vue.http.options.root = 'http://sasjudo.webapps.cha';
+Vue.http.options.root = 'http://localhost';
 
 export const app = new Vue({
     router,
