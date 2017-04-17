@@ -40,6 +40,7 @@ Route::group(['middleware' => ['jwt.auth', 'can:is-admin']], function () {
     Route::resource('picture', 'Admin\PictureController');
     // Seasons
     Route::resource('season', 'Admin\SeasonController');
+    Route::get('seasons/list', [ 'uses' => 'Admin\SeasonController@list' ] );
     // Events
     Route::resource('judoevent', 'Admin\JudoeventController');
     // Users
@@ -48,4 +49,12 @@ Route::group(['middleware' => ['jwt.auth', 'can:is-admin']], function () {
     Route::put('user/{user}/toggle/teacher', 'Admin\UserController@toggleTeacher');
     // Courses
     Route::resource('course', 'Admin\CourseController');
+    // Results
+    Route::resource('result', 'Admin\ResultatController');
+    // Age Categories
+    Route::resource('age_category', 'Admin\AgeCategoryController');
+    // Inscriptions
+    Route::get('/inscriptions', 'Admin\MemberInscriptionController@index');
+    Route::post('/inscriptions/load', 'Admin\MemberInscriptionController@load');
+    Route::post('/inscriptions/save', 'Admin\MemberInscriptionController@save');
 });

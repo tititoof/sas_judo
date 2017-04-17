@@ -70,9 +70,9 @@
   export default {
     data() {
       return {
-        courses:  [],
-          listCourses: [],
-        deleteId: ''
+        courses:      [],
+        listCourses:  [],
+        deleteId:     ''
       }
     },
     methods: {

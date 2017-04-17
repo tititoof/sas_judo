@@ -1,103 +1,47 @@
-export default [
-    {
-        name: 'home',
-        path: '/',
-        component: require('./../components/v-home.vue')
-    }, {
-        name: 'dashboard',
-        path: '/dashboard',
-        component: require('./../components/v-dashboard.vue')
-    }, {
-        name: 'register',
-        path: '/register',
-        component: require('./../components/v-register.vue')
-    }, {
-        name: 'signin',
-        path: '/signin',
-        component: require('./../components/v-signin.vue')
-    }, {
-        name: 'admin_dashboard',
-        path: '/admin',
-        component: require('./../components/admin/v-admin.vue')
-    }, {
-        name: 'admin_categories_index',
-        path: '/admin-categories-index',
-        component: require('./../components/admin/categories/index.vue')
-    }, {
-        name: 'admin_categories_edit',
-        path: '/admin-categories-edit/:categoryId',
-        component: require('./../components/admin/categories/edit.vue')
-    }, {
-        name: 'admin_categories_new',
-        path: '/admin-categories-new',
-        component: require('./../components/admin/categories/new.vue')
-    }, {
-        name: 'admin_articles_index',
-        path: '/admin-articles-index',
-        component: require('./../components/admin/articles/index.vue')
-    }, {
-        name: 'admin_articles_new',
-        path: '/admin-articles-new',
-        component: require('./../components/admin/articles/new.vue')
-    }, {
-        name: 'admin_articles_edit',
-        path: '/admin-articles-edit/:articleId/:albumId?',
-        component: require('./../components/admin/articles/edit.vue')
-    }, {
-        name: 'admin_albums_index',
-        path: '/admin-albums-index',
-        component: require('./../components/admin/albums/index.vue')
-    }, {
-        name: 'admin_albums_new',
-        path: '/admin-albums-new/:articleId?',
-        component: require('./../components/admin/albums/new.vue')
-    }, {
-        name: 'admin_albums_edit',
-        path: '/admin-albums-edit/:albumId',
-        component: require('./../components/admin/albums/edit.vue')
-    }, {
-        name: 'admin_seasons_index',
-        path: '/admin-seasons-index',
-        component: require('./../components/admin/seasons/index.vue')
-    }, {
-        name: 'admin_seasons_new',
-        path: '/admin-seasons-new',
-        component: require('./../components/admin/seasons/new.vue')
-    }, {
-        name: 'admin_seasons_edit',
-        path: '/admin-seasons-edit',
-        component: require('./../components/admin/seasons/edit.vue')
-    }, {
-        name: 'admin_judo_event_index',
-        path: '/admin-judo-event-index',
-        component: require('./../components/admin/judo_events/index.vue')
-    }, {
-        name: 'admin_judo_event_new',
-        path: '/admin-judo-event-new/:startAt?',
-        component: require('./../components/admin/judo_events/new.vue')
-    }, {
-        name: 'admin_judo_event_edit',
-        path: '/admin-judo-event-edit/:id',
-        component: require('./../components/admin/judo_events/edit.vue')
-    }, {
-        name: 'admin_users_index',
-        path: '/admin_users_index',
-        component: require('./../components/admin/users/index.vue')
-    }, {
-        name: 'admin_users_edit',
-        path: '/admin_users_edit/:userId',
-        component: require('./../components/admin/users/edit.vue')
-    }, {
-        name:       'admin_courses_index',
-        path:       '/admin_courses_index',
-        component:  require('./../components/admin/courses/index.vue')
-    }, {
-        name:       'admin_courses_new',
-        path:       '/admin_courses_new',
-        component:  require('./../components/admin/courses/new.vue')
-    }, {
-        name:       'admin_courses_edit',
-        path:       '/admin_courses_edit/:id',
-        component:  require('./../components/admin/courses/edit.vue')
-    }
+import routeAlbums      from './../components/admin/albums/routes.js';
+import routeArticles    from './../components/admin/articles/routes.js';
+import routeCategories  from './../components/admin/categories/routes.js';
+import routeCourses     from './../components/admin/courses/routes.js';
+import routeJudoEvents  from './../components/admin/judo_events/routes.js';
+import routeSeasons     from './../components/admin/seasons/routes.js';
+import routeUsers       from './../components/admin/users/routes.js';
+import routeResultats   from './../components/admin/resultats/routes.js';
+import routeAgeCategories from './../components/admin/age_categories/routes.js';
+import routeInscription from './../components/all/inscriptions/routes.js';
+
+let routes = [
+  {
+    name:       'home',
+    path:       '/',
+    component:  require('./../components/v-home.vue')
+  }, {
+    name:       'dashboard',
+    path:       '/dashboard',
+    component:  require('./../components/v-dashboard.vue')
+  }, {
+    name:       'register',
+    path:       '/register',
+    component:  require('./../components/v-register.vue')
+  }, {
+    name:       'signin',
+    path:       '/signin',
+    component:  require('./../components/v-signin.vue')
+  }, {
+    name:       'admin_dashboard',
+    path:       '/admin',
+    component:  require('./../components/admin/v-admin.vue')
+  }
 ];
+
+Array.prototype.push.apply(routes, routeAlbums);
+Array.prototype.push.apply(routes, routeArticles);
+Array.prototype.push.apply(routes, routeCategories);
+Array.prototype.push.apply(routes, routeCourses);
+Array.prototype.push.apply(routes, routeJudoEvents);
+Array.prototype.push.apply(routes, routeSeasons);
+Array.prototype.push.apply(routes, routeUsers);
+Array.prototype.push.apply(routes, routeResultats);
+Array.prototype.push.apply(routes, routeAgeCategories);
+Array.prototype.push.apply(routes, routeInscription);
+
+export default routes;

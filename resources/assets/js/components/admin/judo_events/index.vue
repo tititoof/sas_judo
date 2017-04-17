@@ -60,11 +60,11 @@
     export default {
         data() {
             return {
-                auth: auth,
-                fcEvents: [],
-                eventTitle: '',
+                auth:             auth,
+                fcEvents:         [],
+                eventTitle:       '',
                 eventDescription: '',
-                deleteId: Number,
+                deleteId:         Number,
                 show: {
                     deleteConfirm: false
                 }

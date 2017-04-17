@@ -20,4 +20,12 @@ class Season extends Model
     {
         return $this->hasMany('App\Models\Course');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relastions\HasMany
+     */
+    public function results()
+    {
+      return $this->hasMany('App\Models\Result');
+    }
 }

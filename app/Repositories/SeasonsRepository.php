@@ -51,4 +51,16 @@ class SeasonsRepository
         return ['success' => true, 'errors' => '',];
     }
 
+    public function list()
+    {
+        try {
+            $list = Season::all()->map(function($season) {
+                return ['label' => $season->name, 'value' => $season->id];
+            });
+        } catch (\Exception $exception) {
+            return ['success' => false, 'errors' => $exception->getMessage()];
+        }
+        return ['success' => true, 'errors' => '', 'entities' => $list];
+    }
+
 }

@@ -22,7 +22,7 @@
     "laravel-mix": "^0.8.3",
     "lodash": "^4.16.2",
     "moment": "2.17.1",
-    "vue": "^2.1.10",
+    "vue": "2.1.10",
     "vue-bulma-quill": "",
     "vue-clock-picker": "0.4.0",
     "vue-fullcalendar": "latest",

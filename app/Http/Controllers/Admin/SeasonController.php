@@ -86,4 +86,13 @@ class SeasonController extends Controller
         $repository = new SeasonsRepository;
         return response()->json($repository->delete($season));
     }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function list()
+    {
+        $repository = new SeasonsRepository;
+        return response()->json($repository->list());
+    }
 }
