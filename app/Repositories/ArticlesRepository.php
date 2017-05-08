@@ -8,6 +8,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
 
@@ -57,6 +58,25 @@ class ArticlesRepository
         } catch (\Exception $exception) {
             return ['success' => false, 'errors' => $exception->getMessage(),];
         }
+    }
 
+    /**
+     * @param $page
+     * @return array
+     */
+    public function getArticles($page)
+    {
+        try {
+            $articles    = DB::table('articles')->orderBy('id', 'desc')->get();
+            $pagedData   = collect($articles);
+            $perPage     = 5;
+            $currentPage = $page - 1;
+            if ($pagedData->count() > $perPage) {
+                $pagedData   = array_slice($collect, $currentPage * $perPage, $perPage);
+            }
+            return ['success' => true, 'errors' => '', 'entities' => $pagedData];
+        } catch (\Exception $exception) {
+            return ['success' => false, 'errors' => $exception->getMessage()];
+        }
     }
 }

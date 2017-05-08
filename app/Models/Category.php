@@ -11,7 +11,7 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'type'];
 
     /**
      * The table associated with the model.

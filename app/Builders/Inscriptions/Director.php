@@ -57,7 +57,9 @@ class Director
             $member     = $member->first();
             $request->request->add(['member_id' => $member->id]);
             $inscription = $this->inscriptionBuilder->check($request);
-            $inscription = $inscription->first();
+            if (!$inscription->isEmpty()) {
+                $inscription = $inscription->first();
+            }
         }
         return [ 'member' => $member, 'inscription' => $inscription ];
     }

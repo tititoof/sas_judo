@@ -39,14 +39,21 @@ $panel-default-heading-bg: #fff;
 $brand-warning: #cbb956;
 
 
-
+//#99c9a2
 .ui-toolbar-colored {
-  background-color: #99c9a2;
+    background-color: #006428;
 }
 .ui-toolbar--type-colored {
-  background-color: #99c9a2;
+    background-color: #006428;
 }
 
 .sidebar-menu {
   border-right: 1px solid #e5e5e5;
+}
+
+.sas-menu a {
+    color: #FFFFFF;
+}
+.sas-menu a:hover, a:focus{
+    color: #FFFFFF;
 }

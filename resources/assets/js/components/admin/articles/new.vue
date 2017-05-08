@@ -46,14 +46,14 @@
     export default {
         data() {
             return {
-                auth: auth,
-                name: '',
-                menus: [],
-                content: '',
+                auth:               auth,
+                name:               '',
+                menus:              [],
+                content:            '',
                 categoriesSelected: [],
-                albums: [],
-                AlbumsSelected: [],
-                optionsEditor: {
+                albums:             [],
+                albumsSelected:     [],
+                optionsEditor:      {
                     modules: {
                         toolbar: [
                             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -113,16 +113,16 @@
                 _self.categoriesSelected.forEach(function(category) {
                     categories.push(category.value);
                 });
-                _self.AlbumsSelected.forEach(function(album) {
+                _self.albumsSelected.forEach(function(album) {
                     albums.push(album.value);
                 });
 
                 _self.$http.post('api/article', {
-                    'name': _self.name,
-                    'categories': categories,
-                    'content': _self.content,
-                    'user_id': auth.user.profile.id,
-                    'albums': albums
+                    'name':         _self.name,
+                    'categories':   categories,
+                    'content':      _self.content,
+                    'user_id':      auth.user.profile.id,
+                    'albums':       albums
                 }).then(
                     (response) => {
                         _self.$emit('sas-snackbar', 'Article ajouté');

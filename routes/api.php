@@ -27,32 +27,52 @@ Route::get('/user', [
     'uses'  => 'UserController@index'
 ])->middleware('jwt.auth');
 
+
+// Visitor
+Route::get('/visitor/{page}/articles', [
+    'uses' => 'Visitor\ArticleController@index',
+])->where(['page' => '[0-9]+']);
+Route::get('/visitor/menu', ['uses' => 'Visitor\MenuController@index']);
+Route::get('/visitor/menu/{category}', ['uses' => 'Visitor\MenuController@show']);
+Route::get('/visitor/menu/picture/{name}', ['uses' => 'Visitor\MenuController@image']);
+
+// Admin
 Route::group(['middleware' => ['jwt.auth', 'can:is-admin']], function () {
     // Categories
     Route::resource('category', 'Admin\CategoryController');
+
     // Articles
     Route::resource('article', 'Admin\ArticleController');
+
     // Albums
     Route::resource('album', 'Admin\AlbumController');
+
     // Pictures
     Route::put('picture/add', [ 'uses' => 'Admin\PictureController@store']);
     Route::get('picture/{picture}/sync/album/{album}', [ 'uses' => 'Admin\AlbumController@syncPicture' ]);
     Route::resource('picture', 'Admin\PictureController');
+
     // Seasons
     Route::resource('season', 'Admin\SeasonController');
     Route::get('seasons/list', [ 'uses' => 'Admin\SeasonController@list' ] );
+
     // Events
     Route::resource('judoevent', 'Admin\JudoeventController');
+
     // Users
     Route::resource('admin/user', 'Admin\UserController');
     Route::put('user/{user}/toggle/admin', 'Admin\UserController@toggleAdmin');
     Route::put('user/{user}/toggle/teacher', 'Admin\UserController@toggleTeacher');
+
     // Courses
     Route::resource('course', 'Admin\CourseController');
+
     // Results
     Route::resource('result', 'Admin\ResultatController');
+
     // Age Categories
     Route::resource('age_category', 'Admin\AgeCategoryController');
+
     // Inscriptions
     Route::get('/inscriptions', 'Admin\MemberInscriptionController@index');
     Route::post('/inscriptions/load', 'Admin\MemberInscriptionController@load');

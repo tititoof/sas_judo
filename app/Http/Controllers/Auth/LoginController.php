@@ -56,9 +56,11 @@ class LoginController extends Controller
         } else {
             $data = [];
             $meta = [];
-            $data['name'] = $request->user()->name;
-            $data['user_id'] = $request->user()->id;
-            $meta['token'] = $token;
+            $data['name']       = $request->user()->name;
+            $data['user_id']    = $request->user()->id;
+            $data['email']      = $request->user()->email;
+            $data['is_admin']   = $request->user()->is_admin;
+            $meta['token']      = $token;
             return response()->json(['data' => $data, 'meta' => $meta]);
         }
     }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Repositories\CategoriesRepository;
+use App\Factories\Articles\Director;
 
 /**
  * Class CategoryController
@@ -21,7 +22,16 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::All();
-        return response()->json(['categories' => $categories]);
+        return response()->json([ 'categories' => $categories ]);
+    }
+
+    /**
+     * Get factories
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function create()
+    {
+        return response()->json([ 'factories' => Director::getListFactories() ]);
     }
 
     /**
@@ -49,7 +59,7 @@ class CategoryController extends Controller
      */
     public function edit(Request $request, Category $category)
     {
-        return response()->json(['success' => true, 'object' => $category]);
+        return response()->json([ 'success' => true, 'object' => $category, 'factories' => Director::getListFactories() ]);
     }
 
     /**

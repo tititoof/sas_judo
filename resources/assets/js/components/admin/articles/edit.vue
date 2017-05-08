@@ -29,14 +29,13 @@
             v-model="albumsSelected"
             :options="albums"
             >
-
         </ui-select>
         <ui-button
                 type="secondary" color="accent" size="large"
                 @click.prevent="addAlbum()">
             Ajouter un album
         </ui-button>
-0    </div>
+    </div>
 </template>
 <script>
     import auth from '../../../auth';
@@ -110,7 +109,6 @@
                                 }
                             });
                         }
-                        console.log(_self.albumsDefault);
                     },
                     (response) => {
                         console.log(response);
@@ -128,10 +126,11 @@
                 const _self = this;
                 let categories  = [],
                     albums      = [];
+                _self.content   = _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML;
                 _self.menus.forEach(function(category) {
                     categories.push(category.value);
                 });
-                _self.AlbumsSelected.forEach(function(album) {
+                _self.albumsSelected.forEach(function(album) {
                     albums.push(album.value);
                 });
                 _self.$http.patch('api/article/' + _self.articleId, {
@@ -159,6 +158,18 @@
                 _self.articleId = _self.$route.params.articleId;
                 _self.index();
             });
+        },
+        onEditorBlur(editor) {
+            console.log('editor blur!', editor)
+        },
+        onEditorFocus(editor) {
+            console.log('editor focus!', editor)
+        },
+        onEditorReady(editor) {
+            console.log('editor ready!', editor)
+        },
+        onEditorChange({ editor, html, text }) {
+            this.content = html
         }
     }
 </script>

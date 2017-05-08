@@ -27,10 +27,10 @@
             >
             <div v-html="eventDescription"></div>
             <div slot="footer">
-                <ui-button color="primary">Je participe</ui-button>
                 <ui-button @click="destroy()"
                            color="red">Supprimer</ui-button>
-                <ui-button @click="edit()"
+                <ui-button v-if="isAdmin"
+                            @click="edit()"
                            color="orange">Editer</ui-button>
                 <ui-button @click="closeModal()">Fermer</ui-button>
             </div>
@@ -69,6 +69,11 @@
                     deleteConfirm: false
                 }
             }
+        },
+        computed: {
+          isAdmin() {
+              return this.auth.checkIsAdmin();
+          }
         },
         methods: {
             edit() {

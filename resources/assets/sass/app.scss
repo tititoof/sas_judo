@@ -2,8 +2,6 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
-// Variables
-@import "variables";
 
 // Bootstrap
 //@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
@@ -13,3 +11,6 @@
         "~animate.css/animate.css",
         "~keen-ui/dist/keen-ui.css",
         "~vue2-animate/dist/vue2-animate.min.css";
+
+// Variables
+@import "variables";

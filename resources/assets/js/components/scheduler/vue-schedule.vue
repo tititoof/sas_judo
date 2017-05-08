@@ -13,12 +13,15 @@
                 <li v-for="(week, index) in weekGround" class="task-list">
                     <p> {{ week }} </p>
                     <ul :style="taskListSty">
-                        <template v-for="detail in tasksList[index]">
+                        <template
+                            v-for="detail in tasksList[index]"
+                            >
                             <li class="task-list-item"
                                 :style="detail.styleObj"
+                                v-if="detail.hasOwnProperty('styleObj')"
                                 >
                                 <p> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
-                                <h3> {{ detail.title }} </h3>
+                                <h5> {{ detail.title }} </h5>
                             </li>
                         </template>
                     </ul>
@@ -28,6 +31,7 @@
     </div>
 </template>
 <script>
+    import moment from 'moment';
     export default {
         props: {
             timeGround: {
@@ -95,41 +99,43 @@
             });
         },
         methods: {
-          init: function() {
-            const _self = this;
-            let maxTime = _self.timeGround[_self.timeGround.length - 1],
-                minTime = _self.timeGround[0],
-                maxMin = maxTime.split(':')[0] * 60 + maxTime.split(':')[1] * 1,
-                minMin = minTime.split(':')[0] * 60 + minTime.split(':')[1] * 1;
+            init: function() {
+                const _self = this;
+                let maxTime = _self.timeGround[_self.timeGround.length - 1],
+                    minTime = _self.timeGround[0],
+                    maxMin = maxTime.split(':')[0] * 60 + maxTime.split(':')[1] * 1,
+                    minMin = minTime.split(':')[0] * 60 + minTime.split(':')[1] * 1;
 
-            for (let i = 0; i < _self.taskDetail.length; i++) {
-              _self.tasksList[i] = [];
-              let k = 0;
-                for (let j = 0; j < _self.taskDetail[i].length; j++) {
-                  _self.tasksList[i][k] = {};
-                    if (_self.taskDetail[i][j].hasOwnProperty('dateStart')) {
-                      let startMin = _self.taskDetail[i][j].dateStart.split(':')[0] * 60 + _self.taskDetail[i][j].dateStart.split(':')[1] * 1,
-                          endMin   = _self.taskDetail[i][j].dateEnd.split(':')[0] * 60 + _self.taskDetail[i][j].dateEnd.split(':')[1] * 1;
-                      if (startMin < minMin || endMin > maxMin) {
-                          k--;
-                          continue;
-                      }
-                      let difMin = endMin - startMin;
-                      _self.tasksList[i][k].dateStart = _self.taskDetail[i][j].dateStart;
-                      _self.tasksList[i][k].dateEnd   = _self.taskDetail[i][j].dateEnd;
-                      _self.tasksList[i][k].title     = _self.taskDetail[i][j].title;
-                      _self.tasksList[i][k].styleObj  = {
-                          height: difMin * 100 / 60 + 'px',
-                          top: ((startMin - (_self.timeGround[0].split(":")[0] * 60 + _self.timeGround[0].split(":")[1] * 1)) * 100 / 60) + 50 + 'px',
-                          backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
-                          left: (3.8 + (13.80 * i)) + '%',
-                          width: '12.28%'
-                      }
-                      k++;
+                for (let i = 0; i < _self.taskDetail.length; i++) {
+                    _self.tasksList[i] = [];
+                    let k = 0;
+                    for (let j = 0; j < _self.taskDetail[i].length; j++) {
+                        _self.tasksList[i][k] = {};
+                        if (_self.taskDetail[i][j].hasOwnProperty('dateStart')) {
+                            let startMin = _self.taskDetail[i][j].dateStart.split(':')[0] * 60 + _self.taskDetail[i][j].dateStart.split(':')[1] * 1,
+                                endMin   = _self.taskDetail[i][j].dateEnd.split(':')[0] * 60 + _self.taskDetail[i][j].dateEnd.split(':')[1] * 1;
+                            if (startMin < minMin || endMin > maxMin) {
+                                k--;
+                                continue;
+                            }
+                            let difMin = endMin - startMin;
+                            let startAt = _self.taskDetail[i][j].dateStart.split(":"),
+                                endAt   = _self.taskDetail[i][j].dateEnd.split(":");
+                            _self.tasksList[i][k].dateStart = startAt[0] + ':' + startAt[1];
+                            _self.tasksList[i][k].dateEnd   = endAt[0] + ':' + endAt[1];
+                            _self.tasksList[i][k].title     = _self.taskDetail[i][j].title;
+                            _self.tasksList[i][k].styleObj  = {
+                                height: difMin * 100 / 60 + 'px',
+                                top: ((startMin - (_self.timeGround[0].split(":")[0] * 60 + _self.timeGround[0].split(":")[1] * 1)) * 100 / 60) + 50 + 'px',
+                                backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
+                                left: (3.8 + (13.80 * i)) + '%',
+                                width: '12.28%'
+                            };
+                            k++;
+                        }
                     }
                 }
             }
-          }
         },
         watch: {
             taskDetail: function() {
@@ -155,7 +161,7 @@
     }
     .time-ground ul li{
         margin-top: 50px;
-        font-size: 1rem;
+        font-size: 0.7rem;
         height: 50px;
     }
     .time-ground ul li span{
@@ -166,7 +172,6 @@
     .time-ground ul li p{
         position:absolute;
         left: 0;
-
         height: 1px;
         background-color: #EAEAEA;
     }
@@ -199,7 +204,7 @@
         font-size: 0.8rem;
         color: #EDF2F6;
     }
-    .task-list-item h3{
+    .task-list-item h5{
         color: #E0E7E9;
         margin: 1rem 0 0 1rem;
     }

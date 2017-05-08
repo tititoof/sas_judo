@@ -8,41 +8,76 @@
             transition="left"
             >
         </sidebar>
+        <!-- :title="siteTitle" -->
         <ui-toolbar
-            :title="siteTitle"
             type="colored"
             text-color="white"
             @nav-icon-click="menuClick">
+            <div>
+                <img src="/api/visitor/menu/picture/logo_judo.png" height="30px"/>
+                <router-link :to="{ name: 'home' }" class="sas-menu" style="color: #FFFFFF; text-decoration: none">SAS Judo Jujitsu</router-link>
+            </div>
             <div slot="actions">
-                <ui-button
-                    type="secondary"
-                    size="large"
-                    @click.prevent="signinAction()"
-                    ref="signinButton"
-                    v-if="!auth.user.authenticated"
-                    >
-                Se Connecter
-                </ui-button>
-                <ui-button
-                    type="secondary"
-                    size="large"
-                    ref="registerButton"
-                    @click.prevent="registerAction()"
-                    v-if="!auth.user.authenticated"
-                    >
-                S'enregister
-                </ui-button>
-                <ui-button
-                    v-if="auth.user.authenticated"
-                    type="secondary"
-                    color="white"
-                    size="large"
-                    icon="account_circle"
-                    dropdown-position="bottom right"
-                    @click.prevent="disconnectAction()"
-                    >
-                {{ auth.user.profile.name }}
-                </ui-button>
+                <template v-if="!auth.user.authenticated">
+                    <ui-icon-button
+                        type="colored"
+                        icon="input"
+                        size="small"
+                        @click.prevent="signinAction()"
+                        ref="signinButton"
+                        >
+                    </ui-icon-button>
+                    <ui-icon-button
+                        type="colored"
+                        icon="fiber_new"
+                        size="small"
+                        ref="registerButton"
+                        @click.prevent="registerAction()"
+                        >
+                    </ui-icon-button>
+                </template>
+                <template v-if="auth.user.authenticated">
+                    <ui-icon-button
+                        v-if="auth.user.isAdmin"
+                        type="colored"
+                        color="green"
+                        size="large"
+                        icon="more_vert"
+                        has-dropdown
+                        ref="dropdownAdminButton"
+                        >
+                        <ui-menu
+                            contain-focus
+                            has-icons
+                            has-secondary-text
+                            slot="dropdown"
+                            :options="menuAdminOptions"
+                            @select="selectAdminMenu"
+                            @close="$refs.dropdownAdminButton.closeDropdown()"
+                            >
+                        </ui-icon-button>
+                    </ui-button>
+                    <ui-button
+                        type="colored"
+                        color="green"
+                        size="large"
+                        icon="account_circle"
+                        has-dropdown
+                        ref="dropdownButton"
+                        >
+                        <ui-menu
+                            contain-focus
+                            has-icons
+                            has-secondary-text
+                            slot="dropdown"
+                            :options="menuOptions"
+                            @select="selectUserMenu"
+                            @close="$refs.dropdownButton.closeDropdown()"
+                            ></ui-menu>
+                        <!-- {{ auth.user.profile.name }} -->
+                    </ui-button>
+
+                </template>
             </div>
         </ui-toolbar>
     </div>
@@ -61,55 +96,58 @@
                 loading: false,
                 siteTitle: "SAS Judo Jujitsu",
                 sidebarShow: false,
-                sideBarMenu: [{
-                    id: "toto",
-                    text: "Les news",
-                    link: "news"
-                }, {
-                    id: "toto",
-                    text: "Adhérents",
-                    link: "adherents"
-                }, {
-                    id: "toto",
-                    text: "Le bureau",
-                    link: "bureau"
-                }, {
-                    id: "toto",
-                    text: "Bons moments",
-                    link: "bonsmoment"
-                }, {
-                    id: "toto",
-                    text: "Compétitions",
-                    link: "competitions"
-                }, {
-                    id: "toto",
-                    text: "Calendriers",
-                    link: "calendriers"
-                }, {
-                    id: "toto",
-                    text: "Plannings des cours",
-                    link: "plannings"
-                }, {
-                    id: "toto",
-                    text: "Cotisations",
-                    link: "cotisations"
-                }, {
-                    id: "toto",
-                    text: "Modalités d'inscription",
-                    link: "modalitesInscription"
-                }, {
-                    id: "toto",
-                    text: "Résultats",
-                    link: "resultats"
-                }],
-                menu: [{
+                sideBarMenu: [],
+                menuOptions: [{
                     id: 'settings',
+                    icon: 'face',
                     label: 'Paramètres'
                 }, {
-                        type: 'divider'
+                    type: 'divider'
                 }, {
                     id: 'disconnect',
+                    icon: 'exit_to_app',
                     label: 'Déconnexion'
+                }],
+                menuAdminOptions: [{
+                    id: 'admin_categories_index',
+                    icon: 'face',
+                    label: 'Menus'
+                }, {
+                    id: 'admin_articles_index',
+                    icon: 'face',
+                    label: 'Articles'
+                }, {
+                    id: 'admin_albums_index',
+                    icon: 'face',
+                    label: 'Albums'
+                }, {
+                    id: 'admin_judo_event_index',
+                    icon: 'face',
+                    label: 'Evènements'
+                }, {
+                    id: 'admin_seasons_index',
+                    icon: 'face',
+                    label: 'Saisons'
+                }, {
+                    id: 'admin_users_index',
+                    icon: 'face',
+                    label: 'Utilisateurs'
+                }, {
+                    id: 'admin_courses_index',
+                    icon: 'face',
+                    label: 'Cours'
+                }, {
+                    id: 'admin_resultats_index',
+                    icon: 'face',
+                    label: 'Résultats'
+                }, {
+                    id: 'admin_age_categories_index',
+                    icon: 'face',
+                    label: "Catégories d'âge"
+                }, {
+                    id: 'inscriptions_index',
+                    icon: 'face',
+                    label: 'Inscriptions'
                 }]
             }
         },
@@ -125,13 +163,17 @@
             disconnectAction: function () {
                 auth.signout();
             },
-            userButtonSelected: function(option) {
+            selectUserMenu: function(option) {
                 const _self = this;
                 switch(option.id) {
                     case 'disconnect':
                         auth.signout();
                         break;
                 }
+            },
+            selectAdminMenu: function(option) {
+                const _self = this;
+                router.push({ name: option.id });
             },
             calendriersAction: function() {
                 console.log('Action !!!!');

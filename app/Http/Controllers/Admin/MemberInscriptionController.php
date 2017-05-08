@@ -19,7 +19,8 @@ class MemberInscriptionController extends Controller
     }
 
     /**
-     *
+     * Load member inscription informations
+     * @param Request $request
      */
     public function load(Request $request)
     {
@@ -27,6 +28,10 @@ class MemberInscriptionController extends Controller
         return response()->json($director->check($request));
     }
 
+    /**
+     * Save member inscription informations
+     * @param Request $request
+     */
     public function save(Request $request)
     {
         $director = new Director;

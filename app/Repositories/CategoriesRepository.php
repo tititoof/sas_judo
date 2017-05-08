@@ -22,6 +22,7 @@ class CategoriesRepository
     {
         try {
             $category->name = $request->input('name');
+            $category->type = $request->input('type');
             $category->save();
             return ['success' => true, 'errors' => '',];
         } catch (\Exception $exception) {
@@ -38,4 +39,15 @@ class CategoriesRepository
             return ['success' => false, 'errors' => $exception->getMessage(),];
         }
     }
+
+    public function getMenu()
+    {
+        try {
+            $categories = Category::all();
+            return ['success' => true, 'entities' => $categories];
+        } catch (\Exception $exception) {
+            return ['success' => false, 'errors' => $exception->getMessage()];
+        }
+    }
+
 }

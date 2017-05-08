@@ -26,6 +26,7 @@ class CategoriesFormRequest extends FormRequest
         $id    = (null !== $this->segment(3)) ? $this->segment(3) : null;
         $rules = [
             'name'      => 'required|max:255|unique:categories,name',
+            'type'      => 'required',
         ];
         if (null !== $id) {
             $rules = array_merge($rules, ['name' => 'required|max:255|unique:categories,name,'.$id,]);

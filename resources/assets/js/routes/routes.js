@@ -8,12 +8,13 @@ import routeUsers       from './../components/admin/users/routes.js';
 import routeResultats   from './../components/admin/resultats/routes.js';
 import routeAgeCategories from './../components/admin/age_categories/routes.js';
 import routeInscription from './../components/all/inscriptions/routes.js';
+import routeVisitor     from './../components/all/articles/routes.js';
 
 let routes = [
   {
     name:       'home',
     path:       '/',
-    component:  require('./../components/v-home.vue')
+    component:  require('./../components/all/articles/v-home.vue')
   }, {
     name:       'dashboard',
     path:       '/dashboard',
@@ -43,5 +44,6 @@ Array.prototype.push.apply(routes, routeUsers);
 Array.prototype.push.apply(routes, routeResultats);
 Array.prototype.push.apply(routes, routeAgeCategories);
 Array.prototype.push.apply(routes, routeInscription);
+Array.prototype.push.apply(routes, routeVisitor);
 
 export default routes;

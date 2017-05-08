@@ -26,7 +26,7 @@
     .sidenav li a:hover, .offcanvas a:focus{
         color: #FFFFFF;
         /*font-family: 'Lato', sans-serif;*/
-        background: #99c9a2;
+        background: #006428;
         font-size: 15px;
         width: 250px;
         font-weight: bold;
@@ -51,10 +51,17 @@
         float: left;
         min-height: 1px;
         line-height: 1em;
+        /*line-height: 60px;*/
         vertical-align: middle;
         text-decoration: none;
         list-style-type: none;
         display: block;
+    }
+
+    .sidenav ul li img {
+        float: left;
+        margin: 0 0 10px 0;
+        padding: 2px;
     }
 
     @media screen and (max-height: 450px) {
@@ -69,13 +76,23 @@
             >
             <nav class="sidenav"
                  v-show="visible">
-                <button class="closebtn ui-icon-button ui-icon-button-flat color-success"
+                 <!-- <ui-icon-button
+                    type="primary" icon="close" color="green" size="small" class="closebtn"
+                    @click.prevent="toggle"
+                 ></ui-icon-button> -->
+                 <!-- <div class="closebtn"> -->
+
+                <!-- </div> -->
+                <button class="ui-icon-button closebtn ui-icon-button--type-primary ui-icon-button--color-green ui-icon-button--size-small"
                         @click.prevent="toggle">
                     <i class="ui-icon material-icons ui-icon-button-icon clear" aria-hidden="true">clear</i>
                 </button>
                 <ul class="">
                     <li v-for="item in menu" class="">
-                        <a @click.prevent="getPage(item.link)" href="#"> {{ item.text }}</a>
+                        <img src="/api/visitor/menu/picture/logo_judo.png" height="30px"/>
+                        <p>
+                            <a @click.prevent="getPage(item.id)" href="#"> {{ item.text }}</a>
+                        </p>
                     </li>
                 </ul>
             </nav>
@@ -83,6 +100,8 @@
     </div>
 </template>
 <script>
+    import {app}    from './../app.js';
+    import {router} from './../app.js';
     export default {
         name: "sidebar",
         props: {
@@ -94,16 +113,38 @@
             }
         },
         methods: {
-            toggle: function() {
+            index() {
+                const _self = this;
+                _self.$http.get('api/visitor/menu').then(
+                    (response) => {
+                        let data = response.data.entities;
+                        data.forEach(function(element) {
+                            _self.menu.push({ id: element.id, text: element.name });
+                        });
+                        _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
+                        _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
+                    },
+                    (response) => {
+                        console.log(response);
+                    }
+                );
+            },
+            toggle() {
                 const _self = this;
                 _self.visible = !_self.visible;
             },
-            getPage: function(link) {
-                this.$emit('v-sidebar-click', link);
+            getPage(link) {
+                const _self = this;
+                router.push({ name: 'visitor_news', params: {'menu': link} });
+                _self.toggle();
             }
         },
         mounted() {
-            this.$root.$on('v-sidebar-toggle', this.toggle);
+            this.$nextTick(function() {
+               const _self = this;
+               this.$root.$on('v-sidebar-toggle', this.toggle);
+               _self.index();
+            });
         }
     }
 </script>

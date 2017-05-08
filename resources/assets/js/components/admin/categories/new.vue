@@ -14,6 +14,12 @@
             label="Nom" name="name" type="text" placeholder="Entrer le nom du menu"
             v-model="name"
         ></ui-textbox>
+        <ui-select
+            name="types" label="Affichage"
+            :options="types"
+            v-model="typeSelected"
+            placeholder="Choisir le type d'affichage" show-search z-index="1"
+        ></ui-select>
     </div>
 </template>
 <script>
@@ -24,26 +30,44 @@
     export default {
         data() {
             return {
-                auth:       auth,
-                categories: [],
-                name:       ''
+                auth:           auth,
+                categories:     [],
+                types:          [],
+                typeSelected:   '',
+                name:           ''
             }
         },
         methods: {
+            index() {
+                const _self = this;
+                _self.$http.get('api/category/create').then(
+                    (response) => {
+                        _self.types = response.data.factories;
+                    },
+                    (response) => {
+                        console.log(response);
+                    }
+                );
+            },
             store() {
                 const _self = this;
-                _self.$http.post('api/category', {'name': _self.name}).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Menu ajouté');
-                    router.push({ name: 'admin_categories_index' });
-                }, function(response) {
-                    console.log(response);
-                });
+                _self.$http.post('api/category',
+                    { 'name': _self.name, 'type': _self.typeSelected.name }).then(
+                    (response) => {
+                        _self.$emit('sas-snackbar', 'Menu ajouté');
+                        router.push({ name: 'admin_categories_index' });
+                    },
+                    (response) => {
+                        console.log(response);
+                    }
+                );
             }
         },
         mounted() {
             this.$nextTick(function () {
-                let _self = this;
+                const _self = this;
                 auth.check(_self);
+                _self.index();
             });
         }
     }
