@@ -1,6 +1,8 @@
 <template>
-    <h1>Laravel 5</h1>
-    test
+    <div>
+        <h1>Laravel 5</h1>
+        test
+    </div>
 </template>
 <script>
 import auth     from '../../../auth';

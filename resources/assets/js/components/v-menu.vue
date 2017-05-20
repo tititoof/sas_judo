@@ -2,7 +2,6 @@
     <div>
         <sidebar
             v-bind:menu="sideBarMenu"
-            :visible="sidebarShow"
             ref="sidebar"
             class="animated sidebar-menu"
             transition="left"
@@ -55,8 +54,8 @@
                             @select="selectAdminMenu"
                             @close="$refs.dropdownAdminButton.closeDropdown()"
                             >
-                        </ui-icon-button>
-                    </ui-button>
+                        </ui-menu>
+                    </ui-icon-button>
                     <ui-button
                         type="colored"
                         color="green"
@@ -73,7 +72,8 @@
                             :options="menuOptions"
                             @select="selectUserMenu"
                             @close="$refs.dropdownButton.closeDropdown()"
-                            ></ui-menu>
+                            >
+                        </ui-menu>
                         <!-- {{ auth.user.profile.name }} -->
                     </ui-button>
 
@@ -84,6 +84,7 @@
 </template>
 <script>
     import sidebar from './v-sidebar.vue';
+    // import sidebarRight from './sidebar/v-sidebar-right.vue';
     import {app} from './../app.js';
     import {router} from './../app.js';
     import Keen from 'keen-ui';
