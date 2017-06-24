@@ -1,6 +1,10 @@
+dist: trusty
+
 language: php
+
 php:
   - '7.0'
+
 before_script:
   - cp .env.travis .env
   - mysql -e 'create database homestead_test;'
