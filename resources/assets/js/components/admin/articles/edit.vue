@@ -120,7 +120,7 @@
             },
             addAlbum() {
                 const _self = this;
-                _self.save(true);
+                _self.send(true);
             },
             send(newAlbum = false) {
                 const _self = this;

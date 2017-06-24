@@ -76,13 +76,6 @@
             >
             <nav class="sidenav"
                  v-show="visible">
-                 <!-- <ui-icon-button
-                    type="primary" icon="close" color="green" size="small" class="closebtn"
-                    @click.prevent="toggle"
-                 ></ui-icon-button> -->
-                 <!-- <div class="closebtn"> -->
-
-                <!-- </div> -->
                 <button class="ui-icon-button closebtn ui-icon-button--type-primary ui-icon-button--color-green ui-icon-button--size-small"
                         @click.prevent="toggle">
                     <i class="ui-icon material-icons ui-icon-button-icon clear" aria-hidden="true">clear</i>

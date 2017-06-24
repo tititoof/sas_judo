@@ -11,6 +11,7 @@
     </div>
 </template>
 <script>
+    import axios from 'axios';
     export default {
         props: {
             className: String,
@@ -61,57 +62,38 @@
             _handleUpload: function(file) {
                 this.$emit('beforeFileUpload', file);
                 let form = new FormData();
-                let xhr = new XMLHttpRequest();
+                // let xhr = new XMLHttpRequest();
                 try {
+                    // form.append('X-CSRF-TOKEN', document.getElementsByName('csrf-token')[0].getAttribute('content'));
                     form.append('Content-Type', file.type || 'application/octet-stream');
+
                     // our request will have the file in the ['file'] key
                     form.append('file', file);
                 } catch (err) {
                     this.$emit('onFileError', file, err);
                     return;
                 }
+                var my_axios = axios.create({
+                  baseURL: 'http://localhost',
+                  headers: {
+                      'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
+                      'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+                  },
 
-                return new Promise(function(resolve, reject) {
-
-                    xhr.upload.addEventListener('progress', this._onProgress, false);
-
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState < 4) {
-                            return;
-                        }
-                        if (xhr.status < 400) {
-                            let res = JSON.parse(xhr.responseText);
-                            this.$emit('onFileUpload', file, res);
-                            resolve(file);
-                        } else {
-                            let err = JSON.parse(xhr.responseText);
-                            err.status = xhr.status;
-                            err.statusText = xhr.statusText;
-                            this.$emit('onFileError', file, err);
-                            reject(err);
-                        }
-                    }.bind(this);
-
-                    xhr.onerror = function() {
-                        let err = JSON.parse(xhr.responseText);
-                        err.status = xhr.status;
-                        err.statusText = xhr.statusText;
-                        this.$emit('onFileError', file, err);
-                        reject(err);
-                    }.bind(this);
-
-                    xhr.open(this.method || "POST", this.action, true);
-                    if (this.headers) {
-                        for(let header in this.headers) {
-                            xhr.setRequestHeader(header, this.headers[header]);
-                        }
+                });
+                my_axios.post('/api/picture', form).then(
+                    response => {
+                        this.$emit('onFileUpload', file, response);
+                        return response;
+                    },
+                    response => {
+                        return response;
                     }
-                    xhr.send(form);
-                    this.$emit('afterFileUpload', file);
-                }.bind(this));
+                );
             },
             fileUpload: function() {
                 if(this.myFiles.length > 0) {
+
                     // a hack to push all the Promises into a new array
                     let arrayOfPromises = Array.prototype.slice.call(this.myFiles, 0).map(function(file) {
                         return this._handleUpload(file);

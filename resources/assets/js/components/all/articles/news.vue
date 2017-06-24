@@ -1,7 +1,11 @@
 <template>
     <div>
-        <h1>Laravel 5</h1>
-        test
+        <template
+            v-for="article in articles"
+            >
+            <h3>{{ article.name }}</h3>
+            <p v-html="article.content"></p>
+        </template>
     </div>
 </template>
 <script>
@@ -13,6 +17,7 @@ import {router} from './../../../app.js';
 export default {
     data() {
         return {
+            articles: [],
             menu: '',
             page: 1
         }
@@ -23,7 +28,8 @@ export default {
             _self.menu = _self.$route.params.menu;
             _self.$http.get('api/visitor/menu/' + _self.menu).then(
                 response => {
-                    console.log(response);
+                    let data = response.data;
+                    _self.articles = data;
                 },
                 response => {
                     console.log(response);

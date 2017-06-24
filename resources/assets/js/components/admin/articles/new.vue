@@ -26,7 +26,7 @@
         <ui-select
                 name="albums" label="Albums"
                 :options="albums"
-                v-model="AlbumsSelected"
+                v-model="albumsSelected"
                 placeholder="Choisir le ou les albums" show-search multiple z-index="1"
         ></ui-select>
         <ui-button

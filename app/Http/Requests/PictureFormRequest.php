@@ -14,6 +14,7 @@ class PictureFormRequest extends FormRequest
      */
     public function authorize()
     {
+        return true;
         return \Auth::user()->is_admin;
     }
 
@@ -27,13 +28,13 @@ class PictureFormRequest extends FormRequest
         $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
         if (null !== $id) {
             $rules = [
-                'name'         => 'required|max:255|unique:pictures,name,'.$id,
+                // 'name'         => 'required|max:255|unique:pictures,name,'.$id,
                 'image.*'      => 'required|image',
                 'local_image'  => 'integer',
             ];
         } else {
             $rules = [
-                'name'         => 'required|max:255|unique:pictures,name',
+                // 'name'         => 'required|max:255|unique:pictures,name',
                 'image.*'      => 'required|image',
                 'local_image'  => 'integer',
             ];

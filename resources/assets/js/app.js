@@ -10,12 +10,13 @@
  * the body of the page. From here, you may begin adding components to
  * the application, or feel free to tweak this setup for your needs.
  */
-const Vue         = require('vue');
-let VueResource = require('vue-resource');
+const Vue           = require('vue');
+// let VueResource     = require('vue-resource');
 import VueRouter  from 'vue-router';
 import routes     from './routes/routes';
 import App        from './components/v-app.vue';
 import Keen       from 'keen-ui';
+import axios      from 'axios';
 
 Vue.use(VueRouter);
 Vue.use(Keen);
@@ -25,10 +26,21 @@ export const router = new VueRouter({
     routes
 });
 
-Vue.use(VueResource);
-Vue.http.headers.common['X-CSRF-TOKEN']   = document.getElementsByName('csrf-token')[0].getAttribute('content');
-Vue.http.headers.common['Authorization']  = 'Bearer ' + localStorage.getItem('id_token');
-Vue.http.options.root = 'http://localhost';
+var my_axios = axios.create({
+  baseURL: 'http://localhost',
+  headers: {
+      'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
+      'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+  },
+
+});
+
+Vue.prototype.$http = my_axios;
+// Vue.use(VueResource);
+// Vue.http.headers.common['X-CSRF-TOKEN']   = document.getElementsByName('csrf-token')[0].getAttribute('content');
+// Vue.http.headers.common['Authorization']  = 'Bearer ' + localStorage.getItem('id_token');
+// Vue.http.options.root = 'http://localhost';
+
 
 export const app = new Vue({
     // http: {

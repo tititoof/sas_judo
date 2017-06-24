@@ -30,10 +30,12 @@ export default {
                     _self.user.authenticated = true;
                     _self.user.isAdmin       = response.data.data.is_admin;
                     _self.user.profile       = response.data.data;
+                    app.$emit('sas-admin', 'Mise à jour utilisateur');
                 },
                 (response) => {
                     _self.user.authenticated = false;
                     _self.user.isAdmin       = false;
+                    app.$emit('sas-admin', 'Mise à jour utilisateur');
                 }
             );
         }
@@ -68,7 +70,7 @@ export default {
     const _self = this;
     if ( (_self.user.hasOwnProperty('profile')) && (_self.user.profile !== null)) {
         if (_self.user.profile.hasOwnProperty('is_admin')) {
-            console.log(_self.user.profile.is_admin);
+
             return (_self.user.profile.is_admin == 1) ? true : false;
         }
     }
