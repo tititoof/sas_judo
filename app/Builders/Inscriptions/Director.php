@@ -48,6 +48,7 @@ class Director
 
     /**
      * Check member / isncription informations
+     * @param Request $request
      */
     public function check(Request $request)
     {
