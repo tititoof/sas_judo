@@ -58,7 +58,6 @@ export default {
         _self.$broadcast('v-sidebar:toggle');
     },
     userButtonSelected: function(option) {
-        var _self = this;
         console.log('user button selected !!!', option.id);
         switch(option.id) {
             case 'disconnect':
