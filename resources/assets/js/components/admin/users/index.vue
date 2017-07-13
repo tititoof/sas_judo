@@ -91,7 +91,6 @@
                 )
             },
             edit(id) {
-                const _self = this;
                 router.push({ name: 'admin_users_edit', params: { userId: id } });
             },
             destroy(id) {
@@ -105,7 +104,7 @@
                     _self.$emit('sas-snackbar', 'Utilisateur supprimé');
                     _self.index();
                 }, function(response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             },
             deleteDenied() {
@@ -119,7 +118,7 @@
                   _self.index();
                 },
                 (response) => {
-                  console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 }
               );
             },
@@ -127,11 +126,11 @@
               const _self = this;
               _self.$http.put('api/user/' + id + '/toggle/teacher').then(
                 (response) => {
-                  _self.$emit('sas-snackbar', 'Utilisateur modifié');
-                  _self.index();
+                    _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                    _self.index();
                 },
                 (response) => {
-                  console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 }
               );
             }

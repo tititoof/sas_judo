@@ -88,7 +88,6 @@
             }
         },
         created() {
-            const _self = this;
         },
         mounted () {
             this.$nextTick(function() {

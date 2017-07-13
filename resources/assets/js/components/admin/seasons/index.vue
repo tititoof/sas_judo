@@ -68,7 +68,6 @@
         },
         methods: {
             edit(id) {
-                const _self = this;
                 router.push({ name: 'admin_seasons_edit', params: { seasonId: id } });
             },
             destroy(id) {
@@ -79,9 +78,10 @@
             deleteConfirmed() {
                 const _self = this;
                 _self.$http.delete('api/season/' + _self.deleteId).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Menu supprimé');
+                    _self.$emit('sas-snackbar', 'Saison supprimée');
                     _self.index();
                 }, function(response) {
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue.');
                     console.log(response);
                 });
             },
@@ -93,7 +93,7 @@
                 _self.$http.get('api/season').then(function(response) {
                     _self.seasons = response.data.seasons;
                 }, function(response) {
-                    console.log("error ! :'(");
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue.');
                 })
             },
             create() {

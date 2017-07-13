@@ -144,7 +144,6 @@
         },
         methods: {
             index() {
-                const _self = this;
                 // if (auth.checkIsAdmin()) {
                 //     _self.menuOptions = _self.menuOptions.concat(_self.menuAdminOptions);
                 // }
@@ -163,7 +162,6 @@
                 auth.signout();
             },
             selectUserMenu: function(option) {
-                const _self = this;
                 switch(option.id) {
                     case 'disconnect':
                         auth.signout();
@@ -171,11 +169,9 @@
                 }
             },
             selectAdminMenu: function(option) {
-                const _self = this;
                 router.push({ name: option.id });
             },
             calendriersAction: function() {
-                console.log('Action !!!!');
             },
             signinAction: function() {
                 router.push({ name: 'signin' });
