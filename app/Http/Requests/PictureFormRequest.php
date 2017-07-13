@@ -25,21 +25,17 @@ class PictureFormRequest extends FormRequest
     public function rules()
     {
         $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
-        switch ($id) {
-            case null:
-                $rules = [
+        if ($id === null) {
+            $rules = [
                     'image.*'      => 'required|image',
                     'local_image'  => 'integer',
                 ];
-                break;
-            
-            default:
-                $rules = [
+        } else {
+            $rules = [
                 // 'name'         => 'required|max:255|unique:pictures,name',
                 'image.*'      => 'required|image',
                 'local_image'  => 'integer',
             ];
-                break;
         }
         
         return $rules;
