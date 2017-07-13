@@ -86,7 +86,6 @@
                 router.push({ name: 'inscriptions_edit' });
             },
             edit(id) {
-                const _self = this;
                 router.push({ name: 'inscriptions_edit', params: { id: id } });
             },
             destroy(id) {
@@ -100,7 +99,7 @@
                     _self.$emit('sas-snackbar', 'Utilisateur supprimé');
                     _self.index();
                 }, function(response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             },
             deleteDenied() {
@@ -114,7 +113,7 @@
                   _self.index();
                 },
                 (response) => {
-                  console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 }
               );
             },
@@ -126,7 +125,7 @@
                   _self.index();
                 },
                 (response) => {
-                  console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 }
               );
             }
