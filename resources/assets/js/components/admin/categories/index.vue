@@ -68,7 +68,6 @@
         },
         methods: {
             edit(id) {
-                const _self = this;
                 router.push({ name: 'admin_categories_edit', params: { categoryId: id } });
             },
             destroy(id) {
@@ -82,7 +81,7 @@
                     _self.$emit('sas-snackbar', 'Menu supprimé');
                     _self.index();
                 }, function(response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue.');
                 });
             },
             deleteDenied() {
@@ -93,7 +92,7 @@
                 _self.$http.get('api/category', { 'user_id': auth.user.profile.id }).then(function(response) {
                     _self.categories = response.data.categories;
                 }, function(response) {
-                    console.log("error ! :'(");
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue.');
                 })
             },
             create() {
