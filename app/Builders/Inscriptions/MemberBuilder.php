@@ -11,6 +11,17 @@ use App\Models\Member;
 class MemberBuilder implements BuilderInterface
 {
     /**
+     * Constante string length max
+     **/
+    const REQUIREDMAX   = 'required|max:255';
+    
+    /**
+     * Constante required
+     **/
+    const REQUIRED      = 'required';
+    
+    
+    /**
      * @param Request $request
      */
     public function build(Request $request)
@@ -52,17 +63,17 @@ class MemberBuilder implements BuilderInterface
     public function checkForm(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'lastname'      => 'required|max:255',
-            'firstname'     => 'required|max:255',
-            'sexe'          => 'required',
-            'birthday'      => 'required',
-            'address'       => 'required|max:255',
-            'postal_code'   => 'required',
-            'city'          => 'required|max:255',
-            'phone'         => 'required|max:255',
-            'red_list'      => 'required',
-            'mobile'        => 'required',
-            'email'         => 'required',
+            'lastname'      => REQUIREDMAX,
+            'firstname'     => REQUIREDMAX,
+            'sexe'          => REQUIRED,
+            'birthday'      => REQUIRED,
+            'address'       => REQUIREDMAX,
+            'postal_code'   => REQUIRED,
+            'city'          => REQUIREDMAX,
+            'phone'         => REQUIREDMAX,
+            'red_list'      => REQUIRED,
+            'mobile'        => REQUIRED,
+            'email'         => REQUIRED,
         ]);
         return $validator->fails();
     }
