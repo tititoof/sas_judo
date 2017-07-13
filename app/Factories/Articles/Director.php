@@ -32,7 +32,7 @@ class Director
             $method = $style->getMethod('build');
             return $method->invoke($object, $menu, []);
         }
-        throw new \Exception("Ne peut pas charger le style de présentation");
+        throw new \ErrorException("Ne peut pas charger le style de présentation");
     }
 
     /**

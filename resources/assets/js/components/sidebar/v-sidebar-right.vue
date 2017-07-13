@@ -95,7 +95,6 @@
         },
         methods: {
             index() {
-                const _self = this;
             },
             toggle() {
                 const _self = this;
