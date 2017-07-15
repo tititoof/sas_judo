@@ -59,7 +59,9 @@ class PictureController extends Controller
             $picture = Picture::findOrFail($image);
             $image = $picture->filename;
         } else {
-            if (!File::exists(storage_path("app/images/{$image}"))) abort(404);
+            if (!File::exists(storage_path("app/images/{$image}"))) { 
+                abort(404); 
+            }
         }
         $img = File::get(storage_path("app/images/{$image}"));
         $height = (true !== $resize) ? 898 : 150;
