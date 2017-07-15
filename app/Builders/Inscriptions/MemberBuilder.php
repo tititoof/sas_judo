@@ -53,8 +53,7 @@ class MemberBuilder implements BuilderInterface
     public function check(Request $request)
     {
         $repository = new MembersRepository;
-        $member     = $repository->find($request->input('firstname'), $request->input('lastname'));
-        return $member;
+        return $repository->find($request->input('firstname'), $request->input('lastname'));
     }
 
     /**

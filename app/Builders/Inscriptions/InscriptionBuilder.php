@@ -16,8 +16,7 @@ class InscriptionBuilder implements BuilderInterface
     {
         if (!$this->checkForm($request)) {
             $inscription = $this->check($request);
-            $answer      = $this->createOrUpdate($request, $inscription);
-            return $answer;
+            return $this->createOrUpdate($request, $inscription);
         }
         return false;
     }
@@ -44,8 +43,7 @@ class InscriptionBuilder implements BuilderInterface
     public function check(Request $request)
     {
         $repository = new InscriptionsRepository;
-        $inscriptions = $repository->find($request->input('member_id'), $request->input('season_id'));
-        return $inscriptions;
+        return $repository->find($request->input('member_id'), $request->input('season_id'));
     }
 
     /**
