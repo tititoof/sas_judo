@@ -13,6 +13,11 @@ use App\Http\Controllers\Controller;
 class ArticleController extends Controller
 {
     /**
+     * map list function
+     */
+    const MAP_LIST = 'mapList';
+    
+    /**
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -28,8 +33,8 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $albums     = Album::all();
-        $list       = array_map([$this, 'mapList'], $categories);
-        $listAlbums = array_map([$this, 'mapList'], $albums);
+        $list       = array_map([$this, MAP_LIST], $categories);
+        $listAlbums = array_map([$this, MAP_LIST], $albums);
         return response()->json(['categories' => $list, 'albums' => $listAlbums]);
     }
 
@@ -62,8 +67,8 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $albums     = Album::all();
-        $list       = array_map([$this, 'mapList'], $categories);
-        $listAlbums = array_map([$this, 'mapList'], $albums);
+        $list       = array_map([$this, MAP_LIST], $categories);
+        $listAlbums = array_map([$this, MAP_LIST], $albums);
         return response()->json(['success' => true, 'object' => $article, 'menus' => $list,
             'categories' => $article->categories, 'allAlbums' => $listAlbums, 'albums' => $article->albums]);
     }
