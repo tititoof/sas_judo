@@ -102,7 +102,7 @@
                 const _self = this;
                 _self.$http.get('api/picture/' + id + '/sync/album/' + _self.albumId).then(
                     (response) => {
-                        let data        = response.data;
+                        const data        = response.data;
                         _self.pictures  = [];
                         _self.allPictures  = [];
                         data.pictures.forEach(function(picture) {
@@ -113,7 +113,7 @@
                         });
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 )
             },
@@ -139,7 +139,7 @@
                         });
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             },
@@ -153,16 +153,16 @@
             },
             onAllFilesUploaded: function() {
                 const _self = this;
-                let data    = new FormData();
+                const data  = new FormData();
                 data.append('name', _self.name);
                 data.append('pictures', _self.files_id);
                 data.append('user_id', auth.user.profile.id);
                 _self.$http.patch('api/album/' + _self.albumId, data).then(
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 )
             }
