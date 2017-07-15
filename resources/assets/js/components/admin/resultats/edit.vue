@@ -107,7 +107,7 @@ export default {
           });
         },
         response => {
-          console.log(response);
+          _self.$emit('sas-snackbar', 'Une erreur est survenue');
         }
       );
     },
@@ -131,7 +131,7 @@ export default {
           router.push({ name: 'admin_resultats_index' });
         },
         response => {
-          console.log(response);
+          _self.$emit('sas-snackbar', 'Une erreur est survenue');
         }
       );
     },

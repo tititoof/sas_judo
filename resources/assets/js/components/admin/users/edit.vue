@@ -87,7 +87,7 @@
                       router.push({ name: 'admin_users_index' });
                     },
                     (response) => {
-                      console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                   );
             }

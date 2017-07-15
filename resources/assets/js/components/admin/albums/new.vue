@@ -59,13 +59,11 @@
             },
             onFileUpload: function(file, res) {
                 const _self = this;
-                // console.log(file, res);
                 _self.files_id.push(res.data.picture_id);
             },
             onAllFilesUploaded: function() {
                 const _self = this;
                 let data    = new FormData();
-                console.log(_self.files_id);
                 data.append('name', _self.name);
                 data.append('pictures', _self.files_id);
                 data.append('user_id', auth.user.profile.id);
@@ -79,7 +77,7 @@
                         }
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 )
             }

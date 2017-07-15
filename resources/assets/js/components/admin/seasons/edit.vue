@@ -58,7 +58,7 @@
                         _self.$emit('sas-snackbar', 'Saison modifiée');
                         router.push({ name: 'admin_seasons_index' });
                     }, (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             }
@@ -77,7 +77,7 @@
                     _self.startAt   = new Date(data.start_at);
                     _self.endAt     = new Date(data.end_at);
                 }, function(response) {
-                    console.log("error ! :'(");
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             });
         }

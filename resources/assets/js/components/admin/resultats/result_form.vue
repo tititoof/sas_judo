@@ -51,7 +51,7 @@ export default {
           );
         },
         response => {
-          console.log(response);
+          _self.$emit('sas-snackbar', 'Une erreur est survenue');
         }
       )
     },

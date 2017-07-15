@@ -82,7 +82,6 @@
                     _self.index();
                 }, function(response) {
                     _self.$emit('sas-snackbar', 'Une erreur est survenue.');
-                    console.log(response);
                 });
             },
             deleteDenied() {

@@ -54,7 +54,7 @@
                     _self.$emit('sas-snackbar', 'Saison ajoutée');
                     router.push({ name: 'admin_seasons_index' });
                 }, function(response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             }
         },

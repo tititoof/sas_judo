@@ -21,10 +21,11 @@ export default {
             const _self = this;
             _self.$http.get('api/visitor/' + _self.page + '/articles').then(
                 response => {
-                    console.log(response);
+                    
+                    // console.log(response);
                 },
                 response => {
-                    console.log(response);
+                    // console.log(response);
                 }
             );
         }

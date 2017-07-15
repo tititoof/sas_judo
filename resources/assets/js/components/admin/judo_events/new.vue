@@ -92,7 +92,7 @@
                     _self.$emit('sas-snackbar', 'évènement ajouté');
                     router.push({ name: 'admin_judo_event_index' });
                 }, function(response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             },
             index() {

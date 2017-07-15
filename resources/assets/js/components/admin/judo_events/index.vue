@@ -91,7 +91,7 @@
                     _self.$emit('sas-snackbar', 'évènement supprimé');
                     _self.index();
                 }, function(response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             },
             deleteDenied() {
@@ -102,7 +102,7 @@
                 _self.$http.get('api/judoevent').then(function(response) {
                     _self.fcEvents = response.data.events;
                 }, function(response) {
-                    console.log("error ! :'(");
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 })
             },
             create() {
@@ -117,18 +117,18 @@
                         _self.$refs['eventModal'].open();
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             },
             'changeMonth' (start, end, current) {
-                console.log(start, end, current);
+                // console.log(start, end, current);
             },
             'dayClick' (day, jsEvent) {
                 router.push({ name: 'admin_judo_event_new', params: { startAt: day } });
             },
             'moreClick' (day, events, jsEvent) {
-                console.log('moreCLick', day, events, jsEvent)
+                // console.log('moreCLick', day, events, jsEvent)
             },
             setModalEvent(event) {
                 const _self = this;

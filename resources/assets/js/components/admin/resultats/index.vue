@@ -76,7 +76,7 @@
             _self.results = response.data.results;
           },
           response => {
-            console.log(response);
+            _self.$emit('sas-snackbar', 'Une erreur est survenue');
           }
         );
       },
@@ -94,7 +94,7 @@
             _self.index();
           },
           response => {
-            console.log(response);
+            _self.$emit('sas-snackbar', 'Une erreur est survenue');
           }
         );
       },
