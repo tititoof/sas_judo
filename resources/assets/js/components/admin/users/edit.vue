@@ -107,7 +107,7 @@
                     _self.phone       = data.phone;
                     _self.email       = data.email;
                 }, function(response) {
-                    console.log("error ! :'(");
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             });
         }

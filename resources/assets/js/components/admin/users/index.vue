@@ -86,7 +86,7 @@
                         _self.users = data.users;
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 )
             },

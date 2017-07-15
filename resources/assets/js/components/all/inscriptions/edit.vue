@@ -292,9 +292,7 @@ export default {
                 }
             });
             listInscription.forEach(function(element) {
-                console.log(element);
                 if (inscription.hasOwnProperty(element.index)) {
-                    console.log('yes');
                     _self[element.value] = inscription[element.index];
                 }
             });
