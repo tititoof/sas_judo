@@ -73,7 +73,7 @@
                         _self.albums = response.data.albums;
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             },
@@ -88,7 +88,7 @@
                     _self.$emit('sas-snackbar', 'Album supprimé');
                     _self.index();
                 }, function(response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             },
             deleteDenied() {

@@ -45,7 +45,7 @@
                         _self.types = response.data.factories;
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             },
@@ -58,7 +58,7 @@
                         router.push({ name: 'admin_categories_index' });
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             }

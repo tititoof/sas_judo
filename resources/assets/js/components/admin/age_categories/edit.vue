@@ -47,7 +47,7 @@ export default {
           _self.years = response.data.ageCategory.years;
         },
         response => {
-          console.log(response);
+          _self.$emit('sas-snackbar', 'Une erreur est survenue');
         }
       );
     },
@@ -59,7 +59,7 @@ export default {
           router.push({ name: 'admin_age_categories_index' });
         },
         response => {
-          console.log(response);
+          _self.$emit('sas-snackbar', 'Une erreur est survenue');
         }
       )
     }

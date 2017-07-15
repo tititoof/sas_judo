@@ -73,7 +73,7 @@ export default {
                 _self.ageCategories = response.data.ageCategories;
             },
             (response) => {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             }
         );
     },
@@ -88,7 +88,7 @@ export default {
             _self.$emit('sas-snackbar', 'Catégorie d\'age supprimée');
             _self.index();
         }, function(response) {
-            console.log(response);
+            _self.$emit('sas-snackbar', 'Une erreur est survenue');
         });
     },
     deleteDenied() {

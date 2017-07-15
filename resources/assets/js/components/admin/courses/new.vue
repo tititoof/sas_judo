@@ -92,7 +92,7 @@
             _self.days     = data.objects.days;
           },
           (response) => {
-            console.log(response);
+            _self.$emit('sas-snackbar', 'Une erreur est survenue');
           }
         );
       },
@@ -106,7 +106,7 @@
             router.push({ name: 'admin_courses_index' });
           },
           (response) => {
-            console.log(response);
+            _self.$emit('sas-snackbar', 'Une erreur est survenue');
           }
         )
       }

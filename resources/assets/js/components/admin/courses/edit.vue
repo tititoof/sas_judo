@@ -98,7 +98,7 @@
             _self.setObject(data.objects.course);
           },
           (response) => {
-            console.log(response);
+            _self.$emit('sas-snackbar', 'Une erreur est survenue');
           }
         );
       },
@@ -114,7 +114,7 @@
             router.push({ name: 'admin_courses_index' });
           },
           (response) => {
-            console.log(response);
+            _self.$emit('sas-snackbar', 'Une erreur est survenue');
           }
         )
       },
@@ -122,7 +122,6 @@
         const _self = this;
         let startAt = course.start_at.split(":"),
             endAt   = course.end_at.split(":");
-            console.log(startAt);
         _self.name = course.name;
         _self.startTimeAt.HH  = startAt[0];
         _self.startTimeAt.mm  = startAt[1];

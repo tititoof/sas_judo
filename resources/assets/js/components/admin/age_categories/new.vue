@@ -49,7 +49,7 @@ export default {
           router.push({ name: 'admin_age_categories_index' });
         },
         response => {
-          console.log(response);
+          _self.$emit('sas-snackbar', 'Une erreur est survenue');
         }
       )
     }

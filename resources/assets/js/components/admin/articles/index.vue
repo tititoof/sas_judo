@@ -75,7 +75,7 @@
                         _self.articles = response.data.articles;
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             },
@@ -90,7 +90,7 @@
                     _self.$emit('sas-snackbar', 'Article supprimé');
                     _self.index();
                 }, function(response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             },
             deleteDenied() {
