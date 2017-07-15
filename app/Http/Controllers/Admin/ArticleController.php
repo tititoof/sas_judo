@@ -12,10 +12,7 @@ use App\Http\Controllers\Controller;
 
 class ArticleController extends Controller
 {
-    /**
-     * map list function
-     */
-    const MAP_LIST = 'mapList';
+    use App\Traits\List;
     
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -93,13 +90,4 @@ class ArticleController extends Controller
         $articleRepo = new ArticlesRepository;
         return response()->json($articleRepo->delete($article));
     }
-    
-    /**
-     * 
-     * 
-     */
-     private function mapList($information)
-     {
-         return [ 'label' => $information->name, 'value' => $information->id ];
-     }
 }

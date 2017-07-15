@@ -14,6 +14,8 @@ use App\Models\Result;
  */
 class ResultatController extends Controller
 {
+  use App\Traits\List;
+  
   /**
    * Display a listing of the resource.
    *
@@ -33,10 +35,7 @@ class ResultatController extends Controller
   public function create()
   {
       $seasons  = Season::All();
-      $list     = [];
-      foreach ($seasons as $season) {
-          $list[] = [ 'label' => $season->name, 'value' => $season->id ];
-      }
+      $list     = array_map([$this, MAP_LIST], $seasons);
       return response()->json(['seasons' => $list]);
   }
 
@@ -69,10 +68,7 @@ class ResultatController extends Controller
   public function edit(Result $result)
   {
     $seasons  = Season::All();
-    $list     = [];
-    foreach ($seasons as $season) {
-        $list[] = [ 'label' => $season->name, 'value' => $season->id ];
-    }
+    $list     = array_map([$this, MAP_LIST], $seasons);
     return response()->json([
       'seasons'         => $list,
       'result'          => $result,
