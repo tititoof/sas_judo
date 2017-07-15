@@ -32,7 +32,7 @@ export default {
                     _self.articles = data;
                 },
                 response => {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 }
             );
         }

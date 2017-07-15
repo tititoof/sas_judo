@@ -100,7 +100,6 @@
                     }.bind(this));
                     // wait for everything to finish
                     Promise.all(arrayOfPromises).then(function(allFiles) {
-                        console.log('onAllFilesUploaded');
                         this.$emit('onAllFilesUploaded', allFiles);
                     }.bind(this)).catch(function(err) {
                         this.$emit('onFileError', this.myFiles, err);

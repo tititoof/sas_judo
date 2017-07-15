@@ -219,10 +219,10 @@ export default {
             let data    = _self.getDataForm();
             _self.$http.post('api/inscriptions/save', data).then(
                 response => {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Inscription enregistrée');
                 },
                 response => {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 }
             );
         },
@@ -239,13 +239,12 @@ export default {
             if (_self.checkBaseInformations()) {
                 _self.$http.post('api/inscriptions/load', data).then(
                     response => {
-                        console.log(response.data);
                         let member      = response.data.member,
                             inscription = response.data.inscription;
                         _self.setDataForm(member, inscription);
                     },
                     response => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             }
@@ -307,7 +306,7 @@ export default {
                     _self.seasons = response.data.entities;
                 },
                 response => {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 }
             );
         },
@@ -318,7 +317,7 @@ export default {
 
                 },
                 response => {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 }
             );
         }

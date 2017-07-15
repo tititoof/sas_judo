@@ -58,7 +58,6 @@ export default {
         _self.$broadcast('v-sidebar:toggle');
     },
     userButtonSelected: function(option) {
-        console.log('user button selected !!!', option.id);
         switch(option.id) {
             case 'disconnect':
 
@@ -66,6 +65,6 @@ export default {
         }
     },
     calendriersAction: function() {
-        console.log('Action !!!!');
+        // console.log('Action !!!!');
     }
 }

@@ -78,7 +78,7 @@
                         _self.inscriptions = data.list;
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 )
             },

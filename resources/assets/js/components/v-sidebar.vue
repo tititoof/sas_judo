@@ -118,7 +118,7 @@
                         _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
                     },
                     (response) => {
-                        console.log(response);
+                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
             },
