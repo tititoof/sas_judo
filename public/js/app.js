@@ -32886,7 +32886,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.name = response.data.ageCategory.name;
         _self.years = response.data.ageCategory.years;
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     update: function update() {
@@ -32895,7 +32895,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.$emit('sas-snackbar', 'Catégorie d\'âge modifiée');
         __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_age_categories_index' });
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     }
   },
@@ -32995,7 +32995,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/age_category').then(function (response) {
                 _self.ageCategories = response.data.ageCategories;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         destroy: function destroy(id) {
@@ -33009,7 +33009,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Catégorie d\'age supprimée');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         deleteDenied: function deleteDenied() {},
@@ -33087,7 +33087,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.$emit('sas-snackbar', 'Catégorie d\'âge ajoutée');
         __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_age_categories_index' });
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     }
   },
@@ -33224,7 +33224,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _self.allPictures.push({ 'id': picture.id, 'url': '/api/picture/' + picture.id });
                 });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         update: function update() {
@@ -33247,7 +33247,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _self.allPictures.push({ 'id': picture.id, 'url': '/api/picture/' + picture.id });
                 });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
 
@@ -33266,9 +33266,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             data.append('pictures', _self.files_id);
             data.append('user_id', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].user.profile.id);
             _self.$http.patch('api/album/' + _self.albumId, data).then(function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -33368,7 +33368,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/album').then(function (response) {
                 _self.albums = response.data.albums;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         destroy: function destroy(id) {
@@ -33382,7 +33382,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Album supprimé');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         deleteDenied: function deleteDenied() {},
@@ -33475,13 +33475,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         onFileUpload: function onFileUpload(file, res) {
             var _self = this;
-            console.log(file, res);
             _self.files_id.push(res.data.picture_id);
         },
         onAllFilesUploaded: function onAllFilesUploaded() {
             var _self = this;
             var data = new FormData();
-            console.log(_self.files_id);
             data.append('name', _self.name);
             data.append('pictures', _self.files_id);
             data.append('user_id', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].user.profile.id);
@@ -33493,7 +33491,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_albums_index' });
                 }
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -33622,7 +33620,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 }
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         update: function update() {
@@ -33657,7 +33655,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_articles_index' });
                 }
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -33670,13 +33668,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
     },
     onEditorBlur: function onEditorBlur(editor) {
-        console.log('editor blur!', editor);
+        // console.log('editor blur!', editor)
     },
     onEditorFocus: function onEditorFocus(editor) {
-        console.log('editor focus!', editor);
+        // console.log('editor focus!', editor)
     },
     onEditorReady: function onEditorReady(editor) {
-        console.log('editor ready!', editor);
+        // console.log('editor ready!', editor)
     },
     onEditorChange: function onEditorChange(_ref) {
         var editor = _ref.editor,
@@ -33774,7 +33772,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/article').then(function (response) {
                 _self.articles = response.data.articles;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         destroy: function destroy(id) {
@@ -33788,7 +33786,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Article supprimé');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         deleteDenied: function deleteDenied() {},
@@ -33913,7 +33911,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.menus = response.data.categories;
                 _self.albums = response.data.albums;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         save: function save() {
@@ -33945,7 +33943,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_articles_index' });
                 }
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 return null;
             });
         },
@@ -33962,13 +33960,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
     },
     onEditorBlur: function onEditorBlur(editor) {
-        console.log('editor blur!', editor);
+        // console.log('editor blur!', editor)
     },
     onEditorFocus: function onEditorFocus(editor) {
-        console.log('editor focus!', editor);
+        // console.log('editor focus!', editor)
     },
     onEditorReady: function onEditorReady(editor) {
-        console.log('editor ready!', editor);
+        // console.log('editor ready!', editor)
     },
     onEditorChange: function onEditorChange(_ref) {
         var editor = _ref.editor,
@@ -34045,7 +34043,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 });
             }, function (response) {
-                console.log("error ! :'(");
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         update: function update() {
@@ -34054,7 +34052,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Menu modifié');
                 __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'admin_categories_index' });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -34154,7 +34152,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         edit: function edit(id) {
-            var _self = this;
             __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'admin_categories_edit', params: { categoryId: id } });
         },
         destroy: function destroy(id) {
@@ -34168,7 +34165,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Menu supprimé');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue.');
             });
         },
         deleteDenied: function deleteDenied() {},
@@ -34177,7 +34174,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/category', { 'user_id': __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].user.profile.id }).then(function (response) {
                 _self.categories = response.data.categories;
             }, function (response) {
-                console.log("error ! :'(");
+                _self.$emit('sas-snackbar', 'Une erreur est survenue.');
             });
         },
         create: function create() {
@@ -34252,7 +34249,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/category/create').then(function (response) {
                 _self.types = response.data.factories;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         store: function store() {
@@ -34261,7 +34258,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Menu ajouté');
                 __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_categories_index' });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -34387,7 +34384,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.days = data.objects.days;
         _self.setObject(data.objects.course);
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     update: function update() {
@@ -34400,14 +34397,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.$emit('sas-snackbar', 'Cours modifié');
         __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_courses_index' });
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     setObject: function setObject(course) {
       var _self = this;
       var startAt = course.start_at.split(":"),
           endAt = course.end_at.split(":");
-      console.log(startAt);
       _self.name = course.name;
       _self.startTimeAt.HH = startAt[0];
       _self.startTimeAt.mm = startAt[1];
@@ -34555,7 +34551,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.courses = data.objects;
         _self.listCourses = data.scheduler;
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     create: function create() {
@@ -34693,7 +34689,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.seasons = data.objects.seasons;
         _self.days = data.objects.days;
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     store: function store() {
@@ -34704,7 +34700,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.$emit('sas-snackbar', 'Saison ajoutée');
         __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_courses_index' });
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     }
   },
@@ -34828,7 +34824,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'évènement modifié');
                 __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_judo_event_index' });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         index: function index() {
@@ -34848,7 +34844,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.endTimeAt.HH = endAt.format('HH');
                 _self.endTimeAt.mm = endAt.format('mm');
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         getType: function getType(type) {
@@ -34979,7 +34975,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'évènement supprimé');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         deleteDenied: function deleteDenied() {},
@@ -34988,7 +34984,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/judoevent').then(function (response) {
                 _self.fcEvents = response.data.events;
             }, function (response) {
-                console.log("error ! :'(");
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         create: function create() {
@@ -35001,17 +34997,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.setModalEvent(data);
                 _self.$refs['eventModal'].open();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         'changeMonth': function changeMonth(start, end, current) {
-            console.log(start, end, current);
+            // console.log(start, end, current);
         },
         'dayClick': function dayClick(day, jsEvent) {
             __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'admin_judo_event_new', params: { startAt: day } });
         },
         'moreClick': function moreClick(day, events, jsEvent) {
-            console.log('moreCLick', day, events, jsEvent);
+            // console.log('moreCLick', day, events, jsEvent)
         },
         setModalEvent: function setModalEvent(event) {
             var _self = this;
@@ -35160,7 +35156,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'évènement ajouté');
                 __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_judo_event_index' });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         index: function index() {
@@ -35305,7 +35301,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           }
         });
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     addResult: function addResult() {
@@ -35326,7 +35322,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.$emit('sas-snackbar', 'Résultat modifié');
         __WEBPACK_IMPORTED_MODULE_4__app_js__["router"].push({ name: 'admin_resultats_index' });
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     getDataForm: function getDataForm() {
@@ -35445,7 +35441,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       _self.$http.get('api/result').then(function (response) {
         _self.results = response.data.results;
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     create: function create() {
@@ -35460,7 +35456,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.$emit('sas-snackbar', 'Résultat supprimé');
         _self.index();
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     deleteDenied: function deleteDenied() {},
@@ -35587,7 +35583,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       _self.$http.get('api/result/create').then(function (response) {
         _self.seasons = response.data.seasons;
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     addResult: function addResult() {
@@ -35608,7 +35604,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _self.$emit('sas-snackbar', 'Résultat ajouté');
         __WEBPACK_IMPORTED_MODULE_4__app_js__["router"].push({ name: 'admin_resultats_index' });
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     getDataForm: function getDataForm() {
@@ -35698,7 +35694,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _self.ageCategories.push({ label: element.name, value: element.id });
         });
       }, function (response) {
-        console.log(response);
+        _self.$emit('sas-snackbar', 'Une erreur est survenue');
       });
     },
     getName: function getName() {
@@ -35799,7 +35795,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Saison modifiée');
                 __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'admin_seasons_index' });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -35817,7 +35813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.startAt = new Date(data.start_at);
                 _self.endAt = new Date(data.end_at);
             }, function (response) {
-                console.log("error ! :'(");
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         });
     }
@@ -35906,7 +35902,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         edit: function edit(id) {
-            var _self = this;
             __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'admin_seasons_edit', params: { seasonId: id } });
         },
         destroy: function destroy(id) {
@@ -35917,10 +35912,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteConfirmed: function deleteConfirmed() {
             var _self = this;
             _self.$http.delete('api/season/' + _self.deleteId).then(function (response) {
-                _self.$emit('sas-snackbar', 'Menu supprimé');
+                _self.$emit('sas-snackbar', 'Saison supprimée');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue.');
             });
         },
         deleteDenied: function deleteDenied() {},
@@ -35929,7 +35924,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/season').then(function (response) {
                 _self.seasons = response.data.seasons;
             }, function (response) {
-                console.log("error ! :'(");
+                _self.$emit('sas-snackbar', 'Une erreur est survenue.');
             });
         },
         create: function create() {
@@ -36015,7 +36010,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Saison ajoutée');
                 __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_seasons_index' });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -36124,7 +36119,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'admin_users_index' });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -36143,7 +36138,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.phone = data.phone;
                 _self.email = data.email;
             }, function (response) {
-                console.log("error ! :'(");
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         });
     }
@@ -36248,11 +36243,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = response.data;
                 _self.users = data.users;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         edit: function edit(id) {
-            var _self = this;
             __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'admin_users_edit', params: { userId: id } });
         },
         destroy: function destroy(id) {
@@ -36266,7 +36260,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur supprimé');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         deleteDenied: function deleteDenied() {},
@@ -36276,7 +36270,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         toggleTeacher: function toggleTeacher(id) {
@@ -36285,7 +36279,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -36387,7 +36381,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = response.data;
                 _self.articles = data;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -36435,9 +36429,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         index: function index() {
             var _self = this;
             _self.$http.get('api/visitor/' + _self.page + '/articles').then(function (response) {
-                console.log(response);
+
+                // console.log(response);
             }, function (response) {
-                console.log(response);
+                // console.log(response);
             });
         }
     },
@@ -36674,9 +36669,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _self = this;
             var data = _self.getDataForm();
             _self.$http.post('api/inscriptions/save', data).then(function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Inscription enregistrée');
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         checkBaseInformations: function checkBaseInformations() {
@@ -36697,12 +36692,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var data = { 'lastname': _self.lastname, 'firstname': _self.firstname, 'season_id': _self.seasonSelected.value };
             if (_self.checkBaseInformations()) {
                 _self.$http.post('api/inscriptions/load', data).then(function (response) {
-                    console.log(response.data);
                     var member = response.data.member,
                         inscription = response.data.inscription;
                     _self.setDataForm(member, inscription);
                 }, function (response) {
-                    console.log(response);
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
                 });
             }
         },
@@ -36739,9 +36733,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
             listInscription.forEach(function (element) {
-                console.log(element);
                 if (inscription.hasOwnProperty(element.index)) {
-                    console.log('yes');
                     _self[element.value] = inscription[element.index];
                 }
             });
@@ -36751,13 +36743,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/seasons/list').then(function (response) {
                 _self.seasons = response.data.entities;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         getInformations: function getInformations() {
             var _self = this;
             _self.$http.get('api/member').then(function (response) {}, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -36862,14 +36854,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = response.data;
                 _self.inscriptions = data.list;
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         create: function create() {
             __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'inscriptions_edit' });
         },
         edit: function edit(id) {
-            var _self = this;
             __WEBPACK_IMPORTED_MODULE_3__app_js__["router"].push({ name: 'inscriptions_edit', params: { id: id } });
         },
         destroy: function destroy(id) {
@@ -36883,7 +36874,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur supprimé');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         deleteDenied: function deleteDenied() {},
@@ -36893,7 +36884,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         toggleTeacher: function toggleTeacher(id) {
@@ -36902,7 +36893,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 _self.index();
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         }
     },
@@ -37064,9 +37055,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tasksList: []
         };
     },
-    created: function created() {
-        var _self = this;
-    },
+    created: function created() {},
     mounted: function mounted() {
         this.$nextTick(function () {
             var _self = this;
@@ -37227,9 +37216,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        index: function index() {
-            var _self = this;
-        },
+        index: function index() {},
         toggle: function toggle() {
             var _self = this;
             _self.visible = !_self.visible;
@@ -37482,7 +37469,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     directives: {},
     methods: {
         index: function index() {
-            var _self = this;
             // if (auth.checkIsAdmin()) {
             //     _self.menuOptions = _self.menuOptions.concat(_self.menuAdminOptions);
             // }
@@ -37502,7 +37488,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             __WEBPACK_IMPORTED_MODULE_4__auth__["a" /* default */].signout();
         },
         selectUserMenu: function selectUserMenu(option) {
-            var _self = this;
             switch (option.id) {
                 case 'disconnect':
                     __WEBPACK_IMPORTED_MODULE_4__auth__["a" /* default */].signout();
@@ -37510,12 +37495,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         selectAdminMenu: function selectAdminMenu(option) {
-            var _self = this;
             __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: option.id });
         },
-        calendriersAction: function calendriersAction() {
-            console.log('Action !!!!');
-        },
+        calendriersAction: function calendriersAction() {},
         signinAction: function signinAction() {
             __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'signin' });
         },
@@ -37721,7 +37703,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
                 _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
             }, function (response) {
-                console.log(response);
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
             });
         },
         toggle: function toggle() {
@@ -37886,45 +37868,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, function (response) {
                 return response;
             });
-            // return new Promise(function(resolve, reject) {
-            //     xhr.upload.addEventListener('progress', this._onProgress, false);
-            //
-            //     xhr.onreadystatechange = function() {
-            //         if (xhr.readyState < 4) {
-            //             return;
-            //         }
-            //         if (xhr.status < 400) {
-            //             let res = JSON.parse(xhr.responseText);
-            //             this.$emit('onFileUpload', file, res);
-            //             resolve(file);
-            //         } else {
-            //             let err = JSON.parse(xhr.responseText);
-            //             err.status = xhr.status;
-            //             err.statusText = xhr.statusText;
-            //             this.$emit('onFileError', file, err);
-            //             reject(err);
-            //         }
-            //     }.bind(this);
-            //
-            //     xhr.onerror = function() {
-            //         let err = JSON.parse(xhr.responseText);
-            //         err.status = xhr.status;
-            //         err.statusText = xhr.statusText;
-            //         this.$emit('onFileError', file, err);
-            //         reject(err);
-            //     }.bind(this);
-            //
-            //     xhr.open(this.method || "POST", this.action, true);
-            //     if (this.headers) {
-            //         for(let header in this.headers) {
-            //             xhr.setRequestHeader(header, this.headers[header]);
-            //         }
-            //     }
-            //     xhr.setRequestHeader('X-CSRF-TOKEN', document.getElementsByName('csrf-token')[0].getAttribute('content'));
-            //     xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('id_token'));
-            //     xhr.send(form);
-            //     this.$emit('afterFileUpload', file);
-            // }.bind(this));
         },
         fileUpload: function fileUpload() {
             if (this.myFiles.length > 0) {
@@ -37935,7 +37878,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }.bind(this));
                 // wait for everything to finish
                 Promise.all(arrayOfPromises).then(function (allFiles) {
-                    console.log('onAllFilesUploaded');
                     this.$emit('onAllFilesUploaded', allFiles);
                 }.bind(this)).catch(function (err) {
                     this.$emit('onFileError', this.myFiles, err);
@@ -40570,7 +40512,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 246 */
@@ -40592,7 +40534,7 @@ exports.push([module.i, "\n\n", ""]);
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 249 */
@@ -40606,7 +40548,7 @@ exports.push([module.i, "\n.section-ui-snackbar {\n.preview-pane {\n    position
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 251 */
