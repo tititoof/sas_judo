@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\AgeCategory;
+use App\Helpers\Answer;
 use Illuminate\Http\Request;
 
 /**
@@ -11,44 +12,44 @@ use Illuminate\Http\Request;
 class AgeCategoryRepository
 {
 
-  /**
-   * Save new entity
-   * @param Request $request
-   * @return array
-   */
-  public function save(Request $request)
-  {
-    return $this->update($request, new AgeCategory);
-  }
-
-  /**
-   * Update entity
-   * @param Request $request
-   * @param AgeCategory $ageCategory
-   */
-  public function update(Request $request, AgeCategory $ageCategory)
-  {
-    try {
-      $ageCategory->name  = $request->input('name');
-      $ageCategory->years = $request->input('years');
-      $ageCategory->save();
-    } catch (\Exception $exception) {
-      return ['success' => false, 'errors' => $exception->getMessage(), 'entity' => $ageCategory];
+    /**
+    * Save new entity
+    * @param Request $request
+    * @return array
+    */
+    public function save(Request $request)
+    {
+        return $this->update($request, new AgeCategory);
     }
-    return ['success' => true, 'errors' => '', 'entity' => $ageCategory];
-  }
 
-  /**
-   * Delete entity
-   * @return array
-   */
-  public function delete(AgeCategory $ageCategory)
-  {
-    try {
-      $ageCategory->delete();
-    } catch (\Exception $exception) {
-      return ['success' => false, 'errors' => $exception->getMessage()];
+    /**
+    * Update entity
+    * @param Request $request
+    * @param AgeCategory $ageCategory
+    */
+    public function update(Request $request, AgeCategory $ageCategory)
+    {
+        try {
+            $ageCategory->name  = $request->input('name');
+            $ageCategory->years = $request->input('years');
+            $ageCategory->save();
+        } catch (\Exception $exception) {
+            return Answer::error($exception, $ageCategory);
+        }
+        return Answer::success(200, $ageCategory);
     }
-    return ['success' => true, 'errors' => ''];
-  }
+
+    /**
+    * Delete entity
+    * @return array
+    */
+    public function delete(AgeCategory $ageCategory)
+    {
+        try {
+            $ageCategory->delete();
+        } catch (\Exception $exception) {
+            return Answer::error($exception);
+        }
+        return Answer::success(200);
+    }
 }

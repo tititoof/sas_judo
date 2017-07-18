@@ -24,4 +24,6 @@ class Answer
         '202'   => 'Requête traitée, mais sans garantie de résultat.',
         '206'   => 'Une partie seulement de la ressource a été transmise.',
     ];
+    
+    public function 
 }

@@ -1,53 +1,49 @@
 <?php
 
 namespace App\Helpers;
+
 /**
- *
+ * Helper message
  */
 class Answer
 {
+    const SUCCES = 'success';
+    
+    const ERROR  = 'error';
+    
+    const TYPES_ERROR = [
+        '400'   => 'La syntaxe de la requête est erronée.',
+        '401'   => 'Une authentification est nécessaire pour accéder à la ressource.',
+        '403'   => 'Le serveur a compris la requête, mais refuse de l\'exécuter.',
+        '404'   => 'Ressource non trouvée.',
+        '405'   => 'Méthode de requête non autorisée.',
+        '422'   => 'L’entité fournie avec la requête est incompréhensible ou incomplète.',
+        '456'   => 'Erreur irrécupérable.',
+    ];
+    
+    const TYPES_SUCCESS = [
+        '200'   => 'Requête traitée avec succès.',
+        '201'   => 'Requête traitée avec succès et création d’un document.',
+        '202'   => 'Requête traitée, mais sans garantie de résultat.',
+        '206'   => 'Une partie seulement de la ressource a été transmise.',
+    ];
+    
+    
     /**
-     * @var integer $code
+     * Success return
      */
-    private $code       = 200;
-
-    /**
-     * @var string $message
-     */
-    private $message    = '';
-
-    /**
-     * @var $entity
-     */
-    private $entity     = null;
-
-    /**
-     * @param \Exception $exception
-     */
-    public function setError(\Exception $exception)
+    public static function success($code, $data = null)
     {
-        $this->code     = $exception->getCode();
-        $this->message  = $exception->getMessage();
+        return [ 'success' => true, 'code' => $code, 'message' => self::TYPES_SUCCESS[$code], 'data' => $data ];
     }
-
+    
+    
     /**
-     * @param $entity
+     * Error return
      */
-    public function setSuccess($entity)
+    public static function error($exception, $data = null)
     {
-        $this->entity   = $entity;
-        $this->code     = 200;
+        return [ 'success' => false, 'code' => $exception->getCode(), 'message' => self::TYPES_ERROR[$exception->getCode()] ?? $exception->getMessage(), 'data' => $data ];
     }
-
-    /**
-     * @return array
-     */
-    public function getResponse()
-    {
-        return [
-            'code'      => $this->code;
-            'message'   => $this->message;
-            'entity'    => $this->entity;
-        ];
-    }
+    
 }

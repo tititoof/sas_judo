@@ -77,8 +77,9 @@ class AgeCategoryController extends Controller
      */
     public function update(AgeCategoryFormRequest $request, AgeCategory $ageCategory)
     {
-        $repo = new AgeCategoryRepository;
-        return response()->json($repo->update($request, $ageCategory));
+        $repo     = new AgeCategoryRepository;
+        $response = $repo->update($request, $ageCategory);
+        return response()->json($response, $response['code']);
     }
 
     /**
@@ -89,7 +90,8 @@ class AgeCategoryController extends Controller
      */
     public function destroy(AgeCategory $ageCategory)
     {
-      $repo = new AgeCategoryRepository;
-      return response()->json($repo->delete($ageCategory));
+        $repo       = new AgeCategoryRepository;
+        $response   = $repo->delete($ageCategory);
+        return response()->json($response, $response['code']);
     }
 }
