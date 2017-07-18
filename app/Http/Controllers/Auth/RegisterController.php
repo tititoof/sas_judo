@@ -30,7 +30,7 @@ class RegisterController extends Controller
     /**
      * Password constant
      */
-    const PASSWORD  = 'password';
+    const PWD       = 'password';
     
     /**
      * Name constant
@@ -65,7 +65,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             self::NAME      => 'required|max:255',
             self::EMAIL     => 'required|email|max:255|unique:users',
-            self::PASSWORD  => 'required|min:6|confirmed',
+            self::PWD       => 'required|min:6|confirmed',
         ]);
     }
 
@@ -80,7 +80,7 @@ class RegisterController extends Controller
         return User::create([
             self::NAME      => $data[self::NAME],
             self::EMAIL     => $data[self::EMAIL],
-            self::PASSWORD  => bcrypt($data[self::PASSWORD]),
+            self::PWD       => bcrypt($data[self::PASSWORD]),
         ]);
     }
 }
