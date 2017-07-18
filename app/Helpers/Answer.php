@@ -7,9 +7,12 @@ namespace App\Helpers;
  */
 class Answer
 {
-    const SUCCES = 'success';
+    /**
+     * 
+     */
+    const SUCCESS = true;
     
-    const ERROR  = 'error';
+    const ERROR   = false;
     
     const TYPES_ERROR = [
         '400'   => 'La syntaxe de la requête est erronée.',
@@ -34,7 +37,7 @@ class Answer
      */
     public static function success($code, $data = null)
     {
-        return [ 'success' => true, 'code' => $code, 'message' => self::TYPES_SUCCESS[$code], 'data' => $data ];
+        return [ 'success' => self::SUCCESS, 'code' => $code, 'message' => self::TYPES_SUCCESS[$code], 'data' => $data ];
     }
     
     
@@ -43,7 +46,7 @@ class Answer
      */
     public static function error($exception, $data = null)
     {
-        return [ 'success' => false, 'code' => $exception->getCode(), 'message' => self::TYPES_ERROR[$exception->getCode()] ?? $exception->getMessage(), 'data' => $data ];
+        return [ 'success' => self::ERROR, 'code' => $exception->getCode(), 'message' => self::TYPES_ERROR[$exception->getCode()] ?? $exception->getMessage(), 'data' => $data ];
     }
     
 }
