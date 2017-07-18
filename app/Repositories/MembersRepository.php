@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Member;
+use App\Helpers\Answer;
 use Illuminate\Http\Request as Request;
 
 /**
@@ -40,10 +41,9 @@ class MembersRepository
             $member->email          = $request->input('email');
             $member->save();
         } catch(\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage(), ];
+            return Answer::error($exception);
         }
-
-        return ['success' => true, 'errors' => '', 'entity' => $member];
+        return Answer::success(200, $member);
     }
 
     /**
@@ -55,9 +55,9 @@ class MembersRepository
         try {
             $member->delete();
         } catch(\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage(), ];
+            return Answer::error($exception);
         }
-        return ['success' => true, 'errors' => ''];
+        return Answer::success(200);
     }
 
     /**

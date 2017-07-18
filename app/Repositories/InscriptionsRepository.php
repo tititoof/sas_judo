@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Inscription;
 use App\Models\Season;
 use App\Models\Member;
+use App\Helpers\Answer;
 use Illuminate\Http\Request;
 
 /**
@@ -36,9 +37,9 @@ class InscriptionsRepository
             $inscription->complementary_insurance   = $request->input('complementary_insurance');
             $inscription->save();
         } catch(\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage, ];
+            return Answer::error($exception);
         }
-        return ['success' => true, 'errors' => '', 'entity' => $inscription];
+        return Answer::success(200, $inscription);
     }
 
     /**
@@ -50,9 +51,9 @@ class InscriptionsRepository
         try {
             $inscription->delete();
         } catch(\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage, ];
+            return Answer::error($exception);
         }
-        return ['success' => true, 'errors' => ''];
+        return Answer::success(200);
     }
 
     /**
@@ -88,8 +89,8 @@ class InscriptionsRepository
                 ];
             });
         } catch(\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
-        return ['success' => true, 'errors' => '', 'list' => $list];
+        return Answer::success(200, $list);
     }
 }

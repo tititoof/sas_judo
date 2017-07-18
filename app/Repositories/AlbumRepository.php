@@ -10,6 +10,7 @@ namespace App\Repositories;
 
 use App\Models\Album;
 use App\Models\Picture;
+use App\Helpers\Answer;
 use Illuminate\Http\Request;
 
 /**
@@ -40,9 +41,9 @@ class AlbumRepository
             $album->save();
             $album->pictures()->sync(explode(',', $request->input('pictures')) );
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
-        return ['success' => true, 'error' => '', 'album_id' => $album->id, 'album_name' => $album->name ];
+        return Answer::success(200, ['album_id' => $album->id, 'album_name' => $album->name]);
     }
 
     /**
@@ -66,9 +67,9 @@ class AlbumRepository
             $album->articles()->detach();
             $album->pictures()->detach();
             $album->delete();
-            return ['success' => true, 'errors' => '',];
+            return Answer::success(200);
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage(),];
+            return Answer::error($exception);
         }
     }
 }

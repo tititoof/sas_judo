@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 use App\Models\Season;
+use App\Helpers\Answer;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 
@@ -36,9 +37,9 @@ class SeasonsRepository
             $season->end_at     = new \DateTime($request->input('end_at'));
             $season->save();
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
-        return ['success' => true, 'error' => '', 'season_id' => $season->id, 'season_name' => $season->name ];
+        return Answer::success(200, ['season_id' => $season->id, 'season_name' => $season->name]);
     }
 
     public function delete(Season $season)
@@ -46,9 +47,9 @@ class SeasonsRepository
         try {
             $season->delete();
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
-        return ['success' => true, 'errors' => '',];
+        return Answer::success(200);
     }
 
     public function list()
@@ -58,9 +59,8 @@ class SeasonsRepository
                 return ['label' => $season->name, 'value' => $season->id];
             });
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
-        return ['success' => true, 'errors' => '', 'entities' => $list];
+        return Answer::success(200, $list);
     }
-
 }

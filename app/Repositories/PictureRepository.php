@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 
 use App\Models\Picture;
+use App\Helpers\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -43,9 +44,9 @@ class PictureRepository
                 $picture->file = $localImage->file;
             }
             $picture->save();
-            return ['success' => true, 'errors' => '', 'picture_id' => $picture->id ];
+            return Answer::success(200, $picture->id);
         } catch(\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage(), 'entity' => var_export($picture)];
+            return Answer::error($exception);
         }
     }
 }

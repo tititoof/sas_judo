@@ -11,6 +11,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
+use App\Helpers\Answer;
 
 class ArticlesRepository
 {
@@ -38,9 +39,9 @@ class ArticlesRepository
             $article->save();
             $article->categories()->sync($request->input('categories'));
             $article->albums()->sync($request->input('albums'));
-            return ['success' => true, 'errors' => '', 'article_id' => $article->id];
+            return Answer::success(200, ['article_id' => $article->id]);
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage(),];
+            return Answer::error($exception);
         }
     }
 
@@ -54,9 +55,9 @@ class ArticlesRepository
             $article->categories()->detach();
             $article->albums()->detach();
             $article->delete();
-            return ['success' => true, 'errors' => '',];
+            return Answer::success(200);
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage(),];
+            return Answer::error($exception);
         }
     }
 
@@ -74,9 +75,9 @@ class ArticlesRepository
             if ($pagedData->count() > $perPage) {
                 $pagedData   = array_slice($collect, $currentPage * $perPage, $perPage);
             }
-            return ['success' => true, 'errors' => '', 'entities' => $pagedData];
+            return Answer::success(200, $pagedData);
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
     }
 }

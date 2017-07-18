@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 use App\Models\Judoevent;
+use App\Helpers\Answer;
 use Illuminate\Http\Request;
 
 /**
@@ -42,9 +43,9 @@ class JudoEventsRepository
             $judoevent->end_at      = $this->setDateTime(
                 new \DateTime($request->input('end_at')), $request->input('end_time_at'));
             $judoevent->save();
-            return ['success' => true, 'errors' => [], 'event' => $judoevent];
+            return Answer::success(200, $judoevent);
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
     }
 

@@ -8,6 +8,7 @@ namespace App\Repositories;
  * Time: 18:35
  */
 use App\Models\Category;
+use App\Helpers\Answer;
 use Illuminate\Http\Request;
 
 class CategoriesRepository
@@ -24,9 +25,9 @@ class CategoriesRepository
             $category->name = $request->input('name');
             $category->type = $request->input('type');
             $category->save();
-            return ['success' => true, 'errors' => '',];
+            return Answer::success(200);
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage(),];
+            return Answer::error($exception);
         }
     }
 
@@ -34,9 +35,9 @@ class CategoriesRepository
     {
         try {
             $category->delete();
-            return ['success' => true, 'errors' => '',];
+            return Answer::success(200);
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage(),];
+            return Answer::error($exception);
         }
     }
 
@@ -44,9 +45,9 @@ class CategoriesRepository
     {
         try {
             $categories = Category::all();
-            return ['success' => true, 'entities' => $categories];
+            return Answer::success(200, $categories);
         } catch (\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
     }
 
