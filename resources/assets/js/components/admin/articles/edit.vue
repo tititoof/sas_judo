@@ -88,8 +88,8 @@
                 const _self = this;
                 _self.$http.get('api/article/' +_self.articleId + '/edit').then(
                     (response) => {
-                        let data        = response.data,
-                            newAlbumId  = _self.$route.params.albumId;
+                        const data        = response.data,
+                        const newAlbumId  = _self.$route.params.albumId;
                         _self.name      = data.object.name;
                         _self.content   = data.object.content;
                         _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML = _self.content;

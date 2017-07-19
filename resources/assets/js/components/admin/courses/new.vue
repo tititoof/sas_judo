@@ -85,7 +85,6 @@
         const _self = this;
         _self.$http.get('api/course/create').then(
           (response) => {
-            const _self = this;
             const data = response.data;
             _self.teachers = data.objects.teachers;
             _self.seasons  = data.objects.seasons;

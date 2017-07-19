@@ -53,8 +53,7 @@ class AlbumRepository
     public function getOtherPictures($pictures)
     {
         $allPictures    = Picture::All();
-        $otherPictures  = $allPictures->diff($pictures);
-        return $otherPictures;
+        return $allPictures->diff($pictures);
     }
 
     /**
