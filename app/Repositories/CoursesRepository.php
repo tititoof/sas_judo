@@ -59,7 +59,7 @@ class CoursesRepository
         $userRepo = new UserRepository;
         $teachers = $userRepo->getAllTeachers();
         $seasons  = Season::orderBy('id', 'desc')->get();
-        $seasons  = $seasons->map(function($season, $key) {
+        $seasons  = $seasons->map(function($season) {
             return ['label' => $season->name, 'value' => $season->id];
         });
         return Answer::success(200, [
@@ -109,7 +109,7 @@ class CoursesRepository
     private function getDays()
     {
         $days = collect(WEEK_DAYS);
-        return $days->map(function($day, $key) {
+        return $days->map(function($day) {
             return ['label' => $day, 'value' => $day];
         });
     }
