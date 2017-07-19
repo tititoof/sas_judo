@@ -112,7 +112,7 @@
                 const _self = this;
                 _self.$http.get('api/judoevent/' + event.id).then(
                     (response) => {
-                        let data = response.data.entity;
+                        const data = response.data.entity;
                         _self.setModalEvent(data);
                         _self.$refs['eventModal'].open();
                     },

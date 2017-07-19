@@ -91,7 +91,7 @@
         _self.id    = _self.$route.params.id;
         _self.$http.get('api/course/' + _self.id + '/edit').then(
           (response) => {
-            let data = response.data;
+            const data = response.data;
             _self.teachers = data.objects.teachers;
             _self.seasons  = data.objects.seasons;
             _self.days     = data.objects.days;

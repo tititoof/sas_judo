@@ -72,7 +72,7 @@
                 auth.check(_self);
                 _self.seasonId = _self.$route.params.seasonId;
                 _self.$http.get('api/season/' + _self.seasonId + '/edit').then(function(response) {
-                    let data = response.data.object;
+                    const data = response.data.object;
                     _self.name      = data.name;
                     _self.startAt   = new Date(data.start_at);
                     _self.endAt     = new Date(data.end_at);

@@ -98,7 +98,7 @@
                 auth.check(_self);
                 _self.userId = _self.$route.params.userId;
                 _self.$http.get('api/admin/user/' + _self.userId + '/edit').then(function(response) {
-                    let data = response.data.object;
+                    const data = response.data.object;
                     _self.firstname   = data.firstname;
                     _self.lastname    = data.lastname;
                     _self.is_admin    = data.is_admin;

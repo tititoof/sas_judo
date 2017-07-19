@@ -80,7 +80,7 @@
         const _self = this;
         _self.$http.get('api/course').then(
           (response) => {
-              let data          = response.data;
+              const data          = response.data;
               _self.courses     = data.objects;
               _self.listCourses = data.scheduler;
           },

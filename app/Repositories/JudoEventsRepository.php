@@ -57,9 +57,9 @@ class JudoEventsRepository
     {
         try {
             $judoevent->delete();
-            return ['success' => true, 'errors' => []];
+            return Answer::success(200);
         } catch(\Exception $exception) {
-            return ['success' => false, 'errors' => $exception->getMessage()];
+            return Answer::error($exception);
         }
     }
 

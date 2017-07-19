@@ -42,7 +42,7 @@
                 const _self = this;
                 _self.$http.get('api/category/' + _self.categoryId + '/edit').then(
                     (response) => {
-                        let data            = response.data.object;
+                        const data            = response.data.object;
                         _self.name          = data.name;
                         _self.types         = response.data.factories;
                         _self.types.forEach(function(element) {

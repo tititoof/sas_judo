@@ -43,7 +43,7 @@ export default {
       const _self = this;
       _self.$http.get('api/age_category').then(
         response => {
-          let data = response.data.ageCategories;
+          const data = response.data.ageCategories;
           data.forEach(
             element => {
               _self.ageCategories.push({ label: element.name,value: element.id });

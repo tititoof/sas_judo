@@ -102,8 +102,8 @@
                 _self.id    = _self.$route.params.id;
                 _self.$http.get('api/judoevent/' + _self.id).then(
                     (response) => {
-                        let data    = response.data.entity,
-                            startAt = new moment(data.start_at),
+                        const data    = response.data.entity;
+                        let startAt = new moment(data.start_at),
                             endAt   = new moment(data.end_at);
                         _self.getType(data.type);
                         _self.name            = data.name;

@@ -129,7 +129,7 @@
                 const _self = this;
                 _self.$http.get('api/album/' +_self.albumId + '/edit').then(
                     (response) => {
-                        let data        = response.data;
+                        const data        = response.data;
                         _self.name      = data.object.name;
                         data.pictures.forEach(function(picture) {
                             _self.pictures.push({ 'id': picture.id, 'url': '/api/picture/' + picture.id });
@@ -153,7 +153,7 @@
             },
             onAllFilesUploaded: function() {
                 const _self = this;
-                const data  = new FormData();
+                let   data  = new FormData();
                 data.append('name', _self.name);
                 data.append('pictures', _self.files_id);
                 data.append('user_id', auth.user.profile.id);

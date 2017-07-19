@@ -108,7 +108,7 @@ export default {
     },
     store() {
       const _self = this;
-      let data    = _self.getDataForm();
+      const data    = _self.getDataForm();
       _self.$http.post('api/result', data).then(
         response => {
           _self.$emit('sas-snackbar', 'Résultat ajouté');
