@@ -110,7 +110,7 @@
                 const _self = this;
                 _self.$http.get('api/visitor/menu').then(
                     (response) => {
-                        let data = response.data.entities;
+                        const data = response.data.data;
                         data.forEach(function(element) {
                             _self.menu.push({ id: element.id, text: element.name });
                         });

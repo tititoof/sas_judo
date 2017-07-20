@@ -88,7 +88,7 @@
                 const _self = this;
                 _self.$http.get('api/article/' +_self.articleId + '/edit').then(
                     (response) => {
-                        const data        = response.data,
+                        const data        = response.data;
                         const newAlbumId  = _self.$route.params.albumId;
                         _self.name      = data.object.name;
                         _self.content   = data.object.content;

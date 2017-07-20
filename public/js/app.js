@@ -33598,8 +33598,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         index: function index() {
             var _self = this;
             _self.$http.get('api/article/' + _self.articleId + '/edit').then(function (response) {
-                var data = response.data,
-                    newAlbumId = _self.$route.params.albumId;
+                var data = response.data;
+                var newAlbumId = _self.$route.params.albumId;
                 _self.name = data.object.name;
                 _self.content = data.object.content;
                 _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML = _self.content;
@@ -33959,21 +33959,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.index();
         });
     },
-    onEditorBlur: function onEditorBlur(editor) {
-        // console.log('editor blur!', editor)
-    },
-    onEditorFocus: function onEditorFocus(editor) {
-        // console.log('editor focus!', editor)
-    },
-    onEditorReady: function onEditorReady(editor) {
-        // console.log('editor ready!', editor)
-    },
+    onEditorBlur: function onEditorBlur(editor) {},
+    onEditorFocus: function onEditorFocus(editor) {},
+    onEditorReady: function onEditorReady(editor) {},
     onEditorChange: function onEditorChange(_ref) {
         var editor = _ref.editor,
             html = _ref.html,
             text = _ref.text;
 
-        // console.log('editor change!', editor, html, text)
         this.content = html;
     }
 });
@@ -34679,11 +34672,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     index: function index() {
-      var _this = this;
-
       var _self = this;
       _self.$http.get('api/course/create').then(function (response) {
-        var _self = _this;
         var data = response.data;
         _self.teachers = data.objects.teachers;
         _self.seasons = data.objects.seasons;
@@ -34831,8 +34821,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _self = this;
             _self.id = _self.$route.params.id;
             _self.$http.get('api/judoevent/' + _self.id).then(function (response) {
-                var data = response.data.entity,
-                    startAt = new __WEBPACK_IMPORTED_MODULE_4_moment___default.a(data.start_at),
+                var data = response.data.entity;
+                var startAt = new __WEBPACK_IMPORTED_MODULE_4_moment___default.a(data.start_at),
                     endAt = new __WEBPACK_IMPORTED_MODULE_4_moment___default.a(data.end_at);
                 _self.getType(data.type);
                 _self.name = data.name;
@@ -37696,7 +37686,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         index: function index() {
             var _self = this;
             _self.$http.get('api/visitor/menu').then(function (response) {
-                var data = response.data.entities;
+                var data = response.data.data;
                 data.forEach(function (element) {
                     _self.menu.push({ id: element.id, text: element.name });
                 });

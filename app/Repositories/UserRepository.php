@@ -82,7 +82,7 @@ class UserRepository
             $teachers = User::where('is_teacher', 1)
                           ->orderBy('name', 'asc')
                           ->get();
-            $vueTeachers = $teachers->map(function($teacher, $key) {
+            $vueTeachers = $teachers->map(function($teacher) {
                 return [ 'label' => $teacher->name, 'value' => $teacher->id ];
             });
         } catch (\Exception $exception) {

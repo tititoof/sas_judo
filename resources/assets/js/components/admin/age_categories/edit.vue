@@ -43,7 +43,7 @@ export default {
       const _self = this;
       _self.$http.get('api/age_category/' + _self.id + '/edit').then(
         response => {
-          _self.name = response.data.ageCategory.name;
+          _self.name  = response.data.ageCategory.name;
           _self.years = response.data.ageCategory.years;
         },
         response => {

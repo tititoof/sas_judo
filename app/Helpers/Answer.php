@@ -46,7 +46,12 @@ class Answer
      */
     public static function error($exception, $data = null)
     {
-        return [ 'success' => self::ERROR, 'code' => $exception->getCode(), 'message' => self::TYPES_ERROR[$exception->getCode()] ?? $exception->getMessage(), 'data' => $data ];
+        return [ 
+            'success'   => self::ERROR, 
+            'code'      => array_key_exists($exception->getCode(), self::TYPES_ERROR) ? $exception->getCode() : 400, 
+            'message'   => self::TYPES_ERROR[$exception->getCode()] ?? $exception->getMessage(), 
+            'data'      => $data 
+        ];
     }
     
 }

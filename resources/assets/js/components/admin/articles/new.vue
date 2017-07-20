@@ -97,7 +97,7 @@
                 const _self = this;
                 _self.$http.get('api/article/create').then(
                     (response) => {
-                        _self.menus = response.data.categories;
+                        _self.menus  = response.data.categories;
                         _self.albums = response.data.albums;
                     },
                     (response) => {
@@ -126,7 +126,7 @@
                 }).then(
                     (response) => {
                         _self.$emit('sas-snackbar', 'Article ajouté');
-                        let id = response.data.article_id;
+                        const id = response.data.article_id;
                         if (album) {
                             router.push({ name: 'admin_albums_new', params: { articleId: id } });
                         } else {
@@ -152,16 +152,12 @@
             });
         },
         onEditorBlur(editor) {
-            // console.log('editor blur!', editor)
         },
         onEditorFocus(editor) {
-            // console.log('editor focus!', editor)
         },
         onEditorReady(editor) {
-            // console.log('editor ready!', editor)
         },
         onEditorChange({ editor, html, text }) {
-            // console.log('editor change!', editor, html, text)
             this.content = html
         }
     }

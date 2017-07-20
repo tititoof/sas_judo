@@ -9,10 +9,11 @@ use App\Models\Category;
 use App\Repositories\ArticlesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\ListTrait;
 
 class ArticleController extends Controller
 {
-    use App\Traits\List;
+    use ListTrait;
     
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -30,8 +31,8 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $albums     = Album::all();
-        $list       = array_map([$this, self::MAP_LIST], $categories);
-        $listAlbums = array_map([$this, self::MAP_LIST], $albums);
+        $list       = array_map([$this, mapList], $categories);
+        $listAlbums = array_map([$this, mapList], $albums);
         return response()->json(['categories' => $list, 'albums' => $listAlbums]);
     }
 
@@ -64,8 +65,8 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $albums     = Album::all();
-        $list       = array_map([$this, self::MAP_LIST], $categories);
-        $listAlbums = array_map([$this, self::MAP_LIST], $albums);
+        $list       = array_map([$this, mapList], $categories);
+        $listAlbums = array_map([$this, mapList], $albums);
         return response()->json(['success' => true, 'object' => $article, 'menus' => $list,
             'categories' => $article->categories, 'allAlbums' => $listAlbums, 'albums' => $article->albums]);
     }

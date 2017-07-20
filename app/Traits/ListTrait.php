@@ -3,18 +3,14 @@
 namespace App\Traits;
 
 
-class List 
+trait ListTrait
 {
-    /**
-     * map list function
-     */
-    const MAP_LIST = 'mapList';
     
     /**
      * Return array
      * 
      */
-     private function mapList($information)
+     public function mapList($information)
      {
          return [ 'label' => $information->name, 'value' => $information->id ];
      }

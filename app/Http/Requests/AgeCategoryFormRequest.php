@@ -26,7 +26,7 @@ class AgeCategoryFormRequest extends FormRequest
       $id    = (null !== $this->segment(3)) ? $this->segment(3) : null;
       $rules = [
           'name'  => 'required|max:255|unique:age_categories,name',
-          'years' => 'required',
+          'years' => 'required|integer',
       ];
       if (null !== $id) {
           $rules = array_merge($rules, ['name' => 'required|max:255|unique:age_categories,name,'.$id,]);

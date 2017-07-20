@@ -43,7 +43,8 @@ class AgeCategoryController extends Controller
     public function store(AgeCategoryFormRequest $request)
     {
       $repo = new AgeCategoryRepository;
-      return response()->json($repo->save($request));
+      $response = $repo->save($request);
+      return response()->json($response, $response['code']);
     }
 
     /**
