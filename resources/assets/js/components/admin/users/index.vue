@@ -12,6 +12,7 @@
                   <th>Nom</th>
                   <th>Admin ?</th>
                   <th>Professeur ?</th>
+                  <th>Debug ?</th>
               </tr>
             </thead>
             <tbody>
@@ -40,6 +41,14 @@
                             type="secondary" color="accent"
                             @click.prevent="toggleTeacher(user.id)">
                             <template v-if="user.is_teacher">Oui</template>
+                            <template v-else>Non</template>
+                        </ui-button>
+                    </td>
+                    <td>
+                        <ui-button
+                            type="secondary" color="accent"
+                            @click.prevent="toggleDebug(user.id)">
+                            <template v-if="user.is_debug">Oui</template>
                             <template v-else>Non</template>
                         </ui-button>
                     </td>
@@ -125,6 +134,18 @@
             toggleTeacher(id) {
               const _self = this;
               _self.$http.put('api/user/' + id + '/toggle/teacher').then(
+                (response) => {
+                    _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                    _self.index();
+                },
+                (response) => {
+                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                }
+              );
+            },
+            toggleDebug(id) {
+                const _self = this;
+                _self.$http.put('api/user/' + id + '/toggle/debug').then(
                 (response) => {
                     _self.$emit('sas-snackbar', 'Utilisateur modifié');
                     _self.index();

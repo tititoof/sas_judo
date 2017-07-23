@@ -48,14 +48,20 @@ class UserController extends Controller
 
     public function toggleAdmin(User $user)
     {
-      $repo = new UserRepository;
-      return response()->json($repo->toggleAdmin($user));
+        $repo = new UserRepository;
+        return response()->json($repo->toggleAdmin($user));
     }
 
     public function toggleTeacher(User $user)
     {
-      $repo = new UserRepository;
-      return response()->json($repo->toggleTeacher($user));
+        $repo = new UserRepository;
+        return response()->json($repo->toggleTeacher($user));
+    }
+    
+    public function toggleDebug(User $user)
+    {
+        $repo = new UserRepository;
+        return response()->json($repo->toggleDebug($user));
     }
 
     /**
@@ -72,9 +78,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-      $repo = new UserRepository;
-      $user = $repo->update($request, $user);
-      return response()->json(['success' => true, 'object' => $user]);
+        $repo = new UserRepository;
+        $user = $repo->update($request, $user);
+        return response()->json(['success' => true, 'object' => $user]);
     }
 
     /**

@@ -73,6 +73,18 @@ class UserRepository
         }
         return Answer::success(200);
     }
+    
+    public function toggleDebug(User $user)
+    {
+        try {
+            $user->is_debug = !$user->is_debug;
+            $user->save();
+        } catch(\Exception $exception) {
+            return Answer::error($exception);
+        }
+        return Answer::success(200);
+    }
+    
     /**
     *
     */

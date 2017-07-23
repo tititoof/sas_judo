@@ -4516,6 +4516,7 @@ module.exports = function normalizeComponent (
         idAdmin: false,
         profile: null
     },
+    errorBasic: "Une erreur est survenue.",
     register: function register(context, name, email, password, password_confirm) {
         context.$http.post('api/register', { name: name, email: email, password: password, 'password_confirmation': password_confirm }).then(function (response) {
             context.success = true;
@@ -4530,11 +4531,13 @@ module.exports = function normalizeComponent (
             app.$http.get('api/user').then(function (response) {
                 _self.user.authenticated = true;
                 _self.user.isAdmin = response.data.data.is_admin;
+                _self.user.isDebug = response.data.data.is_debug;
                 _self.user.profile = response.data.data;
                 app.$emit('sas-admin', 'Mise à jour utilisateur');
             }, function (response) {
                 _self.user.authenticated = false;
                 _self.user.isAdmin = false;
+                _self.user.isDebug = false;
                 app.$emit('sas-admin', 'Mise à jour utilisateur');
             });
         }
@@ -4548,6 +4551,7 @@ module.exports = function normalizeComponent (
             _self.user.authenticated = true;
             _self.user.profile = response.data.data;
             _self.user.isAdmin = response.data.data.is_admin;
+            _self.user.isDebug = response.data.data.is_debug;
             __WEBPACK_IMPORTED_MODULE_0__app_js__["router"].push({ name: 'home' });
         }, function (response) {
             context.error = true;
@@ -4557,6 +4561,7 @@ module.exports = function normalizeComponent (
         localStorage.removeItem('id_token');
         this.user.authenticated = false;
         this.user.isAdmin = false;
+        this.user.isDebug = false;
         this.user.profile = null;
         __WEBPACK_IMPORTED_MODULE_0__app_js__["router"].push({ name: 'home' });
     },
@@ -4564,11 +4569,52 @@ module.exports = function normalizeComponent (
         var _self = this;
         if (_self.user.hasOwnProperty('profile') && _self.user.profile !== null) {
             if (_self.user.profile.hasOwnProperty('is_admin')) {
-
                 return _self.user.profile.is_admin == 1 ? true : false;
             }
         }
         return false;
+    },
+    checkIsDebug: function checkIsDebug() {
+        var _self = this;
+        if (_self.user.hasOwnProperty('profile') && _self.user.profile !== null) {
+            if (_self.user.profile.hasOwnProperty('is_debug')) {
+                return _self.user.profile.is_debug == 1 ? true : false;
+            }
+        }
+        return false;
+    },
+    showError: function showError(response, formElements) {
+        var _self = this;
+        if (_self.checkIsDebug()) {
+            if ("undefined" !== typeof formElements) {
+                return _self.formErrors(response, formElements);
+            }
+            if (response.hasOwnProperty("data") && response.data.hasOwnProperty('message')) {
+                return _self.errorBasic + response.data.message + '(' + response.data.code + ')';
+            }
+        } else {
+            return 'sas-snackbar', _self.errorBasic;
+        }
+    },
+    formErrors: function formErrors(response, formElements) {
+        var _self = this;
+        var errors = "<br/>";
+        formElements.forEach(function (element) {
+            if ('undefined' !== typeof response.data[element.name]) {
+                response.data[element.name].forEach(function (error) {
+                    switch (error) {
+                        case "validation.required":
+                            errors += element.human + " obligatoire.<br/>";
+                            break;
+                        case "validation.integer":
+                            errors += element.human + " doit être un entier.<br/>";
+                            break;
+
+                    }
+                });
+            }
+        });
+        return _self.errorBasic + errors;
     }
 });
 
@@ -32871,42 +32917,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      name: '',
-      years: '',
-      id: ''
-    };
-  },
-
-  methods: {
-    index: function index() {
-      var _self = this;
-      _self.$http.get('api/age_category/' + _self.id + '/edit').then(function (response) {
-        _self.name = response.data.ageCategory.name;
-        _self.years = response.data.ageCategory.years;
-      }, function (response) {
-        _self.$emit('sas-snackbar', 'Une erreur est survenue');
-      });
+    data: function data() {
+        return {
+            name: '',
+            years: '',
+            id: '',
+            formErrors: [{ 'name': 'name', 'human': 'Nom' }, { 'name': 'years', 'human': "Nombre d'années" }]
+        };
     },
-    update: function update() {
-      var _self = this;
-      _self.$http.patch('api/age_category/' + _self.id, { name: _self.name, years: _self.years }).then(function (response) {
-        _self.$emit('sas-snackbar', 'Catégorie d\'âge modifiée');
-        __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_age_categories_index' });
-      }, function (response) {
-        _self.$emit('sas-snackbar', 'Une erreur est survenue');
-      });
+
+    methods: {
+        index: function index() {
+            var _self = this;
+            _self.$http.get('api/age_category/' + _self.id + '/edit').then(function (response) {
+                _self.name = response.data.ageCategory.name;
+                _self.years = response.data.ageCategory.years;
+            }, function (response) {
+                __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].showError(response, ['name', 'years', 'id']);
+            });
+        },
+        update: function update() {
+            var _self = this;
+            _self.$http.patch('api/age_category/' + _self.id, { name: _self.name, years: _self.years }).then(function (response) {
+                _self.$emit('sas-snackbar', 'Catégorie d\'âge modifiée');
+                __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_age_categories_index' });
+            }).catch(function (error) {
+                _self.$emit('sas-errors', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].showError(error.response, _self.formErrors));
+            });
+        }
+    },
+    mounted: function mounted() {
+        this.$nextTick(function () {
+            var _self = this;
+            __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].check(_self);
+            _self.id = _self.$route.params.id;
+            _self.index();
+        });
     }
-  },
-  mounted: function mounted() {
-    this.$nextTick(function () {
-      var _self = this;
-      __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].check(_self);
-      _self.id = _self.$route.params.id;
-      _self.index();
-    });
-  }
 });
 
 /***/ }),
@@ -33072,32 +33119,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      name: '',
-      years: ''
-    };
-  },
+    data: function data() {
+        return {
+            name: '',
+            years: '',
+            formErrors: [{ 'name': 'name', 'human': 'Nom' }, { 'name': 'years', 'human': "Nombre d'années" }]
+        };
+    },
 
-  methods: {
-    index: function index() {},
-    store: function store() {
-      var _self = this;
-      _self.$http.post('api/age_category', { name: _self.name, years: _self.years }).then(function (response) {
-        _self.$emit('sas-snackbar', 'Catégorie d\'âge ajoutée');
-        __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_age_categories_index' });
-      }, function (response) {
-        _self.$emit('sas-snackbar', 'Une erreur est survenue');
-      });
+    methods: {
+        index: function index() {},
+        store: function store() {
+            var _self = this;
+            _self.$http.post('api/age_category', { name: _self.name, years: _self.years }).then(function (response) {
+                _self.$emit('sas-snackbar', 'Catégorie d\'âge ajoutée');
+                __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_age_categories_index' });
+            }).catch(function (error) {
+                _self.$emit('sas-errors', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].showError(error.response, _self.formErrors));
+            });
+        }
+    },
+    mounted: function mounted() {
+        this.$nextTick(function () {
+            var _self = this;
+            __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].check(_self);
+            _self.index();
+        });
     }
-  },
-  mounted: function mounted() {
-    this.$nextTick(function () {
-      var _self = this;
-      __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].check(_self);
-      _self.index();
-    });
-  }
 });
 
 /***/ }),
@@ -36208,6 +36256,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -36266,6 +36323,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         toggleTeacher: function toggleTeacher(id) {
             var _self = this;
             _self.$http.put('api/user/' + id + '/toggle/teacher').then(function (response) {
+                _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                _self.index();
+            }, function (response) {
+                _self.$emit('sas-snackbar', 'Une erreur est survenue');
+            });
+        },
+        toggleDebug: function toggleDebug(id) {
+            var _self = this;
+            _self.$http.put('api/user/' + id + '/toggle/debug').then(function (response) {
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 _self.index();
             }, function (response) {
@@ -37257,6 +37323,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -37266,7 +37340,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             auth: __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */],
             position: "left",
-            queueSnackbars: true
+            queueSnackbars: true,
+            showAlert: false,
+            errorAlert: ''
         };
     },
 
@@ -37286,6 +37362,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 actionColor: 'accent',
                 duration: 5000
             });
+        },
+        showAlertError: function showAlertError(errors) {
+            var _self = this;
+            _self.errorAlert = errors;
+            _self.showAlert = true;
         }
     },
     components: {
@@ -54977,7 +55058,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "col-xs-12"
-  }, [_c('h1', [_vm._v("\n        Nouvel catégorie d'âge\n        "), _c('small', [_c('ui-button', {
+  }, [_c('h1', [_vm._v("\n        Nouvelle catégorie d'âge\n        "), _c('small', [_c('ui-button', {
     attrs: {
       "type": "secondary",
       "color": "accent",
@@ -54989,7 +55070,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.store()
       }
     }
-  }, [_vm._v("\n              Créer\n            ")])], 1)]), _vm._v(" "), _c('ui-textbox', {
+  }, [_vm._v("\n                Créer\n            ")])], 1)]), _vm._v(" "), _c('ui-textbox', {
     attrs: {
       "label": "Nom",
       "name": "name",
@@ -55890,7 +55971,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.update()
       }
     }
-  }, [_vm._v("\n              Modifier\n            ")])], 1)]), _vm._v(" "), _c('ui-textbox', {
+  }, [_vm._v("\n                Modifier\n            ")])], 1)]), _vm._v(" "), _c('ui-textbox', {
     attrs: {
       "label": "Nom",
       "name": "name",
@@ -55973,9 +56054,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_c('router-view', {
+  }, [_c('ui-alert', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showAlert),
+      expression: "showAlert"
+    }],
+    attrs: {
+      "type": "error"
+    },
     on: {
-      "sas-snackbar": _vm.showSnackBar
+      "dismiss": function($event) {
+        _vm.showAlert = false
+      }
+    }
+  }, [_c('p', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.errorAlert)
+    }
+  })]), _vm._v(" "), _c('router-view', {
+    on: {
+      "sas-snackbar": _vm.showSnackBar,
+      "sas-errors": _vm.showAlertError
     }
   }), _vm._v(" "), _c('ui-snackbar-container', {
     ref: "snackbarContainer",
@@ -57772,7 +57873,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.toggleTeacher(user.id)
         }
       }
-    }, [(user.is_teacher) ? [_vm._v("Oui")] : [_vm._v("Non")]], 2)], 1)])
+    }, [(user.is_teacher) ? [_vm._v("Oui")] : [_vm._v("Non")]], 2)], 1), _vm._v(" "), _c('td', [_c('ui-button', {
+      attrs: {
+        "type": "secondary",
+        "color": "accent"
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.toggleDebug(user.id)
+        }
+      }
+    }, [(user.is_debug) ? [_vm._v("Oui")] : [_vm._v("Non")]], 2)], 1)])
   }))]) : _vm._e(), _vm._v(" "), _c('ui-confirm', {
     ref: "deleteConfirm",
     attrs: {
@@ -57789,7 +57901,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n        êtes-vous sûr de vouloir supprimer l'utilisateur ?\n    ")])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("#")]), _vm._v(" "), _c('th', [_vm._v("Nom")]), _vm._v(" "), _c('th', [_vm._v("Admin ?")]), _vm._v(" "), _c('th', [_vm._v("Professeur ?")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("#")]), _vm._v(" "), _c('th', [_vm._v("Nom")]), _vm._v(" "), _c('th', [_vm._v("Admin ?")]), _vm._v(" "), _c('th', [_vm._v("Professeur ?")]), _vm._v(" "), _c('th', [_vm._v("Debug ?")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

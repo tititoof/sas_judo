@@ -3,8 +3,16 @@
     <my-menu></my-menu>
     <div class="panel panel-default" id="toto">
       <div class="panel-body">
+        <ui-alert 
+            @dismiss="showAlert = false" 
+            type="error" 
+            v-show="showAlert"
+            >
+            <p v-html="errorAlert"></p>
+        </ui-alert>
         <router-view
             v-on:sas-snackbar="showSnackBar"
+            v-on:sas-errors="showAlertError"
             >
         </router-view>
         <ui-snackbar-container
@@ -27,7 +35,9 @@
             return {
                 auth: auth,
                 position: "left",
-                queueSnackbars: true
+                queueSnackbars: true,
+                showAlert: false,
+                errorAlert: ''
             }
         },
         computed: {
@@ -46,6 +56,11 @@
                     actionColor: 'accent',
                     duration: 5000
                 });
+            },
+            showAlertError(errors) {
+                const _self = this;
+                _self.errorAlert    = errors;
+                _self.showAlert     = true;
             }
         },
         components: {
