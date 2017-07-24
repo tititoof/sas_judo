@@ -30,18 +30,15 @@ import auth from '../../../auth';
 import Keen from 'keen-ui';
 import Vue from './../../../app.js';
 import {router} from './../../../app.js';
+import common from './common.js';
+
 export default {
     data() {
         return {
-            name:   '',
-            years:  '',
             id:     '',
-            formErrors: [
-                { 'name': 'name', 'human': 'Nom'}, 
-                { 'name': 'years', 'human': "Nombre d'années"}
-            ]
         }
     },
+    mixins: [common],
     methods: {
         index() {
             const _self = this;
@@ -74,10 +71,10 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      const _self = this;
-      auth.check(_self);
-      _self.id = _self.$route.params.id;
-      _self.index();
+        const _self = this;
+        auth.check(_self);
+        _self.id = _self.$route.params.id;
+        _self.index();
     });
   }
 }
