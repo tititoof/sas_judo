@@ -112,9 +112,10 @@
                         data.all_pictures.forEach(function(picture) {
                             _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                         });
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 )
             },
@@ -138,29 +139,29 @@
                         data.all_pictures.forEach(function(picture) {
                             _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                         });
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
-                );
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                )
             },
             onFileChange: function(file, res) {
                 const _self = this;
                 _self.files = file;
             },
             onFileUpload: function(file, res) {
-                const _self = this;
-                // _self.files_id.push(res.picture_id);
             },
             onAllFilesUploaded: function(allFiles) {
                 const _self = this;
                 _self.filesIds = allFiles
                 _self.$http.patch('api/album/' + _self.albumId, { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': auth.user.profile.id }).then(
-                    (response) => {
+                    () => {
                         _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 )
             }
