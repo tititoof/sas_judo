@@ -17,7 +17,7 @@
             placeholder="Choisir le type" show-search z-index="1"
         ></ui-select>
         <ui-textbox
-            label="Nom" name="name" type="text" placeholder="Entrer le nom du menu"
+            label="Nom" name="name" type="text" placeholder="Entrer le nom de l'évènement"
             v-model="name"
         ></ui-textbox>
         <ui-textbox

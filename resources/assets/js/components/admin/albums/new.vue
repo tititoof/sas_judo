@@ -19,7 +19,9 @@
             v-on:onAllFilesUploaded="onAllFilesUploaded"
             ref="fu"
             class="bg-info" name="pictures" id="pictures" accept="image/*" action="/api/picture"
-            :button-text="uploadName" multiple></file-upload>
+            :button-text="uploadName" multiple>
+        </file-upload>
+        
         <ul>
             <li v-for="file in files">
                 {{ file.name }} ({{ file.size }})
@@ -32,19 +34,9 @@
     import Keen from 'keen-ui';
     import Vue from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './common.js';
     export default {
-        data() {
-            return {
-                auth:       auth,
-                name:       '',
-                files:      [],
-                files_id:   [],
-                upload:     {},
-                active:     false,
-                articleId:  null,
-                uploadName: 'Télécharger'
-            }
-        },
+        mixins: [common],
         components: {
             FileUpload: require('../../v-upload-files.vue')
         },
@@ -53,40 +45,41 @@
                 const _self = this;
                 _self.$refs.fu.fileUpload();
             },
-            onFileChange: function(file, res) {
+            onFileChange(file, res) {
                 const _self = this;
                 _self.files = file;
             },
-            onFileUpload: function(file, res) {
+            onFileUpload(res) {
                 const _self = this;
-                _self.files_id.push(res.data.picture_id);
+                _self.filesIds += res.data.data + ','
+                _self.$store.dispatch('addPictureToAlbum', res.data.data)
             },
-            onAllFilesUploaded: function() {
+            onAllFilesUploaded(allFiles) {
                 const _self = this;
-                let data    = new FormData();
-                data.append('name', _self.name);
-                data.append('pictures', _self.files_id);
-                data.append('user_id', auth.user.profile.id);
-                _self.$http.post('api/album', data).then(
-                    (response) => {
+                _self.filesIds = allFiles
+                _self.$http.post('api/album', { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': auth.user.profile.id }).then(
+                    response => {
                         let albumId = response.data.album_id;
                         if ( (_self.articleId !== 0) && (_self.articleId !== null) ) {
                             router.push({ name: 'admin_articles_edit', params: { articleId: _self.articleId, albumId: albumId } });
                         } else {
                             router.push({ name: 'admin_albums_index' });
                         }
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 )
             }
         },
         mounted() {
-            this.$nextTick(function () {
+            this.$nextTick( () => {
                 const _self = this;
                 auth.check(_self);
-                _self.articleId = _self.$route.params.articleId;
+                _self.files_id = new Array
+                _self.$store.dispatch('resetPicturesInAlbum')
+                _self.articleId = _self.$route.params.articleId
             });
         }
     }

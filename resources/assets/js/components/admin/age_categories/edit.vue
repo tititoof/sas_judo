@@ -58,7 +58,7 @@ export default {
             'api/age_category/' + _self.id, 
             { name: _self.name, years: _self.years }
         ).then(
-            response => {
+            () => {
                 _self.$emit('sas-snackbar', 'Catégorie d\'âge modifiée');
                 router.push({ name: 'admin_age_categories_index' });
             }

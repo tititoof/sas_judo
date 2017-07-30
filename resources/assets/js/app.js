@@ -17,9 +17,11 @@ import routes     from './routes/routes';
 import App        from './components/v-app.vue';
 import Keen       from 'keen-ui';
 import axios      from 'axios';
-
+import store      from './store'
+import VueLazyImage from "vue-lazy-images";
 Vue.use(VueRouter);
 Vue.use(Keen);
+Vue.use(VueLazyImage)
 
 export const router = new VueRouter({
     mode: 'history',
@@ -52,5 +54,6 @@ export const app = new Vue({
     // },
     router,
     Keen,
+    store,
     render: h => h(App)
 }).$mount('#app');

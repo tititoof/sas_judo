@@ -40,7 +40,9 @@
         },
         data: function() {
             return {
-                myFiles: [] // a container for the files in our field
+                myFiles: [], // a container for the files in our field
+                filesIds: '',
+                my_axios: null
             };
         },
         methods: {
@@ -51,6 +53,7 @@
             fileInputChange: function() {
                 // get the group of files assigned to this field
                 let ident = this.id || this.name;
+                this.filesIds = ''
                 this.myFiles = document.getElementById(ident).files;
                 this.$emit('onFileChange', this.myFiles);
             },
@@ -73,37 +76,31 @@
                     this.$emit('onFileError', file, err);
                     return;
                 }
-                var my_axios = axios.create({
-                  baseURL: 'http://localhost',
-                  headers: {
-                      'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
-                      'Authorization': 'Bearer ' + localStorage.getItem('id_token')
-                  },
-
-                });
-                my_axios.post('/api/picture', form).then(
-                    response => {
-                        this.$emit('onFileUpload', file, response);
-                        return response;
-                    },
-                    response => {
-                        return response;
-                    }
-                );
+                return this.my_axios.post('/api/picture', form)
             },
             fileUpload: function() {
-                if(this.myFiles.length > 0) {
-
-                    // a hack to push all the Promises into a new array
+                const _self = this
+                if (_self.myFiles.length > 0) {
+                    _self.my_axios = axios.create({
+                        baseURL: 'http://localhost',
+                        headers: {
+                          'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
+                          'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+                        },
+                    });
                     let arrayOfPromises = Array.prototype.slice.call(this.myFiles, 0).map(function(file) {
-                        return this._handleUpload(file);
-                    }.bind(this));
-                    // wait for everything to finish
-                    Promise.all(arrayOfPromises).then(function(allFiles) {
-                        this.$emit('onAllFilesUploaded', allFiles);
-                    }.bind(this)).catch(function(err) {
-                        this.$emit('onFileError', this.myFiles, err);
-                    }.bind(this));
+                        return _self._handleUpload(file);
+                    });
+                    axios.all(arrayOfPromises)
+                        .then(axios.spread((...args) => {
+                            for (let i = 0; i < args.length; i++) {
+                                _self.filesIds += args[i].data.data + ','
+                                this.$emit('onFileUpload', args[i]);
+                            }
+                            _self.$emit('onAllFilesUploaded', _self.filesIds);
+                            
+                        }))
+                        
                 } else {
                     // someone tried to upload without adding files
                     let err = new Error("No files to upload for this field");

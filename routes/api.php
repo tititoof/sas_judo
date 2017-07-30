@@ -36,6 +36,8 @@ Route::get('/visitor/menu', ['uses' => 'Visitor\MenuController@index']);
 Route::get('/visitor/menu/{category}', ['uses' => 'Visitor\MenuController@show']);
 Route::get('/visitor/menu/picture/{name}', ['uses' => 'Visitor\MenuController@image']);
 
+Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@show'])->middleware('throttle:1024,1');
+
 // Admin
 Route::group(['middleware' => ['jwt.auth', 'can:is-admin']], function () {
     // Categories

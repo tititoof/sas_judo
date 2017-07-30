@@ -32,7 +32,11 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#">
-                                <img :src="picture.url" class="img-thumbnail img-responsive" height="150px"/>
+                                <lazy-image 
+                                    :src='picture.url'
+                                    class="img-thumbnail img-responsive" height="150px"
+                                ></lazy-image>
+                                <!--<img v-lazy="picture.url" class="img-thumbnail img-responsive" height="150px"/>-->
                             </a>
                         </div>
                         <div class="panel-footer">
@@ -53,7 +57,11 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#">
-                                <img :src="picture.url" class="img-thumbnail img-responsive" height="150px"/>
+                                <lazy-image 
+                                    :src='picture.url'
+                                    class="img-thumbnail img-responsive" height="150px"
+                                ></lazy-image>
+                                <!--<img v-lazy="picture.url" class="img-thumbnail img-responsive" height="150px"/>-->
                             </a>
                         </div>
                         <div class="panel-footer">
@@ -74,21 +82,14 @@
     import Keen from 'keen-ui';
     import Vue from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './common.js';
     export default {
         data() {
             return {
-                auth:       auth,
-                name:       '',
                 albumId:    '',
-                files:      [],
-                files_id:   [],
-                allPictures:[],
-                pictures:   [],
-                upload:     {},
-                active:     false,
-                uploadName: 'Télécharger'
             }
         },
+        mixins: [common],
         components: {
             FileUpload: require('../../v-upload-files.vue')
         },
@@ -102,14 +103,14 @@
                 const _self = this;
                 _self.$http.get('api/picture/' + id + '/sync/album/' + _self.albumId).then(
                     (response) => {
-                        const data        = response.data;
-                        _self.pictures  = [];
-                        _self.allPictures  = [];
+                        const data          = response.data;
+                        _self.pictures      = [];
+                        _self.allPictures   = [];
                         data.pictures.forEach(function(picture) {
-                            _self.pictures.push({ 'id': picture.id, 'url': '/api/picture/' + picture.id });
+                            _self.pictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                         });
                         data.all_pictures.forEach(function(picture) {
-                            _self.allPictures.push({ 'id': picture.id, 'url': '/api/picture/' + picture.id });
+                            _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                         });
                     },
                     (response) => {
@@ -129,13 +130,13 @@
                 const _self = this;
                 _self.$http.get('api/album/' +_self.albumId + '/edit').then(
                     (response) => {
-                        const data        = response.data;
-                        _self.name      = data.object.name;
+                        const data  = response.data;
+                        _self.name  = data.object.name;
                         data.pictures.forEach(function(picture) {
-                            _self.pictures.push({ 'id': picture.id, 'url': '/api/picture/' + picture.id });
+                            _self.pictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                         });
                         data.all_pictures.forEach(function(picture) {
-                            _self.allPictures.push({ 'id': picture.id, 'url': '/api/picture/' + picture.id });
+                            _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                         });
                     },
                     (response) => {
@@ -149,15 +150,12 @@
             },
             onFileUpload: function(file, res) {
                 const _self = this;
-                _self.files_id.push(res.picture_id);
+                // _self.files_id.push(res.picture_id);
             },
-            onAllFilesUploaded: function() {
+            onAllFilesUploaded: function(allFiles) {
                 const _self = this;
-                let   data  = new FormData();
-                data.append('name', _self.name);
-                data.append('pictures', _self.files_id);
-                data.append('user_id', auth.user.profile.id);
-                _self.$http.patch('api/album/' + _self.albumId, data).then(
+                _self.filesIds = allFiles
+                _self.$http.patch('api/album/' + _self.albumId, { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': auth.user.profile.id }).then(
                     (response) => {
                         _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
                     },

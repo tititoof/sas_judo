@@ -39,7 +39,11 @@ class AlbumRepository
             $album->name    = $request->input('name');
             $album->user_id = $request->input('user_id');
             $album->save();
-            $album->pictures()->sync(explode(',', $request->input('pictures')) );
+            $pictures = $album->pictures()->get()->map(function($picture, $key) {
+                return $picture->id;
+            });
+            
+            $album->pictures()->sync($pictures->merge($request->input('pictures')) );
         } catch (\Exception $exception) {
             return Answer::error($exception);
         }
