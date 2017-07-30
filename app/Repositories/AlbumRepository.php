@@ -39,7 +39,7 @@ class AlbumRepository
             $album->name    = $request->input('name');
             $album->user_id = $request->input('user_id');
             $album->save();
-            $pictures = $album->pictures()->get()->map(function($picture, $key) {
+            $pictures = $album->pictures()->get()->map(function($picture) {
                 return $picture->id;
             });
             
