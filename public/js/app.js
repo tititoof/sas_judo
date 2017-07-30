@@ -42995,7 +42995,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -43031,8 +43030,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 data.all_pictures.forEach(function (picture) {
                     _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                 });
-            }, function (response) {
-                _self.$emit('sas-snackbar', 'Une erreur est survenue');
+            }).catch(function (error) {
+                _self.$emit('sas-errors', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].showError(error.response, _self.formErrors));
             });
         },
         update: function update() {
@@ -43054,8 +43053,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 data.all_pictures.forEach(function (picture) {
                     _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                 });
-            }, function (response) {
-                _self.$emit('sas-snackbar', 'Une erreur est survenue');
+            }).catch(function (error) {
+                _self.$emit('sas-errors', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].showError(error.response, _self.formErrors));
             });
         },
 
@@ -43063,17 +43062,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _self = this;
             _self.files = file;
         },
-        onFileUpload: function onFileUpload(file, res) {
-            var _self = this;
-            // _self.files_id.push(res.picture_id);
-        },
+        onFileUpload: function onFileUpload(file, res) {},
         onAllFilesUploaded: function onAllFilesUploaded(allFiles) {
             var _self = this;
             _self.filesIds = allFiles;
-            _self.$http.patch('api/album/' + _self.albumId, { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].user.profile.id }).then(function (response) {
+            _self.$http.patch('api/album/' + _self.albumId, { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].user.profile.id }).then(function () {
                 _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
-            }, function (response) {
-                _self.$emit('sas-snackbar', 'Une erreur est survenue');
+            }).catch(function (error) {
+                _self.$emit('sas-errors', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].showError(error.response, _self.formErrors));
             });
         }
     },
@@ -64752,7 +64748,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "Nom",
       "name": "name",
       "type": "text",
-      "placeholder": "Entrer le nom du menu"
+      "placeholder": "Entrer le nom de l'évènement"
     },
     model: {
       value: (_vm.name),
@@ -66434,7 +66430,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "panel-body"
     }, [_c('a', {
       attrs: {
-        "href": "#"
+        "href": "#",
+        "height": "150px"
       }
     }, [_c('lazy-image', {
       staticClass: "img-thumbnail img-responsive",
@@ -66449,7 +66446,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "icon": "delete",
         "type": "secondary",
         "color": "red",
-        "size": "large"
+        "size": "small"
       },
       on: {
         "click": function($event) {
@@ -66484,7 +66481,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "panel-body"
     }, [_c('a', {
       attrs: {
-        "href": "#"
+        "href": "#",
+        "height": "150px"
       }
     }, [_c('lazy-image', {
       staticClass: "img-thumbnail img-responsive",
@@ -66499,7 +66497,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "icon": "add",
         "type": "secondary",
         "color": "green",
-        "size": "large"
+        "size": "small"
       },
       on: {
         "click": function($event) {

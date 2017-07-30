@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
-Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@show']);
+Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@miniShow']);
 // Route::get('/home', 'HomeController@index');
 
 //Route::get('*', 'HomeController@index');

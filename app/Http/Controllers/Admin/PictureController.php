@@ -54,6 +54,19 @@ class PictureController extends Controller
      */
     public function show($image, $resize = true)
     {
+        
+        $height = (true !== $resize) ? 898 : 150;
+        return $this->getImage($image, $height);
+    }
+    
+    public function miniShow($image)
+    {
+        $height = 100;
+        return $this->getImage($image, $height);
+    }
+    
+    private function getImage($image, $height)
+    {
         // Do so other checks here if you wish
         if (is_numeric($image)) {
             $picture = Picture::findOrFail($image);
@@ -64,8 +77,7 @@ class PictureController extends Controller
             }
         }
         $img = File::get(storage_path("app/images/{$image}"));
-        $height = (true !== $resize) ? 898 : 150;
-        $returnImage = Image::make($img)->resize($height, null, function ($constraint) {
+        $returnImage = Image::make($img)->resize(null, $height, function ($constraint) {
             $constraint->aspectRatio();
         });
         return $returnImage->response();

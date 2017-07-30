@@ -31,17 +31,16 @@
                      v-for="(picture, index) in pictures" style="max-height: 200px">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <a href="#">
+                            <a href="#" height="150px">
                                 <lazy-image 
                                     :src='picture.url'
                                     class="img-thumbnail img-responsive" height="150px"
                                 ></lazy-image>
-                                <!--<img v-lazy="picture.url" class="img-thumbnail img-responsive" height="150px"/>-->
                             </a>
                         </div>
                         <div class="panel-footer">
                             <ui-icon-button
-                                icon="delete" type="secondary" color="red" size="large"
+                                icon="delete" type="secondary" color="red" size="small"
                                 @click.prevent="togglePicture(picture.id)">
                             </ui-icon-button>
                         </div>
@@ -56,22 +55,22 @@
                      v-for="(picture, index) in allPictures" style="max-height: 200px">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <a href="#">
+                            <a href="#" height="150px">
                                 <lazy-image 
                                     :src='picture.url'
                                     class="img-thumbnail img-responsive" height="150px"
                                 ></lazy-image>
-                                <!--<img v-lazy="picture.url" class="img-thumbnail img-responsive" height="150px"/>-->
                             </a>
                         </div>
                         <div class="panel-footer">
                             <ui-icon-button
-                                icon="add" type="secondary" color="green" size="large"
+                                icon="add" type="secondary" color="green" size="small"
                                 @click.prevent="togglePicture(picture.id)">
                             </ui-icon-button>
                         </div>
                     </div>
                     <div class="clear" v-if="(index % 4 == 0) && (index != 0)"></div>
+                    
                 </div>
             </div>
         </ui-collapsible>
