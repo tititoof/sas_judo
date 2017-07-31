@@ -150,12 +150,6 @@
                     _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
                 });
             },
-            onFileChange: function(file, res) {
-                const _self = this;
-                _self.files = file;
-            },
-            onFileUpload: function(file, res) {
-            },
             onAllFilesUploaded: function(allFiles) {
                 const _self = this;
                 _self.filesIds = allFiles

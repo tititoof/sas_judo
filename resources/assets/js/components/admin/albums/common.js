@@ -23,4 +23,15 @@ export default {
             return str.split(',')
         }
     },
+    methods: {
+        onFileChange(file) {
+            const _self = this;
+            _self.files = file;
+        },
+        onFileUpload(res) {
+            const _self = this;
+            _self.filesIds += res.data.data + ','
+            _self.$store.dispatch('addPictureToAlbum', res.data.data)
+        },
+    }
 }

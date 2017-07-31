@@ -45,15 +45,6 @@
                 const _self = this;
                 _self.$refs.fu.fileUpload();
             },
-            onFileChange(file, res) {
-                const _self = this;
-                _self.files = file;
-            },
-            onFileUpload(res) {
-                const _self = this;
-                _self.filesIds += res.data.data + ','
-                _self.$store.dispatch('addPictureToAlbum', res.data.data)
-            },
             onAllFilesUploaded(allFiles) {
                 const _self = this;
                 _self.filesIds = allFiles
