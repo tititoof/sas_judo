@@ -12,7 +12,7 @@ export default {
             'api/register',
             { name: name, email: email, password: password, 'password_confirmation': password_confirm }
         ).then(
-            (response) => {
+            () => {
                 context.success = true
             },
             (response) => {
@@ -74,38 +74,43 @@ export default {
     checkIsAdmin() {
         const _self = this;
         if ( (_self.user.hasOwnProperty('profile')) && (_self.user.profile !== null)) {
-            if (_self.user.profile.hasOwnProperty('is_admin')) {
-                return (_self.user.profile.is_admin == 1) ? true : false;
-            }
+            return _self.checkProperty('is_admin')
         }
         return false;
     },
     checkIsDebug() {
         const _self = this;
         if ( (_self.user.hasOwnProperty('profile')) && (_self.user.profile !== null)) {
-            if (_self.user.profile.hasOwnProperty('is_debug')) {
-                return (_self.user.profile.is_debug == 1) ? true : false;
-            }
+            return _self.checkProperty('is_debug')
         }
         return false;
+    },
+    checkProperty(property) {
+        const _self = this;
+        if (_self.user.profile.hasOwnProperty(property)) {
+            return (_self.user.profile[property] == 1) ? true : false;
+        }
     },
     showError(response, formElements) {
         const _self = this;
         if (_self.checkIsDebug()) {
-            if ("undefined" !== typeof formElements) {
-                return _self.formErrors(response, formElements);
-            }
-            if ( (response.hasOwnProperty("data")) && (response.data.hasOwnProperty('message')) ) {
-                return _self.errorBasic + response.data.message + '(' + response.data.code + ')';
-            }
+            return _self.checkDebug(response, formElements)
         } else {
             return 'sas-snackbar', _self.errorBasic;
+        }
+    },
+    checkDebug(response, formElements) {
+        if ("undefined" !== typeof formElements) {
+            return _self.formErrors(response, formElements);
+        }
+        if ( (response.hasOwnProperty("data")) && (response.data.hasOwnProperty('message')) ) {
+            return _self.errorBasic + response.data.message + '(' + response.data.code + ')';
         }
     },
     formErrors(response, formElements) {
         const _self = this;
         let errors  = "<br/>";
-        formElements.forEach((element) => {
+        formElements.forEach( (element) => {
             if ('undefined' !== typeof response.data[element.name]) {
                 response.data[element.name].forEach(
                     error => {

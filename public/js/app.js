@@ -4511,7 +4511,7 @@ module.exports = function normalizeComponent (
     },
     errorBasic: "Une erreur est survenue.",
     register: function register(context, name, email, password, password_confirm) {
-        context.$http.post('api/register', { name: name, email: email, password: password, 'password_confirmation': password_confirm }).then(function (response) {
+        context.$http.post('api/register', { name: name, email: email, password: password, 'password_confirmation': password_confirm }).then(function () {
             context.success = true;
         }, function (response) {
             context.reponse = response.data;
@@ -4561,32 +4561,37 @@ module.exports = function normalizeComponent (
     checkIsAdmin: function checkIsAdmin() {
         var _self = this;
         if (_self.user.hasOwnProperty('profile') && _self.user.profile !== null) {
-            if (_self.user.profile.hasOwnProperty('is_admin')) {
-                return _self.user.profile.is_admin == 1 ? true : false;
-            }
+            return _self.checkProperty('is_admin');
         }
         return false;
     },
     checkIsDebug: function checkIsDebug() {
         var _self = this;
         if (_self.user.hasOwnProperty('profile') && _self.user.profile !== null) {
-            if (_self.user.profile.hasOwnProperty('is_debug')) {
-                return _self.user.profile.is_debug == 1 ? true : false;
-            }
+            return _self.checkProperty('is_debug');
         }
         return false;
+    },
+    checkProperty: function checkProperty(property) {
+        var _self = this;
+        if (_self.user.profile.hasOwnProperty(property)) {
+            return _self.user.profile[property] == 1 ? true : false;
+        }
     },
     showError: function showError(response, formElements) {
         var _self = this;
         if (_self.checkIsDebug()) {
-            if ("undefined" !== typeof formElements) {
-                return _self.formErrors(response, formElements);
-            }
-            if (response.hasOwnProperty("data") && response.data.hasOwnProperty('message')) {
-                return _self.errorBasic + response.data.message + '(' + response.data.code + ')';
-            }
+            return _self.checkDebug(response, formElements);
         } else {
             return 'sas-snackbar', _self.errorBasic;
+        }
+    },
+    checkDebug: function checkDebug(response, formElements) {
+        if ("undefined" !== typeof formElements) {
+            return _self.formErrors(response, formElements);
+        }
+        if (response.hasOwnProperty("data") && response.data.hasOwnProperty('message')) {
+            return _self.errorBasic + response.data.message + '(' + response.data.code + ')';
         }
     },
     formErrors: function formErrors(response, formElements) {
