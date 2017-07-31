@@ -41,13 +41,7 @@ export default {
             const _self = this;
             _self.send(true);
         },
-        onEditorBlur(editor) {
-        },
-        onEditorFocus(editor) {
-        },
-        onEditorReady(editor) {
-        },
-        onEditorChange({ editor, html, text }) {
+        onEditorChange({ editor, html }) {
             this.content = html
         }
     }
