@@ -3,6 +3,7 @@ namespace App\Traits;
 trait ListTrait
 {
     
+    
     /**
      * Return array
      * 

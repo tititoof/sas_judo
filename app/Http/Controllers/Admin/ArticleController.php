@@ -15,6 +15,8 @@ class ArticleController extends Controller
 {
     use ListTrait;
     
+    const MAPLIST = 'mapList';
+    
     /**
      * @return \Illuminate\Http\JsonResponse
      */
@@ -32,8 +34,8 @@ class ArticleController extends Controller
         $categories = Category::all();
         $albums     = Album::all();
         return response()->json([
-            'categories' => $categories->map([$this, 'mapList']), 
-            'albums'     => $albums->map([$this, 'mapList'])
+            'categories' => $categories->map([$this, self::MAPLIST]), 
+            'albums'     => $albums->map([$this, self::MAPLIST])
         ]);
     }
 
@@ -69,9 +71,9 @@ class ArticleController extends Controller
         return response()->json([
             'success'    => true, 
             'object'     => $article, 
-            'menus'      => $categories->map([$this, 'mapList']),
+            'menus'      => $categories->map([$this, self::MAPLIST]),
             'categories' => $article->categories, 
-            'allAlbums'  => $albums->map([$this, 'mapList']), 
+            'allAlbums'  => $albums->map([$this, self::MAPLIST]), 
             'albums'     => $article->albums
         ]);
     }
