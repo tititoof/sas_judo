@@ -51,36 +51,15 @@
     import {router} from './../../../app.js';
     import VueTimepicker from 'vue2-timepicker';
     import moment from 'moment';
+    import common from './common.js'
     export default {
         data() {
             return {
                 auth:           auth,
-                id:             null,
-                types:          [{
-                    'label': 'compétition',
-                    'value': 'tournament'
-                }, {
-                    'label': "évènement",
-                    'value': 'event'
-                }, {
-                    'label': 'stage',
-                    'value': 'stage'
-                }],
-                typeSelected:   {},
-                name:           '',
-                description:    '',
-                startAt:        null,
-                startTimeAt:    {
-                    HH: "08",
-                    mm: "30"
-                },
-                endAt:          null,
-                endTimeAt:      {
-                    HH: "12",
-                    mm: "00"
-                }
+                id:             null
             }
         },
+        mixins: [common],
         components: {
             VueTimepicker
         },
@@ -90,20 +69,24 @@
                 _self.$http.patch('api/judoevent/' + _self.id, {
                     'name': _self.name, 'description': _self.description, 'start_at': _self.startAt, 'end_at': _self.endAt,
                     'end_time_at': _self.endTimeAt, 'start_time_at': _self.startTimeAt, 'type': _self.typeSelected.value
-                }).then(function(response) {
-                    _self.$emit('sas-snackbar', 'évènement modifié');
-                    router.push({ name: 'admin_judo_event_index' });
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                }).then(
+                    () => {
+                        _self.$emit('sas-snackbar', 'évènement modifié');
+                        router.push({ name: 'admin_judo_event_index' });
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             index() {
                 const _self = this;
                 _self.id    = _self.$route.params.id;
                 _self.$http.get('api/judoevent/' + _self.id).then(
                     (response) => {
-                        const data    = response.data.entity;
-                        let startAt = new moment(data.start_at),
+                        const data  = response.data.entity,
+                            startAt = new moment(data.start_at),
                             endAt   = new moment(data.end_at);
                         _self.getType(data.type);
                         _self.name            = data.name;
@@ -114,15 +97,16 @@
                         _self.startTimeAt.mm  = startAt.format('mm');
                         _self.endTimeAt.HH    = endAt.format('HH');
                         _self.endTimeAt.mm    = endAt.format('mm');
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             },
             getType(type) {
                 const _self = this;
-                _self.types.forEach(function (element) {
+                _self.types.forEach((element) => {
                     if (element.value == type) {
                         _self.typeSelected = element;
                     }

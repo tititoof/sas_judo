@@ -50,35 +50,14 @@
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
     import VueTimepicker from 'vue2-timepicker'
+    import common from './common.js'
     export default {
         data() {
             return {
-                auth:           auth,
-                types:          [{
-                    'label': 'compétition',
-                    'value': 'tournament'
-                }, {
-                    'label': "évènement",
-                    'value': 'event'
-                }, {
-                    'label': 'stage',
-                    'value': 'stage'
-                }],
-                typeSelected:   {},
-                name:           '',
-                description:    '',
-                startAt:        null,
-                startTimeAt:    {
-                        HH: "08",
-                        mm: "30"
-                },
-                endAt:          null,
-                endTimeAt:      {
-                        HH: "12",
-                        mm: "00"
-                }
+                auth:           auth
             }
         },
+        mixins: [common],
         components: {
             VueTimepicker
         },
@@ -88,12 +67,15 @@
                 _self.$http.post('api/judoevent', {
                         'name': _self.name, 'description': _self.description, 'start_at': _self.startAt, 'end_at': _self.endAt,
                         'end_time_at': _self.endTimeAt, 'start_time_at': _self.startTimeAt, 'type': _self.typeSelected.value
-                    }).then(function(response) {
-                    _self.$emit('sas-snackbar', 'évènement ajouté');
-                    router.push({ name: 'admin_judo_event_index' });
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                }).then(
+                    (response) => {
+                        _self.$emit('sas-snackbar', 'évènement ajouté');
+                        router.push({ name: 'admin_judo_event_index' });
+                }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             index() {
                 const _self = this;
