@@ -50,7 +50,7 @@
                 _self.filesIds = allFiles
                 _self.$http.post('api/album', { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': auth.user.profile.id }).then(
                     response => {
-                        let albumId = response.data.album_id;
+                        const albumId = response.data.album_id;
                         if ( (_self.articleId !== 0) && (_self.articleId !== null) ) {
                             router.push({ name: 'admin_articles_edit', params: { articleId: _self.articleId, albumId: albumId } });
                         } else {
@@ -68,7 +68,7 @@
             this.$nextTick( () => {
                 const _self = this;
                 auth.check(_self);
-                _self.files_id = new Array
+                _self.files_id = []
                 _self.$store.dispatch('resetPicturesInAlbum')
                 _self.articleId = _self.$route.params.articleId
             });
