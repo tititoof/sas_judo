@@ -110,8 +110,8 @@
                 );
             },
             setObject(course) {
-                const _self = this;
-                let startAt = course.start_at.split(":"),
+                const _self = this,
+                    startAt = course.start_at.split(":"),
                     endAt   = course.end_at.split(":");
                 _self.name = course.name;
                 _self.startTimeAt.HH  = startAt[0];
