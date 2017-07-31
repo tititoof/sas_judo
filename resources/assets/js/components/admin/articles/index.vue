@@ -75,9 +75,10 @@
                 _self.$http.get('api/article').then(
                     (response) => {
                         _self.articles = response.data.articles;
-                    },
-                    () => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             },

@@ -54,60 +54,59 @@ import menu     from '../../v-menu.vue';
 import Keen     from 'keen-ui';
 import Vue      from './../../../app.js';
 import {router} from './../../../app.js';
+import common   from './../common.js';
 export default {
-  data() {
-      return {
-          auth:           auth,
-          ageCategories:  [],
-          deleteId:       Number,
-          show:           {
-              deleteConfirm: false
-          }
-      }
-  },
-  methods: {
-    index() {
-        const _self = this;
-        _self.$http.get('api/age_category').then(
-            (response) => {
-                _self.ageCategories = response.data.ageCategories;
-            },
-            (response) => {
-                _self.$emit('sas-snackbar', 'Une erreur est survenue');
+    data() {
+        return {
+            auth:           auth,
+            ageCategories:  [],
+            deleteId:       Number,
+            show:           {
+                deleteConfirm: false
             }
-        );
+        }
     },
-    destroy(id) {
-        const _self = this;
-        _self.deleteId = id;
-        _self.$refs['deleteConfirm'].open();
-    },
-    deleteConfirmed() {
-        const _self = this;
-        _self.$http.delete('api/age_category/' + _self.deleteId).then(function(response) {
-            _self.$emit('sas-snackbar', 'Catégorie d\'age supprimée');
+    mixins: [common],
+    methods: {
+        index() {
+            const _self = this;
+            _self.$http.get('api/age_category').then(
+                (response) => {
+                    _self.ageCategories = response.data.ageCategories;
+                }
+            ).catch(
+                error   => {
+                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                }
+            );
+        },
+        destroy(id) {
+            const _self = this;
+            _self.deleteId = id;
+            _self.$refs['deleteConfirm'].open();
+        },
+        deleteConfirmed() {
+            const _self = this;
+            _self.deleteObject('api/age_category/' + _self.deleteId, 'Catégorie d\'age supprimée')
             _self.index();
-        }, function(response) {
-            _self.$emit('sas-snackbar', 'Une erreur est survenue');
+        },
+        deleteDenied() {
+    
+        },
+        edit(id) {
+            router.push({ name: 'admin_age_categories_edit', params: { id: id } });
+        },
+        create() {
+            router.push({ name: 'admin_age_categories_new'});
+        }
+    },
+    mounted() {
+        this.$nextTick(function () {
+            const _self = this;
+            auth.check(_self);
+            _self.index();
         });
-    },
-    deleteDenied() {
-
-    },
-    edit(id) {
-        router.push({ name: 'admin_age_categories_edit', params: { id: id } });
-    },
-    create() {
-        router.push({ name: 'admin_age_categories_new'});
     }
-  },
-  mounted() {
-      this.$nextTick(function () {
-          const _self = this;
-          auth.check(_self);
-          _self.index();
-      });
-  }
 }
 </script>
 <style>
