@@ -90,9 +90,9 @@
                 'start_at': _self.startTimeAt, 'end_at': _self.endTimeAt,
                 'teacher_id': _self.teacherSelected.value, 'season_id': _self.seasonSelected.value } 
             ).then(
-                (response) => {
-                _self.$emit('sas-snackbar', 'Saison ajoutée');
-                router.push({ name: 'admin_courses_index' });
+                () => {
+                    _self.$emit('sas-snackbar', 'Saison ajoutée');
+                    router.push({ name: 'admin_courses_index' });
                 }
             ).catch(
                 error   => {
