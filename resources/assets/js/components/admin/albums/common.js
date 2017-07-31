@@ -19,7 +19,7 @@ export default {
     computed: {
         getFilesIds: function() {
             const _self = this;
-            let str = _self.filesIds.replace(/(^[,\s]+)|([,\s]+$)/g, '')
+            const str = _self.filesIds.replace(/(^[,\s]+)|([,\s]+$)/g, '')
             return str.split(',')
         }
     },

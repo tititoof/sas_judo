@@ -27,27 +27,26 @@
     import Keen from 'keen-ui';
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './common.js'
     export default {
         data() {
             return {
-                auth:           auth,
-                categories:     [],
-                types:          [],
-                typeSelected:   '',
-                name:           ''
+                auth:           auth
             }
         },
+        mixins: [common],
         methods: {
             index() {
                 const _self = this;
                 _self.$http.get('api/category/create').then(
                     (response) => {
                         _self.types = response.data.factories;
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
-                );
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );;
             },
             store() {
                 const _self = this;
@@ -56,11 +55,12 @@
                     (response) => {
                         _self.$emit('sas-snackbar', 'Menu ajouté');
                         router.push({ name: 'admin_categories_index' });
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
-                );
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );;
             }
         },
         mounted() {

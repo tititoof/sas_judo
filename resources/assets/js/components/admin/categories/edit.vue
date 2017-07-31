@@ -26,23 +26,21 @@
     import Keen     from 'keen-ui';
     import {app}    from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './common.js'
     export default {
         data() {
             return {
                 auth:           auth,
-                categories:     [],
-                types:          [],
-                typeSelected:   '',
-                name:           '',
                 categoryId:     null
             }
         },
+        mixins: [common],
         methods: {
             index() {
                 const _self = this;
                 _self.$http.get('api/category/' + _self.categoryId + '/edit').then(
                     (response) => {
-                        const data            = response.data.object;
+                        const data          = response.data.object;
                         _self.name          = data.name;
                         _self.types         = response.data.factories;
                         _self.types.forEach(function(element) {
@@ -50,22 +48,25 @@
                                 _self.typeSelected  = element;
                             }
                         });
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             },
             update() {
                 const _self = this;
                 _self.$http.patch('api/category/' + _self.categoryId,
-                    { 'name': _self.name, 'id': _self.categoryId, 'type': _self.typeSelected.name }).then(
-                    (response) => {
+                    { 'name': _self.name, 'id': _self.categoryId, 'type': _self.typeSelected.name }
+                ).then(
+                    () => {
                         _self.$emit('sas-snackbar', 'Menu modifié');
                         router.push({ name: 'admin_categories_index' });
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             }

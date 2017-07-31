@@ -55,6 +55,7 @@
     import Keen from 'keen-ui';
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './../common.js';
     export default {
         data() {
             return {
@@ -66,6 +67,7 @@
                 }
             }
         },
+        mixins: [common],
         methods: {
             edit(id) {
                 router.push({ name: 'admin_categories_edit', params: { categoryId: id } });
@@ -77,23 +79,24 @@
             },
             deleteConfirmed() {
                 const _self = this;
-                _self.$http.delete('api/category/' + _self.deleteId).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Menu supprimé');
-                    _self.index();
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue.');
-                });
+                _self.deleteObject('api/category/' + _self.deleteId, 'Menu supprimé')
             },
             deleteDenied() {
 
             },
             index() {
                 const _self = this;
-                _self.$http.get('api/category', { 'user_id': auth.user.profile.id }).then(function(response) {
+                _self.$http.get(
+                    'api/category', 
+                    { 'user_id': auth.user.profile.id }
+                ).then(
+                    (response) => {
                     _self.categories = response.data.categories;
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue.');
-                })
+                }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             create() {
                 router.push({ name: 'admin_categories_new' });

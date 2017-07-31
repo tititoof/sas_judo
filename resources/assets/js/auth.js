@@ -100,6 +100,7 @@ export default {
         }
     },
     checkDebug(response, formElements) {
+        const _self = this;
         if ("undefined" !== typeof formElements) {
             return _self.formErrors(response, formElements);
         }
