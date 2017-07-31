@@ -58,7 +58,9 @@
         methods: {
             index() {
                 const _self = this;
-                _self.$http.get('api/article/' +_self.articleId + '/edit').then(
+                _self.$http.get(
+                    'api/article/' +_self.articleId + '/edit'
+                ).then(
                     (response) => {
                         const data        = response.data;
                         const newAlbumId  = _self.$route.params.albumId;
@@ -81,7 +83,7 @@
                                 }
                             });
                         }
-                    }).catch(
+                }).catch(
                     error   => {
                         _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
@@ -106,7 +108,7 @@
                     'name': _self.name, 'categories': categories, 'content': _self.content,
                     'user_id': auth.user.profile.id, 'albums': albums
                 }).then(
-                    (response) => {
+                    () => {
                         _self.$emit('sas-snackbar', 'Article modifié');
                         if (newAlbum) {
                             router.push({ name: 'admin_albums_new', params: { articleId: _self.articleId } });

@@ -4,9 +4,9 @@
       Liste des cours
       <small>
         <ui-icon-button
-          type="secondary" icon="add" color="accent" size="large"
-          @click.prevent="create()"
-        >
+            type="secondary" icon="add" color="accent" size="large"
+            @click.prevent="create()"
+            >
         </ui-icon-button>
       </small>
     </h1>
@@ -61,61 +61,65 @@
   </div>
 </template>
 <script>
-  import auth from '../../../auth';
-  import vMenu from '../../v-menu.vue';
-  import Keen from 'keen-ui';
-  import scheduler from '../../scheduler/vue-schedule.vue';
-  import {app} from './../../../app.js';
-  import {router} from './../../../app.js';
-  export default {
-    data() {
-      return {
-        courses:      [],
-        listCourses:  [],
-        deleteId:     ''
-      }
-    },
-    methods: {
-      index() {
-        const _self = this;
-        _self.$http.get('api/course').then(
-          (response) => {
-              const data          = response.data;
-              _self.courses     = data.objects;
-              _self.listCourses = data.scheduler;
-          },
-          (response) => {
-            _self.$emit('sas-snackbar', 'Une erreur est survenue');
-          }
-        );
-      },
-      create() {
-        router.push({ name: 'admin_courses_new' });
-      },
-      deleteConfirmed() {
-
-      },
-      deleteDenied() {
-
-      },
-      edit(id) {
-          router.push({ name: 'admin_courses_edit', params: { id: id } });
-      },
-      destroy(id) {
-          const _self = this;
-          _self.deleteId = id;
-          _self.$refs['deleteConfirm'].open();
-      },
-    },
-    components: {
-        vMenu, scheduler
-    },
-    mounted() {
-      this.$nextTick(function() {
-        const _self = this;
-        auth.check(_self);
-        _self.index();
-      });
+    import auth from '../../../auth';
+    import vMenu from '../../v-menu.vue';
+    import Keen from 'keen-ui';
+    import scheduler from '../../scheduler/vue-schedule.vue';
+    import {app} from './../../../app.js';
+    import {router} from './../../../app.js';
+    import common from './../common.js';
+    export default {
+        data() {
+            return {
+                courses:      [],
+                listCourses:  [],
+                deleteId:     ''
+            }
+        },
+        mixins: [common],
+        methods: {
+            index() {
+                const _self = this;
+                _self.$http.get('api/course').then(
+                    (response) => {
+                        const data          = response.data;
+                        _self.courses     = data.objects;
+                        _self.listCourses = data.scheduler;
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
+            },
+            create() {
+                router.push({ name: 'admin_courses_new' });
+            },
+            deleteConfirmed() {
+                const _self = this;
+                _self.deleteObject('api/course/' + _self.deleteId, 'Cours supprimé')
+            },
+            deleteDenied() {
+            
+            },
+            edit(id) {
+                router.push({ name: 'admin_courses_edit', params: { id: id } });
+            },
+            destroy(id) {
+                const _self = this;
+                _self.deleteId = id;
+                _self.$refs['deleteConfirm'].open();
+            },
+        },
+        components: {
+            vMenu, scheduler
+        },
+        mounted() {
+            this.$nextTick(function() {
+                const _self = this;
+                auth.check(_self);
+                _self.index();
+            });
+        }
     }
-  }
 </script>

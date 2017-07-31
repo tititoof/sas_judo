@@ -43,6 +43,16 @@ class CoursesRepository
         return Answer::success(200, $course);
     }
 
+    public function destroy(Course $course)
+    {
+        try {
+            $course->delete();
+            return Answer::success(200);
+        } catch (\Exception $exception) {
+            return Answer::error($exception);
+        }
+    }
+    
     /**
     * @param \DateTime $inDate
     * @param array $inTime
@@ -64,7 +74,7 @@ class CoursesRepository
         });
         return Answer::success(200, [
             'seasons'   => $seasons,
-            'teachers'  => $teachers['objects'],
+            'teachers'  => $teachers['data'],
             'days'      => $this->getDays(),
         ]);
     }
@@ -74,14 +84,14 @@ class CoursesRepository
         $courses = Course::all();
         return $courses->map(function($course) {
             return [
-                'id'        => $course->id,
-                'season'    => $course->season->name,
-                'day'       => $course->day,
+                'id'            => $course->id,
+                'season'        => $course->season->name,
+                'day'           => $course->day,
                 self::START_AT  => $course->start_at,
                 self::END_AT    => $course->end_at,
-                'teacher'   => $course->teacher->name,
-                ];
-            });
+                'teacher'       => $course->teacher->name,
+            ];
+        });
     }
 
     public function getSchedulerCourses()
@@ -92,7 +102,7 @@ class CoursesRepository
                         ->first()
                         ->get();
         $yearCourses = Course::where('season_id', '=', $season[0]->id)->get();
-        $days = collect(WEEK_DAYS);
+        $days = collect(self::WEEK_DAYS);
         return $days->map(function($day) use ($yearCourses) {
             return $yearCourses->map(function($item) use ($day) {
                 $course = new \stdClass();
@@ -108,7 +118,7 @@ class CoursesRepository
 
     private function getDays()
     {
-        $days = collect(WEEK_DAYS);
+        $days = collect(self::WEEK_DAYS);
         return $days->map(function($day) {
             return ['label' => $day, 'value' => $day];
         });

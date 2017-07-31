@@ -52,7 +52,7 @@
                 const _self = this;
                 _self.$http.post('api/category',
                     { 'name': _self.name, 'type': _self.typeSelected.name }).then(
-                    (response) => {
+                    () => {
                         _self.$emit('sas-snackbar', 'Menu ajouté');
                         router.push({ name: 'admin_categories_index' });
                     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Repositories\CoursesRepository;
+use App\Http\Requests\CourseFormRequest;
 
 class CourseController extends Controller
 {
@@ -37,7 +38,7 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourseFormRequest $request)
     {
         $courseRepo = new CoursesRepository;
         return response()->json($courseRepo->save($request));
@@ -64,7 +65,7 @@ class CourseController extends Controller
     {
         $courseRepo = new CoursesRepository;
         $edit       = $courseRepo->getFormOptions();
-        $edit['objects']['course'] = $course;
+        $edit['data']['course'] = $course;
         return response()->json( $edit );
     }
 
@@ -75,7 +76,7 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(CourseFormRequest $request, Course $course)
     {
         $courseRepo   = new CoursesRepository;
         return response()->json($courseRepo->update($request, $course));
@@ -87,8 +88,9 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Course $course)
     {
-        //
+        $courseRepo   = new CoursesRepository;
+        return response()->json($courseRepo->destroy($course));
     }
 }
