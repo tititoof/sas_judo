@@ -54,6 +54,7 @@
     import Keen from 'keen-ui';
     import Vue from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './../common.js';
     export default {
         data() {
             return {
@@ -65,6 +66,7 @@
                 }
             }
         },
+        mixins: [common],
         components: {
         },
         methods: {
@@ -74,7 +76,7 @@
                     (response) => {
                         _self.articles = response.data.articles;
                     },
-                    (response) => {
+                    () => {
                         _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
                 );
@@ -86,12 +88,7 @@
             },
             deleteConfirmed() {
                 const _self = this;
-                _self.$http.delete('api/article/' + _self.deleteId).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Article supprimé');
-                    _self.index();
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                _self.deleteObject('api/article/' + _self.deleteId, 'Article supprimé')
             },
             deleteDenied() {
 

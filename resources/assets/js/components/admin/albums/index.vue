@@ -54,6 +54,7 @@
     import Keen from 'keen-ui';
     import Vue from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './../common.js';
     export default {
         data() {
             return {
@@ -65,15 +66,17 @@
                 }
             }
         },
+        mixins: [common],
         methods: {
             index() {
                 const _self = this;
                 _self.$http.get('api/album').then(
                     (response) => {
                         _self.albums = response.data.albums;
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -84,12 +87,7 @@
             },
             deleteConfirmed() {
                 const _self = this;
-                _self.$http.delete('api/album/' + _self.deleteId).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Album supprimé');
-                    _self.index();
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                _self.deleteObject('api/album/' + _self.deleteId, 'Album supprimé')
             },
             deleteDenied() {
 
