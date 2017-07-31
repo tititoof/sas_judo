@@ -121,7 +121,9 @@ export default {
                             case "validation.integer":
                                 errors += element.human + " doit être un entier.<br/>";
                                 break;
-                            
+                            default: 
+                                errors += 'Erreur non gérée';
+                                break;
                         }
                     }
                 );
