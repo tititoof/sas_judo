@@ -11,7 +11,6 @@
  * the application, or feel free to tweak this setup for your needs.
  */
 const Vue           = require('vue');
-// let VueResource     = require('vue-resource');
 import VueRouter  from 'vue-router';
 import routes     from './routes/routes';
 import App        from './components/v-app.vue';
@@ -38,20 +37,8 @@ var my_axios = axios.create({
 });
 
 Vue.prototype.$http = my_axios;
-// Vue.use(VueResource);
-// Vue.http.headers.common['X-CSRF-TOKEN']   = document.getElementsByName('csrf-token')[0].getAttribute('content');
-// Vue.http.headers.common['Authorization']  = 'Bearer ' + localStorage.getItem('id_token');
-// Vue.http.options.root = 'http://localhost';
-
 
 export const app = new Vue({
-    // http: {
-    //     root: 'http://localhost',
-    //     headers: {
-    //         Authorization: 'Bearer ' + localStorage.getItem('id_token'),
-    //         'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content')
-    //     }
-    // },
     router,
     Keen,
     store,

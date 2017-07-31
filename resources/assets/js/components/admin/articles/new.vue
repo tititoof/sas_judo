@@ -43,41 +43,14 @@
     import { app } from './../../../app.js';
     import { router } from './../../../app.js';
     import Quill from './../../editor/v-quill';
+    import common from './common.js';
     export default {
         data() {
             return {
-                auth:               auth,
-                name:               '',
-                menus:              [],
-                content:            '',
-                categoriesSelected: [],
-                albums:             [],
-                albumsSelected:     [],
-                optionsEditor:      {
-                    modules: {
-                        toolbar: [
-                            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                            ['blockquote', 'code-block'],
-
-                            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-                            [{ 'direction': 'rtl' }],                         // text direction
-
-                            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-                            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                            [ 'link', 'image', 'video', 'formula' ],
-                            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                            [{ 'font': [] }],
-                            [{ 'align': [] }],
-                            ['clean']                                         // remove formatting button
-                        ],
-                    },
-                    theme: 'snow'
-                }
+                auth: auth
             }
         },
+        mixins: [common],
         directives: {
         },
         components: {
@@ -99,9 +72,10 @@
                     (response) => {
                         _self.menus  = response.data.categories;
                         _self.albums = response.data.albums;
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -132,10 +106,10 @@
                         } else {
                             router.push({ name: 'admin_articles_index' });
                         }
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                        return null;
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -150,15 +124,6 @@
                 auth.check(_self);
                 _self.index();
             });
-        },
-        onEditorBlur(editor) {
-        },
-        onEditorFocus(editor) {
-        },
-        onEditorReady(editor) {
-        },
-        onEditorChange({ editor, html, text }) {
-            this.content = html
         }
     }
 </script>

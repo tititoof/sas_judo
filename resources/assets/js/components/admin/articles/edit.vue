@@ -43,43 +43,15 @@
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
     import Quill from './../../editor/v-quill';
+    import common from './common.js';
     export default {
         data() {
             return {
                 auth:           auth,
-                articleId:      '',
-                name:           '',
-                menus:          [],
-                allMenus:       [],
-                content:        '',
-                albums:         [],
-                albumsDefault:  [],
-                albumsSelected: [],
-                optionsEditor: {
-                    modules: {
-                        toolbar: [
-                            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                            ['blockquote', 'code-block'],
-
-                            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-                            [{ 'direction': 'rtl' }],                         // text direction
-
-                            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-                            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                            [ 'link', 'image', 'video', 'formula' ],
-                            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                            [{ 'font': [] }],
-                            [{ 'align': [] }],
-                            ['clean']                                         // remove formatting button
-                        ],
-                    },
-                    theme: 'snow'
-                }
+                articleId:      ''
             }
         },
+        mixins: [common],
         components: {
             Quill
         },
@@ -109,18 +81,15 @@
                                 }
                             });
                         }
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                    });
+                    }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             update() {
                 const _self = this;
                 _self.send();
-            },
-            addAlbum() {
-                const _self = this;
-                _self.send(true);
             },
             send(newAlbum = false) {
                 const _self = this;
@@ -144,9 +113,10 @@
                         } else {
                             router.push({ name: 'admin_articles_index' });
                         }
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             }
@@ -158,18 +128,6 @@
                 _self.articleId = _self.$route.params.articleId;
                 _self.index();
             });
-        },
-        onEditorBlur(editor) {
-            // console.log('editor blur!', editor)
-        },
-        onEditorFocus(editor) {
-            // console.log('editor focus!', editor)
-        },
-        onEditorReady(editor) {
-            // console.log('editor ready!', editor)
-        },
-        onEditorChange({ editor, html, text }) {
-            this.content = html
         }
     }
 </script>

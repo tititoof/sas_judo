@@ -34,7 +34,7 @@ export default {
                     _self.user.profile       = response.data.data;
                     app.$emit('sas-admin', 'Mise à jour utilisateur');
                 },
-                (response) => {
+                () => {
                     _self.user.authenticated = false;
                     _self.user.isAdmin       = false;
                     _self.user.isDebug       = false;
@@ -58,7 +58,7 @@ export default {
             _self.user.isDebug           = response.data.data.is_debug;
             router.push({ name: 'home' })
           },
-          (response) => {
+          () => {
             context.error = true;
           }
       );
@@ -111,7 +111,7 @@ export default {
                     error => {
                         switch(error) {
                             case "validation.required":
-                                errors += element.human + " obligatoire.<br/>";
+                                errors += element.human + " obligatoire(s).<br/>";
                                 break;
                             case "validation.integer":
                                 errors += element.human + " doit être un entier.<br/>";

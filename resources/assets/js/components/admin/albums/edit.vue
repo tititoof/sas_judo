@@ -25,7 +25,10 @@
                 {{ file.name }} ({{ file.size }})
             </li>
         </ul>
-        <ui-collapsible header="Images de l'abum" :open="false">
+        <ui-collapsible :open="false">
+            <div slot="header">
+                <h4>Images de l'abum</h4>
+            </div>
             <div class="row text-center portfolio" style="height:500px; max-height:500px; overflow-y: auto">
                 <div class="col-lg-3 col-sm-3 col-xs-4"
                      v-for="(picture, index) in pictures" style="max-height: 200px">
@@ -49,7 +52,10 @@
                 </div>
             </div>
         </ui-collapsible>
-        <ui-collapsible header="Images enregistrées" :open="false">
+        <ui-collapsible :open="false">
+            <div slot="header">
+                <h4>Images enregistrées</h4>
+            </div>
             <div class="row text-center portfolio" style="height:500px; max-height:500px; overflow-y: auto">
                 <div class="col-lg-3 col-sm-3 col-xs-4"
                      v-for="(picture, index) in allPictures" style="max-height: 200px">
@@ -105,12 +111,7 @@
                         const data          = response.data;
                         _self.pictures      = [];
                         _self.allPictures   = [];
-                        data.pictures.forEach(function(picture) {
-                            _self.pictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
-                        });
-                        data.all_pictures.forEach(function(picture) {
-                            _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
-                        });
+                        _self.setPictures(data);
                     }
                 ).catch(
                     error   => {
@@ -132,18 +133,22 @@
                     (response) => {
                         const data  = response.data;
                         _self.name  = data.object.name;
-                        data.pictures.forEach(function(picture) {
-                            _self.pictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
-                        });
-                        data.all_pictures.forEach(function(picture) {
-                            _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
-                        });
+                        _self.setPictures(data);
                     }
                 ).catch(
                     error   => {
                         _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 )
+            },
+            setPictures(data) {
+                const _self = this
+                data.pictures.forEach(function(picture) {
+                    _self.pictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
+                });
+                data.all_pictures.forEach(function(picture) {
+                    _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
+                });
             },
             onFileChange: function(file, res) {
                 const _self = this;

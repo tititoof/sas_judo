@@ -31,9 +31,10 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $albums     = Album::all();
-        $list       = array_map([$this, mapList], $categories);
-        $listAlbums = array_map([$this, mapList], $albums);
-        return response()->json(['categories' => $list, 'albums' => $listAlbums]);
+        return response()->json([
+            'categories' => $categories->map([$this, 'mapList']), 
+            'albums'     => $albums->map([$this, 'mapList'])
+        ]);
     }
 
     /**
@@ -65,10 +66,14 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $albums     = Album::all();
-        $list       = array_map([$this, mapList], $categories);
-        $listAlbums = array_map([$this, mapList], $albums);
-        return response()->json(['success' => true, 'object' => $article, 'menus' => $list,
-            'categories' => $article->categories, 'allAlbums' => $listAlbums, 'albums' => $article->albums]);
+        return response()->json([
+            'success'    => true, 
+            'object'     => $article, 
+            'menus'      => $categories->map([$this, 'mapList']),
+            'categories' => $article->categories, 
+            'allAlbums'  => $albums->map([$this, 'mapList']), 
+            'albums'     => $article->albums
+        ]);
     }
 
     /**
