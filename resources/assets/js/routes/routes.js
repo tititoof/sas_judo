@@ -10,7 +10,7 @@ import routeAgeCategories from './../components/admin/age_categories/routes.js';
 import routeInscription from './../components/all/inscriptions/routes.js';
 import routeVisitor     from './../components/all/articles/routes.js';
 
-let routes = [
+const routes = [
   {
     name:       'home',
     path:       '/',
