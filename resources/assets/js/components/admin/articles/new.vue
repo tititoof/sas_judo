@@ -80,8 +80,8 @@
                 );
             },
             save(album = false) {
-                const _self = this;
-                let categories  = [],
+                const _self = this,
+                    categories  = [],
                     albums      = [];
                 _self.content   = _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML;
                 _self.categoriesSelected.forEach(function(category) {

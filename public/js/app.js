@@ -21196,6 +21196,17 @@ module.exports = function bind(fn, thisArg) {
             var str = _self.filesIds.replace(/(^[,\s]+)|([,\s]+$)/g, '');
             return str.split(',');
         }
+    },
+    methods: {
+        onFileChange: function onFileChange(file) {
+            var _self = this;
+            _self.files = file;
+        },
+        onFileUpload: function onFileUpload(res) {
+            var _self = this;
+            _self.filesIds += res.data.data + ',';
+            _self.$store.dispatch('addPictureToAlbum', res.data.data);
+        }
     }
 });
 
@@ -21237,13 +21248,9 @@ module.exports = function bind(fn, thisArg) {
             var _self = this;
             _self.send(true);
         },
-        onEditorBlur: function onEditorBlur(editor) {},
-        onEditorFocus: function onEditorFocus(editor) {},
-        onEditorReady: function onEditorReady(editor) {},
         onEditorChange: function onEditorChange(_ref) {
             var editor = _ref.editor,
-                html = _ref.html,
-                text = _ref.text;
+                html = _ref.html;
 
             this.content = html;
         }
@@ -43172,11 +43179,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
 
-        onFileChange: function onFileChange(file, res) {
-            var _self = this;
-            _self.files = file;
-        },
-        onFileUpload: function onFileUpload(file, res) {},
         onAllFilesUploaded: function onAllFilesUploaded(allFiles) {
             var _self = this;
             _self.filesIds = allFiles;
@@ -43373,15 +43375,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _self = this;
             _self.$refs.fu.fileUpload();
         },
-        onFileChange: function onFileChange(file, res) {
-            var _self = this;
-            _self.files = file;
-        },
-        onFileUpload: function onFileUpload(res) {
-            var _self = this;
-            _self.filesIds += res.data.data + ',';
-            _self.$store.dispatch('addPictureToAlbum', res.data.data);
-        },
         onAllFilesUploaded: function onAllFilesUploaded(allFiles) {
             var _self = this;
             _self.filesIds = allFiles;
@@ -43403,7 +43396,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$nextTick(function () {
             var _self = _this;
             __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].check(_self);
-            _self.files_id = new Array();
+            _self.files_id = [];
             _self.$store.dispatch('resetPicturesInAlbum');
             _self.articleId = _self.$route.params.articleId;
         });
@@ -50500,7 +50493,7 @@ exports.push([module.i, "\n.section-ui-snackbar {\n.preview-pane {\n    position
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 263 */
@@ -50521,7 +50514,7 @@ exports.push([module.i, "\n.sidenav-right {\n    height: 100%;\n    width: 250px
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* add a little bottom space under the images */\n.portfolio>.clear::before {\n    content: '';\n    display: table;\n    clear: both;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* add a little bottom space under the images */\n.portfolio>.clear::before {\n    content: '';\n    display: table;\n    clear: both;\n}\n", ""]);
 
 /***/ }),
 /* 266 */
