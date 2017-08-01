@@ -6,6 +6,7 @@ use App\Models\Judoevent;
 use App\Repositories\JudoEventsRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JudoEventRequest;
 
 class JudoeventController extends Controller
 {
@@ -37,7 +38,7 @@ class JudoeventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JudoEventRequest $request)
     {
         $repo = new JudoEventsRepository;
         return response()->json($repo->save($request));
@@ -66,7 +67,7 @@ class JudoeventController extends Controller
      * @param Judoevent $judoevent
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Judoevent $judoevent)
+    public function update(JudoEventRequest $request, Judoevent $judoevent)
     {
         $repo = new JudoEventsRepository;
         return response()->json($repo->update($request, $judoevent));

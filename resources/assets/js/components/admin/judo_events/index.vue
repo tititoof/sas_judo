@@ -87,23 +87,29 @@
             deleteConfirmed() {
                 const _self = this;
                 _self.closeModal();
-                _self.$http.delete('api/judoevent/' + _self.deleteId).then(function(response) {
+                _self.$http.delete('api/judoevent/' + _self.deleteId).then(
+                    () => {
                     _self.$emit('sas-snackbar', 'évènement supprimé');
                     _self.index();
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             deleteDenied() {
 
             },
             index() {
                 const _self = this;
-                _self.$http.get('api/judoevent').then(function(response) {
+                _self.$http.get('api/judoevent').then(
+                    (response) => {
                     _self.fcEvents = response.data.events;
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                })
+                }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             create() {
                 router.push({ name: 'admin_judo_event_new' });
@@ -115,25 +121,23 @@
                         const data = response.data.entity;
                         _self.setModalEvent(data);
                         _self.$refs['eventModal'].open();
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             },
             'changeMonth' (start, end, current) {
-                // console.log(start, end, current);
             },
             'dayClick' (day, jsEvent) {
                 router.push({ name: 'admin_judo_event_new', params: { startAt: day } });
             },
             'moreClick' (day, events, jsEvent) {
-                // console.log('moreCLick', day, events, jsEvent)
             },
             setModalEvent(event) {
-                const _self = this;
-
-                let startAt = new moment(event.start_at).locale('fr'),
+                const _self = this,
+                    startAt = new moment(event.start_at).locale('fr'),
                     endAt   = new moment(event.end_at).locale('fr');
                 switch (event.type) {
                     case 'tournament':

@@ -1,6 +1,12 @@
 <template>
     <div class="col-xs-12">
         <h1>
+            <small>
+                <ui-icon-button 
+                    icon="arrow_left" size="small" color="green"
+                    @click.prevent="back()">
+                </ui-icon-button>
+            </small>
             Nouvel &eacute;v&egrave;nement
             <small>
                 <ui-button
