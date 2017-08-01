@@ -114,7 +114,7 @@
             create() {
                 router.push({ name: 'admin_judo_event_new' });
             },
-            'eventClick' (event, jsEvent, pos) {
+            'eventClick' (event) {
                 const _self = this;
                 _self.$http.get('api/judoevent/' + event.id).then(
                     (response) => {
@@ -128,12 +128,8 @@
                     }
                 );
             },
-            'changeMonth' (start, end, current) {
-            },
-            'dayClick' (day, jsEvent) {
+            'dayClick' (day) {
                 router.push({ name: 'admin_judo_event_new', params: { startAt: day } });
-            },
-            'moreClick' (day, events, jsEvent) {
             },
             setModalEvent(event) {
                 const _self = this,
