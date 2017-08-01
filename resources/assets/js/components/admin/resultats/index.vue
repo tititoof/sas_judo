@@ -56,64 +56,65 @@
   </div>
 </template>
 <script>
-  import auth     from '../../../auth';
-  import vMenu    from '../../v-menu.vue';
-  import Keen     from 'keen-ui';
-  import {app}    from './../../../app.js';
-  import {router} from './../../../app.js';
-  export default {
+import auth     from '../../../auth';
+import vMenu    from '../../v-menu.vue';
+import Keen     from 'keen-ui';
+import {app}    from './../../../app.js';
+import {router} from './../../../app.js';
+export default {
     data() {
-      return {
-        results:  [],
-        deleteId: ''
-      }
+        return {
+            results:  [],
+            deleteId: ''
+        }
     },
     methods: {
-      index() {
-        const _self = this;
-        _self.$http.get('api/result').then(
-          response => {
-            _self.results = response.data.results;
-          },
-          response => {
-            _self.$emit('sas-snackbar', 'Une erreur est survenue');
-          }
-        );
-      },
-      create() {
-        router.push({ name: 'admin_resultats_new' });
-      },
-      edit(id) {
-        router.push({ name: 'admin_resultats_edit', params: { id: id } });
-      },
-      deleteConfirmed() {
-        const _self = this;
-        _self.$http.delete('api/result/' + _self.deleteId).then(
-          response => {
-            _self.$emit('sas-snackbar', 'Résultat supprimé');
-            _self.index();
-          },
-          response => {
-            _self.$emit('sas-snackbar', 'Une erreur est survenue');
-          }
-        );
+        index() {
+            const _self = this;
+            _self.$http.get('api/result').then(
+                response => {
+                    _self.results = response.data.results;
+                }
+            ).catch(
+                error   => {
+                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                }
+            );
+        },
+        create() {
+            router.push({ name: 'admin_resultats_new' });
+        },
+        edit(id) {
+            router.push({ name: 'admin_resultats_edit', params: { id: id } });
+        },
+        deleteConfirmed() {
+            const _self = this;
+            _self.$http.delete('api/result/' + _self.deleteId).then(
+                () => {
+                    _self.$emit('sas-snackbar', 'Résultat supprimé');
+                    _self.index();
+                }
+            ).catch(
+                error   => {
+                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                }
+            );
       },
       deleteDenied() {
-
       },
       destroy(id) {
-        const _self = this;
-        _self.deleteId = id;
-        _self.$refs['deleteConfirm'].open();
+            const _self = this;
+            _self.deleteId = id;
+            _self.$refs['deleteConfirm'].open();
       }
     },
     components: { vMenu },
     mounted() {
-      this.$nextTick(function() {
-        const _self = this;
-        auth.check(_self);
-        _self.index();
-      });
+        this.$nextTick(function() {
+            const _self = this;
+            auth.check(_self);
+            _self.index();
+        });
     }
   }
 </script>
