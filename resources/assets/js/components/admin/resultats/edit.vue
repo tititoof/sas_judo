@@ -120,13 +120,13 @@ export default {
         },
         update() {
             const _self = this;
-            let data    = _self.getDataForm();
+            const data  = _self.getDataForm();
             _self.$http.patch('api/result/' + _self.resultId, data)
             .then(
-                    response => {
-                        _self.$emit('sas-snackbar', 'Résultat modifié');
-                        router.push({ name: 'admin_resultats_index' });
-                    }
+                () => {
+                    _self.$emit('sas-snackbar', 'Résultat modifié');
+                    router.push({ name: 'admin_resultats_index' });
+                }
             ).catch(
                 error   => {
                     _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
