@@ -74,7 +74,7 @@
                         'name': _self.name, 'description': _self.description, 'start_at': _self.startAt, 'end_at': _self.endAt,
                         'end_time_at': _self.endTimeAt, 'start_time_at': _self.startTimeAt, 'type': _self.typeSelected.value
                 }).then(
-                    (response) => {
+                    () => {
                         _self.$emit('sas-snackbar', 'évènement ajouté');
                         router.push({ name: 'admin_judo_event_index' });
                 }).catch(
