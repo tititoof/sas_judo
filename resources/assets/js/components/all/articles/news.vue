@@ -26,13 +26,17 @@ export default {
         index() {
             const _self = this;
             _self.menu = _self.$route.params.menu;
-            _self.$http.get('api/visitor/menu/' + _self.menu).then(
+            _self.$http
+            .get(
+                'api/visitor/menu/' + _self.menu
+            ).then(
                 response => {
-                    let data = response.data;
+                    const data = response.data;
                     _self.articles = data;
-                },
-                response => {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                }
+            ).catch(
+                error   => {
+                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                 }
             );
         }

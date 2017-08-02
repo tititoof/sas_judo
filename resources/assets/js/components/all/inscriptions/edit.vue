@@ -215,14 +215,15 @@ export default {
             }
         },
         save() {
-            const _self = this;
-            let data    = _self.getDataForm();
+            const _self = this,
+                data    = _self.getDataForm();
             _self.$http.post('api/inscriptions/save', data).then(
-                response => {
+                () => {
                     _self.$emit('sas-snackbar', 'Inscription enregistrée');
-                },
-                response => {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                }
+            ).catch(
+                error   => {
+                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                 }
             );
         },
@@ -234,24 +235,27 @@ export default {
             return true;
         },
         load() {
-            const _self = this;
-            let data    = { 'lastname': _self.lastname, 'firstname': _self.firstname, 'season_id': _self.seasonSelected.value };
+            const _self = this,
+                  data  = { 'lastname': _self.lastname, 'firstname': _self.firstname, 'season_id': _self.seasonSelected.value };
             if (_self.checkBaseInformations()) {
-                _self.$http.post('api/inscriptions/load', data).then(
+                _self.$http.post(
+                    'api/inscriptions/load', data
+                ).then(
                     response => {
                         let member      = response.data.member,
                             inscription = response.data.inscription;
                         _self.setDataForm(member, inscription);
-                    },
-                    response => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             }
         },
         getDataForm() {
-            const _self = this;
-            let data    = {};
+            const _self = this,
+                  data  = {};
             data.lastname       = _self.lastname;
             data.firstname      = _self.firstname;
             data.season_id      = _self.seasonSelected.value;
@@ -270,8 +274,8 @@ export default {
             return data;
         },
         setDataForm(member, inscription) {
-            const _self = this;
-            let listMember = [
+            const _self = this,
+                listMember = [
                     { 'index': 'lastname', 'value': 'lastname' }, { 'index': 'firstname', 'value': 'firstname' },
                     { 'index': 'email', 'value': 'email' }, { 'index': 'mobile', 'value': 'mobile' },
                     { 'index': 'red_list', 'value': 'redList' }, { 'index': 'phone', 'value': 'phone' },
@@ -302,20 +306,22 @@ export default {
             _self.$http.get('api/seasons/list').then(
                 response => {
                     _self.seasons = response.data.entities;
-                },
-                response => {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                }
+            ).catch(
+                error   => {
+                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                 }
             );
         },
         getInformations() {
             const _self = this;
             _self.$http.get('api/member').then(
-                response => {
+                () => {
 
-                },
-                response => {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                }
+            ).catch(
+                error   => {
+                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                 }
             );
         }

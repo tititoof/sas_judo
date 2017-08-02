@@ -120,7 +120,7 @@
             toggleAdmin(id) {
                 const _self = this;
                 _self.$http.put('api/user/' + id + '/toggle/admin').then(
-                    (response) => {
+                    () => {
                         _self.$emit('sas-snackbar', 'Utilisateur modifié');
                         _self.index();
                     }

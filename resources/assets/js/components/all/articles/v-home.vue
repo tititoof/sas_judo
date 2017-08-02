@@ -19,13 +19,16 @@ export default {
     methods: {
         index() {
             const _self = this;
-            _self.$http.get('api/visitor/' + _self.page + '/articles').then(
+            _self.$http.get(
+                'api/visitor/' + _self.page + '/articles'
+            ).then(
                 response => {
                     
                     // console.log(response);
-                },
-                response => {
-                    // console.log(response);
+                }
+            ).catch(
+                error   => {
+                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                 }
             );
         }
