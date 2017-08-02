@@ -37,11 +37,11 @@
             timeGround: {
                 coerce(value) {
                     if (value && value.length == 2) {
-                        let startTime   = value[0].split(":")[0] * 1,
-                            endTime     = value[1].split(":")[0] * 1;
+                        const startTime   = value[0].split(":")[0] * 1,
+                              endTime     = value[1].split(":")[0] * 1;
                         value = [];
                         for (let i = startTime; i <= endTime; i++) {
-                            let hour = i < 10 ? "0" + i : "" + i;
+                            const hour = i < 10 ? "0" + i : "" + i;
                             value.push(hour + ":00");
                         }
                     } else {
@@ -84,7 +84,8 @@
                 timeListSty:        {
                     width: '100%'
                 },
-                tasksList:          []
+                tasksList:          [],
+                taskIndex:          0
             }
         },
         created() {
@@ -99,39 +100,43 @@
         },
         methods: {
             init: function() {
-                const _self = this;
-                let maxTime = _self.timeGround[_self.timeGround.length - 1],
-                    minTime = _self.timeGround[0],
-                    maxMin = maxTime.split(':')[0] * 60 + maxTime.split(':')[1] * 1,
-                    minMin = minTime.split(':')[0] * 60 + minTime.split(':')[1] * 1;
+                const _self   = this,
+                      maxTime = _self.timeGround[_self.timeGround.length - 1],
+                      minTime = _self.timeGround[0],
+                      maxMin  = maxTime.split(':')[0] * 60 + maxTime.split(':')[1] * 1,
+                      minMin  = minTime.split(':')[0] * 60 + minTime.split(':')[1] * 1;
 
                 for (let i = 0; i < _self.taskDetail.length; i++) {
                     _self.tasksList[i] = [];
-                    let k = 0;
-                    for (let j = 0; j < _self.taskDetail[i].length; j++) {
-                        _self.tasksList[i][k] = {};
-                        if (_self.taskDetail[i][j].hasOwnProperty('dateStart')) {
-                            let startMin = _self.taskDetail[i][j].dateStart.split(':')[0] * 60 + _self.taskDetail[i][j].dateStart.split(':')[1] * 1,
-                                endMin   = _self.taskDetail[i][j].dateEnd.split(':')[0] * 60 + _self.taskDetail[i][j].dateEnd.split(':')[1] * 1;
-                            if (startMin < minMin || endMin > maxMin) {
-                                k--;
-                                continue;
-                            }
-                            let difMin = endMin - startMin;
-                            let startAt = _self.taskDetail[i][j].dateStart.split(":"),
-                                endAt   = _self.taskDetail[i][j].dateEnd.split(":");
-                            _self.tasksList[i][k].dateStart = startAt[0] + ':' + startAt[1];
-                            _self.tasksList[i][k].dateEnd   = endAt[0] + ':' + endAt[1];
-                            _self.tasksList[i][k].title     = _self.taskDetail[i][j].title;
-                            _self.tasksList[i][k].styleObj  = {
-                                height: difMin * 100 / 60 + 'px',
-                                top: ((startMin - (_self.timeGround[0].split(":")[0] * 60 + _self.timeGround[0].split(":")[1] * 1)) * 100 / 60) + 50 + 'px',
-                                backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
-                                left: (3.8 + (13.80 * i)) + '%',
-                                width: '12.28%'
-                            };
-                            k++;
+                    _self.taskIndex = 0;
+                    _self.setTask(i, maxMin, minMin);
+                }
+            },
+            setTaskDay(i, maxMin, minMin) {
+                const _self   = this;
+                for (let j = 0; j < _self.taskDetail[i].length; j++) {
+                    _self.tasksList[i][_self.taskIndex] = {};
+                    if (_self.taskDetail[i][j].hasOwnProperty('dateStart')) {
+                        const startMin = _self.taskDetail[i][j].dateStart.split(':')[0] * 60 + _self.taskDetail[i][j].dateStart.split(':')[1] * 1,
+                              endMin   = _self.taskDetail[i][j].dateEnd.split(':')[0] * 60 + _self.taskDetail[i][j].dateEnd.split(':')[1] * 1;
+                        if (startMin < minMin || endMin > maxMin) {
+                            _self.taskIndex--;
+                            continue;
                         }
+                        const difMin  = endMin - startMin,
+                              startAt = _self.taskDetail[i][j].dateStart.split(":"),
+                              endAt   = _self.taskDetail[i][j].dateEnd.split(":");
+                        _self.tasksList[i][_self.taskIndex].dateStart = startAt[0] + ':' + startAt[1];
+                        _self.tasksList[i][_self.taskIndex].dateEnd   = endAt[0] + ':' + endAt[1];
+                        _self.tasksList[i][_self.taskIndex].title     = _self.taskDetail[i][j].title;
+                        _self.tasksList[i][_self.taskIndex].styleObj  = {
+                            height: difMin * 100 / 60 + 'px',
+                            top: ((startMin - (_self.timeGround[0].split(":")[0] * 60 + _self.timeGround[0].split(":")[1] * 1)) * 100 / 60) + 50 + 'px',
+                            backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
+                            left: (3.8 + (13.80 * i)) + '%',
+                            width: '12.28%'
+                        };
+                        _self.taskIndex++;
                     }
                 }
             }

@@ -76,7 +76,7 @@
                 const _self = this;
                 _self.$http.get('api/inscriptions').then(
                     (response) => {
-                        let data = response.data;
+                        const data = response.data;
                         _self.inscriptions = data.list;
                     }
                 ).catch(
