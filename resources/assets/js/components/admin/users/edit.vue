@@ -75,21 +75,22 @@
         },
         methods: {
             update() {
-              const _self = this;
-              _self.$http
-                  .patch('api/admin/user/' + _self.userId,
-                    { 'firstname': _self.firstname, 'lastname': _self.lastname,
-                      'is_admin': _self.is_admin, 'is_teacher': _self.is_teacher,
-                      'email': _self.email, 'phone': _self.phone, 'address': _self.address })
-                  .then(
-                    (response) => {
-                      _self.$emit('sas-snackbar', 'Utilisateur modifié');
-                      router.push({ name: 'admin_users_index' });
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                const _self = this;
+                _self.$http
+                .patch('api/admin/user/' + _self.userId,
+                        { 'firstname': _self.firstname, 'lastname': _self.lastname,
+                        'is_admin': _self.is_admin, 'is_teacher': _self.is_teacher,
+                        'email': _self.email, 'phone': _self.phone, 'address': _self.address }
+                ).then(
+                    () => {
+                        _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                        router.push({ name: 'admin_users_index' });
                     }
-                  );
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             }
         },
         mounted() {
@@ -97,7 +98,8 @@
                 const _self = this;
                 auth.check(_self);
                 _self.userId = _self.$route.params.userId;
-                _self.$http.get('api/admin/user/' + _self.userId + '/edit').then(function(response) {
+                _self.$http.get('api/admin/user/' + _self.userId + '/edit').then(
+                    (response) => {
                     const data = response.data.object;
                     _self.firstname   = data.firstname;
                     _self.lastname    = data.lastname;
@@ -106,9 +108,11 @@
                     _self.address     = data.address;
                     _self.phone       = data.phone;
                     _self.email       = data.email;
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             });
         }
     }

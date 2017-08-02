@@ -75,6 +75,7 @@
     import Keen from 'keen-ui';
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './../common.js';
     export default {
         data() {
             return {
@@ -86,18 +87,20 @@
                 }
             }
         },
+        mixins: [common],
         methods: {
             index() {
                 const _self = this;
                 _self.$http.get('api/admin/user').then(
                     (response) => {
-                        let data = response.data;
+                        const data = response.data;
                         _self.users = data.users;
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
                     }
-                )
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             edit(id) {
                 router.push({ name: 'admin_users_edit', params: { userId: id } });
@@ -109,51 +112,49 @@
             },
             deleteConfirmed() {
                 const _self = this;
-                _self.$http.delete('api/admin/user/' + _self.deleteId).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Utilisateur supprimé');
-                    _self.index();
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                _self.deleteObject('api/admin/user/' + _self.deleteId, 'Utilisateur supprimé')
             },
             deleteDenied() {
 
             },
             toggleAdmin(id) {
-              const _self = this;
-              _self.$http.put('api/user/' + id + '/toggle/admin').then(
-                (response) => {
-                  _self.$emit('sas-snackbar', 'Utilisateur modifié');
-                  _self.index();
-                },
-                (response) => {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                }
-              );
+                const _self = this;
+                _self.$http.put('api/user/' + id + '/toggle/admin').then(
+                    (response) => {
+                        _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                        _self.index();
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             toggleTeacher(id) {
-              const _self = this;
-              _self.$http.put('api/user/' + id + '/toggle/teacher').then(
-                (response) => {
-                    _self.$emit('sas-snackbar', 'Utilisateur modifié');
-                    _self.index();
-                },
-                (response) => {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                }
-              );
+                const _self = this;
+                _self.$http.put('api/user/' + id + '/toggle/teacher').then(
+                    () => {
+                        _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                        _self.index();
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             toggleDebug(id) {
                 const _self = this;
                 _self.$http.put('api/user/' + id + '/toggle/debug').then(
-                (response) => {
-                    _self.$emit('sas-snackbar', 'Utilisateur modifié');
-                    _self.index();
-                },
-                (response) => {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                }
-              );
+                    () => {
+                        _self.$emit('sas-snackbar', 'Utilisateur modifié');
+                        _self.index();
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             }
         },
         components: {
@@ -161,9 +162,9 @@
         },
         mounted() {
             this.$nextTick(function() {
-               const _self = this;
-               auth.check(_self);
-               _self.index();
+                const _self = this;
+                auth.check(_self);
+                _self.index();
             });
         }
     }
