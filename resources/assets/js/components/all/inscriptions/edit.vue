@@ -242,7 +242,7 @@ export default {
                     'api/inscriptions/load', data
                 ).then(
                     response => {
-                        let member      = response.data.member,
+                        const member    = response.data.member,
                             inscription = response.data.inscription;
                         _self.setDataForm(member, inscription);
                     }
