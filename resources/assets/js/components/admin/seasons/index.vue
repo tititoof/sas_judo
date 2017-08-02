@@ -55,6 +55,7 @@
     import Keen from 'keen-ui';
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
+    import common from './../common.js';
     export default {
         data() {
             return {
@@ -66,6 +67,7 @@
                 }
             }
         },
+        mixins: [common],
         methods: {
             edit(id) {
                 router.push({ name: 'admin_seasons_edit', params: { seasonId: id } });
@@ -77,23 +79,20 @@
             },
             deleteConfirmed() {
                 const _self = this;
-                _self.$http.delete('api/season/' + _self.deleteId).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Saison supprimée');
-                    _self.index();
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue.');
-                });
+                _self.deleteObject('api/season/' + _self.deleteId, 'Saison supprimée')
             },
             deleteDenied() {
 
             },
             index() {
                 const _self = this;
-                _self.$http.get('api/season').then(function(response) {
+                _self.$http.get('api/season').then( (response) => {
                     _self.seasons = response.data.seasons;
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue.');
-                })
+                }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             },
             create() {
                 router.push({ name: 'admin_seasons_new' });

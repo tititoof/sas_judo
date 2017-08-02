@@ -109,7 +109,7 @@ export default {
             const data    = _self.getDataForm();
             _self.$http.post('api/result', data)
             .then(
-                response => {
+                () => {
                     _self.$emit('sas-snackbar', 'Résultat ajouté');
                     router.push({ name: 'admin_resultats_index' });
                 }
