@@ -37,28 +37,28 @@
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
     import languageFr from '../../data/date-picker-lang.fr.js';
+    import common from './common.js'
     export default {
         data() {
             return {
                 auth:       auth,
-                seasonId:   null,
-                name:       '',
-                startAt:    null,
-                endAt:      null,
-                pickerLang: languageFr
+                seasonId:   null
             }
         },
+        mixins: [common],
         methods: {
             update() {
                 const _self = this;
                 _self.$http
                     .patch('api/season/' + _self.seasonId,
                         {'name': _self.name, 'start_at': _self.startAt, 'end_at': _self.endAt}).then(
-                    (response) => {
+                    () => {
                         _self.$emit('sas-snackbar', 'Saison modifiée');
                         router.push({ name: 'admin_seasons_index' });
-                    }, (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             }
@@ -76,9 +76,11 @@
                     _self.name      = data.name;
                     _self.startAt   = new Date(data.start_at);
                     _self.endAt     = new Date(data.end_at);
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             });
         }
     }

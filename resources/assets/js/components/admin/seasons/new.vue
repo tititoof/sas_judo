@@ -36,26 +36,28 @@
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
     import languageFr from '../../data/date-picker-lang.fr.js';
+    import common from './common.js'
     export default {
         data() {
             return {
-                auth:       auth,
-                name:       '',
-                startAt:    null,
-                endAt:      null,
-                pickerLang: languageFr
+                auth:       auth
             }
         },
+        mixins: [common],
         methods: {
             store() {
                 const _self = this;
                 _self.$http.post('api/season',
-                    {'name': _self.name, 'start_at': _self.startAt, 'end_at': _self.endAt}).then(function(response) {
-                    _self.$emit('sas-snackbar', 'Saison ajoutée');
-                    router.push({ name: 'admin_seasons_index' });
-                }, function(response) {
-                    _self.$emit('sas-snackbar', 'Une erreur est survenue');
-                });
+                    {'name': _self.name, 'start_at': _self.startAt, 'end_at': _self.endAt})
+                .then(
+                    () =>  {
+                        _self.$emit('sas-snackbar', 'Saison ajoutée');
+                        router.push({ name: 'admin_seasons_index' });
+                }).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    }
+                );
             }
         },
         mounted() {
