@@ -52,7 +52,7 @@
             },
             fileInputChange: function() {
                 // get the group of files assigned to this field
-                let ident = this.id || this.name;
+                const ident = this.id || this.name;
                 this.filesIds = ''
                 this.myFiles = document.getElementById(ident).files;
                 this.$emit('onFileChange', this.myFiles);
@@ -64,10 +64,8 @@
             },
             _handleUpload: function(file) {
                 this.$emit('beforeFileUpload', file);
-                let form = new FormData();
-                // let xhr = new XMLHttpRequest();
+                const form = new FormData();
                 try {
-                    // form.append('X-CSRF-TOKEN', document.getElementsByName('csrf-token')[0].getAttribute('content'));
                     form.append('Content-Type', file.type || 'application/octet-stream');
 
                     // our request will have the file in the ['file'] key
@@ -88,7 +86,7 @@
                           'Authorization': 'Bearer ' + localStorage.getItem('id_token')
                         },
                     });
-                    let arrayOfPromises = Array.prototype.slice.call(this.myFiles, 0).map(function(file) {
+                    const arrayOfPromises = Array.prototype.slice.call(this.myFiles, 0).map(function(file) {
                         return _self._handleUpload(file);
                     });
                     axios.all(arrayOfPromises)
@@ -103,14 +101,14 @@
                         
                 } else {
                     // someone tried to upload without adding files
-                    let err = new Error("No files to upload for this field");
+                    const err = new Error("No files to upload for this field");
                     this.$emit('onFileError', this.myFiles, err);
                 }
             }
         },
         events: {
             'sendFiles': function() {
-                let _self = this;
+                const _self = this;
                 _self.fileUpload();
             }
         }

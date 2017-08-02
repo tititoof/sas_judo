@@ -95,6 +95,7 @@
 <script>
     import {app}    from './../app.js';
     import {router} from './../app.js';
+    import auth     from './../auth';
     export default {
         name: "sidebar",
         props: {
@@ -116,9 +117,10 @@
                         });
                         _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
                         _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
-                    },
-                    (response) => {
-                        _self.$emit('sas-snackbar', 'Une erreur est survenue');
+                    }
+                ).catch(
+                    error   => {
+                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
                     }
                 );
             },

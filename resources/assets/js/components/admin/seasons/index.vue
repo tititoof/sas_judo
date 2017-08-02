@@ -50,12 +50,12 @@
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
-    import vMenu from '../../v-menu.vue';
-    import Keen from 'keen-ui';
-    import {app} from './../../../app.js';
+    import auth     from '../../../auth';
+    import vMenu    from '../../v-menu.vue';
+    import Keen     from 'keen-ui';
+    import {app}    from './../../../app.js';
     import {router} from './../../../app.js';
-    import common from './../common.js';
+    import common   from './../common.js';
     export default {
         data() {
             return {
