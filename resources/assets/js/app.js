@@ -18,9 +18,11 @@ import Keen       from 'keen-ui';
 import axios      from 'axios';
 import store      from './store'
 import VueLazyImage from "vue-lazy-images";
+import ToggleButton from 'vue-js-toggle-button'
 Vue.use(VueRouter);
 Vue.use(Keen);
 Vue.use(VueLazyImage)
+Vue.use(ToggleButton)
 
 export const router = new VueRouter({
     mode: 'history',

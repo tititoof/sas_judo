@@ -1,5 +1,5 @@
 import {router} from './../../../app.js';
-import languageFr from '../../data/date-picker-lang.fr.js';
+import languageFr from './../../data/date-picker-lang.fr.js';
 export default {
     data() {
         return {

@@ -144,9 +144,6 @@
         },
         methods: {
             index() {
-                // if (auth.checkIsAdmin()) {
-                //     _self.menuOptions = _self.menuOptions.concat(_self.menuAdminOptions);
-                // }
             },
             checkMenuAdmin() {
                 const _self = this;
@@ -166,6 +163,8 @@
                     case 'disconnect':
                         auth.signout();
                         break;
+                    default:
+                        break;
                 }
             },
             selectAdminMenu: function(option) {
@@ -182,9 +181,9 @@
         },
         mounted() {
             this.$nextTick(function() {
-               const _self = this;
-               auth.check(_self);
-               _self.index();
+                const _self = this;
+                auth.check(_self);
+                _self.index();
             });
         }
     }

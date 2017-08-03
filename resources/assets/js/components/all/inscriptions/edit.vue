@@ -3,11 +3,11 @@
         <h1>
             Inscription
             <small>
-              <ui-button
-                type="secondary" color="accent" size="large"
-                @click.prevent="save()">
-                Enregister
-              </ui-button>
+                <ui-button
+                    type="secondary" color="accent" size="large"
+                    @click.prevent="save()">
+                    Enregister
+                </ui-button>
             </small>
         </h1>
         <div class="col-xs-12">
@@ -61,12 +61,12 @@
                             </ui-datepicker>
                         </div>
                         <div class="col-xs-6">
-                            <ui-radio-group
-                                name="sexe"
-                                :options="groupSexe"
-                                v-model="sexe"
-                                >Sexe
-                            </ui-radio-group>
+                            Sexe
+                            <div class="ui-radio-group__radios">
+                                <ui-radio v-model="sexe" true-value="Masculin">Masculin</ui-radio>
+                                &nbsp;&nbsp;
+                                <ui-radio v-model="sexe" true-value="Féminin">Féminin</ui-radio>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -103,12 +103,12 @@
                             </ui-textbox>
                         </div>
                         <div class="col-xs-6">
-                            <ui-radio-group
-                                name="redList"
-                                :options="groupRedList"
-                                v-model="redList"
-                                >Liste rouge ?
-                            </ui-radio-group>
+                            Liste rouge ?
+                            <div class="ui-radio-group__radios">
+                                <ui-radio v-model="redList" true-value="1">Oui</ui-radio>
+                                &nbsp;&nbsp;
+                                <ui-radio v-model="redList" true-value="0">Non</ui-radio>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -131,12 +131,12 @@
                     </div>
                 </ui-tab>
                 <ui-tab title="Informations d'inscription">
-                    <ui-radio-group
-                        name="minorGoAlone"
-                        :options="groupMinorGoAlone"
-                        v-model="minorGoAlone"
-                        >Enfant mineur autorisé à repartir seul
-                    </ui-radio-group>
+                    Enfant mineur autorisé à repartir seul
+                    <div class="ui-radio-group__radios">
+                        <ui-radio v-model="minorGoAlone" true-value="1">Oui</ui-radio>
+                        &nbsp;&nbsp;
+                        <ui-radio v-model="minorGoAlone" true-value="0">Non</ui-radio>
+                    </div>
                     <ui-textbox
                         label="Nom de la tierce personne venant chercher l’enfant si différente des parents :"
                         name="major"
@@ -145,28 +145,28 @@
                         v-model="majorTakeOff"
                         >
                     </ui-textbox>
-                    <ui-radio-group
-                        name="complementaryInsurance"
-                        :options="groupComplementaryInsurance"
-                        v-model="complementaryInsurance"
-                        >
-                        L'adhérent accepte l’assurance complémentaire
-                        « Individuelle Accident Complémentaire »
-                        qui couvre notamment les pertes de revenu
-                    </ui-radio-group>
+                    L'adhérent accepte l’assurance complémentaire
+                    « Individuelle Accident Complémentaire »
+                    qui couvre notamment les pertes de revenu
+                    <div class="ui-radio-group__radios">
+                        <ui-radio v-model="complementaryInsurance" true-value="1">Oui</ui-radio>
+                        &nbsp;&nbsp;
+                        <ui-radio v-model="complementaryInsurance" true-value="0">Non</ui-radio>
+                    </div>
                 </ui-tab>
             </ui-tabs>
         </div>
     </div>
 </template>
 <script>
-import auth from '../../../auth';
-import vMenu from '../../v-menu.vue';
-import Keen from 'keen-ui';
-import {app} from './../../../app.js';
-import {router} from './../../../app.js';
-import languageFr from '../../data/date-picker-lang.fr.js';
-import moment     from 'moment';
+import auth         from '../../../auth';
+import vMenu        from '../../v-menu.vue';
+// import Keen         from 'keen-ui';
+import { UiRadioGroup, UiTabs, UiTab } from 'keen-ui';
+import {app}        from './../../../app.js';
+import {router}     from './../../../app.js';
+import languageFr   from '../../data/date-picker-lang.fr.js';
+import moment       from 'moment';
 export default {
     data() {
         return {
@@ -177,6 +177,7 @@ export default {
             lastname:       '',
             firstname:      '',
             birthday:       null,
+            group1: '',
             email:          '',
             mobile:         '',
             redList:        '',
@@ -187,24 +188,13 @@ export default {
             sexe:           '',
             complementaryInsurance: '',
             minorGoAlone:   '',
-            majorTakeOff:   '',
-            groupSexe:      [
-                {'label': 'Masculin', 'value': 'Masculin'},
-                {'label': 'Féminin', 'value': 'Féminin'}
-            ],
-            groupRedList:   [
-                {'label': 'Oui', 'value': '1'},
-                {'label': 'Non', 'value': '0'}
-            ],
-            groupMinorGoAlone: [
-                {'label': 'Oui', 'value': '1'},
-                {'label': 'Non', 'value': '0'}
-            ],
-            groupComplementaryInsurance: [
-                {'label': 'Oui', 'value': '1'},
-                {'label': 'Non', 'value': '0'}
-            ]
+            majorTakeOff:   ''
         }
+    },
+    components: {
+        UiRadioGroup,
+        UiTab,
+        UiTabs
     },
     methods: {
         index() {
@@ -305,7 +295,7 @@ export default {
             const _self = this;
             _self.$http.get('api/seasons/list').then(
                 response => {
-                    _self.seasons = response.data.entities;
+                    _self.seasons = response.data.data;
                 }
             ).catch(
                 error   => {
