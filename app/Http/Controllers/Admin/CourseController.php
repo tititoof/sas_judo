@@ -17,8 +17,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-      $courseRepo = new CoursesRepository;
-      return response()->json(['success' => true, 'objects' => $courseRepo->getCourses(), 'scheduler' => $courseRepo->getSchedulerCourses()]);
+        $courseRepo = new CoursesRepository;
+        return response()->json(['success' => true, 'objects' => $courseRepo->getCourses(), 'scheduler' => $courseRepo->getSchedulerCourses()]);
     }
 
     /**

@@ -104,37 +104,39 @@
                     icon: 'exit_to_app',
                     label: 'Déconnexion'
                 }],
-                sideBarMenuAdmin: [{
-                    id: 'admin_categories_index',
-                    text: 'Menus'
-                }, {
-                    id: 'admin_articles_index',
-                    text: 'Articles'
-                }, {
-                    id: 'admin_albums_index',
-                    text: 'Albums'
-                }, {
-                    id: 'admin_judo_event_index',
-                    text: 'Evènements'
-                }, {
-                    id: 'admin_seasons_index',
-                    text: 'Saisons'
-                }, {
-                    id: 'admin_users_index',
-                    text: 'Utilisateurs'
-                }, {
-                    id: 'admin_courses_index',
-                    text: 'Cours'
-                }, {
-                    id: 'admin_resultats_index',
-                    text: 'Résultats'
-                }, {
-                    id: 'admin_age_categories_index',
-                    text: "Catégories d'âge"
-                }, {
-                    id: 'inscriptions_index',
-                    text: 'Inscriptions'
-                }]
+                sideBarMenuAdmin: [
+                    {
+                        id: 'admin_albums_index',
+                        text: 'Albums'
+                    }, {
+                        id: 'admin_articles_index',
+                        text: 'Articles'
+                    }, {
+                        id: 'admin_age_categories_index',
+                        text: "Catégories d'âge"
+                    }, {
+                        id: 'admin_courses_index',
+                        text: 'Cours'
+                    }, {
+                        id: 'admin_judo_event_index',
+                        text: 'Evènements'
+                    }, {
+                        id: 'inscriptions_index',
+                        text: 'Inscriptions'
+                    }, {
+                        id: 'admin_categories_index',
+                        text: 'Menus'
+                    }, {
+                        id: 'admin_resultats_index',
+                        text: 'Résultats'
+                    }, {
+                        id: 'admin_seasons_index',
+                        text: 'Saisons'
+                    }, {
+                        id: 'admin_users_index',
+                        text: 'Utilisateurs'
+                    }  
+                ]
             }
         },
         components: {
@@ -152,13 +154,13 @@
             clickMenuAdmin() {
                 this.$refs.sidebarRight.toggle();
             },
-            menuClick: function() {
+            menuClick() {
                 this.$refs.sidebar.toggle();
             },
-            disconnectAction: function () {
+            disconnectAction() {
                 auth.signout();
             },
-            selectUserMenu: function(option) {
+            selectUserMenu(option) {
                 switch(option.id) {
                     case 'disconnect':
                         auth.signout();
@@ -167,15 +169,15 @@
                         break;
                 }
             },
-            selectAdminMenu: function(option) {
+            selectAdminMenu(option) {
                 router.push({ name: option.id });
             },
-            calendriersAction: function() {
+            calendriersAction() {
             },
-            signinAction: function() {
+            signinAction() {
                 router.push({ name: 'signin' });
             },
-            registerAction: function() {
+            registerAction() {
                 router.push({ name: 'register' });
             }
         },

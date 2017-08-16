@@ -1,6 +1,12 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <h1>
+            <small>
+                <ui-icon-button 
+                    icon="arrow_left" size="small" color="green"
+                    @click.prevent="back()">
+                </ui-icon-button>
+            </small>
             &Eacute;dition saison
             <small>
                 <ui-button
@@ -38,6 +44,7 @@
     import {router} from './../../../app.js';
     import languageFr from '../../data/date-picker-lang.fr.js';
     import common from './common.js'
+    import back     from './../back.js'
     export default {
         data() {
             return {
@@ -45,7 +52,7 @@
                 seasonId:   null
             }
         },
-        mixins: [common],
+        mixins: [common, back],
         methods: {
             update() {
                 const _self = this;

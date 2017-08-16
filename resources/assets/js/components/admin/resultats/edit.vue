@@ -1,6 +1,12 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <h1>
+            <small>
+                <ui-icon-button 
+                    icon="arrow_left" size="small" color="green"
+                    @click.prevent="back()">
+                </ui-icon-button>
+            </small>
             &Eacute;diter r&eacute;sultat
             <small>
                 <ui-button
@@ -62,20 +68,23 @@
     </div>
 </template>
 <script>
-import auth       from '../../../auth';
-import vMenu      from '../../v-menu.vue';
-import Keen       from 'keen-ui';
-import resultForm from './result_form.vue';
-import {app}      from './../../../app.js';
-import {router}   from './../../../app.js';
-import languageFr from '../../data/date-picker-lang.fr.js';
-import moment     from 'moment';
+import auth         from '../../../auth';
+import vMenu        from '../../v-menu.vue';
+import Keen         from 'keen-ui';
+import resultForm   from './result_form.vue';
+import {app}        from './../../../app.js';
+import {router}     from './../../../app.js';
+import languageFr   from '../../data/date-picker-lang.fr.js';
+import moment       from 'moment';
+import common       from './common.js'
+import back         from './../back.js'
 export default {
     data() {
         return {
             resultId:       ''
         }
     },
+    mixins: [common, back],
     methods: {
         index() {
             const _self    = this;

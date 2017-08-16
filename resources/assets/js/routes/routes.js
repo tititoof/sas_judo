@@ -9,6 +9,8 @@ import routeResultats   from './../components/admin/resultats/routes.js';
 import routeAgeCategories from './../components/admin/age_categories/routes.js';
 import routeInscription from './../components/all/inscriptions/routes.js';
 import routeVisitor     from './../components/all/articles/routes.js';
+import routeVisitorCourse from './../components/all/courses/routes.js';
+import routeVisitorEvents from './../components/all/judo_events/routes.js';
 
 const routes = [
   {
@@ -45,5 +47,7 @@ Array.prototype.push.apply(routes, routeResultats);
 Array.prototype.push.apply(routes, routeAgeCategories);
 Array.prototype.push.apply(routes, routeInscription);
 Array.prototype.push.apply(routes, routeVisitor);
+Array.prototype.push.apply(routes, routeVisitorCourse);
+Array.prototype.push.apply(routes, routeVisitorEvents);
 
 export default routes;

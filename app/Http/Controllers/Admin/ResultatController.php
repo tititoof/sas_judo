@@ -20,6 +20,8 @@ class ResultatController extends Controller
      * 
      */
     use ListTrait;
+    
+    const MAPLIST = 'mapList';
   
     /**
      * Display a listing of the resource.
@@ -40,7 +42,7 @@ class ResultatController extends Controller
     public function create()
     {
         $seasons  = Season::All();
-        $list     = array_map([$this, mapList], $seasons);
+        $list     = $seasons->map([$this, self::MAPLIST]);
         return response()->json(['seasons' => $list]);
     }
 
@@ -73,7 +75,7 @@ class ResultatController extends Controller
     public function edit(Result $result)
     {
         $seasons  = Season::All();
-        $list     = array_map([$this, mapList], $seasons);
+        $list     = $seasons->map([$this, self::MAPLIST]);
         return response()->json([
             'seasons'         => $list,
             'result'          => $result,

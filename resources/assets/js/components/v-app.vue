@@ -1,30 +1,37 @@
 <template>
-  <div>
-    <my-menu></my-menu>
-    <div class="panel panel-default" id="toto">
-      <div class="panel-body">
-        <ui-alert 
-            @dismiss="showAlert = false" 
-            type="error" 
-            v-show="showAlert"
-            >
-            <p v-html="errorAlert"></p>
-        </ui-alert>
-        <router-view
-            v-on:sas-snackbar="showSnackBar"
-            v-on:sas-errors="showAlertError"
-            >
-        </router-view>
-        <ui-snackbar-container
-            ref="snackbarContainer"
-            :position="position"
-            :queue-snackbars="queueSnackbars"
-            transition="slideUp"
-            >
-        </ui-snackbar-container>
-      </div>
+    <div class="main-div">
+        <my-menu></my-menu>
+        <div id="toto" style="background-color: #cccccc"
+            v-bar="{
+                    preventParentScroll: false,
+                    scrollThrottle: 30,
+                }">
+            <div class="col-md-10"
+                >
+                <div class="wrapper-page">
+                    <ui-alert 
+                        @dismiss="showAlert = false" 
+                        type="error" 
+                        v-show="showAlert"
+                        >
+                        <p v-html="errorAlert"></p>
+                    </ui-alert>
+                    <router-view
+                        v-on:sas-snackbar="showSnackBar"
+                        v-on:sas-errors="showAlertError"
+                        >
+                    </router-view>
+                </div>
+            </div>
+            <ui-snackbar-container
+                ref="snackbarContainer"
+                :position="position"
+                :queue-snackbars="queueSnackbars"
+                transition="slideUp"
+                >
+            </ui-snackbar-container>
+        </div>
     </div>
-  </div>
 </template>
 <script>
     import auth   from '../auth';

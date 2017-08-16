@@ -1,6 +1,12 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <h1>
+            <small>
+                <ui-icon-button 
+                    icon="arrow_left" size="small" color="green"
+                    @click.prevent="back()">
+                </ui-icon-button>
+            </small>
             &Eacute;dition menu
             <small>
                 <ui-button
@@ -26,7 +32,8 @@
     import Keen     from 'keen-ui';
     import {app}    from './../../../app.js';
     import {router} from './../../../app.js';
-    import common from './common.js'
+    import common   from './common.js'
+    import back     from './../back.js'
     export default {
         data() {
             return {
@@ -34,7 +41,7 @@
                 categoryId:     null
             }
         },
-        mixins: [common],
+        mixins: [common, back],
         methods: {
             index() {
                 const _self = this;

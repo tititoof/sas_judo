@@ -130,7 +130,17 @@
             },
             getPage(link) {
                 const _self = this;
-                router.push({ name: 'visitor_news', params: {'menu': link} });
+                switch (link) {
+                    case 'plannings_des_cours':
+                        router.push({ name: 'visitor_courses' });
+                        break;
+                    case 'calendriers':
+                        router.push({ name: 'visitor_judo_events' });
+                        break;
+                    default:
+                        router.push({ name: 'visitor_news', params: {'menu': link} });
+                        break;
+                }
                 _self.toggle();
             }
         },

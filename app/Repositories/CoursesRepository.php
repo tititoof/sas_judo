@@ -109,7 +109,7 @@ class CoursesRepository
                 if ($day == $item->day) {
                     $course->dateStart  = $item->start_at;
                     $course->dateEnd    = $item->end_at;
-                    $course->title      = $item->name.' ('.$item->teacher->name.')';
+                    $course->title      = $item->name;
                 }
                 return $course;
             });

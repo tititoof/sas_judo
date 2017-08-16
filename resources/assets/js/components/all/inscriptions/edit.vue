@@ -1,5 +1,5 @@
 <template>
-    <div class="row-fluid">
+    <div>
         <h1>
             Inscription
             <small>

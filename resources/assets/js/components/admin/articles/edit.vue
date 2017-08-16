@@ -1,6 +1,12 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <h1>
+            <small>
+                <ui-icon-button 
+                    icon="arrow_left" size="small" color="green"
+                    @click.prevent="back()">
+                </ui-icon-button>
+            </small>
             Editer article
             <small>
                 <ui-button
@@ -12,8 +18,8 @@
         </h1>
         <ui-select
                 name="categories" label="Menus"
-                :options="allMenus"
-                v-model="menus"
+                :options="menus"
+                v-model="categoriesSelected"
                 placeholder="Choisir le ou les menus" show-search multiple z-index="1"
         ></ui-select>
         <ui-textbox
@@ -38,12 +44,13 @@
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
-    import Keen from 'keen-ui';
-    import {app} from './../../../app.js';
+    import auth     from '../../../auth';
+    import Keen     from 'keen-ui';
+    import {app}    from './../../../app.js';
     import {router} from './../../../app.js';
-    import Quill from './../../editor/v-quill';
-    import common from './common.js';
+    import Quill    from './../../editor/v-quill';
+    import common   from './common.js';
+    import back     from './../back.js'
     export default {
         data() {
             return {
@@ -51,7 +58,7 @@
                 articleId:      ''
             }
         },
-        mixins: [common],
+        mixins: [common, back],
         components: {
             Quill
         },
@@ -62,24 +69,24 @@
                     'api/article/' +_self.articleId + '/edit'
                 ).then(
                     (response) => {
-                        const data        = response.data;
-                        const newAlbumId  = _self.$route.params.albumId;
-                        _self.name      = data.object.name;
-                        _self.content   = data.object.content;
+                        const data          = response.data;
+                        const newAlbumId    = _self.$route.params.albumId;
+                        _self.name          = data.object.name;
+                        _self.content       = data.object.content;
                         _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML = _self.content;
-                        _self.allMenus  = data.menus;
+                        _self.menus         = data.menus;
                         data.object.categories.forEach(function(category) {
-                            _self.menus.push({ 'label': category.name, 'value': category.id });
+                            _self.categoriesSelected.push({ 'label': category.name, 'value': category.id });
                         });
                         _self.albums = data.allAlbums;
                         data.albums.forEach(function(album) {
-                            _self.albumsDefault.push({ 'label': album.name, 'value': album.id });
+                            _self.albums.push({ 'label': album.name, 'value': album.id });
                         });
 
                         if (newAlbumId !== 0) {
                             _self.albums.forEach(function(album) {
                                 if (newAlbumId == album.value) {
-                                    _self.albumsDefault.push({ 'label': album.name, 'value': album.id })
+                                    _self.albums.push({ 'label': album.name, 'value': album.id })
                                 }
                             });
                         }
@@ -98,7 +105,7 @@
                     categories  = [],
                     albums      = [];
                 _self.content   = _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML;
-                _self.menus.forEach(function(category) {
+                _self.categoriesSelected.forEach(function(category) {
                     categories.push(category.value);
                 });
                 _self.albumsSelected.forEach(function(album) {

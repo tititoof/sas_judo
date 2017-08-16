@@ -1,6 +1,12 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <h1>
+            <small>
+                <ui-icon-button 
+                    icon="arrow_left" size="small" color="green"
+                    @click.prevent="back()">
+                </ui-icon-button>
+            </small>
             &Eacute;dition de l'Utilisateur
             <small>
                 <ui-button
@@ -55,11 +61,12 @@
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
-    import vMenu from '../../v-menu.vue';
-    import Keen from 'keen-ui';
-    import {app} from './../../../app.js';
+    import auth     from '../../../auth';
+    import vMenu    from '../../v-menu.vue';
+    import Keen     from 'keen-ui';
+    import {app}    from './../../../app.js';
     import {router} from './../../../app.js';
+    import back     from './../back.js'
     export default {
         data() {
             return {
@@ -73,6 +80,7 @@
               is_teacher: false
             };
         },
+        mixins: [back],
         methods: {
             update() {
                 const _self = this;

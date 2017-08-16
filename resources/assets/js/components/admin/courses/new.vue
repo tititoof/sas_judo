@@ -1,6 +1,12 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <h1>
+            <small>
+                <ui-icon-button 
+                    icon="arrow_left" size="small" color="green"
+                    @click.prevent="back()">
+                </ui-icon-button>
+            </small>
             Nouveau cours
             <small>
                 <ui-button
@@ -58,13 +64,14 @@
     import VueTimepicker from 'vue2-timepicker';
     import moment from 'moment';
     import common from './common.js'
+    import back     from './../back.js'
     export default {
         data() {
             return {
                 
             }
         },
-        mixins: [common],
+        mixins: [common, back],
         components: {
             VueTimepicker
         },

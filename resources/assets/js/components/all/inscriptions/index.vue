@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <h1>
             Liste des inscriptions
             <small>

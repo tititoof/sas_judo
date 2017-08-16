@@ -58,7 +58,7 @@
 
             color: {
                 type:       Array,
-                default()   { return [ "#2B2E4A", "#521262", "#903749", "#53354A", "#40514E", "#537780" ] }
+                default()   { return [ "#ff8000", "#00ff40", "#0080ff", "#8000ff", "#ff00bf", "#6e1a12", "#004f3a", "#6666ff", "#0066cc", "#134d00", "#ffa111", "#b200a4" ] }
             },
             taskDetail: {
                 type:       Array,
@@ -109,7 +109,7 @@
                 for (let i = 0; i < _self.taskDetail.length; i++) {
                     _self.tasksList[i] = [];
                     _self.taskIndex = 0;
-                    _self.setTask(i, maxMin, minMin);
+                    _self.setTaskDay(i, maxMin, minMin);
                 }
             },
             setTaskDay(i, maxMin, minMin) {
@@ -178,6 +178,7 @@
         left: 0;
         height: 1px;
         background-color: #EAEAEA;
+        max-width: 1400px;
     }
     .task-ground{
         width: 100%;

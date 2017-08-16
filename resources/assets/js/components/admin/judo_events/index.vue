@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <h1>
             &Eacute;v&egrave;nements
             <small>

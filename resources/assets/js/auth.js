@@ -51,7 +51,7 @@ export default {
           (response) => {
             context.error = false;
             localStorage.setItem('id_token', response.data.meta.token);
-            context.$http.headers.common['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
+            context.$http.defaults.headers['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
             _self.user.authenticated     = true;
             _self.user.profile           = response.data.data;
             _self.user.isAdmin           = response.data.data.is_admin;

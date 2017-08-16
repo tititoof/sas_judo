@@ -5,6 +5,7 @@
             >
             <h3>{{ article.name }}</h3>
             <p v-html="article.content"></p>
+            <hr/>
         </template>
     </div>
 </template>
