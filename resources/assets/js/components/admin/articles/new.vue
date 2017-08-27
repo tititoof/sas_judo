@@ -26,9 +26,9 @@
                 label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" v-model="name"
         >
         </ui-textbox>
-        <quill ref="qc"
-            :options="optionsEditor">
-        </quill>
+        <div id="editor-vue">
+            <Vueditor ref="qc" style="height: 400px"></Vueditor>
+        </div>
         <ui-select
                 name="albums" label="Albums"
                 :options="albums"
@@ -48,7 +48,6 @@
     import Keen         from 'keen-ui';
     import { app }      from './../../../app.js';
     import { router }   from './../../../app.js';
-    import Quill        from './../../editor/v-quill';
     import common       from './common.js';
     import back         from './../back.js'
     export default {
@@ -60,12 +59,9 @@
         mixins: [common, back],
         directives: {
         },
-        components: {
-            Quill
-        },
         computed: {
             editor() {
-                return this.$refs.myTextEditor.quillEditor
+                return this.$refs.qc
             }
         },
         methods: {
@@ -75,6 +71,13 @@
             },
             index() {
                 const _self = this;
+                let maxRows = 10;
+                let maxCols = 5;
+                for (let r = 1; r <= maxRows; r++) {
+                  for (let c = 1; c <= maxCols; c++) {
+                    _self.tableOptions.push('newtable_' + r + '_' + c);
+                  }
+                }
                 _self.$http.get('api/article/create').then(
                     (response) => {
                         _self.menus  = response.data.categories;
@@ -90,7 +93,7 @@
                 const _self     = this,
                     categories  = [],
                     albums      = [];
-                _self.content   = _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML;
+                _self.content   = _self.$refs.qc.getContent();
                 _self.categoriesSelected.forEach(function(category) {
                     categories.push(category.value);
                 });

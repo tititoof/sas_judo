@@ -48,6 +48,11 @@ export default {
            auth.check(_self);
            _self.index();
         });
+    },
+    watch: {
+        '$route.params.menu'(newId, oldId) {
+            this.index()
+        }
     }
 }
 </script>

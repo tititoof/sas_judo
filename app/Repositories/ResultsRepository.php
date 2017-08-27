@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Result;
 use App\Helpers\Answer;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 /**
  * Result Data Manage
@@ -53,5 +54,29 @@ class ResultsRepository
         }
         return Answer::success(200);
     }
-
+    
+    public function getAll($page)
+    {
+        $collect = Result::orderByDesc('id')->get();
+        $page    = $options['page'] ?? 1;
+        $resultatsPerPage = $collect->forPage($page, 10)->map(function($result) {
+            return $this->formatResultsBySeason($result);
+        });
+        
+        return $resultatsPerPage->all();
+    }
+    
+    public function formatResultsBySeason($result)
+    {
+        // setlocale(LC_TIME, 'fr_FR');
+        Carbon::setLocale('fr');
+        $resultDate = Carbon::parse($result->contest_at);
+        return [
+            'name'          => $result->name,
+            'season'        => $result->season->name,
+            'locality'      => $result->locality,
+            'contest_at'    => $result->contest_at, //$resultDate->formatLocalized('%A %d %B %Y'),
+            'informations'  => $result->informations,
+        ];
+    }
 }

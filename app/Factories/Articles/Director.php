@@ -18,6 +18,7 @@ class Director
     private static $listFactories = [
         [ 'label' => 'News',     'name' => 'NewsFactory'],
         [ 'label' => 'Articles', 'name'  => 'ArticlesFactory'],
+        [ 'label' => 'Résultats', 'name'  => 'ResultatsFactory'],
     ];
 
     /**

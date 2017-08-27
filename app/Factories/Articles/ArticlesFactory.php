@@ -22,7 +22,4 @@ class ArticlesFactory extends AbstractFactory
         return $articlesPerPage->all();
     }
 
-
-
-
 }

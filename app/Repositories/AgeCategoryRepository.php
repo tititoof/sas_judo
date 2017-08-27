@@ -52,4 +52,9 @@ class AgeCategoryRepository
         }
         return Answer::success(200);
     }
+    
+    public function getAll()
+    {
+        return AgeCategory::All();
+    }
 }

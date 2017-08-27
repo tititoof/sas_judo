@@ -8,7 +8,7 @@
             :week-ground="['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']"
             :task-detail="listCourses">
         </scheduler>
-        <p>
+        <p class="final">
             &nbsp;
             <div style="float: right">
                 <ui-fab
@@ -21,6 +21,7 @@
                 ></ui-fab>
             </div>
         </p>
+        <p>&nbsp;</p>
     </div>
 </template>
 <script>

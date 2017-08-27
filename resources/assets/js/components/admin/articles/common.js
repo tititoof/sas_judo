@@ -7,9 +7,15 @@ export default {
             categoriesSelected: [],
             albums:             [],
             albumsSelected:     [],
+            tableOptions:       [],
             optionsEditor:      {
                 modules: {
                     toolbar: [
+                        ['contain'],
+                        [{ 'table': ['newtable_1_1', 'newtable_1_2', 'newtable_1_3', 'newtable_1_4', 'newtable_1_5'] }], // new table (cursor needs to be out of table)
+                        [{ 'table': 'append-row' }], // cursor needs to be in the table
+                        [{ 'table': 'append-col' }], // cursor needs to be in the table
+                        // Extended toolbar buttons
                         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
                         ['blockquote', 'code-block'],
 

@@ -26,9 +26,9 @@
                 label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" v-model="name"
         >
         </ui-textbox>
-        <quill ref="qc"
-               :options="optionsEditor">
-        </quill>
+        <div id="editor-vue">
+            <Vueditor ref="qc"></Vueditor>
+        </div>
         <ui-select
             name="albums" label="Albums" placeholder="Choisir le ou les albums" show-search multiple z-index="1"
             id="albums"
@@ -48,7 +48,6 @@
     import Keen     from 'keen-ui';
     import {app}    from './../../../app.js';
     import {router} from './../../../app.js';
-    import Quill    from './../../editor/v-quill';
     import common   from './common.js';
     import back     from './../back.js'
     export default {
@@ -59,9 +58,6 @@
             }
         },
         mixins: [common, back],
-        components: {
-            Quill
-        },
         methods: {
             index() {
                 const _self = this;
@@ -73,7 +69,7 @@
                         const newAlbumId    = _self.$route.params.albumId;
                         _self.name          = data.object.name;
                         _self.content       = data.object.content;
-                        _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML = _self.content;
+                        _self.$refs.qc.setContent(_self.content);
                         _self.menus         = data.menus;
                         data.object.categories.forEach(function(category) {
                             _self.categoriesSelected.push({ 'label': category.name, 'value': category.id });
@@ -104,7 +100,7 @@
                 const _self = this,
                     categories  = [],
                     albums      = [];
-                _self.content   = _self.$refs.qc.$el.querySelector('.ql-editor').innerHTML;
+                _self.content   = _self.$refs.qc.getContent();
                 _self.categoriesSelected.forEach(function(category) {
                     categories.push(category.value);
                 });

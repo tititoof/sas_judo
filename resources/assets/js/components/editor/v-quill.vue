@@ -6,9 +6,7 @@
 
 <script>
     import Quill from 'quill'
-
     export default {
-
         props: {
             options: {
                 type: Object,

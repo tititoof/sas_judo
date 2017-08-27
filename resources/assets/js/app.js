@@ -21,6 +21,30 @@ import VueLazyImage from "vue-lazy-images";
 import ToggleButton from 'vue-js-toggle-button'
 import Vuebar       from 'vuebar';
 import Vue2Filters  from 'vue2-filters'
+import Vueditor     from 'vueditor'
+
+import 'vueditor/dist/style/vueditor.min.css'
+
+let config = {
+    toolbar: [
+        'removeFormat', 'undo', 'redo', '|', 'element', 'fontName', 'fontSize', 'foreColor', 'backColor', 'divider', 'bold', 'italic', 'underline', 'strikeThrough',
+        'link', 'unLink', 'divider', 'subscript', 'superscript', 'divider', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',
+        '|', 'indent', 'outdent', 'insertOrderedList', 'insertUnorderedList', '|', 'emoji', 'picture', 'table', '|', 'fullscreen', 'sourceCode', 'markdown'
+    ],
+    fontName: [
+        {val: 'arial black'}, 
+        {val: 'times new roman'}, 
+        {val: 'Courier New'}
+    ],
+    fontSize: [
+        '12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px', '36px'
+    ],
+    uploadUrl: '',
+    id: '',
+    classList: []
+};
+
+Vue.use(Vueditor, config);
 
 Vue.use(Vuebar);
 Vue.use(VueRouter);

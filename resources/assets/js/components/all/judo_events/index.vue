@@ -47,30 +47,6 @@
             }
         },
         methods: {
-            edit() {
-                const _self = this;
-                router.push({ name: 'admin_judo_event_edit', params: { id: _self.deleteId } });
-            },
-            destroy() {
-                const _self = this;
-                _self.$refs['deleteConfirm'].open();
-            },
-            deleteConfirmed() {
-                const _self = this;
-                _self.closeModal();
-                _self.$http.delete('api/judoevent/' + _self.deleteId).then(
-                    () => {
-                    _self.$emit('sas-snackbar', 'évènement supprimé');
-                    _self.index();
-                }).catch(
-                    error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
-                    }
-                );
-            },
-            deleteDenied() {
-
-            },
             index() {
                 const _self = this;
                 _self.$http.get('api/judoevent').then(
@@ -100,7 +76,7 @@
                 );
             },
             'dayClick' (day) {
-                router.push({ name: 'admin_judo_event_new', params: { startAt: day } });
+                // router.push({ name: 'admin_judo_event_new', params: { startAt: day } });
             },
             setModalEvent(event) {
                 const _self = this,
@@ -127,6 +103,15 @@
             closeModal() {
                 const _self = this;
                 _self.$refs['eventModal'].close();
+            },
+            'changeMonth'() {
+                
+            },
+            'moreClick'() {
+                
+            },
+            'moreClick'() {
+                
             }
         },
         components: {

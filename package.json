@@ -39,6 +39,7 @@
     "vue2-filters": "^0.1.9",
     "vue2-timepicker": "",
     "vuebar": "0.0.16",
+    "vueditor": "^0.2.8",
     "vuex": "^2.3.1"
   }
 }

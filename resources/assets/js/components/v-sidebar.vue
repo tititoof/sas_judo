@@ -113,7 +113,7 @@
                     (response) => {
                         const data = response.data.data;
                         data.forEach(function(element) {
-                            _self.menu.push({ id: element.id, text: element.name });
+                            _self.menu.push({ id: element.id, text: element.name, type: element.type });
                         });
                         _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
                         _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
@@ -138,10 +138,31 @@
                         router.push({ name: 'visitor_judo_events' });
                         break;
                     default:
-                        router.push({ name: 'visitor_news', params: {'menu': link} });
+                        _self.getTypePage(link)
+                        // router.push({ name: 'visitor_news', params: {'menu': link} });
                         break;
                 }
                 _self.toggle();
+            },
+            getTypePage(link) {
+                const _self = this;
+                _self.menu.forEach( element => {
+                    if (element.id === link) {
+                        switch(element.type) {
+                            case 'NewsFactory':
+                                router.push({ name: 'visitor_news', params: {'menu': link} });
+                                break;
+                            case 'ArticlesFactory':
+                                router.push({ name: 'visitor_news', params: {'menu': link} });
+                                break;
+                            case 'ResultatsFactory':
+                                router.push({ name: 'visitor_results', params: {'menu': link} });
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
             }
         },
         mounted() {
