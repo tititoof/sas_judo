@@ -76,7 +76,6 @@
                 );
             },
             'dayClick' (day) {
-                // router.push({ name: 'admin_judo_event_new', params: { startAt: day } });
             },
             setModalEvent(event) {
                 const _self = this,
@@ -105,9 +104,6 @@
                 _self.$refs['eventModal'].close();
             },
             'changeMonth'() {
-                
-            },
-            'moreClick'() {
                 
             },
             'moreClick'() {
