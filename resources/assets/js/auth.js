@@ -8,68 +8,76 @@ export default {
     },
     errorBasic: "Une erreur est survenue.",
     register(context, name, email, password, password_confirm) {
-        context.$http.post(
-            'api/register',
-            { name: name, email: email, password: password, 'password_confirmation': password_confirm }
-        ).then(
-            () => {
-                context.success = true
-            },
-            (response) => {
-                context.reponse = response.data;
-                context.error   = true;
-            }
-        );
+        context.$store.dispatch("register", {
+            context: context, 
+            name: name, 
+            email: email, 
+            password: password, 
+            password_confirm: password_confirm
+        })
+        // context.$http.post(
+        //     'api/register',
+        //     { name: name, email: email, password: password, 'password_confirmation': password_confirm }
+        // ).then(
+        //     () => {
+        //         context.success = true
+        //     },
+        //     (response) => {
+        //         context.reponse = response.data;
+        //         context.error   = true;
+        //     }
+        // );
     },
-    check(app) {
+    check(context) {
         const _self = this;
-        if (localStorage.getItem('id_token') !== null) {
-            app.$http.get(
-                'api/user'
-            ).then(
-                (response) => {
-                    _self.user.authenticated = true;
-                    _self.user.isAdmin       = response.data.data.is_admin;
-                    _self.user.isDebug       = response.data.data.is_debug;
-                    _self.user.profile       = response.data.data;
-                    app.$emit('sas-admin', 'Mise à jour utilisateur');
-                },
-                () => {
-                    _self.user.authenticated = false;
-                    _self.user.isAdmin       = false;
-                    _self.user.isDebug       = false;
-                    app.$emit('sas-admin', 'Mise à jour utilisateur');
-                }
-            );
-        }
+        context.$store.dispatch("check", context)
+        // if (localStorage.getItem('id_token') !== null) {
+        //     app.$http.get(
+        //         'api/user'
+        //     ).then(
+        //         (response) => {
+        //             _self.user.authenticated = true;
+        //             _self.user.isAdmin       = response.data.data.is_admin;
+        //             _self.user.isDebug       = response.data.data.is_debug;
+        //             _self.user.profile       = response.data.data;
+        //             app.$emit('sas-admin', 'Mise à jour utilisateur');
+        //         },
+        //         () => {
+        //             _self.user.authenticated = false;
+        //             _self.user.isAdmin       = false;
+        //             _self.user.isDebug       = false;
+        //             app.$emit('sas-admin', 'Mise à jour utilisateur');
+        //         }
+        //     );
+        // }
     },
     signin(context, email, password) {
-      const _self = this;
-      context.$http.post(
-          'api/signin', { email: email, password: password }
-      ).then(
-          (response) => {
-            context.error = false;
-            localStorage.setItem('id_token', response.data.meta.token);
-            context.$http.defaults.headers['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
-            _self.user.authenticated     = true;
-            _self.user.profile           = response.data.data;
-            _self.user.isAdmin           = response.data.data.is_admin;
-            _self.user.isDebug           = response.data.data.is_debug;
-            router.push({ name: 'home' })
-          },
-          () => {
-            context.error = true;
-          }
-      );
+        context.$store.dispatch("signin", {
+            context: context, 
+            email: email, 
+            password: password
+        })
+    //   context.$http.post(
+    //       'api/signin', { email: email, password: password }
+    //   ).then(
+    //       (response) => {
+    //         context.error = false;
+    //         localStorage.setItem('id_token', response.data.meta.token);
+    //         context.$http.defaults.headers['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
+    //         _self.user.authenticated     = true;
+    //         _self.user.profile           = response.data.data;
+    //         _self.user.isAdmin           = response.data.data.is_admin;
+    //         _self.user.isDebug           = response.data.data.is_debug;
+    //         router.push({ name: 'home' })
+    //       },
+    //       () => {
+    //         context.error = true;
+    //       }
+    //   );
     },
-    signout() {
-        localStorage.removeItem('id_token');
-        this.user.authenticated = false;
-        this.user.isAdmin       = false;
-        this.user.isDebug       = false;
-        this.user.profile       = null;
-        router.push({ name: 'home' });
+    signout(context) {
+        console.log(context)
+        context.$store.dispatch("signout", router)
     },
     checkIsAdmin() {
         const _self = this;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="alert alert-danger" v-if="error">
+        <div class="alert alert-danger" v-if="contextError">
             <p>Il y a une erreur, impossible de se connecter avec ces informations.</p>
         </div>
         <form autocomplete="off" v-on:submit="signin">
@@ -17,19 +17,27 @@
     </div>
 </template>
 <script>
-    import auth from '../auth.js';
+    import { mapGetters }   from 'vuex';
+    import { router }       from './../app.js';
     export default {
         data() {
             return {
                 email: null,
-                password: null,
-                error: false
+                password: null
             }
         },
+        computed: 
+            mapGetters({ contextError: 'contextError' })
+        ,
         methods: {
             signin(event) {
                 event.preventDefault();
-                auth.signin(this, this.email, this.password);
+                this.$store.dispatch("signin", {
+                    context: this, 
+                    email: this.email, 
+                    password: this.password,
+                    router: router
+                })
             }
         }
     }

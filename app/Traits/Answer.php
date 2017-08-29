@@ -25,5 +25,4 @@ class Answer
         '206'   => 'Une partie seulement de la ressource a été transmise.',
     ];
     
-    public function 
 }

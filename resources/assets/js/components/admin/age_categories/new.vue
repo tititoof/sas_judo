@@ -32,7 +32,6 @@
     </div>
 </template>
 <script>
-import auth from '../../../auth';
 import Keen from 'keen-ui';
 import Vue from './../../../app.js';
 import {router} from './../../../app.js';
@@ -65,7 +64,9 @@ export default {
     mounted() {
         this.$nextTick(function () {
             const _self = this;
-            auth.check(_self);
+            _self.$store.dispatch("check", 
+                { app: _self, router: router }
+            )
             _self.index();
         });
     }

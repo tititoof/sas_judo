@@ -24,7 +24,7 @@
                 <router-link :to="{ name: 'home' }" class="sas-menu" style="color: #FFFFFF; text-decoration: none">SAS Judo Jujitsu</router-link>
             </div>
             <div slot="actions">
-                <template v-if="auth.user.authenticated">
+                <template v-if="isRegistred">
                     <ui-button
                         type="colored"
                         color="green"
@@ -46,7 +46,7 @@
                         </ui-menu>
                     </ui-button>
                     <ui-icon-button
-                        v-if="auth.user.isAdmin"
+                        v-if="isAdmin"
                         type="colored"
                         color="green"
                         size="large"
@@ -83,12 +83,11 @@
     import {app}        from './../app.js';
     import {router}     from './../app.js';
     import Keen         from 'keen-ui';
-    import auth         from '../auth';
+    import { mapGetters } from 'vuex';
     export default {
         name: 'myMenu',
         data() {
             return {
-                auth: auth,
                 loading: false,
                 siteTitle: "SAS Judo Jujitsu",
                 sidebarShow: false,
@@ -144,6 +143,9 @@
         },
         directives: {
         },
+        computed: 
+            mapGetters({ isRegistred: 'isRegistred', isAdmin: 'isAdmin' })
+        ,
         methods: {
             index() {
             },
@@ -157,13 +159,10 @@
             menuClick() {
                 this.$refs.sidebar.toggle();
             },
-            disconnectAction() {
-                auth.signout();
-            },
             selectUserMenu(option) {
                 switch(option.id) {
                     case 'disconnect':
-                        auth.signout();
+                        this.$store.dispatch("signout", router)
                         break;
                     default:
                         break;
@@ -182,9 +181,11 @@
             }
         },
         mounted() {
-            this.$nextTick(function() {
-                const _self = this;
-                auth.check(_self);
+            const _self = this;
+            _self.$nextTick(function() {
+                _self.$store.dispatch("check", 
+                    { app: _self, router: router }
+                )
                 _self.index();
             });
         }

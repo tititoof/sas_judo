@@ -34,24 +34,22 @@
     </div>
 </template>
 <script>
-    import auth   from '../auth';
-    import myMenu from './v-menu.vue';
-    import Keen   from 'keen-ui';
+    import myMenu       from './v-menu.vue';
+    import Keen         from 'keen-ui';
+    import { router }   from './../app.js';
+    import { mapGetters } from 'vuex';
     export default {
         data() {
             return {
-                auth: auth,
                 position: "left",
                 queueSnackbars: true,
                 showAlert: false,
                 errorAlert: ''
             }
         },
-        computed: {
-            isAdmin() {
-                return this.auth.checkIsAdmin();
-            }
-        },
+        computed: 
+            mapGetters({ isRegistred: 'isRegistred', isAdmin: 'isAdmin' })
+        ,
         methods: {
             signout() {
                 auth.signout()
@@ -74,9 +72,11 @@
             myMenu
         },
         mounted: function() {
-            this.$nextTick(function () {
-                const _self = this;
-                auth.check(_self);
+            const _self = this;
+            _self.$nextTick(function () {
+                _self.$store.dispatch("check", 
+                    { app: _self, router: router }
+                )
             });
         }
     }
