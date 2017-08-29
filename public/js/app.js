@@ -20575,8 +20575,6 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth__ = __webpack_require__(4);
-
 /* harmony default export */ __webpack_exports__["a"] = ({
     methods: {
         deleteObject: function deleteObject(url, message) {
@@ -20585,7 +20583,7 @@ module.exports = {
                 _self.$emit('sas-snackbar', message);
                 _self.index();
             }).catch(function (error) {
-                _self.$emit('sas-errors', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].showError(error.response, _self.formErrors));
+                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
             });
         }
     }
@@ -45774,7 +45772,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/age_category').then(function (response) {
                 _self.ageCategories = response.data.ageCategories;
             }).catch(function (error) {
-
                 _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
             });
         },
@@ -49189,19 +49186,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__v_menu_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__v_menu_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__v_menu_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_keen_ui__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_keen_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_keen_ui__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__v_menu_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__v_menu_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__v_menu_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_keen_ui__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_keen_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_keen_ui__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_js__ = __webpack_require__(1);
 //
 //
 //
 //
 //
 //
-
 
 
 
@@ -49217,18 +49212,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         index: function index() {
             var _self = this;
-            _self.$http.get('api/visitor/' + _self.page + '/articles').then(function (response) {
-
-                // console.log(response);
-            }).catch(function (error) {
-                _self.$emit('sas-errors', __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].showError(error.response, _self.formErrors));
+            _self.$http.get('api/visitor/' + _self.page + '/articles').then(function (response) {}).catch(function (error) {
+                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
             });
         }
     },
     mounted: function mounted() {
         this.$nextTick(function () {
             var _self = this;
-            __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].check(_self);
+            _self.$store.dispatch("check", { app: _self, router: __WEBPACK_IMPORTED_MODULE_2__app_js__["router"] });
             _self.index();
         });
     }
@@ -51303,7 +51295,8 @@ var actions = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mutation_types__ = __webpack_require__(18);
-var _mutations;
+var _this = this,
+    _mutations;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -51331,9 +51324,7 @@ var getters = {
     isAdmin: function isAdmin(state) {
         return state.user.profile.data.is_admin == 1;
     },
-    formErrors: function formErrors(response, formElements) {
-        var _this = this;
-
+    formErrors: function formErrors(state) {
         return function (response, formElements) {
             var _self = _this;
             if ("undefined" !== typeof formElements) {
@@ -51344,6 +51335,7 @@ var getters = {
             }
         };
     }
+
 };
 
 var mutations = (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["a" /* LOGIN */], function (state, data) {
@@ -52012,7 +52004,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 277 */

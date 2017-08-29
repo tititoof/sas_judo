@@ -22,7 +22,7 @@ const getters = {
     isAdmin: (state) => {
         return (state.user.profile.data.is_admin == 1)
     },
-    formErrors(response, formElements) {
+    formErrors: (state) => {
         return (response, formElements) => {
             const _self = this;
             if ("undefined" !== typeof formElements) {
