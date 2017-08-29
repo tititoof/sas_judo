@@ -2,7 +2,7 @@
     <div>
         <h1>
             <small>
-                <ui-icon-button 
+                <ui-icon-button
                     icon="arrow_left" size="small" color="green"
                     @click.prevent="back()">
                 </ui-icon-button>
@@ -27,7 +27,7 @@
             class="bg-info" name="pictures" id="pictures" accept="image/*" action="/api/picture"
             :button-text="uploadName" multiple>
         </file-upload>
-        
+
         <ul>
             <li v-for="file in files">
                 {{ file.name }} ({{ file.size }})
@@ -36,11 +36,10 @@
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
-    import Keen from 'keen-ui';
-    import Vue from './../../../app.js';
-    import {router} from './../../../app.js';
-    import common from './common.js';
+    import Keen         from 'keen-ui';
+    import Vue          from './../../../app.js';
+    import {router}     from './../../../app.js';
+    import common       from './common.js';
     import back         from './../back.js'
     export default {
         mixins: [common, back],
@@ -66,7 +65,7 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 )
             }
@@ -74,7 +73,9 @@
         mounted() {
             this.$nextTick( () => {
                 const _self = this;
-                auth.check(_self);
+                _self.$store.dispatch("check",
+                    { app: _self, router: router }
+                )
                 _self.files_id = []
                 _self.$store.dispatch('resetPicturesInAlbum')
                 _self.articleId = _self.$route.params.articleId

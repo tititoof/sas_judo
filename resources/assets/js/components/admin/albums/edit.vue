@@ -2,7 +2,7 @@
     <div>
         <h1>
             <small>
-                <ui-icon-button 
+                <ui-icon-button
                     icon="arrow_left" size="small" color="green"
                     @click.prevent="back()">
                 </ui-icon-button>
@@ -41,7 +41,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#" height="150px">
-                                <lazy-image 
+                                <lazy-image
                                     :src='picture.url'
                                     class="img-thumbnail img-responsive" height="150px"
                                 ></lazy-image>
@@ -68,7 +68,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#" height="150px">
-                                <lazy-image 
+                                <lazy-image
                                     :src='picture.url'
                                     class="img-thumbnail img-responsive" height="150px"
                                 ></lazy-image>
@@ -82,18 +82,17 @@
                         </div>
                     </div>
                     <div class="clear" v-if="(index % 4 == 0) && (index != 0)"></div>
-                    
+
                 </div>
             </div>
         </ui-collapsible>
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
-    import Keen from 'keen-ui';
-    import Vue from './../../../app.js';
-    import {router} from './../../../app.js';
-    import common from './common.js';
+    import Keen         from 'keen-ui';
+    import Vue          from './../../../app.js';
+    import { router }   from './../../../app.js';
+    import common       from './common.js';
     import back         from './../back.js'
     export default {
         data() {
@@ -122,7 +121,7 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 )
             },
@@ -144,7 +143,7 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 )
             },
@@ -160,13 +159,16 @@
             onAllFilesUploaded: function(allFiles) {
                 const _self = this;
                 _self.filesIds = allFiles
-                _self.$http.patch('api/album/' + _self.albumId, { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': auth.user.profile.id }).then(
+                _self.$http.patch(
+                    'api/album/' + _self.albumId,
+                    { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': auth.user.profile.id }
+                ).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 )
             }
@@ -174,7 +176,9 @@
         mounted() {
             this.$nextTick(function () {
                 const _self = this;
-                auth.check(_self);
+                _self.$store.dispatch("check",
+                    { app: _self, router: router }
+                )
                 _self.albumId = _self.$route.params.albumId;
                 _self.index();
             });

@@ -49,16 +49,14 @@
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
-    import menu from '../../v-menu.vue';
-    import Keen from 'keen-ui';
-    import Vue from './../../../app.js';
-    import {router} from './../../../app.js';
-    import common from './../common.js';
+    import menu         from '../../v-menu.vue';
+    import Keen         from 'keen-ui';
+    import Vue          from './../../../app.js';
+    import { router }   from './../../../app.js';
+    import common       from './../common.js';
     export default {
         data() {
             return {
-                auth: auth,
                 albums: [],
                 deleteId: Number,
                 show: {
@@ -76,7 +74,7 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -102,7 +100,9 @@
         mounted() {
             this.$nextTick(function () {
                 const _self = this;
-                auth.check(_self);
+                _self.$store.dispatch("check",
+                    { app: _self, router: router }
+                )
                 _self.index();
             });
         }

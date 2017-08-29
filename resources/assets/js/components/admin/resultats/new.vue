@@ -2,7 +2,7 @@
     <div>
         <h1>
             <small>
-                <ui-icon-button 
+                <ui-icon-button
                     icon="arrow_left" size="small" color="green"
                     @click.prevent="back()">
                 </ui-icon-button>
@@ -96,7 +96,7 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                 }
             );
         },
@@ -122,7 +122,7 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                 }
             );
         }
@@ -132,7 +132,9 @@ export default {
     mounted() {
         this.$nextTick( () => {
             const _self = this;
-            auth.check(_self);
+            _self.$store.dispatch("check",
+                { app: _self, router: router }
+            )
             _self.index();
         });
     }

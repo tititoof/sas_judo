@@ -2,7 +2,7 @@
     <div>
         <h1>
             <small>
-                <ui-icon-button 
+                <ui-icon-button
                     icon="arrow_left" size="small" color="green"
                     @click.prevent="back()">
                 </ui-icon-button>
@@ -32,22 +32,22 @@
     </div>
 </template>
 <script>
-import Keen from 'keen-ui';
-import Vue from './../../../app.js';
-import {router} from './../../../app.js';
-import common from './common.js';
-import back     from './../back.js'
+import Keen         from 'keen-ui';
+import Vue          from './../../../app.js';
+import { router }   from './../../../app.js';
+import common       from './common.js';
+import back         from './../back.js'
 
 export default {
     mixins: [common, back],
     methods: {
         index() {
-        
+
         },
         store() {
             const _self = this;
             _self.$http.post(
-                'api/age_category', 
+                'api/age_category',
                 { name: _self.name, years: _self.years }
             ).then(
                 () => {
@@ -56,7 +56,7 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                 }
             )
         }
@@ -64,7 +64,7 @@ export default {
     mounted() {
         this.$nextTick(function () {
             const _self = this;
-            _self.$store.dispatch("check", 
+            _self.$store.dispatch("check",
                 { app: _self, router: router }
             )
             _self.index();

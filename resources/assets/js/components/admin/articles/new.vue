@@ -2,7 +2,7 @@
     <div>
         <h1>
             <small>
-                <ui-icon-button 
+                <ui-icon-button
                     icon="arrow_left" size="small" color="green"
                     @click.prevent="back()">
                 </ui-icon-button>
@@ -44,7 +44,6 @@
     </div>
 </template>
 <script>
-    import auth         from '../../../auth';
     import Keen         from 'keen-ui';
     import { app }      from './../../../app.js';
     import { router }   from './../../../app.js';
@@ -53,7 +52,6 @@
     export default {
         data() {
             return {
-                auth: auth
             }
         },
         mixins: [common, back],
@@ -85,7 +83,7 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -119,7 +117,7 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -131,7 +129,9 @@
         mounted() {
             this.$nextTick(function () {
                 const _self = this;
-                auth.check(_self);
+                _self.$store.dispatch("check",
+                    { app: _self, router: router }
+                )
                 _self.index();
             });
         }

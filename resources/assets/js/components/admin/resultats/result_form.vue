@@ -52,7 +52,7 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                 }
             );
         },

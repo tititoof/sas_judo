@@ -2,7 +2,7 @@
     <div>
         <h1>
             <small>
-                <ui-icon-button 
+                <ui-icon-button
                     icon="arrow_left" size="small" color="green"
                     @click.prevent="back()">
                 </ui-icon-button>
@@ -57,7 +57,6 @@
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
     import Keen from 'keen-ui';
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
@@ -68,7 +67,6 @@
     export default {
         data() {
             return {
-                
             }
         },
         mixins: [common, back],
@@ -87,7 +85,7 @@
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                 }
             );
           },
@@ -95,7 +93,7 @@
             const _self = this;
             _self.$http.post('api/course', { 'name': _self.name, 'day': _self.daySelected.value,
                 'start_at': _self.startTimeAt, 'end_at': _self.endTimeAt,
-                'teacher_id': _self.teacherSelected.value, 'season_id': _self.seasonSelected.value } 
+                'teacher_id': _self.teacherSelected.value, 'season_id': _self.seasonSelected.value }
             ).then(
                 () => {
                     _self.$emit('sas-snackbar', 'Saison ajoutée');
@@ -103,7 +101,7 @@
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                 }
             );
           }
@@ -111,7 +109,9 @@
         mounted() {
             this.$nextTick(function() {
                 const _self = this;
-                auth.check(_self);
+                _self.$store.dispatch("check",
+                    { app: _self, router: router }
+                )
                 _self.index();
             })
         }

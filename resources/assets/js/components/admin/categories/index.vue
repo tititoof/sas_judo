@@ -50,7 +50,6 @@
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
     import vMenu from '../../v-menu.vue';
     import Keen from 'keen-ui';
     import {app} from './../../../app.js';
@@ -59,7 +58,6 @@
     export default {
         data() {
             return {
-                auth: auth,
                 categories: [],
                 deleteId: Number,
                 show: {
@@ -87,14 +85,14 @@
             index() {
                 const _self = this;
                 _self.$http.get(
-                    'api/category', 
+                    'api/category',
                     { 'user_id': auth.user.profile.id }
                 ).then(
                     (response) => {
                     _self.categories = response.data.categories;
                 }).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -108,7 +106,9 @@
         mounted() {
             this.$nextTick(function () {
                 const _self = this;
-                auth.check(_self);
+                _self.$store.dispatch("check",
+                    { app: _self, router: router }
+                )
                 _self.index();
             });
         }

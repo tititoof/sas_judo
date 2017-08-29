@@ -2,7 +2,7 @@
     <div>
         <h1>
             <small>
-                <ui-icon-button 
+                <ui-icon-button
                     icon="arrow_left" size="small" color="green"
                     @click.prevent="back()">
                 </ui-icon-button>
@@ -53,14 +53,14 @@ export default {
                     _self.years = response.data.ageCategory.years;
                 },
                 response => {
-                    auth.showError(response, ['name', 'years', 'id']);
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                 }
             );
         },
     update() {
         const _self = this;
         _self.$http.patch(
-            'api/age_category/' + _self.id, 
+            'api/age_category/' + _self.id,
             { name: _self.name, years: _self.years }
         ).then(
             () => {
@@ -69,7 +69,7 @@ export default {
             }
         ).catch(
             error   => {
-                _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
             }
         )
     }
@@ -77,7 +77,7 @@ export default {
   mounted() {
     const _self = this;
     this.$nextTick(function () {
-        _self.$store.dispatch("check", 
+        _self.$store.dispatch("check",
             { app: _self, router: router }
         )
         _self.id = _self.$route.params.id;
