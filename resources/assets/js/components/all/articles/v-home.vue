@@ -34,9 +34,6 @@ export default {
     mounted() {
         this.$nextTick(function() {
            const _self = this;
-           _self.$store.dispatch("check", 
-                { app: _self, router: router }
-            )
            _self.index();
         });
     }

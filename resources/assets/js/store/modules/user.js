@@ -55,7 +55,7 @@ const mutations = {
 }
 
 const actions = {
-    register({ commit, state }, context, name, email, password, password_confirm) {
+    register({ commit, state }, { context, name, email, password, password_confirm }) {
         context.$http.post(
             'api/register',
             { name: name, email: email, password: password, 'password_confirmation': password_confirm }

@@ -10,7 +10,6 @@
     </div>
 </template>
 <script>
-import auth     from '../../../auth';
 import vMenu    from '../../v-menu.vue';
 import Keen     from 'keen-ui';
 import {app}    from './../../../app.js';
@@ -27,8 +26,7 @@ export default {
         index() {
             const _self = this;
             _self.menu = _self.$route.params.menu;
-            _self.$http
-            .get(
+            _self.$http.get(
                 'api/visitor/menu/' + _self.menu
             ).then(
                 response => {
@@ -45,7 +43,6 @@ export default {
     mounted() {
         this.$nextTick(function() {
            const _self = this;
-           auth.check(_self);
            _self.index();
         });
     },

@@ -25,7 +25,6 @@
     </div>
 </template>
 <script>
-    import auth         from '../../../auth';
     import Keen         from 'keen-ui';
     import scheduler    from '../../scheduler/vue-schedule.vue';
     import {app}        from './../../../app.js';
@@ -63,7 +62,6 @@
         mounted() {
             this.$nextTick(function() {
                 const _self = this;
-                auth.check(_self);
                 _self.index();
             });
         }

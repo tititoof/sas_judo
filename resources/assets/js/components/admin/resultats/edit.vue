@@ -68,7 +68,6 @@
     </div>
 </template>
 <script>
-import auth         from '../../../auth';
 import vMenu        from '../../v-menu.vue';
 import Keen         from 'keen-ui';
 import resultForm   from './result_form.vue';

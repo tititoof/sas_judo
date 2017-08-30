@@ -15,22 +15,24 @@
         v-if="ageCategories.length > 0"
         >
         <thead>
-        <tr>
-          <th>#</th>
-          <th>Nom</th>
-        </tr>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Âge de départ</th>
+            </tr>
         </thead>
         <tbody>
         <tr v-for="category in ageCategories">
-          <td>
-            <ui-icon-button
-                type="secondary" icon="edit" color="orange" size="large"
-                @click="edit(category.id)"></ui-icon-button>
-            <ui-icon-button
-                type="secondary" size="large" icon="delete" color="red"
-                @click="destroy(category.id)"></ui-icon-button>
-          </td>
-          <td>{{ category.name }}</td>
+            <td>
+                <ui-icon-button
+                    type="secondary" icon="edit" color="orange" size="large"
+                    @click="edit(category.id)"></ui-icon-button>
+                <ui-icon-button
+                    type="secondary" size="large" icon="delete" color="red"
+                    @click="destroy(category.id)"></ui-icon-button>
+            </td>
+            <td>{{ category.name }}</td>
+            <td>{{ category.years }} ans</td>
         </tr>
         </tbody>
     </table>

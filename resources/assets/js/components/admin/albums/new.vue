@@ -38,7 +38,7 @@
 <script>
     import Keen         from 'keen-ui';
     import Vue          from './../../../app.js';
-    import {router}     from './../../../app.js';
+    import { router }   from './../../../app.js';
     import common       from './common.js';
     import back         from './../back.js'
     export default {

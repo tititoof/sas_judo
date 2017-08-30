@@ -5,25 +5,24 @@
     </div>
 </template>
 <script>
-    import auth from '../../auth';
     import menu from '../v-menu.vue';
     import Keen from 'keen-ui';
     export default {
         data() {
-            return {
-                auth: auth
-            }
+            return {}
         },
         methods: {
             signout() {
-                auth.signout()
+                this.$store.dispatch("signout", router)
             }
         },
         components: {
             menu
         },
         ready() {
-            auth.check()
+            _self.$store.dispatch("check", 
+                { app: _self, router: router }
+            )
         }
     }
 </script>

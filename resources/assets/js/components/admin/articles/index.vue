@@ -49,7 +49,6 @@
     </div>
 </template>
 <script>
-    import auth from '../../../auth';
     import menu from '../../v-menu.vue';
     import Keen from 'keen-ui';
     import Vue from './../../../app.js';
@@ -58,7 +57,6 @@
     export default {
         data() {
             return {
-                auth: auth,
                 articles: [],
                 deleteId: Number,
                 show: {

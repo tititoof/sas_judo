@@ -159,7 +159,6 @@
     </div>
 </template>
 <script>
-import auth         from '../../../auth';
 import vMenu        from '../../v-menu.vue';
 // import Keen         from 'keen-ui';
 import { UiRadioGroup, UiTabs, UiTab } from 'keen-ui';
@@ -213,7 +212,7 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
                 }
             );
         },
@@ -238,7 +237,7 @@ export default {
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
                     }
                 );
             }
@@ -299,7 +298,7 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
                 }
             );
         },
@@ -311,7 +310,7 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
                 }
             );
         }
@@ -319,7 +318,9 @@ export default {
     mounted() {
         this.$nextTick(function () {
             const _self = this;
-            auth.check(_self);
+            _self.$store.dispatch("check", 
+                { app: _self, router: router }
+            )
             _self.id = _self.$route.params.id;
             _self.index();
         });

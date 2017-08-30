@@ -24,7 +24,7 @@
             >
         </ui-textbox>
         <ui-textbox
-            label="Nb d'année" name="years" type="text"
+            label="Âge" name="years" type="text"
             placeholder="Entrer le nombre d'année"
             v-model="years"
             >

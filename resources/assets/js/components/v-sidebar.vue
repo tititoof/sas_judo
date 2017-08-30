@@ -95,7 +95,6 @@
 <script>
     import {app}    from './../app.js';
     import {router} from './../app.js';
-    import auth     from './../auth';
     export default {
         name: "sidebar",
         props: {

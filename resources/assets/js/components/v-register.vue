@@ -32,7 +32,6 @@
     </div>
 </template>
 <script>
-    import auth from '../auth.js';
     export default {
         data() {
             return {
@@ -47,8 +46,11 @@
         },
         methods: {
             register(event) {
+                const _self = this;
                 event.preventDefault();
-                auth.register(this, this.name, this.email, this.password, this.password_confirm);
+                _self.$store.dispatch("register", 
+                    { context: _self, name: _self.name, email: _self.email, password: _self.password, password_confirm: _self.password_confirm }
+                )
             }
         }
     }
