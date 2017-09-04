@@ -44,11 +44,12 @@
     </div>
 </template>
 <script>
-    import Keen         from 'keen-ui';
-    import { app }      from './../../../app.js';
-    import { router }   from './../../../app.js';
-    import common       from './common.js';
-    import back         from './../back.js'
+    import Keen             from 'keen-ui';
+    import { app }          from './../../../app.js';
+    import { router }       from './../../../app.js';
+    import common           from './common.js';
+    import back             from './../back.js'
+    import { mapGetters }   from 'vuex';
     export default {
         data() {
             return {
@@ -103,7 +104,7 @@
                     'name':         _self.name,
                     'categories':   categories,
                     'content':      _self.content,
-                    'user_id':      auth.user.profile.id,
+                    'user_id':      _self.getUserId,
                     'albums':       albums
                 }).then(
                     (response) => {

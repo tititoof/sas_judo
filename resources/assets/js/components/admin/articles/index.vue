@@ -18,6 +18,7 @@
             <tr>
                 <th>#</th>
                 <th>Nom</th>
+                <th>Menu(s)</th>
             </tr>
             </thead>
             <tbody>
@@ -30,7 +31,14 @@
                         type="secondary" size="large" icon="delete" color="red"
                         @click="destroy(article.id)"></ui-icon-button>
                 </td>
-                <td>{{ article.name }}</td>
+                <td>
+                    {{ article.name }}
+                </td>
+                <td>
+                    <template v-for="(menu, index) in article.menus" >
+                        <span> {{ menu }}</span><span v-if="(index + 1) < article.menus.length">, </span>
+                    </template>
+                </td>
             </tr>
             </tbody>
         </table>

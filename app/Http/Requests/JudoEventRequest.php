@@ -23,7 +23,7 @@ class JudoEventRequest extends FormRequest
      */
     public function rules()
     {
-        $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
+        $judoevent    = (null !== $this->route('judoevent')) ? $this->route('judoevent') : null;
         $rules = [
             'name'          => 'required|max:255|unique:judo_events,name',
             'type'          => 'required',
@@ -32,8 +32,8 @@ class JudoEventRequest extends FormRequest
             'end_time_at'   => 'required',
             'start_time_at' => 'required',
         ];
-        if (null !== $id) {
-            $rules = array_merge($rules, ['name' => 'required|max:255|unique:judo_events,name,'.$id,]);
+        if (null !== $judoevent) {
+            $rules = array_merge($rules, ['name' => 'required|max:255|unique:judo_events,name,'.$judoevent['attributes']['id'],]);
         }
         return $rules;
     }

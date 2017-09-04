@@ -24,7 +24,7 @@ class ResultFormRequest extends FormRequest
      */
     public function rules()
     {
-      $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
+    //   $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
       $rules = [
           'name'          => 'required|max:255',
           'season_id'     => 'required|integer',

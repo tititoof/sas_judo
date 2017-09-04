@@ -55,6 +55,7 @@
     import {app} from './../../../app.js';
     import {router} from './../../../app.js';
     import fullCalendar from 'vue-fullcalendar';
+    import { mapGetters }   from 'vuex';
     import moment from 'moment';
     export default {
         data() {
@@ -68,11 +69,7 @@
                 }
             }
         },
-        computed: {
-          isAdmin() {
-              return this.auth.checkIsAdmin();
-          }
-        },
+        computed: mapGetters({ isAdmin: 'isAdmin' }),
         methods: {
             edit() {
                 const _self = this;
@@ -128,6 +125,12 @@
             },
             'dayClick' (day) {
                 router.push({ name: 'admin_judo_event_new', params: { startAt: day } });
+            },
+            'moreClick' () {
+                
+            },
+            'changeMonth' () {
+                
             },
             setModalEvent(event) {
                 const _self = this,

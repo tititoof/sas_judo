@@ -23,7 +23,7 @@ class CourseFormRequest extends FormRequest
      */
     public function rules()
     {
-        $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
+        $course    = (null !== $this->route('course')) ? $this->segment('course') : null;
         $rules = [
             'name'          => 'required|max:255|unique:courses,name',
             'season_id'     => 'required',
@@ -32,8 +32,8 @@ class CourseFormRequest extends FormRequest
             'end_at'        => 'required',
             'teacher_id'    => 'required',
         ];
-        if (null !== $id) {
-            $rules = array_merge($rules, ['name' => 'required|max:255|unique:courses,name,'.$id,]);
+        if (null !== $course) {
+            $rules = array_merge($rules, ['name' => 'required|max:255|unique:courses,name,'.$course['attributes']['id'],]);
         }
         return $rules;
     }

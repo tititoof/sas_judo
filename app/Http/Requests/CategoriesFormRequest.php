@@ -23,13 +23,13 @@ class CategoriesFormRequest extends FormRequest
      */
     public function rules()
     {
-        $id    = (null !== $this->segment(3)) ? $this->segment(3) : null;
+        $category    = (null !== $this->route('category')) ? $this->route('category') : null;
         $rules = [
             'name'      => 'required|max:255|unique:categories,name',
             'type'      => 'required',
         ];
-        if (null !== $id) {
-            $rules = array_merge($rules, ['name' => 'required|max:255|unique:categories,name,'.$id,]);
+        if (null !== $category) {
+            $rules = array_merge($rules, ['name' => 'required|max:255|unique:categories,name,'.$category['attributes']['id'],]);
         }
         return $rules;
     }

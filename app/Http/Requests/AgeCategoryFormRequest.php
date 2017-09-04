@@ -23,14 +23,14 @@ class AgeCategoryFormRequest extends FormRequest
      */
     public function rules()
     {
-      $id    = (null !== $this->segment(3)) ? $this->segment(3) : null;
-      $rules = [
-          'name'  => 'required|max:255|unique:age_categories,name',
-          'years' => 'required|integer',
-      ];
-      if (null !== $id) {
-          $rules = array_merge($rules, ['name' => 'required|max:255|unique:age_categories,name,'.$id,]);
-      }
-      return $rules;
+        $category = (null !== $this->route('ageCategory')) ? $this->route('ageCategory') : null;
+        $rules    = [
+            'name'  => 'required|max:255|unique:age_categories,name',
+            'years' => 'required|integer',
+        ];
+        if (null !== $category) {
+            $rules = array_merge($rules, ['name' => 'required|max:255|unique:age_categories,name,'.$category['attributes']['id'],]);
+        }
+        return $rules;
     }
 }

@@ -4,6 +4,7 @@ import * as actions from './actions'
 import * as getters from './getters'
 import album from './modules/album'
 import user from './modules/user'
+import judoEvent from './modules/judoevent'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     getters,
     modules: {
         album,
-        user
+        user,
+        judoEvent
     },
     strict: debug
 })

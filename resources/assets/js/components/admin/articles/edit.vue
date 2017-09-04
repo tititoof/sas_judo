@@ -44,19 +44,22 @@
     </div>
 </template>
 <script>
-    import Keen     from 'keen-ui';
-    import {app}    from './../../../app.js';
-    import {router} from './../../../app.js';
-    import common   from './common.js';
-    import back     from './../back.js'
+    import Keen             from 'keen-ui';
+    import {app}            from './../../../app.js';
+    import { router }       from './../../../app.js';
+    import common           from './common.js';
+    import back             from './../back.js'
+    import { mapGetters }   from 'vuex';
     export default {
         data() {
             return {
-                auth:           auth,
                 articleId:      ''
             }
         },
         mixins: [common, back],
+        computed: 
+            mapGetters({ getUserId: 'getUserId' })
+        ,
         methods: {
             index() {
                 const _self = this;
@@ -106,9 +109,10 @@
                 _self.albumsSelected.forEach(function(album) {
                     albums.push(album.value);
                 });
+                console.log(_self.getUserId)
                 _self.$http.patch('api/article/' + _self.articleId, {
                     'name': _self.name, 'categories': categories, 'content': _self.content,
-                    'user_id': auth.user.profile.id, 'albums': albums
+                    'user_id': _self.getUserId, 'albums': albums
                 }).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Article modifié');

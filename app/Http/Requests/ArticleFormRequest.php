@@ -26,15 +26,15 @@ class ArticleFormRequest extends FormRequest
      */
     public function rules()
     {
-        $id    = (null !== $this->segment(3)) ? $this->segment(3) : null;
+        $article    = (null !== $this->route('article')) ? $this->route('article') : null;
         $rules = [
             'name'          => 'required|max:255|unique:articles,name',
             'content'       => 'required',
             'categories'    => 'required|array',
             'albums'        => 'array'
         ];
-        if (null !== $id) {
-            $rules = array_merge($rules, ['name' => 'required|max:255|unique:articles,name,'.$id,]);
+        if (null !== $article) {
+            $rules = array_merge($rules, ['name' => 'required|max:255|unique:articles,name,'.$article['attributes']['id'],]);
         }
         return $rules;
     }

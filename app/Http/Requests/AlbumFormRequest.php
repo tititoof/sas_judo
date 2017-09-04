@@ -23,13 +23,13 @@ class AlbumFormRequest extends FormRequest
      */
     public function rules()
     {
-        $id    = (null !== $this->segment(3)) ? $this->segment(3) : null;
+        $album    = (null !== $this->route('album')) ? $this->route('album') : null;
         $rules = [
             'name'       => 'required|max:255|unique:albums,name',
             'pictures'   => 'required',
         ];
-        if (null !== $id) {
-            $rules = array_merge($rules, ['name' => 'required|max:255|unique:articles,name,'.$id,]);
+        if (null !== $album) {
+            $rules = array_merge($rules, ['name' => 'required|max:255|unique:articles,name,'.$album['attributes']['id'],]);
         }
         return $rules;
     }

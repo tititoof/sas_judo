@@ -22,6 +22,9 @@ const getters = {
     isAdmin: (state) => {
         return (state.user.profile.data.is_admin == 1)
     },
+    getUserId: (state) => {
+        return state.user.profile.data.id;
+    },
     formErrors: (state) => {
         return (response, formElements) => {
             const _self = this;
@@ -71,8 +74,6 @@ const actions = {
         )
     },
     check({ commit, state }, { app, router }) {
-        console.log(app)
-        console.log(router)
         if (localStorage.getItem('id_token') !== null) {
             app.$http.get(
                 'api/user'

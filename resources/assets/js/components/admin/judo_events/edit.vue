@@ -37,7 +37,7 @@
                 v-model="startAt"
         >Date de d&eacute;but</ui-datepicker>
         Heure de d&eacute;but <vue-timepicker
-            :minute-interval="5" v-model="startTimeAt"></vue-timepicker>
+            :minute-interval="5" v-model="startTimeAt" format="HH:mm"></vue-timepicker>
         <ui-datepicker
                 icon="events"
                 picker-type="modal"
@@ -47,16 +47,18 @@
         Heure de fin <vue-timepicker
             :minute-interval="5"
             v-model="endTimeAt"
+            format="HH:mm"
     ></vue-timepicker>
     </div>
 </template>
 <script>
-    import Keen from 'keen-ui';
-    import {app} from './../../../app.js';
-    import {router} from './../../../app.js';
-    import VueTimepicker from 'vue2-timepicker';
-    import moment from 'moment';
-    import common from './common.js'
+    import Keen             from 'keen-ui'
+    import { app }          from './../../../app.js'
+    import { router }       from './../../../app.js'
+    import VueTimepicker    from 'vue2-timepicker'
+    import moment           from 'moment'
+    import common           from './common.js'
+    import { mapGetters }   from 'vuex';
     export default {
         data() {
             return {
@@ -67,12 +69,25 @@
         components: {
             VueTimepicker
         },
+        computed: 
+            mapGetters({ 
+                typeSelected: 'judoEventTypeSelected', name: 'judoEventName', 
+                description: 'judoEventDescription', startAt: 'judoEventStartAt', 
+                startTimeAt: 'judoEventStartTimeAt', endAt: 'judoEventEndAt',
+                endTimeAt: 'judoEventEndTimeAt', types: 'judoEventTypes'
+            })
+        ,
         methods: {
             update() {
                 const _self = this;
                 _self.$http.patch('api/judoevent/' + _self.id, {
-                    'name': _self.name, 'description': _self.description, 'start_at': _self.startAt, 'end_at': _self.endAt,
-                    'end_time_at': _self.endTimeAt, 'start_time_at': _self.startTimeAt, 'type': _self.typeSelected.value
+                    'name':         _self.name, 
+                    'description':  _self.description, 
+                    'start_at':     _self.startAt, 
+                    'end_at':       _self.endAt,
+                    'end_time_at':  _self.endTimeAt, 
+                    'start_time_at': _self.startTimeAt, 
+                    'type':         _self.typeSelected.value
                 }).then(
                     () => {
                         _self.$emit('sas-snackbar', 'évènement modifié');
@@ -89,33 +104,39 @@
                 _self.id    = _self.$route.params.id;
                 _self.$http.get('api/judoevent/' + _self.id).then(
                     (response) => {
-                        const data  = response.data.entity,
-                            startAt = new moment(data.start_at),
-                            endAt   = new moment(data.end_at);
-                        _self.getType(data.type);
-                        _self.name            = data.name;
-                        _self.description     = data.description;
-                        _self.startAt         = new Date(startAt.format('YYYY-MM-DD'));
-                        _self.endAt           = new Date(endAt.format('YYYY-MM-DD'));
-                        _self.startTimeAt.HH  = startAt.format('HH');
-                        _self.startTimeAt.mm  = startAt.format('mm');
-                        _self.endTimeAt.HH    = endAt.format('HH');
-                        _self.endTimeAt.mm    = endAt.format('mm');
+                        const data  = response.data.entity
+                        this.$store.dispatch("setJudoEvent", {
+                            data: data, 
+                            moment: moment
+                        })
+                        //     startAt = new moment(data.start_at),
+                        //     endAt   = new moment(data.end_at);
+                        
+                        // _self.getType(data.type);
+                        // _self.name            = data.name;
+                        // _self.description     = data.description;
+                        // _self.startAt         = new Date(startAt.format('YYYY-MM-DD'));
+                        // _self.endAt           = new Date(endAt.format('YYYY-MM-DD'));
+                        // _self.startTimeAt.HH  = startAt.format('HH');
+                        // _self.startTimeAt.mm  = startAt.format('mm');
+                        // _self.endTimeAt.HH    = endAt.format('HH');
+                        // _self.endTimeAt.mm    = endAt.format('mm');
                     }
                 ).catch(
                     error   => {
                         _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
                     }
                 );
-            },
-            getType(type) {
-                const _self = this;
-                _self.types.forEach((element) => {
-                    if (element.value == type) {
-                        _self.typeSelected = element;
-                    }
-                });
             }
+            // ,
+            // getType(type) {
+            //     const _self = this;
+            //     _self.types.forEach((element) => {
+            //         if (element.value == type) {
+            //             _self.typeSelected = element;
+            //         }
+            //     });
+            // }
         },
         mounted() {
             this.$nextTick(function () {

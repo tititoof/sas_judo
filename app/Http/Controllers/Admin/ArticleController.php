@@ -22,8 +22,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $articleRepo = new ArticlesRepository;
         $articles = Article::all();
-        return response()->json(['articles' => $articles]);
+        return response()->json(['articles' => $articleRepo->getAdminArticles()]);
     }
 
     /**
