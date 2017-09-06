@@ -34,6 +34,7 @@
             icon="events"
             picker-type="modal"
             placeholder="Sélectionner une date"
+            :lang="frLang"
             v-model="startAt"
         >Date de d&eacute;but</ui-datepicker>
         Heure de d&eacute;but <vue-timepicker
@@ -42,6 +43,7 @@
             icon="events"
             picker-type="modal"
             placeholder="Sélectionner une date"
+            :lang="frLang"
             v-model="endAt"
         >Date de fin</ui-datepicker>
         Heure de fin <vue-timepicker
@@ -51,11 +53,13 @@
     </div>
 </template>
 <script>
-    import Keen from 'keen-ui';
-    import {app} from './../../../app.js';
-    import {router} from './../../../app.js';
-    import VueTimepicker from 'vue2-timepicker'
-    import common from './common.js'
+    import Keen             from 'keen-ui';
+    import { app }          from './../../../app.js';
+    import { router }       from './../../../app.js';
+    import VueTimepicker    from 'vue2-timepicker'
+    import common           from './common.js'
+    import { mapGetters, mapActions } from 'vuex'
+
     export default {
         data() {
             return {
@@ -69,15 +73,24 @@
             store() {
                 const _self = this;
                 _self.$http.post('api/judoevent', {
-                        'name': _self.name, 'description': _self.description, 'start_at': _self.startAt, 'end_at': _self.endAt,
-                        'end_time_at': _self.endTimeAt, 'start_time_at': _self.startTimeAt, 'type': _self.typeSelected.value
+                        'name':          _self.name,
+                        'description':   _self.description,
+                        'start_at':      _self.startAt,
+                        'end_at':        _self.endAt,
+                        'end_time_at':   _self.endTimeAt,
+                        'start_time_at': _self.startTimeAt,
+                        'type':          _self.typeSelected.value
                 }).then(
                     () => {
                         _self.$emit('sas-snackbar', 'évènement ajouté');
                         router.push({ name: 'admin_judo_event_index' });
                 }).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },

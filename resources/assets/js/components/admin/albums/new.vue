@@ -36,16 +36,27 @@
     </div>
 </template>
 <script>
-    import Keen         from 'keen-ui';
-    import Vue          from './../../../app.js';
-    import { router }   from './../../../app.js';
-    import common       from './common.js';
-    import back         from './../back.js'
+    import Keen             from 'keen-ui';
+    import Vue              from './../../../app.js';
+    import { router }       from './../../../app.js';
+    import common           from './common.js';
+    import back             from './../back.js'
+    import { mapGetters }   from 'vuex'
     export default {
+        data() {
+            return {
+                articleId: null
+            }
+        },
         mixins: [common, back],
         components: {
             FileUpload: require('../../v-upload-files.vue')
         },
+        computed:
+            mapGetters({
+                user_id: 'getUserId'
+            })
+        ,
         methods: {
             store() {
                 const _self = this;
@@ -54,10 +65,14 @@
             onAllFilesUploaded(allFiles) {
                 const _self = this;
                 _self.filesIds = allFiles
-                _self.$http.post('api/album', { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': auth.user.profile.id }).then(
+                _self.$http
+                .post(
+                    'api/album',
+                    { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': _self.user_id }
+                ).then(
                     response => {
-                        const albumId = response.data.album_id;
-                        if ( (_self.articleId !== 0) && (_self.articleId !== null) ) {
+                        const albumId = response.data.data.album_id;
+                        if ( typeof _self.articleId !== 'undefined' ) {
                             router.push({ name: 'admin_articles_edit', params: { articleId: _self.articleId, albumId: albumId } });
                         } else {
                             router.push({ name: 'admin_albums_index' });
@@ -65,7 +80,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 )
             }

@@ -14,9 +14,9 @@ export default new Vuex.Store({
     actions,
     getters,
     modules: {
-        album,
-        user,
-        judoEvent
+        album:      album,
+        user:       user,
+        judoEvent:  judoEvent
     },
     strict: debug
 })

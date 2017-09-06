@@ -27,8 +27,9 @@
         >
         </ui-textbox>
         <div id="editor-vue">
-            <Vueditor ref="qc"></Vueditor>
+            <Vueditor ref="qc" style="height: 400px"></Vueditor>
         </div>
+        <p style="height: 10vh"></p>
         <ui-select
             name="albums" label="Albums" placeholder="Choisir le ou les albums" show-search multiple z-index="1"
             id="albums"
@@ -57,7 +58,7 @@
             }
         },
         mixins: [common, back],
-        computed: 
+        computed:
             mapGetters({ getUserId: 'getUserId' })
         ,
         methods: {
@@ -109,7 +110,6 @@
                 _self.albumsSelected.forEach(function(album) {
                     albums.push(album.value);
                 });
-                console.log(_self.getUserId)
                 _self.$http.patch('api/article/' + _self.articleId, {
                     'name': _self.name, 'categories': categories, 'content': _self.content,
                     'user_id': _self.getUserId, 'albums': albums

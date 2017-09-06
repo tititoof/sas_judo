@@ -69,7 +69,7 @@
                 }
             }
         },
-        computed: mapGetters({ isAdmin: 'isAdmin' }),
+        computed: mapGetters({ isAdmin: 'isAdmin', showError: 'showError' }),
         methods: {
             edit() {
                 const _self = this;
@@ -88,7 +88,7 @@
                     _self.index();
                 }).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -102,7 +102,7 @@
                     _self.fcEvents = response.data.events;
                 }).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$emit('sas-errors', _self.showError(error.response, _self.formErrors));
                     }
                 );
             },
@@ -127,10 +127,10 @@
                 router.push({ name: 'admin_judo_event_new', params: { startAt: day } });
             },
             'moreClick' () {
-                
+
             },
             'changeMonth' () {
-                
+
             },
             setModalEvent(event) {
                 const _self = this,

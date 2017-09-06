@@ -42,8 +42,11 @@ class AlbumRepository
             $pictures = $album->pictures()->get()->map(function($picture) {
                 return $picture->id;
             });
-            
-            $album->pictures()->sync($pictures->merge($request->input('pictures')) );
+            if (count($pictures) > 0)  {
+                $album->pictures()->sync($pictures->merge($request->input('pictures')) );
+            } else {
+                $album->pictures()->sync($request->input('pictures') );
+            }
         } catch (\Exception $exception) {
             return Answer::error($exception);
         }

@@ -8,7 +8,7 @@ const state = {
         profile:        null
     },
     error: false,
-    
+
     errorBasic: "Une erreur est survenue."
 }
 
@@ -34,9 +34,33 @@ const getters = {
             if ( (response.hasOwnProperty("data")) && (response.data.hasOwnProperty('message')) ) {
                 return _self.errorBasic + response.data.message + '(' + response.data.code + ')';
             }
-        } 
+        }
+    },
+    checkIsAdmin: (state) => {
+        return (getters) => {
+            const _self = this;
+            if ( (state.user.hasOwnProperty('profile')) && (state.user.profile !== null)) {
+                return getters.checkProperty('is_admin')
+            }
+            return false;
+        }
+    },
+    checkIsDebug: (state) => {
+        return (getters) => {
+            const _self = this;
+            if ( (state.user.hasOwnProperty('profile')) && (state.user.profile !== null)) {
+                return getters.checkProperty('is_debug')
+            }
+            return false;
+        }
+    },
+    checkProperty: (state) => {
+        return (property) => {
+            if (state.user.profile.hasOwnProperty(property)) {
+                return (state.user.profile[property] == 1) ? true : false;
+            }
+        }
     }
-    
 }
 
 const mutations = {
@@ -116,34 +140,6 @@ const actions = {
         commit(types.LOGOUT)
         router.push({ name: 'home' });
     },
-    checkIsAdmin({ commit, state }) {
-        const _self = this;
-        if ( (_self.user.hasOwnProperty('profile')) && (_self.user.profile !== null)) {
-            return _self.checkProperty('is_admin')
-        }
-        return false;
-    },
-    checkIsDebug({ commit, state }) {
-        const _self = this;
-        if ( (_self.user.hasOwnProperty('profile')) && (_self.user.profile !== null)) {
-            return _self.checkProperty('is_debug')
-        }
-        return false;
-    },
-    checkProperty(property) {
-        const _self = this;
-        if (_self.user.profile.hasOwnProperty(property)) {
-            return (_self.user.profile[property] == 1) ? true : false;
-        }
-    },
-    showError(response, formElements) {
-        const _self = this;
-        if (_self.checkIsDebug()) {
-            return _self.checkDebug(response, formElements)
-        } else {
-            return 'sas-snackbar', _self.errorBasic;
-        }
-    },
     checkDebug(response, formElements) {
         const _self = this;
         if ("undefined" !== typeof formElements) {
@@ -167,17 +163,26 @@ const actions = {
                             case "validation.integer":
                                 errors += element.human + " doit être un entier.<br/>";
                                 break;
-                            default: 
+                            default:
                                 errors += 'Erreur non gérée';
                                 break;
                         }
                     }
                 );
-                
             }
         });
         return _self.errorBasic + errors;
+    },
+    showError({ state, rootState, commit, dispatch, getters }, { response, formElements, vue }) {
+        const _self = this;
+        console.log(getters);
+        if (getters.checkIsDebug(getters)) {
+            vue.$emit('sas-errors', _self.checkDebug(response, formElements));
+        } else {
+            vue.$emit('sas-snackbar', _self.errorBasic);
+        }
     }
+
 }
 
 export default {

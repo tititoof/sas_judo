@@ -89,11 +89,12 @@
     </div>
 </template>
 <script>
-    import Keen         from 'keen-ui';
-    import Vue          from './../../../app.js';
-    import { router }   from './../../../app.js';
-    import common       from './common.js';
-    import back         from './../back.js'
+    import Keen             from 'keen-ui';
+    import Vue              from './../../../app.js';
+    import { router }       from './../../../app.js';
+    import common           from './common.js';
+    import back             from './../back.js'
+    import { mapGetters }   from 'vuex'
     export default {
         data() {
             return {
@@ -105,6 +106,11 @@
             FileUpload: require('../../v-upload-files.vue')
         },
         computed: {
+            user_id: {
+                get() {
+                    return this.$store.state.user.user.profile.data.id;
+                }
+            },
             presentInArray: function (picture) {
                 return !this.pictures.includes(picture);
             }
@@ -121,7 +127,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 )
             },
@@ -143,7 +153,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 )
             },
@@ -161,14 +175,19 @@
                 _self.filesIds = allFiles
                 _self.$http.patch(
                     'api/album/' + _self.albumId,
-                    { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': auth.user.profile.id }
+                    { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': _self.user_id }
                 ).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
+                        router.push({ name: 'admin_albums_index' });
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 )
             }

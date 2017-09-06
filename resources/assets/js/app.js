@@ -32,8 +32,8 @@ let config = {
         '|', 'indent', 'outdent', 'insertOrderedList', 'insertUnorderedList', '|', 'emoji', 'picture', 'table', '|', 'fullscreen', 'sourceCode', 'markdown'
     ],
     fontName: [
-        {val: 'arial black'}, 
-        {val: 'times new roman'}, 
+        {val: 'arial black'},
+        {val: 'times new roman'},
         {val: 'Courier New'}
     ],
     fontSize: [
@@ -59,7 +59,7 @@ export const router = new VueRouter({
 });
 
 let my_axios = axios.create({
-  baseURL: 'http://localhost',
+  baseURL: 'http://127.0.0.1:8000',
   headers: {
       'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
       'Authorization': 'Bearer ' + localStorage.getItem('id_token')

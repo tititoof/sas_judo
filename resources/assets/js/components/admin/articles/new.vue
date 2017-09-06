@@ -29,6 +29,7 @@
         <div id="editor-vue">
             <Vueditor ref="qc" style="height: 400px"></Vueditor>
         </div>
+        <p style="height: 10vh"></p>
         <ui-select
                 name="albums" label="Albums"
                 :options="albums"
@@ -61,6 +62,11 @@
         computed: {
             editor() {
                 return this.$refs.qc
+            },
+            user_id: {
+                get() {
+                    return this.$store.state.user.user.profile.data.id;
+                }
             }
         },
         methods: {
@@ -104,12 +110,12 @@
                     'name':         _self.name,
                     'categories':   categories,
                     'content':      _self.content,
-                    'user_id':      _self.getUserId,
+                    'user_id':      _self.user_id,
                     'albums':       albums
                 }).then(
                     (response) => {
                         _self.$emit('sas-snackbar', 'Article ajouté');
-                        const id = response.data.article_id;
+                        const id = response.data.data.article_id;
                         if (album) {
                             router.push({ name: 'admin_albums_new', params: { articleId: id } });
                         } else {
@@ -118,7 +124,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },

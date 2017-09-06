@@ -1,6 +1,5 @@
 import * as types from '../mutation-types'
 
-
 const state = {
     event: {
         typeSelected:   {},
@@ -29,7 +28,7 @@ const state = {
             }
         ],
     },
-    
+
 }
 
 const getters = {
@@ -56,6 +55,20 @@ const getters = {
     },
     judoEventTypes: (state) => {
         return state.event.types
+    },
+    getType: (state) => {
+        return (type) => {
+            let retour = ''
+            console.log(type)
+            state.event.types.forEach((element) => {
+                console.log(element)
+                if (element.value == type) {
+                    retour = element
+                }
+            });
+            console.log(retour, '<--')
+            return retour
+        }
     }
 }
 
@@ -73,8 +86,8 @@ const mutations = {
         state.event.endTimeAt.HH        = endAt.format('HH');
         state.event.endTimeAt.mm        = endAt.format('mm');
     },
-    [types.SET_JUDO_EVENT_TYPE_SELECTED]: (state, typeSelected) => {
-        state.event.typeSelected        = typeSelected
+    [types.SET_TYPE_SELECTED]: (state, typeSelected) => {
+        state.event.typeSelected = typeSelected
     },
     [types.SET_JUDO_EVENT_NAME]: (state, name) => {
         state.event.name        = name
@@ -82,37 +95,30 @@ const mutations = {
     [types.SET_JUDO_EVENT_DESCRIPTION]: (state, description) => {
         state.event.description        = description
     },
-    [types.SET_JUDO_EVENT_START_AT]: (state, startAt) => {
+    [types.SET_START_AT]: (state, startAt) => {
         state.event.startAt        = startAt
     },
-    [types.SET_JUDO_EVENT_START_TIMEAT]: (state, startTimeAt) => {
+    [types.SET_START_TIME_AT]: (state, startTimeAt) => {
         state.event.startTimeAt        = startTimeAt
     },
-    [types.SET_JUDO_EVENT_END_AT]: (state, endAt) => {
+    [types.SET_END_AT]: (state, endAt) => {
         state.event.endAt        = endAt
     },
-    [types.SET_JUDO_EVENT_END_TIMEAT]: (state, endTimeAt) => {
+    [types.SET_END_TIME_AT]: (state, endTimeAt) => {
         state.event.endTimeAt        = endTimeAt
     }
 }
 
 const actions = {
-    setJudoEvent({ commit, state }, { data, moment }) {
-        const typeSelected = this.getType({ commit, state }, data.typeSelected)
+    setJudoEvent({ commit, state, getters }, { data, moment }) {
+        const typeSelected = getters.getType(data.type)
         commit(types.SET_JUDO_EVENT, {
-            data: data, 
+            data: data,
             moment: moment,
             typeSelected: typeSelected
         })
     },
-    getType({ commit, state }, type) {
-        const _self = this;
-        state.event.types.forEach((element) => {
-            if (element.value == type) {
-                state.event.typeSelected = element;
-            }
-        });
-    }
+
 }
 
 

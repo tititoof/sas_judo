@@ -80,7 +80,7 @@
                 const _self = this
                 if (_self.myFiles.length > 0) {
                     _self.my_axios = axios.create({
-                        baseURL: 'http://localhost',
+                        baseURL: 'http://127.0.0.1:8000',
                         headers: {
                           'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
                           'Authorization': 'Bearer ' + localStorage.getItem('id_token')
@@ -96,9 +96,9 @@
                                 this.$emit('onFileUpload', args[i]);
                             }
                             _self.$emit('onAllFilesUploaded', _self.filesIds);
-                            
+
                         }))
-                        
+
                 } else {
                     // someone tried to upload without adding files
                     const err = new Error("No files to upload for this field");

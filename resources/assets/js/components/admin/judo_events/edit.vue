@@ -34,6 +34,7 @@
                 icon="events"
                 picker-type="modal"
                 placeholder="Sélectionner une date"
+                :lang="frLang"
                 v-model="startAt"
         >Date de d&eacute;but</ui-datepicker>
         Heure de d&eacute;but <vue-timepicker
@@ -42,6 +43,7 @@
                 icon="events"
                 picker-type="modal"
                 placeholder="Sélectionner une date"
+                :lang="frLang"
                 v-model="endAt"
         >Date de fin</ui-datepicker>
         Heure de fin <vue-timepicker
@@ -57,6 +59,7 @@
     import { router }       from './../../../app.js'
     import VueTimepicker    from 'vue2-timepicker'
     import moment           from 'moment'
+    import momentTz         from 'moment-timezone'
     import common           from './common.js'
     import { mapGetters }   from 'vuex';
     export default {
@@ -69,24 +72,16 @@
         components: {
             VueTimepicker
         },
-        computed: 
-            mapGetters({ 
-                typeSelected: 'judoEventTypeSelected', name: 'judoEventName', 
-                description: 'judoEventDescription', startAt: 'judoEventStartAt', 
-                startTimeAt: 'judoEventStartTimeAt', endAt: 'judoEventEndAt',
-                endTimeAt: 'judoEventEndTimeAt', types: 'judoEventTypes'
-            })
-        ,
         methods: {
             update() {
                 const _self = this;
                 _self.$http.patch('api/judoevent/' + _self.id, {
-                    'name':         _self.name, 
-                    'description':  _self.description, 
-                    'start_at':     _self.startAt, 
+                    'name':         _self.name,
+                    'description':  _self.description,
+                    'start_at':     _self.startAt,
                     'end_at':       _self.endAt,
-                    'end_time_at':  _self.endTimeAt, 
-                    'start_time_at': _self.startTimeAt, 
+                    'end_time_at':  _self.endTimeAt,
+                    'start_time_at': _self.startTimeAt,
                     'type':         _self.typeSelected.value
                 }).then(
                     () => {
@@ -95,7 +90,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },
@@ -105,38 +104,22 @@
                 _self.$http.get('api/judoevent/' + _self.id).then(
                     (response) => {
                         const data  = response.data.entity
-                        this.$store.dispatch("setJudoEvent", {
-                            data: data, 
+                        _self.$store.dispatch("setJudoEvent", {
+                            data: data,
                             moment: moment
                         })
-                        //     startAt = new moment(data.start_at),
-                        //     endAt   = new moment(data.end_at);
-                        
-                        // _self.getType(data.type);
-                        // _self.name            = data.name;
-                        // _self.description     = data.description;
-                        // _self.startAt         = new Date(startAt.format('YYYY-MM-DD'));
-                        // _self.endAt           = new Date(endAt.format('YYYY-MM-DD'));
-                        // _self.startTimeAt.HH  = startAt.format('HH');
-                        // _self.startTimeAt.mm  = startAt.format('mm');
-                        // _self.endTimeAt.HH    = endAt.format('HH');
-                        // _self.endTimeAt.mm    = endAt.format('mm');
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        console.log(error);
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             }
-            // ,
-            // getType(type) {
-            //     const _self = this;
-            //     _self.types.forEach((element) => {
-            //         if (element.value == type) {
-            //             _self.typeSelected = element;
-            //         }
-            //     });
-            // }
         },
         mounted() {
             this.$nextTick(function () {
