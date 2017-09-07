@@ -25,20 +25,8 @@ const getters = {
     getUserId: (state) => {
         return state.user.profile.data.id;
     },
-    formErrors: (state) => {
-        return (response, formElements) => {
-            const _self = this;
-            if ("undefined" !== typeof formElements) {
-                return _self.formErrors(response, formElements);
-            }
-            if ( (response.hasOwnProperty("data")) && (response.data.hasOwnProperty('message')) ) {
-                return _self.errorBasic + response.data.message + '(' + response.data.code + ')';
-            }
-        }
-    },
     checkIsAdmin: (state) => {
         return (getters) => {
-            const _self = this;
             if ( (state.user.hasOwnProperty('profile')) && (state.user.profile !== null)) {
                 return getters.checkProperty('is_admin')
             }
@@ -47,7 +35,6 @@ const getters = {
     },
     checkIsDebug: (state) => {
         return (getters) => {
-            const _self = this;
             if ( (state.user.hasOwnProperty('profile')) && (state.user.profile !== null)) {
                 return getters.checkProperty('is_debug')
             }
@@ -63,7 +50,6 @@ const getters = {
     },
     checkDebug: (state) => {
         return (response, formElements, getters) => {
-            const _self = this;
             if ("undefined" !== typeof formElements) {
                 return getters.formErrors(response, formElements);
             }
