@@ -179,6 +179,7 @@
                 ).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
+                        _self.$emit('sas-snackbar', 'Album modifié');
                         router.push({ name: 'admin_albums_index' });
                     }
                 ).catch(

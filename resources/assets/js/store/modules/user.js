@@ -60,6 +60,42 @@ const getters = {
                 return (state.user.profile[property] == 1) ? true : false;
             }
         }
+    },
+    checkDebug: (state) => {
+        return (response, formElements, getters) => {
+            const _self = this;
+            if ("undefined" !== typeof formElements) {
+                return getters.formErrors(response, formElements);
+            }
+            if ( (response.hasOwnProperty("data")) && (response.data.hasOwnProperty('message')) ) {
+                return state.errorBasic + response.data.message + '(' + response.data.code + ')';
+            }
+        }
+    },
+    formErrors: (state) => {
+        return (response, formElements) => {
+            let errors  = "<br/>";
+            formElements.forEach( (element) => {
+                if ('undefined' !== typeof response.data[element.name]) {
+                    response.data[element.name].forEach(
+                        error => {
+                            switch(error) {
+                                case "validation.required":
+                                errors += element.human + " obligatoire(s).<br/>";
+                                break;
+                                case "validation.integer":
+                                errors += element.human + " doit être un entier.<br/>";
+                                break;
+                                default:
+                                errors += 'Erreur non gérée';
+                                break;
+                            }
+                        }
+                    );
+                }
+            });
+            return state.errorBasic + errors;
+        }
     }
 }
 
@@ -140,46 +176,11 @@ const actions = {
         commit(types.LOGOUT)
         router.push({ name: 'home' });
     },
-    checkDebug(response, formElements) {
-        const _self = this;
-        if ("undefined" !== typeof formElements) {
-            return _self.formErrors(response, formElements);
-        }
-        if ( (response.hasOwnProperty("data")) && (response.data.hasOwnProperty('message')) ) {
-            return _self.errorBasic + response.data.message + '(' + response.data.code + ')';
-        }
-    },
-    formErrors(response, formElements) {
-        const _self = this;
-        let errors  = "<br/>";
-        formElements.forEach( (element) => {
-            if ('undefined' !== typeof response.data[element.name]) {
-                response.data[element.name].forEach(
-                    error => {
-                        switch(error) {
-                            case "validation.required":
-                                errors += element.human + " obligatoire(s).<br/>";
-                                break;
-                            case "validation.integer":
-                                errors += element.human + " doit être un entier.<br/>";
-                                break;
-                            default:
-                                errors += 'Erreur non gérée';
-                                break;
-                        }
-                    }
-                );
-            }
-        });
-        return _self.errorBasic + errors;
-    },
     showError({ state, rootState, commit, dispatch, getters }, { response, formElements, vue }) {
-        const _self = this;
-        console.log(getters);
         if (getters.checkIsDebug(getters)) {
-            vue.$emit('sas-errors', _self.checkDebug(response, formElements));
+            vue.$emit('sas-errors', vue.checkDebug(response, formElements, getters));
         } else {
-            vue.$emit('sas-snackbar', _self.errorBasic);
+            vue.$emit('sas-snackbar', state.errorBasic);
         }
     }
 

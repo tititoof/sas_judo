@@ -23,7 +23,7 @@ class AgeCategoryFormRequest extends FormRequest
      */
     public function rules()
     {
-        $category = (null !== $this->route('ageCategory')) ? $this->route('ageCategory') : null;
+        $category = (null !== $this->route('age_category')) ? $this->route('age_category') : null;
         $rules    = [
             'name'  => 'required|max:255|unique:age_categories,name',
             'years' => 'required|integer',

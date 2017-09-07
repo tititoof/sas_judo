@@ -1,10 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue          from 'vue'
+import Vuex         from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
-import album from './modules/album'
-import user from './modules/user'
-import judoEvent from './modules/judoevent'
+import album        from './modules/album'
+import user         from './modules/user'
+import judoEvent    from './modules/judoevent'
+import course       from './modules/course'
 
 Vue.use(Vuex)
 
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     modules: {
         album:      album,
         user:       user,
-        judoEvent:  judoEvent
+        judoEvent:  judoEvent,
+        course:     course
     },
     strict: debug
 })

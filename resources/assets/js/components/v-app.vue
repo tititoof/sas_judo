@@ -1,17 +1,16 @@
 <template>
     <div class="main-div">
         <my-menu></my-menu>
-        <div id="toto" style="background-color: #cccccc"
-            v-bar="{
-                    preventParentScroll: false,
-                    scrollThrottle: 30,
-                }">
-            <div class="col-md-10"
-                >
+        <div
+            id="toto"
+            style="background-color: #cccccc"
+            v-bar="{ preventParentScroll: false, scrollThrottle: 30, }"
+            >
+            <div class="col-md-10" style="height: 100vh">
                 <div class="wrapper-page">
-                    <ui-alert 
-                        @dismiss="showAlert = false" 
-                        type="error" 
+                    <ui-alert
+                        @dismiss="showAlert = false"
+                        type="error"
                         v-show="showAlert"
                         >
                         <p v-html="errorAlert"></p>
@@ -23,14 +22,14 @@
                     </router-view>
                 </div>
             </div>
-            <ui-snackbar-container
-                ref="snackbarContainer"
-                :position="position"
-                :queue-snackbars="queueSnackbars"
-                transition="slideUp"
-                >
-            </ui-snackbar-container>
         </div>
+        <ui-snackbar-container
+            ref="snackbarContainer"
+            :position="position"
+            :queue-snackbars="queueSnackbars"
+            transition="slideUp"
+            >
+        </ui-snackbar-container>
     </div>
 </template>
 <script>
@@ -47,7 +46,7 @@
                 errorAlert: ''
             }
         },
-        computed: 
+        computed:
             mapGetters({ isRegistred: 'isRegistred', isAdmin: 'isAdmin' })
         ,
         methods: {
@@ -74,7 +73,7 @@
         mounted: function() {
             const _self = this;
             _self.$nextTick(function () {
-                _self.$store.dispatch("check", 
+                _self.$store.dispatch("check",
                     { app: _self, router: router }
                 )
             });

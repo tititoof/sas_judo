@@ -37,7 +37,8 @@
         </ui-select>
         Heure de d&eacute;but
         <vue-timepicker
-            :minute-interval="5" v-model="startTimeAt"
+            :minute-interval="5" 
+            v-model="startTimeAt"
             >
         </vue-timepicker>
         Heure de fin
@@ -57,13 +58,13 @@
     </div>
 </template>
 <script>
-    import Keen from 'keen-ui';
-    import {app} from './../../../app.js';
-    import {router} from './../../../app.js';
+    import Keen         from 'keen-ui';
+    import {app}        from './../../../app.js';
+    import {router}     from './../../../app.js';
     import VueTimepicker from 'vue2-timepicker';
-    import moment from 'moment';
-    import common from './common.js'
-    import back     from './../back.js'
+    import moment       from 'moment';
+    import common       from './common.js'
+    import back         from './../back.js'
     export default {
         data() {
             return {
@@ -85,7 +86,11 @@
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
           },
@@ -101,7 +106,11 @@
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
           }

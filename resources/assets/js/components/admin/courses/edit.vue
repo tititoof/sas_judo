@@ -37,16 +37,17 @@
         </ui-select>
         Heure de d&eacute;but
         <vue-timepicker
+            ref="starttimepicker"
             :minute-interval="5"
+            format="HH:mm"
             v-model="startTimeAt"
-            :time-value.sync="startTimeAt"
             >
         </vue-timepicker>
         Heure de fin
         <vue-timepicker
             :minute-interval="5"
-            :time-value.sync="endTimeAt"
             v-model="endTimeAt"
+            format="HH:mm"
             >
         </vue-timepicker>
         <ui-select
@@ -54,8 +55,9 @@
             label="Professeur"
             :options="teachers"
             v-model="teacherSelected"
-
-            placeholder="Choisir le professeur" show-search z-index="1"
+            placeholder="Choisir le professeur"
+            show-search
+            z-index="1"
             >
         </ui-select>
     </div>
@@ -64,7 +66,7 @@
     import Keen             from 'keen-ui';
     import {app}            from './../../../app.js';
     import {router}         from './../../../app.js';
-    import VueTimepicker    from 'vue2-timepicker';
+    import VueTimepicker    from 'vue2-timepicker/src/vue-timepicker';
     import moment           from 'moment';
     import common           from './common.js'
     import back             from './../back.js'
@@ -86,17 +88,24 @@
                     'api/course/' + _self.id + '/edit'
                 ).then(
                     (response) => {
-                        const data = response.data;
-                        _self.teachers = data.data.teachers;
-                        _self.seasons  = data.data.seasons;
-                        _self.days     = data.data.days;
+                        const data      = response.data;
+                        _self.teachers  = data.data.teachers;
+                        _self.seasons   = data.data.seasons;
+                        _self.days      = data.data.days;
                         _self.setObject(data.data.course);
+                        _self.refreshHighlightNextTick()
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        console.log(error)
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
+                _self.refreshHighlightNextTick()
             },
             update() {
                 const _self = this;
@@ -111,7 +120,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },
@@ -120,10 +133,12 @@
                     startAt = course.start_at.split(":"),
                     endAt   = course.end_at.split(":");
                 _self.name = course.name;
-                _self.startTimeAt.HH  = startAt[0];
-                _self.startTimeAt.mm  = startAt[1];
-                _self.endTimeAt.HH    = endAt[0];
-                _self.endTimeAt.mm    = endAt[1];
+                // this.$store.dispatch("setCourseStartTimeAt", { 'HH': startAt[0], 'mm': startAt[1] } )
+                _self.startTimeAt.HH = startAt[0]
+                _self.startTimeAt.mm = startAt[1]
+                // this.$store.dispatch("setCourseEndTimeAt", { 'HH': endAt[0], 'mm': endAt[1] } )
+                _self.endTimeAt.HH = endAt[0]
+                _self.endTimeAt.mm = endAt[1]
                 _self.teachers.forEach(function (element) {
                     if (element.value == course.teacher_id) {
                         _self.teacherSelected = element;
@@ -162,6 +177,9 @@
                     { app: _self, router: router }
                 )
                 _self.index();
+                this.$nextTick(() => {
+                    window.hljs.initHighlightingOnLoad()
+                })
             })
         }
     }

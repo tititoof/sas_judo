@@ -59,14 +59,11 @@ const getters = {
     getType: (state) => {
         return (type) => {
             let retour = ''
-            console.log(type)
             state.event.types.forEach((element) => {
-                console.log(element)
                 if (element.value == type) {
                     retour = element
                 }
             });
-            console.log(retour, '<--')
             return retour
         }
     }

@@ -22,6 +22,7 @@ import ToggleButton from 'vue-js-toggle-button'
 import Vuebar       from 'vuebar';
 import Vue2Filters  from 'vue2-filters'
 import Vueditor     from 'vueditor'
+import VueTimepicker from 'vue2-timepicker'
 
 import 'vueditor/dist/style/vueditor.min.css'
 
@@ -46,12 +47,13 @@ let config = {
 
 Vue.use(Vueditor, config);
 
-Vue.use(Vuebar);
-Vue.use(VueRouter);
-Vue.use(Keen);
+Vue.use(Vuebar)
+Vue.use(VueRouter)
+Vue.use(Keen)
 Vue.use(VueLazyImage)
 Vue.use(ToggleButton)
 Vue.use(Vue2Filters)
+Vue.use(VueTimepicker)
 
 export const router = new VueRouter({
     mode: 'history',

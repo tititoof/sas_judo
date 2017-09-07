@@ -72,6 +72,8 @@
                 ).then(
                     response => {
                         const albumId = response.data.data.album_id;
+                        _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
+                        _self.$emit('sas-snackbar', 'Album créé');
                         if ( typeof _self.articleId !== 'undefined' ) {
                             router.push({ name: 'admin_articles_edit', params: { articleId: _self.articleId, albumId: albumId } });
                         } else {
