@@ -139,7 +139,6 @@ const actions = {
         }
     },
     signin({ commit, state }, { context, email, password, router }) {
-        const _self = this;
         context.$http.post(
             'api/signin', { email: email, password: password }
         ).then(
