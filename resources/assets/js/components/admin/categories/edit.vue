@@ -43,7 +43,9 @@
         methods: {
             index() {
                 const _self = this;
-                _self.$http.get('api/category/' + _self.categoryId + '/edit').then(
+                _self.$http.get(
+                    'api/category/' + _self.categoryId + '/edit'
+                ).then(
                     (response) => {
                         const data          = response.data.object;
                         _self.name          = data.name;
@@ -56,7 +58,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },
@@ -71,7 +77,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             }

@@ -63,7 +63,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             }
@@ -78,14 +82,20 @@
                     { app: _self, router: router }
                 )
                 _self.seasonId = _self.$route.params.seasonId;
-                _self.$http.get('api/season/' + _self.seasonId + '/edit').then(function(response) {
+                _self.$http.get(
+                    'api/season/' + _self.seasonId + '/edit'
+                ).then(function(response) {
                     const data = response.data.object;
                     _self.name      = data.name;
                     _self.startAt   = new Date(data.start_at);
                     _self.endAt     = new Date(data.end_at);
                 }).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             });

@@ -89,14 +89,20 @@
         methods: {
             index() {
                 const _self = this;
-                _self.$http.get('api/admin/user').then(
+                _self.$http.get(
+                    'api/admin/user'
+                ).then(
                     (response) => {
                         const data = response.data;
                         _self.users = data.users;
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },
@@ -117,40 +123,58 @@
             },
             toggleAdmin(id) {
                 const _self = this;
-                _self.$http.put('api/user/' + id + '/toggle/admin').then(
+                _self.$http.put(
+                    'api/user/' + id + '/toggle/admin'
+                ).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Utilisateur modifié');
                         _self.index();
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },
             toggleTeacher(id) {
                 const _self = this;
-                _self.$http.put('api/user/' + id + '/toggle/teacher').then(
+                _self.$http.put(
+                    'api/user/' + id + '/toggle/teacher'
+                ).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Utilisateur modifié');
                         _self.index();
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },
             toggleDebug(id) {
                 const _self = this;
-                _self.$http.put('api/user/' + id + '/toggle/debug').then(
+                _self.$http.put(
+                    'api/user/' + id + '/toggle/debug'
+                ).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Utilisateur modifié');
                         _self.index();
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             }

@@ -41,20 +41,20 @@
             >
         </ui-textbox>
         <ui-textbox
-          label="Adresse"
-          name="address"
-          type="text"
-          placeholoder="Entrer l'adresse"
-          v-model="address"
-        >
+            label="Adresse"
+            name="address"
+            type="text"
+            placeholoder="Entrer l'adresse"
+            v-model="address"
+            >
         </ui-textbox>
         <ui-textbox
-          icon="phone"
-          label="Téléphone"
-          name="phone"
-          type="tel"
-          v-model="phone"
-          >
+            icon="phone"
+            label="Téléphone"
+            name="phone"
+            type="tel"
+            v-model="phone"
+            >
         </ui-textbox>
         <ui-switch v-model="is_admin">Administrateur</ui-switch>
         <ui-switch v-model="is_teacher">Professeur</ui-switch>
@@ -84,10 +84,16 @@
             update() {
                 const _self = this;
                 _self.$http
-                .patch('api/admin/user/' + _self.userId,
-                        { 'firstname': _self.firstname, 'lastname': _self.lastname,
-                        'is_admin': _self.is_admin, 'is_teacher': _self.is_teacher,
-                        'email': _self.email, 'phone': _self.phone, 'address': _self.address }
+                .patch(
+                    'api/admin/user/' + _self.userId, {
+                        'firstname':    _self.firstname,
+                        'lastname':     _self.lastname,
+                        'is_admin':     _self.is_admin,
+                        'is_teacher':   _self.is_teacher,
+                        'email':        _self.email,
+                        'phone':        _self.phone,
+                        'address':      _self.address
+                    }
                 ).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Utilisateur modifié');
@@ -95,7 +101,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             }
@@ -107,7 +117,9 @@
                     { app: _self, router: router }
                 )
                 _self.userId = _self.$route.params.userId;
-                _self.$http.get('api/admin/user/' + _self.userId + '/edit').then(
+                _self.$http.get(
+                    'api/admin/user/' + _self.userId + '/edit'
+                ).then(
                     (response) => {
                     const data = response.data.object;
                     _self.firstname   = data.firstname;
@@ -119,7 +131,11 @@
                     _self.email       = data.email;
                 }).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             });

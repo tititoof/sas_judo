@@ -50,11 +50,12 @@
     </div>
 </template>
 <script>
-    import vMenu from '../../v-menu.vue';
-    import Keen from 'keen-ui';
-    import {app} from './../../../app.js';
-    import {router} from './../../../app.js';
-    import common from './../common.js';
+    import vMenu            from '../../v-menu.vue';
+    import Keen             from 'keen-ui';
+    import { app }          from './../../../app.js';
+    import { router }       from './../../../app.js';
+    import common           from './../common.js';
+    import { mapGetters }   from 'vuex';
     export default {
         data() {
             return {
@@ -66,6 +67,9 @@
             }
         },
         mixins: [common],
+        computed:
+            mapGetters({ getUserId: 'getUserId' })
+        ,
         methods: {
             edit(id) {
                 router.push({ name: 'admin_categories_edit', params: { categoryId: id } });
@@ -86,13 +90,17 @@
                 const _self = this;
                 _self.$http.get(
                     'api/category',
-                    { 'user_id': auth.user.profile.id }
+                    { 'user_id': _self.getUserId }
                 ).then(
                     (response) => {
                     _self.categories = response.data.categories;
                 }).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },

@@ -76,7 +76,11 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         },
@@ -95,7 +99,11 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
       },

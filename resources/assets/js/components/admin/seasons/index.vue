@@ -84,11 +84,17 @@
             },
             index() {
                 const _self = this;
-                _self.$http.get('api/season').then( (response) => {
+                _self.$http.get(
+                    'api/season'
+                ).then( (response) => {
                     _self.seasons = response.data.seasons;
                 }).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },

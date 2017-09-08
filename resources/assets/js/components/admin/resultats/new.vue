@@ -41,30 +41,36 @@
             v-model="contestAt"
             >Date
         </ui-datepicker>
-        R&eacute;sultat(s) :
-        <ui-icon-button
-            color="primary"
-            icon="add"
-            size="small"
-            @click="addResult"
-            >
-        </ui-icon-button>
-        <ui-icon-button
-            color="primary"
-            icon="remove"
-            size="small"
-            @click="removeResult"
-            >
-        </ui-icon-button>
-        <template
-            v-for="resultForm in listResults"
-            >
-            <component
-                :is="resultForm.name"
-                :ref="resultForm.ref"
+        <div class="row-fluid">
+            <div class="ui-select__label-text">
+                R&eacute;sultat(s) :
+            </div>
+            <ui-icon-button
+                color="primary"
+                icon="add"
+                size="small"
+                @click="addResult"
                 >
-            </component>
-        </template>
+            </ui-icon-button>
+            <ui-icon-button
+                color="primary"
+                icon="remove"
+                size="small"
+                @click="removeResult"
+                >
+            </ui-icon-button>
+        </div>
+        <div class="row">
+            <template
+                v-for="resultForm in listResults"
+                >
+                <component
+                    :is="resultForm.name"
+                    :ref="resultForm.ref"
+                    >
+                </component>
+            </template>
+        </div>
     </div>
 </template>
 <script>
@@ -95,7 +101,11 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         },
@@ -121,7 +131,11 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         }

@@ -11,7 +11,7 @@ export default {
             contestAt:      null,
             listResults:    [],
             formErrors: [
-                { 'name': 'name', 'human': 'Nom de l\'évènement'}, 
+                { 'name': 'name', 'human': 'Nom de l\'évènement'},
                 { 'name': 'description', 'human': "Description" },
                 { 'name': 'start_at', 'human': "Date de début" },
                 { 'name': 'end_at', 'human': "Date de fin" },
@@ -35,8 +35,9 @@ export default {
             data.informations = [];
             _self.listResults.forEach(function(result) {
                 const newData = {};
-                newData.name  = _self.$refs[result.ref][0].getName();
-                newData.place = _self.$refs[result.ref][0].getPlace();
+                newData.name        = _self.$refs[result.ref][0].getName();
+                newData.place       = _self.$refs[result.ref][0].getPlace();
+                newData.ageCategory = _self.$refs[result.ref][0].getAgeCategory();
                 data.informations.push(newData);
             });
             return data;
