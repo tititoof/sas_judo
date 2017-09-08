@@ -1,7 +1,6 @@
 <template>
     <div>
         Admin Dashboard
-        {{ auth.user.profile.name }}
     </div>
 </template>
 <script>
@@ -20,7 +19,7 @@
             menu
         },
         ready() {
-            _self.$store.dispatch("check", 
+            _self.$store.dispatch("check",
                 { app: _self, router: router }
             )
         }

@@ -9,7 +9,8 @@ const state = {
     },
     error: false,
 
-    errorBasic: "Une erreur est survenue."
+    errorBasic: "Une erreur est survenue.",
+    showLoader: false
 }
 
 const getters = {
@@ -102,17 +103,21 @@ const mutations = {
     },
     [types.CHANGE_CONTEXT_ERROR]: (state, value) => {
         state.error = value
+    },
+    [types.SET_LOADER]: (state, value) => {
+        state.showLoader = value
     }
 }
 
 const actions = {
-    register({ commit, state }, { context, name, email, password, password_confirm }) {
+    register({ commit, state }, { context, name, email, password, password_confirm, router }) {
         context.$http.post(
             'api/register',
             { name: name, email: email, password: password, 'password_confirmation': password_confirm }
         ).then(
             () => {
                 commit(types.CHANGE_CONTEXT_ERROR, false)
+                router.push({ name: 'home' })
             }
         ).catch(
             (response) => {
@@ -169,6 +174,12 @@ const actions = {
         } else {
             vue.$emit('sas-snackbar', state.errorBasic);
         }
+    },
+    startLoader({ state, commit, getters }) {
+        commit(types.SET_LOADER, true)
+    },
+    stopLoader({ state, commit, getters }) {
+        commit(types.SET_LOADER, false)
     }
 
 }

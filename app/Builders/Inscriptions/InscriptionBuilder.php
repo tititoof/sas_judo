@@ -55,11 +55,10 @@ class InscriptionBuilder implements BuilderInterface
      */
     public function checkForm(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        return Validator::make($request->all(), [
             'complementary_insurance'   => 'required|max:255',
             'minor_go_alone'            => 'required|max:255',
             'major_take_off'            => 'max:255',
         ]);
-        return $validator->errors()->all();
     }
 }

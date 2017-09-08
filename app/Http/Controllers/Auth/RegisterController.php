@@ -21,17 +21,17 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-    
+
     /**
      * Email constant
      */
     const EMAIL     = 'email';
-    
+
     /**
      * Password constant
      */
     const PWD       = 'password';
-    
+
     /**
      * Name constant
      */
@@ -42,7 +42,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -80,7 +80,7 @@ class RegisterController extends Controller
         return User::create([
             self::NAME      => $data[self::NAME],
             self::EMAIL     => $data[self::EMAIL],
-            self::PWD       => bcrypt($data[self::PASSWORD]),
+            self::PWD       => bcrypt($data[self::PWD]),
         ]);
     }
 }

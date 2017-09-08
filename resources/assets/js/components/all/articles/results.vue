@@ -3,16 +3,21 @@
         <template
             v-for="result in results"
             >
-            <h3>{{ result.name }}, le {{ result.contest_at }} à {{ result.locality }}</h3>
+            <h3>
+                <img src="/api/visitor/menu/picture/logo_judo.png" height="30px"/>
+                {{ result.name }}, le {{ result.contest_at }} à {{ result.locality }}
+            </h3>
             <ul>
                 <li
-                    v-for="information in result.informations">
+                    v-for="information in result.informations"
+                    >
                     {{ information.name }} : {{ information.place }}
-                        <template v-if="information.ageCategory">
-                            ({{ information.ageCategory.label }})
-                        </template>
+                    <template v-if="information.ageCategory">
+                        ({{ information.ageCategory.label }})
+                    </template>
                 </li>
             </ul>
+            <br/>
             <hr/>
         </template>
     </div>
@@ -62,7 +67,7 @@ export default {
             const _self = this,
                  line = {};
             line.name  = data.name;
-            line.contest_at = moment(data.contest_at, "YYYY-MM-DD HH:mm:ss").format("dddd, MMMM Do YYYY");
+            line.contest_at = moment(data.contest_at, "YYYY-MM-DD HH:mm:ss").format("dddd Do MMMM YYYY");
             line.locality   = data.locality
             line.informations = JSON.parse(data.informations);
             _self.results.push(line);
@@ -80,6 +85,5 @@ export default {
             this.index()
         }
     }
-
 }
 </script>

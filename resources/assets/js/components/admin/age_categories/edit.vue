@@ -75,7 +75,6 @@ export default {
             }
         ).catch(
             error   => {
-
                 _self.$store.dispatch("showError", {
                     response:       error.response,
                     formElements:   _self.formErrors,

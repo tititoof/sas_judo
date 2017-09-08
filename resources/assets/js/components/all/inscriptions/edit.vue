@@ -356,6 +356,11 @@ export default {
             _self.id = _self.$route.params.id;
             _self.index();
         });
+    },
+    watch: {
+        '$route.params.menu'(newId, oldId) {
+            this.index()
+        }
     }
 }
 </script>

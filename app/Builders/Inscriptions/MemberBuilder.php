@@ -66,7 +66,7 @@ class MemberBuilder implements BuilderInterface
      */
     public function checkForm(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        return Validator::make($request->all(), [
             'lastname'      => self::REQUIREDMAX,
             'firstname'     => self::REQUIREDMAX,
             'sexe'          => self::REQUIRED,
@@ -79,6 +79,5 @@ class MemberBuilder implements BuilderInterface
             'mobile'        => self::REQUIRED,
             'email'         => self::REQUIRED,
         ]);
-        return $validator;
     }
 }

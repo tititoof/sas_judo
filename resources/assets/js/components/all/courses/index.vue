@@ -68,6 +68,11 @@
                 const _self = this;
                 _self.index();
             });
+        },
+        watch: {
+            '$route.params.menu'(newId, oldId) {
+                this.index()
+            }
         }
     }
 </script>

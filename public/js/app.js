@@ -4381,6 +4381,7 @@ return hooks;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "router", function() { return router; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "my_axios", function() { return my_axios; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "app", function() { return app; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(336);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes_routes__ = __webpack_require__(218);
@@ -4463,7 +4464,6 @@ var my_axios = __WEBPACK_IMPORTED_MODULE_4_axios___default.a.create({
         'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
         'Authorization': 'Bearer ' + localStorage.getItem('id_token')
     }
-
 });
 
 Vue.prototype.$http = my_axios;
@@ -21515,9 +21515,9 @@ process.umask = function() { return 0; };
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return ADD_TO_ALBUM_PICTURES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return GET_ALBUM_PICTURES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return RESET_ALBUM_PICTURES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return ADD_TO_ALBUM_PICTURES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return GET_ALBUM_PICTURES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return RESET_ALBUM_PICTURES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return LOGIN; });
 /* unused harmony export LOGIN_SUCCESS */
 /* unused harmony export REGISTER */
@@ -21534,6 +21534,7 @@ process.umask = function() { return 0; };
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SET_END_TIME_AT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_COURSE_START_TIME_AT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SET_COURSE_END_TIME_AT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return SET_LOADER; });
 var ADD_TO_ALBUM_PICTURES = 'ADD_TO_ALBUM_PICTURES';
 var GET_ALBUM_PICTURES = 'GET_ALBUM_PICTURES';
 var RESET_ALBUM_PICTURES = 'RESET_ALBUM_PICTURES';
@@ -21559,6 +21560,9 @@ var SET_END_TIME_AT = "SET_END_TIME_AT";
 // Courses
 var SET_COURSE_START_TIME_AT = "SET_COURSE_START_TIME_AT";
 var SET_COURSE_END_TIME_AT = "SET_COURSE_END_TIME_AT";
+
+// Loader
+var SET_LOADER = "SET_LOADER";
 
 /***/ }),
 /* 13 */
@@ -45514,7 +45518,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Catégorie d\'âge modifiée');
                 __WEBPACK_IMPORTED_MODULE_1__app_js__["router"].push({ name: 'admin_age_categories_index' });
             }).catch(function (error) {
-
                 _self.$store.dispatch("showError", {
                     response: error.response,
                     formElements: _self.formErrors,
@@ -49007,7 +49010,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -49127,6 +49129,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -49166,7 +49173,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _self = this,
                 line = {};
             line.name = data.name;
-            line.contest_at = __WEBPACK_IMPORTED_MODULE_3_moment___default()(data.contest_at, "YYYY-MM-DD HH:mm:ss").format("dddd, MMMM Do YYYY");
+            line.contest_at = __WEBPACK_IMPORTED_MODULE_3_moment___default()(data.contest_at, "YYYY-MM-DD HH:mm:ss").format("dddd Do MMMM YYYY");
             line.locality = data.locality;
             line.informations = JSON.parse(data.informations);
             _self.results.push(line);
@@ -49185,7 +49192,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.index();
         }
     }
-
 });
 
 /***/ }),
@@ -49315,6 +49321,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _self = this;
             _self.index();
         });
+    },
+
+    watch: {
+        '$route.params.menu': function $routeParamsMenu(newId, oldId) {
+            this.index();
+        }
     }
 });
 
@@ -49650,6 +49662,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.id = _self.$route.params.id;
             _self.index();
         });
+    },
+
+    watch: {
+        '$route.params.menu': function $routeParamsMenu(newId, oldId) {
+            this.index();
+        }
     }
 });
 
@@ -50243,6 +50261,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -50254,7 +50279,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             position: "left",
             queueSnackbars: true,
             showAlert: false,
-            errorAlert: ''
+            errorAlert: '',
+            showLoader: false
         };
     },
 
@@ -50276,15 +50302,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _self = this;
             _self.errorAlert = errors;
             _self.showAlert = true;
+        },
+        setAxiosInterceptors: function setAxiosInterceptors() {
+            var _self = this;
+            // Add a request interceptor
+            __WEBPACK_IMPORTED_MODULE_2__app_js__["my_axios"].interceptors.request.use(function (config) {
+                // Do something before request is sent
+                _self.showLoader = true;
+                return config;
+            }, function (error) {
+                _self.showLoader = false;
+                // Do something with request error
+                return Promise.reject(error);
+            });
+
+            // Add a response interceptor
+            __WEBPACK_IMPORTED_MODULE_2__app_js__["my_axios"].interceptors.response.use(function (response) {
+                // Do something with response data
+                _self.showLoader = false;
+                return response;
+            }, function (error) {
+                _self.showLoader = false;
+                // Do something with response error
+                return Promise.reject(error);
+            });
         }
     },
     components: {
         myMenu: __WEBPACK_IMPORTED_MODULE_0__v_menu_vue___default.a
     },
+
     mounted: function mounted() {
         var _self = this;
         _self.$nextTick(function () {
             _self.$store.dispatch("check", { app: _self, router: __WEBPACK_IMPORTED_MODULE_2__app_js__["router"] });
+            _self.setAxiosInterceptors();
         });
     }
 });
@@ -50495,6 +50547,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(1);
 //
 //
 //
@@ -50528,6 +50581,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50546,7 +50600,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         register: function register(event) {
             var _self = this;
             event.preventDefault();
-            _self.$store.dispatch("register", { context: _self, name: _self.name, email: _self.email, password: _self.password, password_confirm: _self.password_confirm });
+            _self.$store.dispatch("register", {
+                context: _self,
+                name: _self.name,
+                email: _self.email,
+                password: _self.password,
+                password_confirm: _self.password_confirm,
+                router: __WEBPACK_IMPORTED_MODULE_0__app_js__["router"]
+            });
         }
     }
 });
@@ -50677,7 +50738,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
                 _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
             }).catch(function (error) {
-                _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         toggle: function toggle() {
@@ -51286,13 +51351,13 @@ var getters = _defineProperty({
     pictures: function pictures(state) {
         return state.pictures;
     }
-}, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["n" /* GET_ALBUM_PICTURES */], function (state) {
+}, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["o" /* GET_ALBUM_PICTURES */], function (state) {
     return state.pictures;
 });
 
-var mutations = (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["o" /* ADD_TO_ALBUM_PICTURES */], function (state, id) {
+var mutations = (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["p" /* ADD_TO_ALBUM_PICTURES */], function (state, id) {
     state.pictures.push(id);
-}), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["p" /* RESET_ALBUM_PICTURES */], function (state) {
+}), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["q" /* RESET_ALBUM_PICTURES */], function (state) {
     state.pictures = [];
 }), _mutations);
 
@@ -51302,17 +51367,17 @@ var actions = {
         var commit = _ref.commit,
             state = _ref.state;
 
-        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["o" /* ADD_TO_ALBUM_PICTURES */], id);
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["p" /* ADD_TO_ALBUM_PICTURES */], id);
     },
     getPicturesInAlbum: function getPicturesInAlbum(_ref2) {
         var commit = _ref2.commit;
 
-        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["n" /* GET_ALBUM_PICTURES */]);
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["o" /* GET_ALBUM_PICTURES */]);
     },
     resetPicturesInAlbum: function resetPicturesInAlbum(_ref3) {
         var commit = _ref3.commit;
 
-        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["p" /* RESET_ALBUM_PICTURES */]);
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["q" /* RESET_ALBUM_PICTURES */]);
     }
 };
 
@@ -51543,7 +51608,8 @@ var state = {
     },
     error: false,
 
-    errorBasic: "Une erreur est survenue."
+    errorBasic: "Une erreur est survenue.",
+    showLoader: false
 };
 
 var getters = {
@@ -51631,6 +51697,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, __WEBPACK_IMPORTED
     state.user.profile = null;
 }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["m" /* CHANGE_CONTEXT_ERROR */], function (state, value) {
     state.error = value;
+}), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_0__mutation_types__["n" /* SET_LOADER */], function (state, value) {
+    state.showLoader = value;
 }), _mutations);
 
 var actions = {
@@ -51641,10 +51709,12 @@ var actions = {
             name = _ref2.name,
             email = _ref2.email,
             password = _ref2.password,
-            password_confirm = _ref2.password_confirm;
+            password_confirm = _ref2.password_confirm,
+            router = _ref2.router;
 
         context.$http.post('api/register', { name: name, email: email, password: password, 'password_confirmation': password_confirm }).then(function () {
             commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["m" /* CHANGE_CONTEXT_ERROR */], false);
+            router.push({ name: 'home' });
         }).catch(function (response) {
             context.reponse = response.data;
             commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["m" /* CHANGE_CONTEXT_ERROR */], true);
@@ -51710,6 +51780,20 @@ var actions = {
         } else {
             vue.$emit('sas-snackbar', state.errorBasic);
         }
+    },
+    startLoader: function startLoader(_ref10) {
+        var state = _ref10.state,
+            commit = _ref10.commit,
+            getters = _ref10.getters;
+
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["n" /* SET_LOADER */], true);
+    },
+    stopLoader: function stopLoader(_ref11) {
+        var state = _ref11.state,
+            commit = _ref11.commit,
+            getters = _ref11.getters;
+
+        commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["n" /* SET_LOADER */], false);
     }
 };
 
@@ -51824,7 +51908,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n.section-ui-snackbar {\n.preview-pane {\n    position: relative;\n    height: 148px;\n    border: 2px solid #777;\n}\n.preview-controls {\n    margin-top: 24px;\n    max-width: 400px;\n}\n.ui-button {\n    margin-top: 16px;\n}\n.ui-textbox,\n  .ui-radio-group {\n    margin-bottom: 18px;\n}\n.ui-switch {\n    margin-bottom: 8px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.section-ui-snackbar {\n.preview-pane {\n    position: relative;\n    height: 148px;\n    border: 2px solid #777;\n}\n.preview-controls {\n    margin-top: 24px;\n    max-width: 400px;\n}\n.ui-button {\n    margin-top: 16px;\n}\n.ui-textbox,\n  .ui-radio-group {\n    margin-bottom: 18px;\n}\n.ui-switch {\n    margin-bottom: 8px;\n}\n}\n#loader-background {\n      position: fixed;\n      top: 0;\n      width: 100%;\n      height: 100%;\n      background: #f3f3f3;\n      z-index: 1050;\n      transition: all .3s ease;\n}\n  /* Center the loader */\n#loader {\n      position: absolute;\n      left: 50%;\n      top: 50%;\n      z-index: 1001;\n      width: 150px;\n      height: 150px;\n      margin: -75px 0 0 -75px;\n      border: 16px solid #f3f3f3;\n      border-radius: 50%;\n      border-top: 8px solid #787878;\n      border-right: 8px solid #419641;\n      border-bottom: 8px solid #787878;\n      border-left: 8px solid #419641;\n      width: 120px;\n      height: 120px;\n      -webkit-animation: spin 1s linear infinite;\n      animation: spin 1s linear infinite;\n}\n@-webkit-keyframes spin {\n0% { -webkit-transform: rotate(0deg);\n}\n100% { -webkit-transform: rotate(360deg);\n}\n}\n@keyframes spin {\n0% { -webkit-transform: rotate(0deg); transform: rotate(0deg);\n}\n100% { -webkit-transform: rotate(360deg); transform: rotate(360deg);\n}\n}\n\n  /* Add animation to \"page content\" */\n.animate-bottom {\n      position: relative;\n      -webkit-animation-name: animatebottom;\n      -webkit-animation-duration: 0.3s;\n      animation-name: animatebottom;\n      animation-duration: 0.3s\n}\n@-webkit-keyframes animatebottom {\nfrom { bottom:-100px; opacity:0\n}\nto { bottom:0px; opacity:1\n}\n}\n@keyframes animatebottom {\nfrom{ bottom:-100px; opacity:0\n}\nto{ bottom:0; opacity:1\n}\n}\n.modal-enter, .modal-leave {\n      opacity: 0;\n}\n.modal-enter #loader-background,\n  .modal-leave #loader-background {\n      -webkit-transform: scale(1.1);\n      transform: scale(1.1);\n}\n", ""]);
 
 /***/ }),
 /* 241 */
@@ -55864,9 +55948,14 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._l((_vm.results), function(result) {
-    return [_c('h3', [_vm._v(_vm._s(result.name) + ", le " + _vm._s(result.contest_at) + " à " + _vm._s(result.locality))]), _vm._v(" "), _c('ul', _vm._l((result.informations), function(information) {
-      return _c('li', [_vm._v("\n                " + _vm._s(information.name) + " : " + _vm._s(information.place) + "\n                    "), (information.ageCategory) ? [_vm._v("\n                        (" + _vm._s(information.ageCategory.label) + ")\n                    ")] : _vm._e()], 2)
-    })), _vm._v(" "), _c('hr')]
+    return [_c('h3', [_c('img', {
+      attrs: {
+        "src": "/api/visitor/menu/picture/logo_judo.png",
+        "height": "30px"
+      }
+    }), _vm._v("\n            " + _vm._s(result.name) + ", le " + _vm._s(result.contest_at) + " à " + _vm._s(result.locality) + "\n        ")]), _vm._v(" "), _c('ul', _vm._l((result.informations), function(information) {
+      return _c('li', [_vm._v("\n                " + _vm._s(information.name) + " : " + _vm._s(information.place) + "\n                "), (information.ageCategory) ? [_vm._v("\n                    (" + _vm._s(information.ageCategory.label) + ")\n                ")] : _vm._e()], 2)
+    })), _vm._v(" "), _c('br'), _vm._v(" "), _c('hr')]
   })], 2)
 },staticRenderFns: []}
 if (false) {
@@ -58704,7 +58793,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._v("\n    Admin Dashboard\n    " + _vm._s(_vm.auth.user.profile.name) + "\n")])
+  return _c('div', [_vm._v("\n    Admin Dashboard\n")])
 },staticRenderFns: []}
 if (false) {
   module.hot.accept()
@@ -59286,7 +59375,22 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "main-div"
-  }, [_c('my-menu'), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showLoader),
+      expression: "showLoader"
+    }],
+    attrs: {
+      "id": "loader-background",
+      "transition": "modal"
+    }
+  }, [_c('div', {
+    attrs: {
+      "id": "loader"
+    }
+  })]), _vm._v(" "), _c('my-menu'), _vm._v(" "), _c('div', {
     directives: [{
       name: "bar",
       rawName: "v-bar",

@@ -23,3 +23,6 @@ export const SET_END_TIME_AT                    = "SET_END_TIME_AT"
 // Courses
 export const SET_COURSE_START_TIME_AT           = "SET_COURSE_START_TIME_AT"
 export const SET_COURSE_END_TIME_AT             = "SET_COURSE_END_TIME_AT"
+
+// Loader
+export const SET_LOADER                         = "SET_LOADER"
