@@ -36,6 +36,6 @@ class MemberInscriptionController extends Controller
     {
         $director = new Director;
         $answer     = $director->build($request);
-        return response()->json($answer);
+        return response()->json($answer, $answer['code']);
     }
 }

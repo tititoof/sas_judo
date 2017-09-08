@@ -61,7 +61,6 @@
     export default {
         data() {
             return {
-                auth:           auth,
                 inscriptions:   [],
                 deleteId:       Number,
                 show: {
@@ -80,7 +79,11 @@
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             },
@@ -109,7 +112,7 @@
         mounted() {
             this.$nextTick(function() {
                const _self = this;
-               _self.$store.dispatch("check", 
+               _self.$store.dispatch("check",
                     { app: _self, router: router }
                 )
                _self.index();

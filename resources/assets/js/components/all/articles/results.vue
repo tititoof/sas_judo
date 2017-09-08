@@ -5,9 +5,12 @@
             >
             <h3>{{ result.name }}, le {{ result.contest_at }} à {{ result.locality }}</h3>
             <ul>
-                <li 
+                <li
                     v-for="information in result.informations">
-                    {{ information.name }} : {{ information.place }} ({{ information.ageCategory.label }})
+                    {{ information.name }} : {{ information.place }}
+                        <template v-if="information.ageCategory">
+                            ({{ information.ageCategory.label }})
+                        </template>
                 </li>
             </ul>
             <hr/>
@@ -47,7 +50,11 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', auth.showError(error.response));
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         },
@@ -73,6 +80,6 @@ export default {
             this.index()
         }
     }
-    
+
 }
 </script>

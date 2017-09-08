@@ -55,10 +55,9 @@ class ResultsRepository
         return Answer::success(200);
     }
 
-    public function getAll($page, $options)
+    public function getAll($page)
     {
         $collect = Result::orderByDesc('id')->get();
-        $page    = $options['page'] ?? 1;
         $resultatsPerPage = $collect->forPage($page, 10)->map(function($result) {
             return $this->formatResultsBySeason($result);
         });

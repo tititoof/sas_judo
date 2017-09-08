@@ -22,11 +22,15 @@ export default {
                 'api/visitor/' + _self.page + '/articles'
             ).then(
                 response => {
-                    
+
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         }

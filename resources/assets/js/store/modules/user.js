@@ -43,15 +43,16 @@ const getters = {
     },
     checkProperty: (state) => {
         return (property) => {
-            if (state.user.profile.hasOwnProperty(property)) {
-                return (state.user.profile[property] == 1) ? true : false;
+            if (state.user.profile.data.hasOwnProperty(property)) {
+                return (state.user.profile.data[property] == 1) ? true : false;
             }
+            return false;
         }
     },
     checkDebug: (state) => {
         return (response, formElements, getters) => {
             if ("undefined" !== typeof formElements) {
-                return getters.formErrors(response, formElements);
+                return getters.formErrors(response.data, formElements);
             }
             if ( (response.hasOwnProperty("data")) && (response.data.hasOwnProperty('message')) ) {
                 return state.errorBasic + response.data.message + '(' + response.data.code + ')';
@@ -61,6 +62,7 @@ const getters = {
     formErrors: (state) => {
         return (response, formElements) => {
             let errors  = "<br/>";
+            console.log(response)
             formElements.forEach( (element) => {
                 if ('undefined' !== typeof response.data[element.name]) {
                     response.data[element.name].forEach(
@@ -163,7 +165,7 @@ const actions = {
     },
     showError({ state, rootState, commit, dispatch, getters }, { response, formElements, vue }) {
         if (getters.checkIsDebug(getters)) {
-            vue.$emit('sas-errors', vue.checkDebug(response, formElements, getters));
+            vue.$emit('sas-errors', getters.checkDebug(response, formElements, getters));
         } else {
             vue.$emit('sas-snackbar', state.errorBasic);
         }

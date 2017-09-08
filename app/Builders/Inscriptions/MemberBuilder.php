@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\MembersRepository;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Member;
+use App\Helpers\Answer;
 
 class MemberBuilder implements BuilderInterface
 {
@@ -14,23 +15,27 @@ class MemberBuilder implements BuilderInterface
      * Constante string length max
      **/
     const REQUIREDMAX   = 'required|max:255';
-    
+
     /**
      * Constante required
      **/
     const REQUIRED      = 'required';
-    
-    
+
+
     /**
      * @param Request $request
      */
     public function build(Request $request)
     {
-        if (!$this->checkForm($request)) {
+        $validator = $this->checkForm($request);
+        if (!$validator->fails()) {
             $member = $this->check($request);
             return $this->createOrUpdate($request, $member);
         }
-        return false;
+        return Answer::error(
+            new \InvalidArgumentException('Erreur de validation', 400),
+            $validator->messages()->toArray()
+        );
     }
 
     public function createOrUpdate(Request $request, $member)
@@ -62,18 +67,18 @@ class MemberBuilder implements BuilderInterface
     public function checkForm(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'lastname'      => REQUIREDMAX,
-            'firstname'     => REQUIREDMAX,
-            'sexe'          => REQUIRED,
-            'birthday'      => REQUIRED,
-            'address'       => REQUIREDMAX,
-            'postal_code'   => REQUIRED,
-            'city'          => REQUIREDMAX,
-            'phone'         => REQUIREDMAX,
-            'red_list'      => REQUIRED,
-            'mobile'        => REQUIRED,
-            'email'         => REQUIRED,
+            'lastname'      => self::REQUIREDMAX,
+            'firstname'     => self::REQUIREDMAX,
+            'sexe'          => self::REQUIRED,
+            'birthday'      => self::REQUIRED,
+            'address'       => self::REQUIREDMAX,
+            'postal_code'   => self::REQUIRED,
+            'city'          => self::REQUIREDMAX,
+            'phone'         => self::REQUIREDMAX,
+            'red_list'      => self::REQUIRED,
+            'mobile'        => self::REQUIRED,
+            'email'         => self::REQUIRED,
         ]);
-        return $validator->fails();
+        return $validator;
     }
 }

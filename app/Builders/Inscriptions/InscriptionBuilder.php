@@ -56,6 +56,6 @@ class InscriptionBuilder implements BuilderInterface
             'minor_go_alone'            => 'required|max:255',
             'major_take_off'            => 'max:255',
         ]);
-        return $validator->fails();
+        return $validator->errors()->all();
     }
 }

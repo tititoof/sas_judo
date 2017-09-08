@@ -35,7 +35,7 @@ class Director
             $method = $style->getMethod('build');
             return $method->invoke($object, $menu, []);
         }
-        throw new \ErrorException("Ne peut pas charger le style de présentation");
+        App::abort(404, 'Ne peut pas charger le style de présentation');
     }
 
     /**

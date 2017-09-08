@@ -48428,7 +48428,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Saison modifiée');
                 __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_seasons_index' });
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         }
     },
@@ -48446,7 +48450,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.startAt = new Date(data.start_at);
                 _self.endAt = new Date(data.end_at);
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         });
     }
@@ -48552,7 +48560,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/season').then(function (response) {
                 _self.seasons = response.data.seasons;
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         create: function create() {
@@ -48641,7 +48653,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Saison ajoutée');
                 __WEBPACK_IMPORTED_MODULE_1__app_js__["router"].push({ name: 'admin_seasons_index' });
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         }
     },
@@ -48751,13 +48767,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         update: function update() {
             var _self = this;
-            _self.$http.patch('api/admin/user/' + _self.userId, { 'firstname': _self.firstname, 'lastname': _self.lastname,
-                'is_admin': _self.is_admin, 'is_teacher': _self.is_teacher,
-                'email': _self.email, 'phone': _self.phone, 'address': _self.address }).then(function () {
+            _self.$http.patch('api/admin/user/' + _self.userId, {
+                'firstname': _self.firstname,
+                'lastname': _self.lastname,
+                'is_admin': _self.is_admin,
+                'is_teacher': _self.is_teacher,
+                'email': _self.email,
+                'phone': _self.phone,
+                'address': _self.address
+            }).then(function () {
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 __WEBPACK_IMPORTED_MODULE_2__app_js__["router"].push({ name: 'admin_users_index' });
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         }
     },
@@ -48776,7 +48802,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.phone = data.phone;
                 _self.email = data.email;
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         });
     }
@@ -48890,7 +48920,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = response.data;
                 _self.users = data.users;
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         edit: function edit(id) {
@@ -48912,7 +48946,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 _self.index();
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         toggleTeacher: function toggleTeacher(id) {
@@ -48921,7 +48959,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 _self.index();
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         toggleDebug: function toggleDebug(id) {
@@ -48930,7 +48972,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.$emit('sas-snackbar', 'Utilisateur modifié');
                 _self.index();
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         }
     },
@@ -49027,7 +49073,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = response.data;
                 _self.articles = data;
             }).catch(function (error) {
-                _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         }
     },
@@ -49074,6 +49124,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -49102,7 +49155,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
                 _self.ageCategories = data.ageCategories;
             }).catch(function (error) {
-                _self.$emit('sas-errors', auth.showError(error.response));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         formatData: function formatData(data) {
@@ -49164,7 +49221,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         index: function index() {
             var _self = this;
             _self.$http.get('api/visitor/' + _self.page + '/articles').then(function (response) {}).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         }
     },
@@ -49235,7 +49296,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.courses = data.objects;
                 _self.listCourses = data.scheduler;
             }).catch(function (error) {
-                _self.$emit('sas-errors', auth.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         scrollTop: function scrollTop() {
@@ -49456,7 +49521,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             sexe: '',
             complementaryInsurance: '',
             minorGoAlone: '',
-            majorTakeOff: ''
+            majorTakeOff: '',
+            formErrors: [{ 'name': 'address', 'human': 'Adresse' }, { 'name': 'birthday', 'human': "Date de naissance" }, { 'name': 'city', 'human': "Ville" }, { 'name': 'email', 'human': "Email" }, { 'name': 'firstname', 'human': "Prénom" }, { 'name': 'lastname', 'human': "Nom" }, { 'name': 'mobile', 'human': "Mobile" }, { 'name': 'phone', 'human': "Téléphone" }, { 'name': 'postal_code', 'human': "Code postal" }, { 'name': 'red_list', 'human': "Liste rouge" }, { 'name': 'sexe', 'human': "Sexe" }]
         };
     },
 
@@ -49479,7 +49545,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.post('api/inscriptions/save', data).then(function () {
                 _self.$emit('sas-snackbar', 'Inscription enregistrée');
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         checkBaseInformations: function checkBaseInformations() {
@@ -49504,7 +49574,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         inscription = response.data.inscription;
                     _self.setDataForm(member, inscription);
                 }).catch(function (error) {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                    _self.$store.dispatch("showError", {
+                        response: error.response,
+                        formElements: _self.formErrors,
+                        vue: _self
+                    });
                 });
             }
         },
@@ -49551,13 +49625,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/seasons/list').then(function (response) {
                 _self.seasons = response.data.data;
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         getInformations: function getInformations() {
             var _self = this;
             _self.$http.get('api/member').then(function () {}).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         }
     },
@@ -49646,7 +49728,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            auth: auth,
             inscriptions: [],
             deleteId: Number,
             show: {
@@ -49663,7 +49744,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var data = response.data;
                 _self.inscriptions = data.data;
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         create: function create() {
@@ -49763,7 +49848,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.$http.get('api/judoevent').then(function (response) {
                 _self.fcEvents = response.data.events;
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         create: function create() {
@@ -49776,7 +49865,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.setModalEvent(data);
                 _self.$refs['eventModal'].open();
             }).catch(function (error) {
-                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
             });
         },
         'dayClick': function dayClick(day) {},
@@ -51484,15 +51577,16 @@ var getters = {
     },
     checkProperty: function checkProperty(state) {
         return function (property) {
-            if (state.user.profile.hasOwnProperty(property)) {
-                return state.user.profile[property] == 1 ? true : false;
+            if (state.user.profile.data.hasOwnProperty(property)) {
+                return state.user.profile.data[property] == 1 ? true : false;
             }
+            return false;
         };
     },
     checkDebug: function checkDebug(state) {
         return function (response, formElements, getters) {
             if ("undefined" !== typeof formElements) {
-                return getters.formErrors(response, formElements);
+                return getters.formErrors(response.data, formElements);
             }
             if (response.hasOwnProperty("data") && response.data.hasOwnProperty('message')) {
                 return state.errorBasic + response.data.message + '(' + response.data.code + ')';
@@ -51502,6 +51596,7 @@ var getters = {
     formErrors: function formErrors(state) {
         return function (response, formElements) {
             var errors = "<br/>";
+            console.log(response);
             formElements.forEach(function (element) {
                 if ('undefined' !== typeof response.data[element.name]) {
                     response.data[element.name].forEach(function (error) {
@@ -51611,7 +51706,7 @@ var actions = {
             vue = _ref9.vue;
 
         if (getters.checkIsDebug(getters)) {
-            vue.$emit('sas-errors', vue.checkDebug(response, formElements, getters));
+            vue.$emit('sas-errors', getters.checkDebug(response, formElements, getters));
         } else {
             vue.$emit('sas-snackbar', state.errorBasic);
         }
@@ -51638,7 +51733,7 @@ exports.push([module.i, "\n\r\n", ""]);
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 228 */
@@ -51687,7 +51782,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 235 */
@@ -55770,7 +55865,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._l((_vm.results), function(result) {
     return [_c('h3', [_vm._v(_vm._s(result.name) + ", le " + _vm._s(result.contest_at) + " à " + _vm._s(result.locality))]), _vm._v(" "), _c('ul', _vm._l((result.informations), function(information) {
-      return _c('li', [_vm._v("\n                " + _vm._s(information.name) + " : " + _vm._s(information.place) + " (" + _vm._s(information.ageCategory.label) + ")\n            ")])
+      return _c('li', [_vm._v("\n                " + _vm._s(information.name) + " : " + _vm._s(information.place) + "\n                    "), (information.ageCategory) ? [_vm._v("\n                        (" + _vm._s(information.ageCategory.label) + ")\n                    ")] : _vm._e()], 2)
     })), _vm._v(" "), _c('hr')]
   })], 2)
 },staticRenderFns: []}
@@ -57108,7 +57203,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h1', [_vm._v("\n        Inscription\n        "), _c('small', [_c('ui-button', {
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('h1', [_vm._v("\n        Inscription\n        "), _c('small', [_c('ui-button', {
     attrs: {
       "type": "secondary",
       "color": "accent",

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="row">
         <h1>
             Inscription
             <small>
@@ -176,7 +176,7 @@ export default {
             lastname:       '',
             firstname:      '',
             birthday:       null,
-            group1: '',
+            group1:         '',
             email:          '',
             mobile:         '',
             redList:        '',
@@ -187,7 +187,20 @@ export default {
             sexe:           '',
             complementaryInsurance: '',
             minorGoAlone:   '',
-            majorTakeOff:   ''
+            majorTakeOff:   '',
+            formErrors:     [
+                { 'name': 'address',        'human': 'Adresse'},
+                { 'name': 'birthday',       'human': "Date de naissance" },
+                { 'name': 'city',           'human': "Ville" },
+                { 'name': 'email',          'human': "Email" },
+                { 'name': 'firstname',      'human': "Prénom" },
+                { 'name': 'lastname',       'human': "Nom" },
+                { 'name': 'mobile',         'human': "Mobile" },
+                { 'name': 'phone',          'human': "Téléphone" },
+                { 'name': 'postal_code',    'human': "Code postal" },
+                { 'name': 'red_list',       'human': "Liste rouge" },
+                { 'name': 'sexe',           'human': "Sexe" }
+            ]
         }
     },
     components: {
@@ -206,13 +219,20 @@ export default {
         save() {
             const _self = this,
                 data    = _self.getDataForm();
-            _self.$http.post('api/inscriptions/save', data).then(
+            _self.$http.post(
+                'api/inscriptions/save',
+                data
+            ).then(
                 () => {
                     _self.$emit('sas-snackbar', 'Inscription enregistrée');
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         },
@@ -237,7 +257,11 @@ export default {
                     }
                 ).catch(
                     error   => {
-                        _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
                     }
                 );
             }
@@ -298,7 +322,11 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         },
@@ -310,7 +338,11 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         }
@@ -318,7 +350,7 @@ export default {
     mounted() {
         this.$nextTick(function () {
             const _self = this;
-            _self.$store.dispatch("check", 
+            _self.$store.dispatch("check",
                 { app: _self, router: router }
             )
             _self.id = _self.$route.params.id;
