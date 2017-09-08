@@ -68,8 +68,6 @@ class ResultsRepository
 
     public function formatResultsBySeason($result)
     {
-        Carbon::setLocale('fr');
-        $resultDate = Carbon::parse($result->contest_at);
         return [
             'name'          => $result->name,
             'season'        => $result->season->name,

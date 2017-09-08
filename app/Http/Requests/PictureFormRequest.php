@@ -24,11 +24,9 @@ class PictureFormRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'image.*'      => 'required|image',
             'local_image'  => 'integer',
         ];
-
-        return $rules;
     }
 }

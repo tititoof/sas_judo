@@ -69,7 +69,7 @@ class JudoEventsRepository
     public function getCalendar()
     {
         $events = Judoevent::All();
-        $list   = $events->map(function($event, $key) {
+        $list   = $events->map(function($event) {
             $cal = new \stdClass;
             $cal->id    = $event->id;
             $cal->title = $event->name;
@@ -78,19 +78,6 @@ class JudoEventsRepository
             return $cal;
         });
         return $list->all();
-    }
-
-    /**
-     * @param $event
-     * @return \stdClass
-     */
-    private function setCalendarEvent($event)
-    {
-        $cal = new \stdClass;
-        $cal->title = $event->name;
-        $cal->start = $event->start_at;
-        $cal->end   = $event->end_at;
-        return $cal;
     }
 
     /**
