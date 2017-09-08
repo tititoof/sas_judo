@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -52,6 +57,33 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+        $token = JWTAuth::attempt($request->only('email', 'password') ,
+            ['exp'   => Carbon::now()->addWeek()->timestamp,]);
+        $data = [];
+        $meta = [];
+        $data['name']       = $user->name;
+        $data['user_id']    = $user->id;
+        $data['email']      = $user->email;
+        $data['pwd']      = $user->password;
+        $data['is_admin']   = $user->is_admin;
+        $data['is_debug']   = $user->is_debug;
+        $meta['token']      = $token;
+        return response()->json(['data' => $data, 'meta' => $meta]);
     }
 
     /**

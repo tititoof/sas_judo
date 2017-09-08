@@ -21,9 +21,17 @@
                         >
                         <p v-html="errorAlert"></p>
                     </ui-alert>
+                    <ui-alert
+                        @dismiss="showSuccessAlert = false"
+                        type="success"
+                        v-show="showSuccessAlert"
+                        >
+                        <p v-html="successAlert"></p>
+                    </ui-alert>
                     <router-view
                         v-on:sas-snackbar="showSnackBar"
                         v-on:sas-errors="showAlertError"
+                        v-on:sas-success="showAlertSuccess"
                         >
                     </router-view>
                 </div>
@@ -47,11 +55,13 @@
     export default {
         data() {
             return {
-                position: "left",
-                queueSnackbars: true,
-                showAlert: false,
-                errorAlert: '',
-                showLoader: false,
+                position:           "left",
+                queueSnackbars:     true,
+                showAlert:          false,
+                errorAlert:         '',
+                showLoader:         false,
+                showSuccessAlert:   false,
+                successAlert:       ''
             }
         },
         computed:
@@ -74,6 +84,14 @@
                 _self.errorAlert    = errors;
                 _self.showAlert     = true;
             },
+            showAlertSuccess(message) {
+                const _self = this;
+                _self.successAlert      = message;
+                _self.showSuccessAlert  = true;
+                setTimeout(function() {
+                    _self.showSuccessAlert  = false;
+                }, 10000)
+            },
             setAxiosInterceptors() {
                 const _self = this;
                 // Add a request interceptor
@@ -82,8 +100,8 @@
                     _self.showLoader = true
                     return config;
                 }, function (error) {
-                    _self.showLoader = false
                     // Do something with request error
+                    _self.showLoader = false
                     return Promise.reject(error);
                 });
 
@@ -93,8 +111,8 @@
                     _self.showLoader = false
                     return response;
                 }, function (error) {
-                    _self.showLoader = false
                     // Do something with response error
+                    _self.showLoader = false
                     return Promise.reject(error);
                 });
             }

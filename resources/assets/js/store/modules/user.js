@@ -63,7 +63,6 @@ const getters = {
     formErrors: (state) => {
         return (response, formElements) => {
             let errors  = "<br/>";
-            console.log(response)
             formElements.forEach( (element) => {
                 if ('undefined' !== typeof response.data[element.name]) {
                     response.data[element.name].forEach(
@@ -115,8 +114,13 @@ const actions = {
             'api/register',
             { name: name, email: email, password: password, 'password_confirmation': password_confirm }
         ).then(
-            () => {
+            (response) => {
                 commit(types.CHANGE_CONTEXT_ERROR, false)
+                localStorage.removeItem('id_token')
+                localStorage.setItem('id_token', response.data.meta.token)
+                context.$http.defaults.headers['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
+                commit(types.LOGIN, response.data)
+                // context.$emit('sas-success', 'Compte créé, vous pouvez vous connecter avec vos identifiants.')
                 router.push({ name: 'home' })
             }
         ).catch(

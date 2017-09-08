@@ -50267,6 +50267,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50280,7 +50288,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             queueSnackbars: true,
             showAlert: false,
             errorAlert: '',
-            showLoader: false
+            showLoader: false,
+            showSuccessAlert: false,
+            successAlert: ''
         };
     },
 
@@ -50303,6 +50313,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _self.errorAlert = errors;
             _self.showAlert = true;
         },
+        showAlertSuccess: function showAlertSuccess(message) {
+            var _self = this;
+            _self.successAlert = message;
+            _self.showSuccessAlert = true;
+            setTimeout(function () {
+                _self.showSuccessAlert = false;
+            }, 10000);
+        },
         setAxiosInterceptors: function setAxiosInterceptors() {
             var _self = this;
             // Add a request interceptor
@@ -50311,8 +50329,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.showLoader = true;
                 return config;
             }, function (error) {
-                _self.showLoader = false;
                 // Do something with request error
+                _self.showLoader = false;
                 return Promise.reject(error);
             });
 
@@ -50322,8 +50340,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _self.showLoader = false;
                 return response;
             }, function (error) {
-                _self.showLoader = false;
                 // Do something with response error
+                _self.showLoader = false;
                 return Promise.reject(error);
             });
         }
@@ -50450,12 +50468,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             sidebarShow: false,
             sideBarMenu: [],
             menuOptions: [{
-                id: 'settings',
-                icon: 'face',
-                label: 'Paramètres'
-            }, {
-                type: 'divider'
-            }, {
                 id: 'disconnect',
                 icon: 'exit_to_app',
                 label: 'Déconnexion'
@@ -51662,7 +51674,6 @@ var getters = {
     formErrors: function formErrors(state) {
         return function (response, formElements) {
             var errors = "<br/>";
-            console.log(response);
             formElements.forEach(function (element) {
                 if ('undefined' !== typeof response.data[element.name]) {
                     response.data[element.name].forEach(function (error) {
@@ -51712,8 +51723,13 @@ var actions = {
             password_confirm = _ref2.password_confirm,
             router = _ref2.router;
 
-        context.$http.post('api/register', { name: name, email: email, password: password, 'password_confirmation': password_confirm }).then(function () {
+        context.$http.post('api/register', { name: name, email: email, password: password, 'password_confirmation': password_confirm }).then(function (response) {
             commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["m" /* CHANGE_CONTEXT_ERROR */], false);
+            localStorage.removeItem('id_token');
+            localStorage.setItem('id_token', response.data.meta.token);
+            context.$http.defaults.headers['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
+            commit(__WEBPACK_IMPORTED_MODULE_0__mutation_types__["k" /* LOGIN */], response.data);
+            // context.$emit('sas-success', 'Compte créé, vous pouvez vous connecter avec vos identifiants.')
             router.push({ name: 'home' });
         }).catch(function (response) {
             context.reponse = response.data;
@@ -59432,10 +59448,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "innerHTML": _vm._s(_vm.errorAlert)
     }
+  })]), _vm._v(" "), _c('ui-alert', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showSuccessAlert),
+      expression: "showSuccessAlert"
+    }],
+    attrs: {
+      "type": "success"
+    },
+    on: {
+      "dismiss": function($event) {
+        _vm.showSuccessAlert = false
+      }
+    }
+  }, [_c('p', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.successAlert)
+    }
   })]), _vm._v(" "), _c('router-view', {
     on: {
       "sas-snackbar": _vm.showSnackBar,
-      "sas-errors": _vm.showAlertError
+      "sas-errors": _vm.showAlertError,
+      "sas-success": _vm.showAlertSuccess
     }
   })], 1)])]), _vm._v(" "), _c('ui-snackbar-container', {
     ref: "snackbarContainer",

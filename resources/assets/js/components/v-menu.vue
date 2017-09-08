@@ -93,12 +93,6 @@
                 sidebarShow: false,
                 sideBarMenu: [],
                 menuOptions: [{
-                    id: 'settings',
-                    icon: 'face',
-                    label: 'Paramètres'
-                }, {
-                    type: 'divider'
-                }, {
                     id: 'disconnect',
                     icon: 'exit_to_app',
                     label: 'Déconnexion'
@@ -134,7 +128,7 @@
                     }, {
                         id: 'admin_users_index',
                         text: 'Utilisateurs'
-                    }  
+                    }
                 ]
             }
         },
@@ -143,7 +137,7 @@
         },
         directives: {
         },
-        computed: 
+        computed:
             mapGetters({ isRegistred: 'isRegistred', isAdmin: 'isAdmin' })
         ,
         methods: {
@@ -183,7 +177,7 @@
         mounted() {
             const _self = this;
             _self.$nextTick(function() {
-                _self.$store.dispatch("check", 
+                _self.$store.dispatch("check",
                     { app: _self, router: router }
                 )
                 _self.index();
