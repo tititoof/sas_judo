@@ -14,11 +14,15 @@ class InscriptionBuilder implements BuilderInterface
      */
     public function build(Request $request)
     {
-        if (!$this->checkForm($request)) {
+        $validator = $this->checkForm($request);
+        if (!$validator->fails()) {
             $inscription = $this->check($request);
             return $this->createOrUpdate($request, $inscription);
         }
-        return false;
+        return Answer::error(
+            new \InvalidArgumentException('Erreur de validation', 400),
+            $validator->messages()->toArray()
+        );
     }
 
     /**

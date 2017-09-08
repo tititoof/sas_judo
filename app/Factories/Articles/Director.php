@@ -5,6 +5,7 @@ namespace App\Factories\Articles;
 use App\Models\Category;
 use App\Factories\Articles\ArticlesFactory;
 use App\Factories\Articles\NewsFactory;
+use App\Helpers\Answer;
 
 /**
  *
@@ -35,7 +36,10 @@ class Director
             $method = $style->getMethod('build');
             return $method->invoke($object, $menu, []);
         }
-        App::abort(404, 'Ne peut pas charger le style de présentation');
+        return Answer::error(
+            new \InvalidArgumentException('Impossible de trouver le factory', 404),
+            []
+        );
     }
 
     /**
