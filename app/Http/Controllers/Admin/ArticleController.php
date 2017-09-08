@@ -14,16 +14,15 @@ use App\Traits\ListTrait;
 class ArticleController extends Controller
 {
     use ListTrait;
-    
+
     const MAPLIST = 'mapList';
-    
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $articleRepo = new ArticlesRepository;
-        $articles = Article::all();
         return response()->json(['articles' => $articleRepo->getAdminArticles()]);
     }
 
@@ -35,7 +34,7 @@ class ArticleController extends Controller
         $categories = Category::all();
         $albums     = Album::all();
         return response()->json([
-            'categories' => $categories->map([$this, self::MAPLIST]), 
+            'categories' => $categories->map([$this, self::MAPLIST]),
             'albums'     => $albums->map([$this, self::MAPLIST])
         ]);
     }
@@ -70,11 +69,11 @@ class ArticleController extends Controller
         $categories = Category::all();
         $albums     = Album::all();
         return response()->json([
-            'success'    => true, 
-            'object'     => $article, 
+            'success'    => true,
+            'object'     => $article,
             'menus'      => $categories->map([$this, self::MAPLIST]),
-            'categories' => $article->categories, 
-            'allAlbums'  => $albums->map([$this, self::MAPLIST]), 
+            'categories' => $article->categories,
+            'allAlbums'  => $albums->map([$this, self::MAPLIST]),
             'albums'     => $article->albums
         ]);
     }

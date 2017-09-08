@@ -80,12 +80,12 @@ class ArticlesRepository
             return Answer::error($exception);
         }
     }
-    
-    public function getAdminArticles() 
+
+    public function getAdminArticles()
     {
         try {
             $articles = Article::all();
-            $list     = $articles->map(function($article) {
+            return $articles->map(function($article) {
                 $menus = $article->categories->map(function($menu) {
                     return $menu->name;
                 });
@@ -95,15 +95,8 @@ class ArticlesRepository
                     'menus' => $menus,
                 ];
             });
-            return $list;
         } catch (\Exception $exception) {
             return Answer::error($exception);
         }
     }
-    
-    private function getMenu($menu)
-    {
-        return $menu->name;
-    }
-    
 }

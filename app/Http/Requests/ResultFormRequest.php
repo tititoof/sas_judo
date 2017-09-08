@@ -24,13 +24,11 @@ class ResultFormRequest extends FormRequest
      */
     public function rules()
     {
-    //   $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
-      $rules = [
-          'name'          => 'required|max:255',
-          'season_id'     => 'required|integer',
-          'locality'      => 'required|max:255',
-          'informations'  => 'required'
-      ];
-      return $rules;
+        return [
+            'name'          => 'required|max:255',
+            'season_id'     => 'required|integer',
+            'locality'      => 'required|max:255',
+            'informations'  => 'required'
+        ];
     }
 }

@@ -24,20 +24,11 @@ class PictureFormRequest extends FormRequest
      */
     public function rules()
     {
-        $id    = (null !== $this->segment(2)) ? $this->segment(2) : null;
-        // if ($id === null) {
-        //     $rules = [
-        //             'image.*'      => 'required|image',
-        //             'local_image'  => 'integer',
-        //         ];
-        // } else {
-            $rules = [
-                // 'name'         => 'required|max:255|unique:pictures,name',
-                'image.*'      => 'required|image',
-                'local_image'  => 'integer',
-            ];
-        // }
-        
+        $rules = [
+            'image.*'      => 'required|image',
+            'local_image'  => 'integer',
+        ];
+
         return $rules;
     }
 }

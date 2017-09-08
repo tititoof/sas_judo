@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class JudoEventRequest extends FormRequest
 {
+    CONST REQUIRED = 'required';
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,11 +28,11 @@ class JudoEventRequest extends FormRequest
         $judoevent    = (null !== $this->route('judoevent')) ? $this->route('judoevent') : null;
         $rules = [
             'name'          => 'required|max:255|unique:judo_events,name',
-            'type'          => 'required',
-            'start_at'      => 'required',
-            'end_at'        => 'required',
-            'end_time_at'   => 'required',
-            'start_time_at' => 'required',
+            'type'          => self::REQUIRED,
+            'start_at'      => self::REQUIRED,
+            'end_at'        => self::REQUIRED,
+            'end_time_at'   => self::REQUIRED,
+            'start_time_at' => self::REQUIRED,
         ];
         if (null !== $judoevent) {
             $rules = array_merge($rules, ['name' => 'required|max:255|unique:judo_events,name,'.$judoevent['attributes']['id'],]);
