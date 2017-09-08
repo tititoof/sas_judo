@@ -11,14 +11,16 @@ use App\Factories\Articles\NewsFactory;
  */
 class Director
 {
+    const LABEL     = 'label';
+    const NAME      = 'name';
 
     /**
      * @var Array $listFactories
      */
     private static $listFactories = [
-        [ 'label' => 'News',     'name' => 'NewsFactory'],
-        [ 'label' => 'Articles', 'name'  => 'ArticlesFactory'],
-        [ 'label' => 'Résultats', 'name'  => 'ResultatsFactory'],
+        [ self::LABEL => 'News',        self::NAME => 'NewsFactory'],
+        [ self::LABEL => 'Articles',    self::NAME  => 'ArticlesFactory'],
+        [ self::LABEL => 'Résultats',   self::NAME  => 'ResultatsFactory'],
     ];
 
     /**
