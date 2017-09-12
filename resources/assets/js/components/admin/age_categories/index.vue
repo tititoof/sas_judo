@@ -1,54 +1,55 @@
 <template>
-  <div>
-      <h1>
-          Liste des cat&eacute;gories d'&acirc;ge
-          <small>
-              <ui-icon-button
-                  type="secondary" icon="add" color="accent" size="large"
-                  @click.prevent="create()"
-                  >
-              </ui-icon-button>
-          </small>
-      </h1>
-      <table
-        class="table table-striped"
-        v-if="ageCategories.length > 0"
-        >
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Âge de départ</th>
-            </tr>
-        </thead>
-        <tbody>
-        <tr v-for="category in ageCategories">
-            <td>
+    <div>
+        <h1>
+            Liste des cat&eacute;gories d'&acirc;ge
+            <small>
                 <ui-icon-button
-                    type="secondary" icon="edit" color="orange" size="large"
-                    @click="edit(category.id)"></ui-icon-button>
-                <ui-icon-button
-                    type="secondary" size="large" icon="delete" color="red"
-                    @click="destroy(category.id)"></ui-icon-button>
-            </td>
-            <td>{{ category.name }}</td>
-            <td>{{ category.years }} ans</td>
-        </tr>
-        </tbody>
-    </table>
-    <ui-confirm
-        title="Suppression" type="primary"
-        confirm-button-icon="delete"
-        confirm-button-text="Supprimer"
-        deny-button-text="Annuler"
-        ref="deleteConfirm"
-        @confirm="deleteConfirmed"
-        @deny="deleteDenied"
-        close-on-confirm
-        >
-        &ecirc;tes-vous s&ucirc;r de vouloir supprimer la catégorie d'âge ?
-    </ui-confirm>
-  </div>
+                    class="pull-right"
+                    type="primary" icon="add" color="primary" size="large"
+                    @click.prevent="create()"
+                    >
+                </ui-icon-button>
+            </small>
+        </h1>
+        <table
+            class="table table-striped"
+            v-if="ageCategories.length > 0"
+            >
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Âge de départ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="category in ageCategories">
+                    <td>
+                        <ui-icon-button
+                            type="secondary" icon="edit" color="orange" size="large"
+                            @click="edit(category.id)"></ui-icon-button>
+                        <ui-icon-button
+                            type="secondary" size="large" icon="delete" color="red"
+                            @click="destroy(category.id)"></ui-icon-button>
+                    </td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.years }} ans</td>
+                </tr>
+            </tbody>
+        </table>
+        <ui-confirm
+            title="Suppression" type="primary"
+            confirm-button-icon="delete"
+            confirm-button-text="Supprimer"
+            deny-button-text="Annuler"
+            ref="deleteConfirm"
+            @confirm="deleteConfirmed"
+            @deny="deleteDenied"
+            close-on-confirm
+            >
+            &ecirc;tes-vous s&ucirc;r de vouloir supprimer la catégorie d'âge ?
+        </ui-confirm>
+    </div>
 </template>
 <script>
 import menu     from '../../v-menu.vue';

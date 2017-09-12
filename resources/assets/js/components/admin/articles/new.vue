@@ -9,35 +9,39 @@
             </small>
             Nouvel article
             <small>
-                <ui-button
-                   type="secondary" color="accent" size="large"
-                   @click.prevent="store()">
+                <ui-button 
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="store()"
+                    >
                     Cr&eacute;er
                 </ui-button>
             </small>
         </h1>
         <ui-select
-                name="categories" label="Menus"
-                :options="menus"
-                v-model="categoriesSelected"
-                placeholder="Choisir le ou les menus" show-search multiple z-index="1"
-        ></ui-select>
+            name="categories" label="Menus"
+            :options="menus"
+            v-model="categoriesSelected"
+            placeholder="Choisir le ou les menus" show-search multiple z-index="1"
+            >
+        </ui-select>
         <ui-textbox
-                label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" v-model="name"
-        >
+            label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" v-model="name"
+            >
         </ui-textbox>
         <div id="editor-vue">
             <Vueditor ref="qc" style="height: 400px"></Vueditor>
         </div>
         <p style="height: 10vh"></p>
         <ui-select
-                name="albums" label="Albums"
-                :options="albums"
-                v-model="albumsSelected"
-                placeholder="Choisir le ou les albums" show-search multiple z-index="1"
-        ></ui-select>
+            name="albums" label="Albums"
+            :options="albums"
+            v-model="albumsSelected"
+            placeholder="Choisir le ou les albums" show-search multiple z-index="1"
+            >
+        </ui-select>
         <ui-button
-            type="secondary" color="accent" size="large"
+            type="primary" color="primary" size="large"
             @click="addAlbum()"
             >
             Ajouter un album

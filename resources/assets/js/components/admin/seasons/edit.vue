@@ -10,8 +10,10 @@
             &Eacute;dition saison
             <small>
                 <ui-button
-                        type="secondary" color="accent"
-                        @click.prevent="update()">
+                    class="pull-right"
+                    type="primary" color="primary"
+                    @click.prevent="update()"
+                    >
                     Modifier
                 </ui-button>
             </small>

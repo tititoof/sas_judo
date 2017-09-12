@@ -65,14 +65,28 @@ class ResultsRepository
         return $resultatsPerPage->all();
     }
 
-    public function formatResultsBySeason($result)
+    public function formatResultsBySeason($result, $admin = false)
     {
-        return [
+        $formatedResult = [
             'name'          => $result->name,
             'season'        => $result->season->name,
             'locality'      => $result->locality,
             'contest_at'    => $result->contest_at,
             'informations'  => $result->informations,
         ];
+        if ($admin) {
+            $formatedResult['id'] = $result->id;
+        }
+        return $formatedResult;
+    }
+    
+    public function getAdminAll()
+    {
+        $collect = Result::orderByDesc('id')->get();
+        $resultatsPerPage = $collect->map(function($result) {
+            return $this->formatResultsBySeason($result, true);
+        });
+
+        return $resultatsPerPage->all();
     }
 }

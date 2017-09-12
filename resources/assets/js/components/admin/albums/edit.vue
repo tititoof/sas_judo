@@ -7,24 +7,29 @@
                     @click.prevent="back()">
                 </ui-icon-button>
             </small>
-            Edition de l'album
+            Edition de l'album {{ name }}
             <small>
                 <ui-button
-                    type="secondary" color="accent" size="large"
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
                     @click.prevent="update()">
                     Modifier
                 </ui-button>
             </small>
         </h1>
         <ui-textbox
-                label="Nom" name="name" type="text" placeholder="Entrer le nom de l'album" :value.sync="name"
-        ></ui-textbox>
+            label="Nom" name="name" type="text" 
+            placeholder="Entrer le nom de l'album" 
+            v-model="name"
+            >
+        </ui-textbox>
         <file-upload
             v-on:onFileChange="onFileChange"
             v-on:onFileUpload="onFileUpload"
             v-on:onAllFilesUploaded="onAllFilesUploaded"
             ref="fu"
-            class="bg-info" name="pictures" id="pictures" accept="image/*" action="/api/picture" :button-text="uploadName" multiple>
+            class="bg-info" name="pictures" id="pictures" accept="image/*" 
+            action="/api/picture" :button-text="uploadName" multiple>
         </file-upload>
         <ul class="pagination">
             <li v-for="file in files">
@@ -41,10 +46,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#" height="150px">
-                                <lazy-image
-                                    :src='picture.url'
-                                    class="img-thumbnail img-responsive" height="150px"
-                                ></lazy-image>
+                                <img :src="picture.url" class="img-thumbnail img-responsive" height="150px">
                             </a>
                         </div>
                         <div class="panel-footer">
@@ -68,10 +70,8 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#" height="150px">
-                                <lazy-image
-                                    :src='picture.url'
-                                    class="img-thumbnail img-responsive" height="150px"
-                                ></lazy-image>
+                                <img :src="picture.url" class="img-thumbnail img-responsive" height="150px">
+                                
                             </a>
                         </div>
                         <div class="panel-footer">

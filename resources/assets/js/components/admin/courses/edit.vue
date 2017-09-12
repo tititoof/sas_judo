@@ -10,8 +10,10 @@
             Editer le cours
             <small>
                 <ui-button
-                    type="secondary" color="accent" size="large"
-                    @click.prevent="update()">
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="update()"
+                    >
                     Modifier
                 </ui-button>
             </small>
@@ -64,8 +66,8 @@
 </template>
 <script>
     import Keen             from 'keen-ui';
-    import {app}            from './../../../app.js';
-    import {router}         from './../../../app.js';
+    import { app }          from './../../../app.js';
+    import { router }       from './../../../app.js';
     import VueTimepicker    from 'vue2-timepicker/src/vue-timepicker';
     import moment           from 'moment';
     import common           from './common.js'
@@ -97,7 +99,6 @@
                     }
                 ).catch(
                     error   => {
-                        console.log(error)
                         _self.$store.dispatch("showError", {
                             response:       error.response,
                             formElements:   _self.formErrors,

@@ -4,9 +4,10 @@
             Liste des saisons
             <small>
                 <ui-icon-button
-                        type="secondary" icon="add" color="accent" size="large"
-                        @click.prevent="create()"
-                >
+                    class="pull-right"
+                    type="primary" icon="add" color="primary" size="large"
+                    @click.prevent="create()"
+                    >
                 </ui-icon-button>
             </small>
         </h1>

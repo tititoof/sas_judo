@@ -93,8 +93,8 @@
     </div>
 </template>
 <script>
-    import {app}    from './../app.js';
-    import {router} from './../app.js';
+    import { app }    from './../../app.js';
+    import { router } from './../../app.js';
     export default {
         name: "sidebar",
         props: {
@@ -116,6 +116,7 @@
                         });
                         _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
                         _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
+                        _self.menu.push({ id: 'nous_contacter', text: 'Contact' });
                     }
                 ).catch(
                     error   => {
@@ -140,9 +141,11 @@
                     case 'calendriers':
                         router.push({ name: 'visitor_judo_events' });
                         break;
+                    case 'nous_contacter':
+                        router.push({ name: 'visitor_contact' });
+                        break;
                     default:
                         _self.getTypePage(link)
-                        // router.push({ name: 'visitor_news', params: {'menu': link} });
                         break;
                 }
                 _self.toggle();
@@ -153,13 +156,13 @@
                     if (element.id === link) {
                         switch(element.type) {
                             case 'NewsFactory':
-                                router.push({ name: 'visitor_news', params: {'menu': link} });
+                                router.push({ name: 'visitor_news', params: { 'menu': link } });
                                 break;
                             case 'ArticlesFactory':
-                                router.push({ name: 'visitor_news', params: {'menu': link} });
+                                router.push({ name: 'visitor_news', params: { 'menu': link } });
                                 break;
                             case 'ResultatsFactory':
-                                router.push({ name: 'visitor_results', params: {'menu': link} });
+                                router.push({ name: 'visitor_results', params: { 'menu': link } });
                                 break;
                             default:
                                 break;

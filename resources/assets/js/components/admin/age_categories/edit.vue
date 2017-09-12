@@ -10,8 +10,10 @@
             Editer catégorie d'âge
             <small>
                 <ui-button
-                    type="secondary" color="accent" size="large"
-                    @click.prevent="update()">
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="update()"
+                    >
                     Modifier
                 </ui-button>
             </small>

@@ -10,8 +10,10 @@
             Nouveau menu
             <small>
                 <ui-button
-                    type="secondary" color="accent" size="large"
-                    @click.prevent="store()">
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="store()"
+                    >
                     Cr&eacute;er
                 </ui-button>
             </small>

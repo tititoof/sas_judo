@@ -5,15 +5,23 @@ export default {
     data() {
         return {
             formErrors: [
-                { 'name': 'name', 'human': 'Nom de l\'évènement'},
-                { 'name': 'description', 'human': "Description" },
-                { 'name': 'start_at', 'human': "Date de début" },
-                { 'name': 'end_at', 'human': "Date de fin" },
-                { 'name': 'end_time_at', 'human': "Heure de fin" },
-                { 'name': 'start_time_at', 'human': "Heure de début" },
-                { 'name': 'type', 'human': "Type d'évènement" },
+                { 'name': 'name',           'human': 'Nom de l\'évènement'},
+                { 'name': 'description',    'human': "Description" },
+                { 'name': 'start_at',       'human': "Date de début" },
+                { 'name': 'end_at',         'human': "Date de fin" },
+                { 'name': 'end_time_at',    'human': "Heure de fin" },
+                { 'name': 'start_time_at',  'human': "Heure de début" },
+                { 'name': 'type',           'human': "Type d'évènement" },
             ],
-            frLang: languageFr
+            frLang: languageFr,
+            startTimeAt:    {
+                HH: "08",
+                mm: "30"
+            },
+            endTimeAt:      {
+                HH: "12",
+                mm: "00"
+            },
         }
     },
     computed: {
@@ -49,28 +57,12 @@ export default {
                 this.$store.commit('SET_START_AT', value)
             }
         },
-        startTimeAt: {
-            get() {
-                return this.$store.state.judoEvent.event.startTimeAt
-            },
-            set(value) {
-                this.$store.commit('SET_START_TIME_AT', value)
-            }
-        },
         endAt: {
             get() {
                 return this.$store.state.judoEvent.event.endAt
             },
             set(value) {
                 this.$store.commit('SET_END_AT', value)
-            }
-        },
-        endTimeAt: {
-            get() {
-                return this.$store.state.judoEvent.event.endTimeAt
-            },
-            set(value) {
-                this.$store.commit('SET_END_TIME_AT', value)
             }
         },
         types: {

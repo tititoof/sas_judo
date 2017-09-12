@@ -7,18 +7,22 @@
                     @click.prevent="back()">
                 </ui-icon-button>
             </small>
-            Nouvel album
+            Nouvel album {{ name }}
             <small>
                 <ui-button
-                        type="secondary" color="accent" size="large"
-                        @click.prevent="store()">
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="store()"
+                    >
                     Cr&eacute;er
                 </ui-button>
             </small>
         </h1>
         <ui-textbox
-            label="Nom" name="name" type="text" placeholder="Entrer le nom de l'album" v-model="name"
-        ></ui-textbox>
+            label="Nom" name="name" type="text" placeholder="Entrer le nom de l'album" 
+            v-model="name"
+            >
+        </ui-textbox>
         <file-upload
             v-on:onFileChange="onFileChange"
             v-on:onFileUpload="onFileUpload"
@@ -27,10 +31,11 @@
             class="bg-info" name="pictures" id="pictures" accept="image/*" action="/api/picture"
             :button-text="uploadName" multiple>
         </file-upload>
-
-        <ul>
-            <li v-for="file in files">
-                {{ file.name }} ({{ file.size }})
+        <ul class="pagination">
+            <li 
+                v-for="file in files"
+                >
+                {{ file.name }}
             </li>
         </ul>
     </div>
@@ -105,5 +110,33 @@
     }
 </script>
 <style>
+    .pagination {
+        display: inline-block;
+    }
+    
+    .pagination li {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+    }
 
+    .pagination li.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+
+    .pagination li:hover:not(.active) {background-color: #ddd;}
+
+    .pagination li:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .pagination li:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
 </style>

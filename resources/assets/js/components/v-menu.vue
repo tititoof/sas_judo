@@ -78,12 +78,12 @@
     </div>
 </template>
 <script>
-    import sidebar      from './v-sidebar.vue';
-    import sidebarRight from './sidebar/v-sidebar-right.vue';
-    import {app}        from './../app.js';
-    import {router}     from './../app.js';
-    import Keen         from 'keen-ui';
-    import { mapGetters } from 'vuex';
+    import sidebar          from './sidebar/v-sidebar.vue';
+    import sidebarRight     from './sidebar/v-sidebar-right.vue';
+    import { app }          from './../app.js';
+    import { router }       from './../app.js';
+    import Keen             from 'keen-ui';
+    import { mapGetters }   from 'vuex';
     export default {
         name: 'myMenu',
         data() {

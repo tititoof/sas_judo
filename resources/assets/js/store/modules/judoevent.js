@@ -115,6 +115,12 @@ const actions = {
             typeSelected: typeSelected
         })
     },
+    setEndTimeAt( { commit }, data) {
+        commit('SET_END_TIME_AT', data)
+    },
+    setStartTimeAt( { commit }, data) {
+        commit('SET_START_TIME_AT', data)
+    }
 
 }
 

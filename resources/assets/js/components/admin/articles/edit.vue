@@ -7,24 +7,27 @@
                     @click.prevent="back()">
                 </ui-icon-button>
             </small>
-            Editer article
+            Editer article {{ name }}
             <small>
                 <ui-button
-                        type="secondary" color="accent" size="large"
-                        @click.prevent="update()">
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="update()">
                     Modifier
                 </ui-button>
             </small>
         </h1>
         <ui-select
-                name="categories" label="Menus"
-                :options="menus"
-                v-model="categoriesSelected"
-                placeholder="Choisir le ou les menus" show-search multiple z-index="1"
-        ></ui-select>
+            name="categories" label="Menus"
+            :options="menus"
+            v-model="categoriesSelected"
+            placeholder="Choisir le ou les menus" show-search multiple z-index="1"
+            >
+        </ui-select>
         <ui-textbox
-                label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" v-model="name"
-        >
+            label="Nom" name="name" type="text" placeholder="Entrer le nom de l'article" 
+            v-model="name"
+            >
         </ui-textbox>
         <div id="editor-vue">
             <Vueditor ref="qc" style="height: 400px"></Vueditor>
@@ -38,8 +41,9 @@
             >
         </ui-select>
         <ui-button
-                type="secondary" color="accent" size="large"
-                @click.prevent="addAlbum()">
+            type="primary" color="primary" size="large"
+            @click.prevent="addAlbum()"
+            >
             Ajouter un album
         </ui-button>
     </div>

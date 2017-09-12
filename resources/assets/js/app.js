@@ -12,17 +12,18 @@
  */
 const Vue           = require('vue');
 import VueRouter    from 'vue-router';
-import routes       from './routes/routes';
-import App          from './components/v-app.vue';
-import Keen         from 'keen-ui';
-import axios        from 'axios';
-import store        from './store'
-import VueLazyImage from "vue-lazy-images";
-import ToggleButton from 'vue-js-toggle-button'
-import Vuebar       from 'vuebar';
-import Vue2Filters  from 'vue2-filters'
-import Vueditor     from 'vueditor'
-import VueTimepicker from 'vue2-timepicker'
+import routes               from './routes/routes';
+import App                  from './components/v-app.vue';
+import Keen                 from 'keen-ui';
+import axios                from 'axios';
+import store                from './store'
+import VueLazyImage         from "vue-lazy-images";
+import ToggleButton         from 'vue-js-toggle-button'
+import Vuebar               from 'vuebar';
+import Vue2Filters          from 'vue2-filters'
+import Vueditor             from 'vueditor'
+import VueTimepicker        from 'vue2-timepicker'
+import * as VueGoogleMaps   from 'vue2-google-maps'
 
 import 'vueditor/dist/style/vueditor.min.css'
 
@@ -54,6 +55,16 @@ Vue.use(VueLazyImage)
 Vue.use(ToggleButton)
 Vue.use(Vue2Filters)
 Vue.use(VueTimepicker)
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyAQBD8i2RudMf6-YPEkk2HQEFPwoCPBwV4',
+        libraries: 'places', // This is required if you use the Autocomplete plugin
+        // OR: libraries: 'places,drawing'
+        // OR: libraries: 'places,drawing,visualization'
+        // (as you require)
+    }
+})
+
 
 export const router = new VueRouter({
     mode: 'history',
@@ -61,7 +72,7 @@ export const router = new VueRouter({
 });
 
 export const my_axios = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'http://localhost',
   headers: {
       'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
       'Authorization': 'Bearer ' + localStorage.getItem('id_token')

@@ -68,9 +68,6 @@
             mapGetters({ isRegistred: 'isRegistred', isAdmin: 'isAdmin' })
         ,
         methods: {
-            signout() {
-                auth.signout()
-            },
             showSnackBar(msg) {
                 const _self = this;
                 _self.$refs.snackbarContainer.createSnackbar({
@@ -115,6 +112,35 @@
                     _self.showLoader = false
                     return Promise.reject(error);
                 });
+            },
+            getFirstRoute() {
+                const _self = this
+                _self.$http.get('api/visitor/menu').then(
+                    (response) => {
+                        const data = response.data.data;
+                        switch(data[0].type) {
+                            case 'NewsFactory':
+                                router.push({ name: 'visitor_news', params: { 'menu': data[0].id } });
+                                break;
+                            case 'ArticlesFactory':
+                                router.push({ name: 'visitor_news', params: { 'menu': data[0].id } });
+                                break;
+                            case 'ResultatsFactory':
+                                router.push({ name: 'visitor_results', params: { 'menu': data[0].id } });
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                ).catch(
+                    error   => {
+                        _self.$store.dispatch("showError", {
+                            response:       error.response,
+                            formElements:   _self.formErrors,
+                            vue:            _self
+                        })
+                    }
+                );
             }
         },
         components: {
@@ -128,32 +154,33 @@
                     { app: _self, router: router }
                 )
                 _self.setAxiosInterceptors()
+                _self.getFirstRoute()
             });
         }
     }
 </script>
 <style>
-  .section-ui-snackbar {
-    .preview-pane {
-      position: relative;
-      height: 148px;
-      border: 2px solid #777;
+    .section-ui-snackbar {
+        .preview-pane {
+            position: relative;
+            height: 148px;
+            border: 2px solid #777;
+        }
+        .preview-controls {
+            margin-top: 24px;
+            max-width: 400px;
+        }
+        .ui-button {
+            margin-top: 16px;
+        }
+        .ui-textbox,
+        .ui-radio-group {
+            margin-bottom: 18px;
+        }
+        .ui-switch {
+            margin-bottom: 8px;
+        }
     }
-    .preview-controls {
-      margin-top: 24px;
-      max-width: 400px;
-    }
-    .ui-button {
-      margin-top: 16px;
-    }
-    .ui-textbox,
-    .ui-radio-group {
-      margin-bottom: 18px;
-    }
-    .ui-switch {
-      margin-bottom: 8px;
-    }
-  }
     #loader-background {
         position: fixed;
         top: 0;
@@ -174,9 +201,9 @@
         margin: -75px 0 0 -75px;
         border: 16px solid #f3f3f3;
         border-radius: 50%;
-        border-top: 8px solid #787878;
+        border-top: 8px solid #f2f2f2;
         border-right: 8px solid #419641;
-        border-bottom: 8px solid #787878;
+        border-bottom: 8px solid #f2f2f2;
         border-left: 8px solid #419641;
         width: 120px;
         height: 120px;

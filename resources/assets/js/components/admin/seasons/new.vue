@@ -10,9 +10,11 @@
             Nouvelle saison
             <small>
                 <ui-button
-                  type="secondary" color="accent" size="large"
-                  @click.prevent="store()">
-                  Cr&eacute;er
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="store()"
+                    >
+                    Cr&eacute;er
                 </ui-button>
             </small>
         </h1>

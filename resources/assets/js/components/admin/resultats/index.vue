@@ -4,9 +4,10 @@
       Liste des résultats
       <small>
         <ui-icon-button
-          type="secondary" icon="add" color="accent" size="large"
-          @click.prevent="create()"
-        >
+            class="pull-right"
+            type="primary" icon="add" color="primary" size="large"
+            @click.prevent="create()"
+            >
         </ui-icon-button>
       </small>
     </h1>
@@ -34,10 +35,21 @@
                 @click.prevent="destroy(result.id)">
             </ui-icon-button>
           </td>
-          <td>{{ result.season_id }}</td>
+          <td>{{ result.season }}</td>
           <td>{{ result.name }}</td>
-          <td>{{ result.lieu }}</td>
-          <td>{{ result.informations }}</td>
+          <td>{{ result.locality }}</td>
+            <td>
+                <ul>
+                    <li
+                        v-for="information in result.informations"
+                        >
+                        {{ information.name }} : {{ information.place }}
+                        <template v-if="information.ageCategory">
+                            ({{ information.ageCategory.label }})
+                        </template>
+                    </li>
+                </ul>
+            </td>
         </tr>
       </tbody>
     </table>
@@ -60,6 +72,7 @@ import vMenu    from '../../v-menu.vue';
 import Keen     from 'keen-ui';
 import {app}    from './../../../app.js';
 import {router} from './../../../app.js';
+import moment   from 'moment'
 export default {
     data() {
         return {
@@ -72,7 +85,10 @@ export default {
             const _self = this;
             _self.$http.get('api/result').then(
                 response => {
-                    _self.results = response.data.results;
+                    const data = response.data;
+                    data.results.forEach(function(element) {
+                        _self.formatData(element);
+                    })
                 }
             ).catch(
                 error   => {
@@ -106,14 +122,24 @@ export default {
                     })
                 }
             );
-      },
-      deleteDenied() {
-      },
-      destroy(id) {
+        },
+        formatData(data) {
+            const _self = this,
+                 line   = {};
+            line.name           = data.name;
+            line.season         = data.season;
+            line.contest_at     = moment(data.contest_at, "YYYY-MM-DD HH:mm:ss").format("dddd Do MMMM YYYY");
+            line.locality       = data.locality
+            line.informations   = JSON.parse(data.informations);
+            _self.results.push(line);
+        },
+        deleteDenied() {
+        },
+        destroy(id) {
             const _self = this;
             _self.deleteId = id;
             _self.$refs['deleteConfirm'].open();
-      }
+        }
     },
     components: { vMenu },
     mounted() {

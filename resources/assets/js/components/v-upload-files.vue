@@ -2,8 +2,11 @@
     <div :class="className">
         <label :for="name">
             <input type="file"
-               :name="name" :id="getIdName"
-               :accept="accept" v-on:click="fileInputClick" v-on:change="fileInputChange"
+               :name="name" 
+               :id="getIdName"
+               :accept="accept" 
+               v-on:click="fileInputClick" 
+               v-on:change="fileInputChange"
                :multiple="multiple">
                 <slot></slot>
         </label>
@@ -80,7 +83,7 @@
                 const _self = this
                 if (_self.myFiles.length > 0) {
                     _self.my_axios = axios.create({
-                        baseURL: 'http://127.0.0.1:8000',
+                        baseURL: 'http://localhost',
                         headers: {
                           'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
                           'Authorization': 'Bearer ' + localStorage.getItem('id_token')

@@ -30,8 +30,8 @@ class ResultatController extends Controller
      */
     public function index()
     {
-        $results = Result::All();
-        return response()->json(['results' => $results]);
+        $repo = new ResultsRepository;
+        return response()->json([ 'results' => $repo->getAdminAll() ]);
     }
 
     /**

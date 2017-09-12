@@ -10,8 +10,10 @@
             Nouvel &eacute;v&egrave;nement
             <small>
                 <ui-button
-                    type="secondary" color="accent" size="large"
-                    @click.prevent="store()">
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="store()"
+                    >
                     Cr&eacute;er
                 </ui-button>
             </small>
@@ -36,20 +38,31 @@
             placeholder="Sélectionner une date"
             :lang="frLang"
             v-model="startAt"
-        >Date de d&eacute;but</ui-datepicker>
-        Heure de d&eacute;but <vue-timepicker
-                    :minute-interval="5" v-model="startTimeAt"></vue-timepicker>
+            >
+            Date de d&eacute;but
+        </ui-datepicker>
+        Heure de d&eacute;but 
+        <vue-timepicker
+            :minute-interval="5" 
+            v-model="startTimeAt"
+            >
+        </vue-timepicker>
         <ui-datepicker
             icon="events"
             picker-type="modal"
             placeholder="Sélectionner une date"
             :lang="frLang"
             v-model="endAt"
-        >Date de fin</ui-datepicker>
-        Heure de fin <vue-timepicker
+            >
+            Date de fin
+        </ui-datepicker>
+        Heure de fin 
+        <vue-timepicker
             :minute-interval="5"
             v-model="endTimeAt"
-        ></vue-timepicker>
+            >
+        </vue-timepicker>
+        <p style="height: 10vh"></p>
     </div>
 </template>
 <script>
@@ -100,6 +113,18 @@
                     _self.startAt   = _self.$route.params.startAt;
                     _self.endAt     = _self.$route.params.startAt;
                 }
+            },
+            changeEndTimeAt(eventData) {
+                const _self = this;
+                _self.$store.dispatch("setEndTimeAt",
+                    eventData
+                )
+            },
+            changeStartTimeAt(eventData) {
+                const _self = this;
+                _self.$store.dispatch("setStartTimeAt",
+                    eventData
+                )
             }
         },
         mounted() {

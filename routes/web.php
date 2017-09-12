@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
+// Auth::routes();
 
 Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@miniShow']);
 // Route::get('/home', 'HomeController@index');

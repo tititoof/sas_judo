@@ -4,9 +4,10 @@
             Liste des articles
             <small>
                 <ui-icon-button
-                    type="secondary" icon="add" color="accent" size="large"
+                    class="pull-right"
+                    type="primary" icon="add" color="primary" size="large"
                     @click.prevent="create()"
-                >
+                    >
                 </ui-icon-button>
             </small>
         </h1>

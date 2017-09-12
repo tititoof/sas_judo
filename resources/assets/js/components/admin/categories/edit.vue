@@ -10,8 +10,12 @@
             &Eacute;dition menu
             <small>
                 <ui-button
-                    type="secondary" color="accent"
-                    @click.prevent="update()">Modifier</ui-button>
+                    class="pull-right"
+                    type="primary" color="primary"
+                    @click.prevent="update()"
+                    >
+                    Modifier
+                </ui-button>
             </small>
         </h1>
         <ui-textbox

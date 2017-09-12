@@ -4,7 +4,8 @@
             Liste des inscriptions
             <small>
                 <ui-icon-button
-                    type="secondary" icon="add" color="accent" size="large"
+                    class="pull-right"
+                    type="primary" icon="add" color="primary" size="large"
                     @click.prevent="create()"
                     >
                 </ui-icon-button>
@@ -33,6 +34,7 @@
                             @click.prevent="destroy(inscription.id)">
                         </ui-icon-button>
                     </td>
+                    <td>{{ inscription.season }}</td>
                     <td>{{ inscription.firstname }}</td>
                     <td>{{ inscription.lastname }}</td>
                 </tr>

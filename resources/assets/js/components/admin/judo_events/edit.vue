@@ -10,18 +10,21 @@
             Editer &eacute;v&egrave;nement
             <small>
                 <ui-button
-                        type="secondary" color="accent" size="large"
-                        @click.prevent="update()">
+                    class="pull-right"
+                    type="primary" color="primary" size="large"
+                    @click.prevent="update()"
+                    >
                     Modifier
                 </ui-button>
             </small>
         </h1>
         <ui-select
-                name="types" label="Type"
-                :options="types"
-                v-model="typeSelected"
-                placeholder="Choisir le type" show-search z-index="1"
-        ></ui-select>
+            name="types" label="Type"
+            :options="types"
+            v-model="typeSelected"
+            placeholder="Choisir le type" show-search z-index="1"
+            >
+        </ui-select>
         <ui-textbox
                 label="Nom" name="name" type="text" placeholder="Entrer le nom du menu"
                 v-model="name"

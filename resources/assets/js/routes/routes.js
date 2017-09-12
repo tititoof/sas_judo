@@ -11,6 +11,7 @@ import routeInscription from './../components/all/inscriptions/routes.js';
 import routeVisitor     from './../components/all/articles/routes.js';
 import routeVisitorCourse from './../components/all/courses/routes.js';
 import routeVisitorEvents from './../components/all/judo_events/routes.js';
+import routeVisitorContact from './../components/all/contact/routes.js';
 
 const routes = [
   {
@@ -49,5 +50,6 @@ Array.prototype.push.apply(routes, routeInscription);
 Array.prototype.push.apply(routes, routeVisitor);
 Array.prototype.push.apply(routes, routeVisitorCourse);
 Array.prototype.push.apply(routes, routeVisitorEvents);
+Array.prototype.push.apply(routes, routeVisitorContact);
 
 export default routes;

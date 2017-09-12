@@ -21,9 +21,14 @@ const getters = {
         return state.user.authenticated
     },
     isAdmin: (state) => {
-        return (state.user.profile.data.is_admin == 1)
+        if ( (state.user.hasOwnProperty('profile')) && (state.user.profile !== null) && (state.user.profile.hasOwnProperty('data')) ) {
+            return (state.user.profile.data.is_admin == 1)
+        }
+        return 0
+            
     },
     getUserId: (state) => {
+        
         return state.user.profile.data.id;
     },
     checkIsAdmin: (state) => {
@@ -62,21 +67,25 @@ const getters = {
     },
     formErrors: (state) => {
         return (response, formElements) => {
-            let errors  = "<br/>";
+            let errors  = "<br/>"
+            let data    = response
+            if ("undefined" === data[formElements[0]['name']]) {
+                data    = response.data
+            }
             formElements.forEach( (element) => {
-                if ('undefined' !== typeof response.data[element.name]) {
-                    response.data[element.name].forEach(
+                if ('undefined' !== typeof data[element.name]) {
+                    data[element.name].forEach(
                         error => {
                             switch(error) {
                                 case "validation.required":
-                                errors += element.human + " obligatoire(s).<br/>";
-                                break;
+                                    errors += element.human + " obligatoire(s).<br/>";
+                                    break;
                                 case "validation.integer":
-                                errors += element.human + " doit être un entier.<br/>";
-                                break;
+                                    errors += element.human + " doit être un entier.<br/>";
+                                    break;
                                 default:
-                                errors += 'Erreur non gérée';
-                                break;
+                                    errors += 'Erreur non gérée';
+                                    break;
                             }
                         }
                     );
