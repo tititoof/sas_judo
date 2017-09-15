@@ -22,3 +22,9 @@ addons:
 script:
   - vendor/bin/phpunit
   - sonar-scanner
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE homestead_test;'
