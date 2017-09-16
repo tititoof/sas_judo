@@ -77,7 +77,11 @@ export default {
                 }
             ).catch(
                 error   => {
-                    _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors) );
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
                 }
             );
         },
@@ -92,7 +96,7 @@ export default {
             _self.index();
         },
         deleteDenied() {
-    
+
         },
         edit(id) {
             router.push({ name: 'admin_age_categories_edit', params: { id: id } });
@@ -104,7 +108,7 @@ export default {
     mounted() {
         this.$nextTick(function () {
             const _self = this;
-            _self.$store.dispatch("check", 
+            _self.$store.dispatch("check",
                 { app: _self, router: router }
             )
             _self.index();

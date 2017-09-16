@@ -1,3 +1,4 @@
+sudo: false
 dist: trusty
 
 sudo: true
@@ -9,9 +10,11 @@ php:
 
 before_script:
   - cp .env.travis .env
-  - mysql -e 'create database homestead_test;'
   - composer self-update
   - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate:install
+  - php artisan migrate
 
 addons:
   sonarcloud:
@@ -22,3 +25,6 @@ addons:
 script:
   - vendor/bin/phpunit
   - sonar-scanner
+
+services:
+  - sqlite
