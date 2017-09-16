@@ -29,13 +29,13 @@ export default {
     data() {
         return {
             center: {
-                lat: 47.365569, 
+                lat: 47.365569,
                 lng: 0.736566
             },
             markers: [
                 {
                     position: {
-                        lat: 47.365569, 
+                        lat: 47.365569,
                         lng: 0.736566
                     }
                 }
@@ -44,7 +44,6 @@ export default {
     },
     methods: {
         index() {
-            const _self = this;
             
         }
     },
