@@ -27,7 +27,7 @@
     "moment-timezone": "^0.5.13",
     "node-sass": "4.5.3",
     "v-bar": "^3.0.0",
-    "vue": "2.4.2",
+    "vue": "2.4.4",
     "vue-bulma-quill": "",
     "vue-clock-picker": "0.4.0",
     "vue-fullcalendar": "latest",

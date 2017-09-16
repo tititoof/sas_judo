@@ -68,7 +68,7 @@ return [
         'testing' => [
             'driver'    => 'sqlite',
             'host'      => env('DB_TEST_HOST', 'localhost'),
-            'database'  => env('DB_TEST_DATABASE', __DIR__.'/../../database/testing.sqlite'),
+            'database'  => env('DB_TEST_DATABASE', ':memory:'),
             'username'  => env('DB_TEST_USERNAME', 'homestead'),
             'password'  => env('DB_TEST_PASSWORD', ''),
             'charset'   => 'utf8',
