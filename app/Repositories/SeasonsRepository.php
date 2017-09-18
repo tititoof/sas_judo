@@ -52,7 +52,7 @@ class SeasonsRepository
         return Answer::success(200);
     }
 
-    public function list()
+    public function getList()
     {
         try {
             $list = Season::all()->map(function($season) {

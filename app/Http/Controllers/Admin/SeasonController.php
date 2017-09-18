@@ -90,9 +90,9 @@ class SeasonController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function list()
+    public function getList()
     {
         $repository = new SeasonsRepository;
-        return response()->json($repository->list());
+        return response()->json($repository->getList());
     }
 }

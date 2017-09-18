@@ -57,7 +57,7 @@ Route::group(['middleware' => ['jwt.auth', 'can:is-admin']], function () {
 
     // Seasons
     Route::resource('season', 'Admin\SeasonController');
-    Route::get('seasons/list', [ 'uses' => 'Admin\SeasonController@list' ] );
+    Route::get('seasons/list', [ 'uses' => 'Admin\SeasonController@getList' ] );
 
     // Events
     Route::resource('judoevent', 'Admin\JudoeventController');
