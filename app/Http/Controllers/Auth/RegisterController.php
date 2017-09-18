@@ -72,14 +72,14 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
-        $token = JWTAuth::attempt($request->only('email', 'password') ,
+        $token = JWTAuth::attempt($request->only(self::EMAIL, self::PWD) ,
             ['exp'   => Carbon::now()->addWeek()->timestamp,]);
         $data = [];
         $meta = [];
         $data['name']       = $user->name;
         $data['user_id']    = $user->id;
-        $data['email']      = $user->email;
-        $data['pwd']      = $user->password;
+        $data[self::EMAIL]  = $user->email;
+        $data['pwd']        = $user->password;
         $data['is_admin']   = $user->is_admin;
         $data['is_debug']   = $user->is_debug;
         $meta['token']      = $token;
