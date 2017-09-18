@@ -188,8 +188,6 @@ return [
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         // Images
         Intervention\Image\ImageServiceProvider::class,
-        // sqlite migration fix for testing
-        'Ottowayne\SQLiteMigrationFix\DatabaseServiceProvider',
     ],
 
     /*

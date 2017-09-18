@@ -18,8 +18,7 @@
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0",
-        "phploc/phploc": "3.0.1",
-        "ottowayne/sqlite-migration-fix": "dev-master"
+        "phploc/phploc": "3.0.1"
     },
     "autoload": {
         "classmap": [

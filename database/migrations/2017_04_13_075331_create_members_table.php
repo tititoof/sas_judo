@@ -15,17 +15,17 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->enum('sexe', ['Masculin', 'Féminin']);
+            $table->string('firstname')->default('firstname');
+            $table->string('lastname')->default('lastname');
+            $table->enum('sexe', ['Masculin', 'Féminin'])->default('Masculin');
             $table->datetime('birthday');
-            $table->string('address');
-            $table->string('postal_code');
-            $table->string('city');
-            $table->string('phone');
-            $table->boolean('red_list');
-            $table->string('mobile');
-            $table->string('email');
+            $table->string('address')->default('address');
+            $table->string('postal_code')->default('postal_code');
+            $table->string('city')->default('city');
+            $table->string('phone')->default('phone');
+            $table->boolean('red_list')->default(true);
+            $table->string('mobile')->default('mobile');
+            $table->string('email')->default('email');
             $table->timestamps();
         });
     }

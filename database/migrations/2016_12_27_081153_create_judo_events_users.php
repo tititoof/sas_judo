@@ -17,7 +17,7 @@ class CreateJudoEventsUsers extends Migration
             $table->increments('id');
             $table->integer('judo_event_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->boolean('participate');
+            $table->boolean('participate')->default(false);
 
             $table->foreign('judo_event_id')->references('id')->on('judo_events');
             $table->foreign('user_id')->references('id')->on('users');

@@ -15,8 +15,8 @@ class CreateAgeCategories extends Migration
     {
         Schema::create('age_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('years');
+            $table->string('name')->default('name');
+            $table->integer('years')->default(1);
             $table->timestamps();
         });
     }

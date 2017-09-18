@@ -16,9 +16,9 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('season_id')->references('id')->on('seasons');
-            $table->string('locality');
+            $table->string('locality')->default('locality');
             $table->datetime('contest_at');
-            $table->json('informations');
+            $table->json('informations')->default('{}');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class AddNameToResultTable extends Migration
     public function up()
     {
         Schema::table('results', function(Blueprint $table) {
-          $table->string('name');
+          $table->string('name')->default('name');
         });
     }
 
