@@ -1,4 +1,3 @@
-sudo: false
 dist: trusty
 
 sudo: true
@@ -30,3 +29,6 @@ script:
 
 services:
   - mysql
+
+env:
+  - TRAVIS_NODE_VERSION="8"
