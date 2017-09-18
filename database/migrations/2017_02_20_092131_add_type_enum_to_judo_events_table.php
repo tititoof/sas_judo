@@ -14,7 +14,7 @@ class AddTypeEnumToJudoEventsTable extends Migration
     public function up()
     {
         Schema::table('judo_events', function (Blueprint $table) {
-            $table->enum('type', ['tournament', 'event', 'stage']);
+            $table->enum('type', ['tournament', 'event', 'stage'])->default('event');
         });
     }
 
