@@ -40,6 +40,13 @@ export default {
            const _self = this;
            _self.index();
         });
+    },
+    watch: {
+        '$route.params.menu'(newId, oldId) {
+            console.log('toto')
+            this.index()
+        }
     }
+    
 }
 </script>

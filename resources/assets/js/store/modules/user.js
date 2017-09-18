@@ -125,12 +125,12 @@ const actions = {
         ).then(
             (response) => {
                 commit(types.CHANGE_CONTEXT_ERROR, false)
-                localStorage.removeItem('id_token')
-                localStorage.setItem('id_token', response.data.meta.token)
-                context.$http.defaults.headers['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
+                window.localStorage.removeItem('id_token')
+                window.localStorage.setItem('id_token', response.data.meta.token)
+                context.$http.defaults.headers['Authorisation'] = 'Bearer ' + window.localStorage.getItem('id_token');
                 commit(types.LOGIN, response.data)
                 // context.$emit('sas-success', 'Compte créé, vous pouvez vous connecter avec vos identifiants.')
-                router.push({ name: 'home' })
+                router.push({ name: 'home', params: { 'menu': 'reload' } })
             }
         ).catch(
             (response) => {
@@ -153,7 +153,7 @@ const actions = {
                 error => {
                     commit(types.LOGOUT)
                     app.$emit('sas-admin', 'Mise à jour utilisateur');
-                    router.push({ name: 'home' })
+                    router.push({ name: 'home', params: { 'menu': 'reload' } })
                 }
             )
         }
@@ -165,10 +165,10 @@ const actions = {
             (response) => {
                 const data = response.data
                 commit(types.CHANGE_CONTEXT_ERROR, false)
-                localStorage.setItem('id_token', response.data.meta.token);
-                context.$http.defaults.headers['Authorisation'] = 'Bearer ' + localStorage.getItem('id_token');
+                window.localStorage.setItem('id_token', response.data.meta.token);
+                context.$http.defaults.headers['Authorization'] = 'Bearer ' + window.localStorage.getItem('id_token')
                 commit(types.LOGIN, data)
-                router.push({ name: 'home' })
+                router.go(-1)
             }
         ).catch(
             error => {
@@ -179,7 +179,7 @@ const actions = {
     signout({ commit, state }, router) {
         localStorage.removeItem('id_token');
         commit(types.LOGOUT)
-        router.push({ name: 'home' });
+        router.push({ name: 'home', params: { 'menu': 'reload' } });
     },
     showError({ state, rootState, commit, dispatch, getters }, { response, formElements, vue }) {
         if (getters.checkIsDebug(getters)) {

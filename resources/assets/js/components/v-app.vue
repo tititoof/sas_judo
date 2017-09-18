@@ -156,6 +156,14 @@
                 _self.setAxiosInterceptors()
                 _self.getFirstRoute()
             });
+        },
+        watch: {
+            '$route.params.menu'(newId, oldId) {
+                const _self = this;
+                if (newId == 'reload') {
+                    _self.getFirstRoute()
+                }
+            }
         }
     }
 </script>
