@@ -14,8 +14,8 @@ class AddSeasonsIdToCourses extends Migration
     public function up()
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->integer('season_id')->unsigned();
-            $table->foreign('season_id')->references('id')->on('seasons')->default(1);
+            $table->integer('season_id')->unsigned()->default(1);
+            $table->foreign('season_id')->references('id')->on('seasons');
         });
     }
 
