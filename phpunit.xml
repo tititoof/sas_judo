@@ -31,10 +31,9 @@
     </php>
     <logging>
         <log type="coverage-html" target="./tests/report" lowUpperBound="35"
-           highLowerBound="70"/>
+            highLowerBound="70"/>
         <log type="coverage-clover" target="./tests/codeCoverage.xml"/>
         <log type="coverage-php" target="./tests/coverage.serialized"/>
-        <log type="coverage-text" target="./tests/testResults.xml" showUncoveredFiles="false"/>
         <log type="junit" target="./tests/testResults.xml" logIncompleteSkipped="false"/>
         <log type="testdox-html" target="/tmp/testdox.html"/>
         <log type="testdox-text" target="/tmp/testdox.txt"/>
