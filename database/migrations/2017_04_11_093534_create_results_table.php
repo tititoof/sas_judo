@@ -18,7 +18,7 @@ class CreateResultsTable extends Migration
             $table->integer('season_id')->references('id')->on('seasons');
             $table->string('locality')->default('locality');
             $table->datetime('contest_at');
-            $table->json('informations')->default('{}');
+            $table->json('informations');
             $table->timestamps();
         });
     }
