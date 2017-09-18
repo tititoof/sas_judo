@@ -189,7 +189,7 @@ return [
         // Images
         Intervention\Image\ImageServiceProvider::class,
         // sqlite migration fix for testing
-        Ottowayne\SQLiteMigrationFix\DatabaseServiceProvider::class,
+        'Ottowayne\SQLiteMigrationFix\DatabaseServiceProvider',
     ],
 
     /*
