@@ -15,10 +15,12 @@ class ChangeContentTextToLongTextOnArticlesTable extends Migration
     {
         Schema::table('articles', function(Blueprint $table) {
             $table->renameColumn('content', 'content_text');
+        });
+        Schema::table('articles', function(Blueprint $table) {
             $table->dropColumn('content_text');
         });
         Schema::table('articles', function(Blueprint $table) {
-            $table->longText('content')->default('content');
+            $table->longText('content')->default('');
         });
     }
 
