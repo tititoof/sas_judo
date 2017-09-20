@@ -73,26 +73,69 @@ class AgeCategoryTest extends TestCase
         }
     }
 
+    public function testEditStatus()
+    {
+        $this->setupTests();
+        $ageCategory = AgeCategory::find(1);
+        $response = $this->json(
+            'GET',
+            'api/age_category/'.$ageCategory->id.'/edit',
+            [],
+            [
+                'Authorization' => "Bearer ".(string)($this->token),
+            ]
+        );
+        $response
+                ->assertStatus(200)
+                ->assertExactJson([
+                    'ageCategory' => [
+                        "created_at" => $ageCategory->created_at->toDateTimeString(),
+                        "id"         => $ageCategory->id,
+                        "name"       => $ageCategory->name,
+                        "updated_at" => $ageCategory->updated_at->toDateTimeString(),
+                        "years"      => $ageCategory->years
+                    ],
+                ]);
+    }
+
     public function testUpdateStatus()
     {
         $this->setupTests();
-        foreach ($this->ageCategories as $ageCategory) {
-            $response = $this->json(
-                'POST',
-                'api/age_category/'.$ageCategory->id,
-                [
-                    'name'          => $ageCategory->name,
-                    'years'         => ($ageCategory->years - 10),
-                ],
-                [
-                    'Authorization' => "Bearer ".(string)($this->token),
-                ]
-            );
-            $response->assertStatus(200);
-            $this->assertDatabaseHas('age_categories', [
+        $ageCategory = AgeCategory::find(1);
+        $response    = $this->json(
+            'PUT',
+            'api/age_category/'.$ageCategory->id,
+            [
                 'name'          => $ageCategory->name,
                 'years'         => ($ageCategory->years - 10),
-            ]);
-        }
+            ],
+            [
+                'Authorization' => "Bearer ".(string)($this->token),
+            ]
+        );
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('age_categories', [
+            'name'          => $ageCategory->name,
+            'years'         => ($ageCategory->years - 10),
+        ]);
+    }
+
+    public function testDestroyStatus()
+    {
+        $this->setupTests();
+        $ageCategory = AgeCategory::find(1);
+        $response = $this->json(
+            'DELETE',
+            'api/age_category/'.$ageCategory->id,
+            [],
+            [
+                'Authorization' => "Bearer ".(string)($this->token),
+            ]
+        );
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('age_categories', [
+            'name'          => $ageCategory->name,
+            'years'         => $ageCategory->years,
+        ]);
     }
 }
