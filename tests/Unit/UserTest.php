@@ -22,8 +22,6 @@ class UserTest extends TestCase
         // Given collection
         $user = factory(User::class)->create();
 
-        // When
-        // $userExist = User::find($user->id);
         // Then
         $this->assertDatabaseHas('users', ['id' => $user->id]);
     }
