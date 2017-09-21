@@ -10,48 +10,28 @@ use Illuminate\Database\Eloquent\Collection;
 use App\Models\User;
 use App\Models\AgeCategory;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tests\Feature\Admin\UserTrait;
 
 class AgeCategoryTest extends TestCase
 {
-    /**
-     * User for test
-     */
-    private $user  = null;
+    use DatabaseTransactions;
 
     /**
-     * token for user
+     * User Trait
      */
-    private $token = null;
+    use UserTrait;
 
     /**
-     * age categories for testing
+     * Age categories for testing
      */
     private $ageCategories = null;
 
-
     /**
-     * Setup user for test
+     * Setup age categories factory
      */
-    public function setupTests()
+    public function setupAgeCategories()
     {
-        if (null === $this->user) {
-            $this->user          = factory(User::class, 'admin')->create();
-            $this->ageCategories = factory(AgeCategory::class, 5)->make();
-            $this->signIn(['email' => $this->user->email, 'password' => 'secret']);
-        }
-    }
-
-    /**
-     * Get token
-     */
-    public function signIn($data = [ 'email'=>'youremail@yahoo.com', 'password'=>'password' ])
-    {
-        $response = $this->post('api/signin', $data);
-        $content = json_decode($response->getContent());
-        $this->assertObjectHasAttribute('meta', $content, 'Token does not exists');
-        $this->token = $content->meta->token;
-
-        return $this;
+        $this->ageCategories = factory(AgeCategory::class, 5)->make();
     }
 
     /**
@@ -70,6 +50,7 @@ class AgeCategoryTest extends TestCase
     public function testCreateStatus()
     {
         $this->setupTests();
+        $this->setupAgeCategories();
         foreach ($this->ageCategories as $ageCategory) {
             $response = $this->json(
                 'POST',
@@ -92,7 +73,7 @@ class AgeCategoryTest extends TestCase
     public function testEditStatus()
     {
         $this->setupTests();
-        $ageCategory = AgeCategory::find(1);
+        $ageCategory = AgeCategory::all()->first();
         $response = $this->json(
             'GET',
             'api/age_category/'.$ageCategory->id.'/edit',
@@ -121,7 +102,7 @@ class AgeCategoryTest extends TestCase
     public function testUpdateStatus()
     {
         $this->setupTests();
-        $ageCategory = AgeCategory::find(1);
+        $ageCategory = AgeCategory::all()->first();
         $response    = $this->json(
             'PUT',
             'api/age_category/'.$ageCategory->id,
@@ -146,7 +127,7 @@ class AgeCategoryTest extends TestCase
     public function testDestroyStatus()
     {
         $this->setupTests();
-        $ageCategory = AgeCategory::find(1);
+        $ageCategory = AgeCategory::all()->first();
         $response = $this->json(
             'DELETE',
             'api/age_category/'.$ageCategory->id,
