@@ -14,7 +14,7 @@ use Tests\Feature\Admin\UserTrait;
 
 class AgeCategoryTest extends TestCase
 {
-    use DatabaseTransactions;
+    // use DatabaseTransactions;
 
     /**
      * User Trait

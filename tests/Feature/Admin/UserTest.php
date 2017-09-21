@@ -17,7 +17,7 @@ use Tests\Feature\Admin\UserTrait;
  */
 class UserTest extends TestCase
 {
-    use DatabaseTransactions;
+    // use DatabaseTransactions;
 
     /**
      * User traits
