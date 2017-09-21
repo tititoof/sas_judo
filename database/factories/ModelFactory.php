@@ -11,7 +11,11 @@
 |
 */
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+/**
+ * Basic user
+ * @var \Illuminate\Database\Eloquent\Factory $factory
+ */
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
@@ -23,21 +27,73 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+/**
+ * User "admin"
+ */
 $factory->defineAs(App\Models\User::class, 'admin', function(Faker\Generator $faker) use ($factory) {
     $user = $factory->raw(App\Models\User::class);
 
     return array_merge($user, ['is_admin' => true]);
 });
 
+/**
+ * User "debug"
+ */
 $factory->defineAs(App\Models\User::class, 'debug', function(Faker\Generator $faker) use ($factory) {
     $user = $factory->raw(App\Models\User::class);
 
     return array_merge($user, ['is_debug' => true]);
 });
 
+/**
+ * Age category
+ */
 $factory->define(App\Models\AgeCategory::class, function(Faker\Generator $faker) {
     return [
         'name'  => $faker->name,
         'years' => $faker->year,
+    ];
+});
+
+/**
+ * Seasons
+ */
+$factory->define(App\Models\Season::class, function(Faker\Generator $faker) {
+    $startingDate = $faker->dateTimeThisDecade();
+    $endingDate   = new \DateTime();
+    $endingDate->setTimestamp(strtotime('+1 year', $startingDate->getTimestamp()));
+
+    return [
+        'name'      => $faker->name,
+        'start_at'  => $startingDate->format('Y-m-d H:i:s'),
+        'end_at'    => $endingDate->format('Y-m-d H:i:s'),
+    ];
+});
+
+
+/**
+ * Results
+ */
+$factory->define(App\Models\Result::class, function(Faker\Generator $faker) {
+    return [
+        'season_id'     => function() {
+            return factory(App\Models\Season::class)->create()->id;
+        },
+        'name'          => $faker->name,
+        'locality'      => $faker->city,
+        'contest_at'    => $faker->dateTimeThisYear,
+        'informations'  => $faker->sentences,
+    ];
+});
+
+
+/**
+ * Pictures
+ */
+$factory->define(App\Models\Picture::class, function(Faker\Generator $faker) {
+    $image = $faker->image(640, 480, 'cats', false);
+    return [
+        'name'      => $faker->name,
+        'filename'  => $image
     ];
 });

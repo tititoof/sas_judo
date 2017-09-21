@@ -47,7 +47,7 @@ class AgeCategoryTest extends TestCase
     /**
      * Test create age category
      */
-    public function testCreateStatus()
+    public function testStoreStatus()
     {
         $this->setupTests();
         $this->setupAgeCategories();
