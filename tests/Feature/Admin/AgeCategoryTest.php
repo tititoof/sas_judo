@@ -28,6 +28,10 @@ class AgeCategoryTest extends TestCase
      */
     private $ageCategories = null;
 
+
+    /**
+     * Setup user for test
+     */
     public function setupTests()
     {
         if (null === $this->user) {
@@ -37,6 +41,9 @@ class AgeCategoryTest extends TestCase
         }
     }
 
+    /**
+     * Get token
+     */
     public function signIn($data = [ 'email'=>'youremail@yahoo.com', 'password'=>'password' ])
     {
         $response = $this->post('api/signin', $data);
@@ -45,15 +52,21 @@ class AgeCategoryTest extends TestCase
         $this->token = $content->meta->token;
 
         return $this;
-     }
+    }
 
+    /**
+     * Test index, ages categories list
+     */
     public function testIndexStatus()
     {
         $this->setupTests();
-        $response   = $this->get('/api/age_category', [ 'Authorization' => "Bearer ".(string)($this->token) ]);
+        $response = $this->get('/api/age_category', [ 'Authorization' => "Bearer ".(string)($this->token) ]);
         $response->assertStatus(200);
     }
 
+    /**
+     * Test create age category
+     */
     public function testCreateStatus()
     {
         $this->setupTests();
@@ -73,6 +86,9 @@ class AgeCategoryTest extends TestCase
         }
     }
 
+    /**
+     * test edit json 
+     */
     public function testEditStatus()
     {
         $this->setupTests();
@@ -98,6 +114,10 @@ class AgeCategoryTest extends TestCase
                 ]);
     }
 
+
+    /**
+     * test update
+     */
     public function testUpdateStatus()
     {
         $this->setupTests();
@@ -120,6 +140,9 @@ class AgeCategoryTest extends TestCase
         ]);
     }
 
+    /**
+     * test destroy
+     */
     public function testDestroyStatus()
     {
         $this->setupTests();
@@ -137,5 +160,26 @@ class AgeCategoryTest extends TestCase
             'name'          => $ageCategory->name,
             'years'         => $ageCategory->years,
         ]);
+    }
+    
+    /**
+     * test create wrong age category
+     */
+    public function testWrongCreateStatus()
+    {
+        $this->setupTests();
+        $ageCategory = factory(AgeCategory::class)->make();
+        $response = $this->json(
+            'POST',
+            'api/age_category',
+            [
+                'name'          => $ageCategory->name,
+                'years'         => $ageCategory->years.' hey',
+            ],
+            [
+                'Authorization' => "Bearer ".(string)($this->token),
+            ]
+        );
+        $response->assertStatus(402);
     }
 }
