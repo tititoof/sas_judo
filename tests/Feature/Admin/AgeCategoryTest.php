@@ -87,7 +87,7 @@ class AgeCategoryTest extends TestCase
     }
 
     /**
-     * test edit json 
+     * test edit json
      */
     public function testEditStatus()
     {
@@ -161,7 +161,7 @@ class AgeCategoryTest extends TestCase
             'years'         => $ageCategory->years,
         ]);
     }
-    
+
     /**
      * test create wrong age category
      */
@@ -180,6 +180,6 @@ class AgeCategoryTest extends TestCase
                 'Authorization' => "Bearer ".(string)($this->token),
             ]
         );
-        $response->assertStatus(402);
+        $response->assertStatus(422);
     }
 }
