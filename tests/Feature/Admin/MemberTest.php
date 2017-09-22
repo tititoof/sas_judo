@@ -27,4 +27,14 @@ class MemberTest extends TestCase
         $response = $this->get('api/inscriptions', [ 'Authorization' => "Bearer ".(string)($this->token) ]);
         $response->assertStatus(200);
     }
+
+    public function testSaveAction()
+    {
+        
+    }
+
+    public function testLoadAction()
+    {
+
+    }
 }
