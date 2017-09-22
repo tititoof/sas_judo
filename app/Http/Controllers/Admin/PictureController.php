@@ -54,17 +54,16 @@ class PictureController extends Controller
      */
     public function show($image, $resize = true)
     {
-        
         $height = (true !== $resize) ? 898 : 150;
         return $this->getImage($image, $height);
     }
-    
+
     public function miniShow($image)
     {
         $height = 100;
         return $this->getImage($image, $height);
     }
-    
+
     private function getImage($image, $height)
     {
         // Do so other checks here if you wish
@@ -72,8 +71,8 @@ class PictureController extends Controller
             $picture = Picture::findOrFail($image);
             $image = $picture->filename;
         } else {
-            if (!File::exists(storage_path("app/images/{$image}"))) { 
-                abort(404); 
+            if (!File::exists(storage_path("app/images/{$image}"))) {
+                abort(404);
             }
         }
         $img = File::get(storage_path("app/images/{$image}"));
