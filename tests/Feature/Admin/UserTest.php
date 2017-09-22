@@ -81,7 +81,7 @@ class UserTest extends TestCase
             'is_debug'      => 1
         ]);
     }
-    
+
     public function testEditStatus()
     {
         $this->setupTests();
@@ -93,7 +93,7 @@ class UserTest extends TestCase
         );
         $response->assertStatus(200);
     }
-    
+
     public function testUpdateDB()
     {
         $this->setupTests();
@@ -121,11 +121,11 @@ class UserTest extends TestCase
             'id'            => $this->user->id,
         ]);
     }
-    
+
     public function testDestroyStatus()
     {
         $this->setupTests();
-        $user = User:all()->last();
+        $user = User::all()->last();
         $response = $this->json(
             'DELETE',
             'api/admin/user/'.$user->id,
