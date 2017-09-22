@@ -48,6 +48,19 @@ class SeasonTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testEditAction()
+    {
+        $this->setupTests();
+        $this->season = Season::all()->last();
+        $response = $this->json(
+            'GET',
+            'api/season/'.$this->season->id.'/edit',
+            [],
+            [ 'Authorization' => "Bearer ".(string)($this->token) ]
+        );
+        $response->assertStatus(200);
+    }
+
     public function testUpdateAction()
     {
         $this->setupTests();
