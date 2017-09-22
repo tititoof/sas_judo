@@ -43,7 +43,8 @@ class PictureTest extends TestCase
     public function testShowAction()
     {
         $this->setupTests();
-        $picture  = factory(Picture::class)->create();
+        $picture  = Picture::all()->last();
+
         $response = $this->json(
             'GET',
             '/api/picture/'.$picture->id,
