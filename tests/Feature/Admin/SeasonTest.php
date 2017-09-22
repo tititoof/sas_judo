@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Database\Eloquent\Collection;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Season;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -45,5 +46,34 @@ class SeasonTest extends TestCase
             [ 'Authorization' => "Bearer ".(string)($this->token) ]
         );
         $response->assertStatus(200);
+    }
+
+    public function testUpdateAction()
+    {
+        $this->setupTests();
+        $this->season   = Season::all()->last();
+        $updatedName    = $this->season->name.' changed';
+        $updatedStartAt = new Carbon($this->season->start_at);
+        $updatedStartAt->addYears(1);
+        $updatedEndAt   = new Carbon($this->season->end_at);
+        $updatedEndAt->addYears(1);
+        $updatedYear    = $this->season->year + 10;
+        $response       = $this->json(
+            'PUT',
+            'api/season/'.$this->season->id,
+            [
+                'name'      => $updatedName,
+                'start_at'  => $updatedStartAt->format('Y-m-d H:i:s'),
+                'end_at'    => $updatedEndAt->format('Y-m-d H:i:s'),
+            ],
+            [ 'Authorization' => "Bearer ".(string)($this->token) ]
+        );
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('seasons', [
+            'name'      => $updatedName,
+            'start_at'  => $updatedStartAt->format('Y-m-d H:i:s'),
+            'end_at'    => $updatedEndAt->format('Y-m-d H:i:s'),
+            'id'        => $this->season->id,
+        ]);
     }
 }
