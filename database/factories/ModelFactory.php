@@ -86,7 +86,7 @@ $factory->define(App\Models\Result::class, function(Faker\Generator $faker) {
         'name'          => $faker->name,
         'locality'      => $faker->city,
         'contest_at'    => $faker->dateTimeThisYear,
-        'informations'  => $faker->sentences,
+        'informations'  => '{}',
     ];
 });
 
