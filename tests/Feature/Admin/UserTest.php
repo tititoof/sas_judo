@@ -108,9 +108,9 @@ class UserTest extends TestCase
                 'email'         => $this->user->email,
                 'address'       => $this->user->address,
                 'phone'         => $this->user->phone,
-                'is_admin'      => $this->user->is_admin,
-                'is_debug'      => $this->user->is_debug,
-                'is_teacher'    => $this->user->is_teacher,
+                'is_admin'      => 1,
+                'is_debug'      => 0,
+                'is_teacher'    => 0,
             ],
             ['Authorization' => "Bearer ".(string)($this->token)]
         );

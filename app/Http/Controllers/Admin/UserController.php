@@ -57,7 +57,7 @@ class UserController extends Controller
         $repo = new UserRepository;
         return response()->json($repo->toggleTeacher($user));
     }
-    
+
     public function toggleDebug(User $user)
     {
         $repo = new UserRepository;
@@ -89,6 +89,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $repo = new UserRepository;
-        return reponse()->json($repo->delete($user));
+        return response()->json($repo->delete($user));
     }
 }
