@@ -95,7 +95,7 @@ $factory->define(App\Models\Result::class, function(Faker\Generator $faker) {
  * Pictures
  */
 $factory->define(App\Models\Picture::class, function(Faker\Generator $faker) {
-    $image = $faker->image('/temp', 640, 480, 'cats', false);
+    $image = $faker->image('/storage/app/test', 640, 480, 'cats', false);
     return [
         'name'      => $faker->name,
         'filename'  => $image
