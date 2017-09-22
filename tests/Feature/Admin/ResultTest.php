@@ -38,6 +38,32 @@ class ResultTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testStoreAction()
+    {
+        $this->setupTests();
+        $this->result = factory(Result::class)->make();
+        $response = $this->json(
+            'POST',
+            'api/result/',
+            [
+                'season_id'     => $this->result->season->id,
+                'name'          => $this->result->name,
+                'locality'      => $this->result->locality,
+                'contest_at'    => $this->result->contest_at->format('Y-m-d H:i:s'),
+                'informations'  => $this->result->informations,
+            ],
+            [ 'Authorization' => "Bearer ".(string)($this->token) ]
+        );
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('results', [
+            'season_id'     => $this->result->season->id,
+            'name'          => $this->result->name,
+            'locality'      => $this->result->locality,
+            'contest_at'    => $this->result->contest_at->format('Y-m-d H:i:s'),
+            'informations'  => $this->result->informations,
+        ]);
+    }
+
     public function testEditAction()
     {
         $this->setupTests();
