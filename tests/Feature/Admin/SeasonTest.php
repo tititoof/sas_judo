@@ -76,4 +76,32 @@ class SeasonTest extends TestCase
             'id'        => $this->season->id,
         ]);
     }
+
+    public function testDestroyAction()
+    {
+        $this->setupTests();
+        $this->season   = Season::all()->last();
+        $response       = $this->json(
+            'DELETE',
+            'api/season/'.$this->season->id,
+            [],
+            [ 'Authorization' => "Bearer ".(string)($this->token) ]
+        );
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('seasons', [
+            'id'    => $this->season->id
+        ]);
+    }
+
+    public function testGetListAction()
+    {
+        $this->setupTests();
+        $response   = $this->json(
+            'GET',
+            'api/seasons/list',
+            [],
+            [ 'Authorization' => "Bearer ".(string)($this->token) ]
+        );
+        $response->assertStatus(200);
+    }
 }
