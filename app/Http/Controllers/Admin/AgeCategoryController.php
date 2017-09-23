@@ -20,7 +20,7 @@ class AgeCategoryController extends Controller
      */
     public function index()
     {
-        $ageCategories = AgeCategory::All();
+        $ageCategories = AgeCategory::all();
         return response()->json(['ageCategories' => $ageCategories]);
     }
 
