@@ -106,7 +106,7 @@ $factory->define(App\Models\Picture::class, function(Faker\Generator $faker) {
  * 
  * 
  */
-$factory->define(App\Models\Picture::class, function(Faker\Generator $faker) {
+$factory->define(App\Models\Member::class, function(Faker\Generator $faker) {
     return [
         'lastname'      => $faker->firstName,
         'firstname'     => $faker->lastName,
