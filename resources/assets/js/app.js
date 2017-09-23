@@ -72,7 +72,7 @@ export const router = new VueRouter({
 });
 
 export const my_axios = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'http://localhost',
   headers: {
       'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
       'Authorization': 'Bearer ' + localStorage.getItem('id_token')

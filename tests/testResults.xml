@@ -1,110 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="56" assertions="115" failures="0" errors="0" time="12.684408">
-    <testsuite name="Feature Tests" tests="41" assertions="100" failures="0" errors="0" time="12.248825">
-      <testsuite name="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" tests="6" assertions="19" failures="0" errors="0" time="3.136691">
-        <testcase name="testIndexStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="40" assertions="2" time="1.689060"/>
-        <testcase name="testStoreStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="50" assertions="6" time="0.503707"/>
-        <testcase name="testEditStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="73" assertions="3" time="0.207886"/>
-        <testcase name="testUpdateStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="102" assertions="3" time="0.263164"/>
-        <testcase name="testDestroyStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="127" assertions="3" time="0.213585"/>
-        <testcase name="testWrongCreateStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="149" assertions="2" time="0.259289"/>
+  <testsuite name="" tests="59" assertions="123" failures="0" errors="0" time="10.478618">
+    <testsuite name="Feature Tests" tests="44" assertions="108" failures="0" errors="0" time="10.077809">
+      <testsuite name="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" tests="6" assertions="19" failures="0" errors="0" time="1.423734">
+        <testcase name="testIndexStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="40" assertions="2" time="0.315127"/>
+        <testcase name="testStoreStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="50" assertions="6" time="0.296918"/>
+        <testcase name="testEditStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="73" assertions="3" time="0.193739"/>
+        <testcase name="testUpdateStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="102" assertions="3" time="0.203867"/>
+        <testcase name="testDestroyStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="127" assertions="3" time="0.206143"/>
+        <testcase name="testWrongCreateStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="149" assertions="2" time="0.207940"/>
       </testsuite>
-      <testsuite name="Tests\Feature\CategoryTest" file="/var/www/html/tests/Feature/Admin/CategoryTest.php" tests="1" assertions="2" failures="0" errors="0" time="0.346052">
-        <testcase name="testIndexAction" class="Tests\Feature\CategoryTest" file="/var/www/html/tests/Feature/Admin/CategoryTest.php" line="28" assertions="2" time="0.346052"/>
+      <testsuite name="Tests\Feature\CategoryTest" file="/var/www/html/tests/Feature/Admin/CategoryTest.php" tests="1" assertions="2" failures="0" errors="0" time="0.189565">
+        <testcase name="testIndexAction" class="Tests\Feature\CategoryTest" file="/var/www/html/tests/Feature/Admin/CategoryTest.php" line="28" assertions="2" time="0.189565"/>
       </testsuite>
-      <testsuite name="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" tests="3" assertions="6" failures="0" errors="0" time="1.044909">
-        <testcase name="testIndexAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="28" assertions="2" time="0.558270"/>
-        <testcase name="testCreateAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="36" assertions="1" time="0.204725"/>
-        <testcase name="testStoreAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="47" assertions="3" time="0.281914"/>
+      <testsuite name="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" tests="6" assertions="14" failures="0" errors="0" time="1.524368">
+        <testcase name="testIndexAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="28" assertions="2" time="0.339182"/>
+        <testcase name="testCreateAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="36" assertions="1" time="0.195469"/>
+        <testcase name="testStoreAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="47" assertions="3" time="0.233375"/>
+        <testcase name="testEditAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="72" assertions="2" time="0.244116"/>
+        <testcase name="testUpdateAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="85" assertions="3" time="0.253244"/>
+        <testcase name="testDestroyAction" class="Tests\Feature\CoursesTest" file="/var/www/html/tests/Feature/Admin/CoursesTest.php" line="112" assertions="3" time="0.258982"/>
       </testsuite>
-      <testsuite name="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" tests="6" assertions="14" failures="0" errors="0" time="1.366329">
-        <testcase name="testIndexAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="24" assertions="2" time="0.221903"/>
-        <testcase name="testStoreAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="31" assertions="2" time="0.206396"/>
-        <testcase name="testShowAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="52" assertions="2" time="0.229882"/>
-        <testcase name="testEditAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="65" assertions="2" time="0.204777"/>
-        <testcase name="testUpdateAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="79" assertions="3" time="0.280182"/>
-        <testcase name="testDestroyAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="105" assertions="3" time="0.223189"/>
+      <testsuite name="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" tests="6" assertions="14" failures="0" errors="0" time="1.288450">
+        <testcase name="testIndexAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="24" assertions="2" time="0.215203"/>
+        <testcase name="testStoreAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="31" assertions="2" time="0.226682"/>
+        <testcase name="testShowAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="52" assertions="2" time="0.212375"/>
+        <testcase name="testEditAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="65" assertions="2" time="0.201097"/>
+        <testcase name="testUpdateAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="79" assertions="3" time="0.217454"/>
+        <testcase name="testDestroyAction" class="Tests\Feature\JudoeventTest" file="/var/www/html/tests/Feature/Admin/JudoeventTest.php" line="105" assertions="3" time="0.215639"/>
       </testsuite>
-      <testsuite name="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" tests="3" assertions="6" failures="0" errors="0" time="0.850230">
-        <testcase name="testIndexAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="25" assertions="2" time="0.228284"/>
-        <testcase name="testSaveAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="32" assertions="2" time="0.368824"/>
-        <testcase name="testLoadAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="62" assertions="2" time="0.253122"/>
+      <testsuite name="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" tests="3" assertions="6" failures="0" errors="0" time="0.781843">
+        <testcase name="testIndexAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="25" assertions="2" time="0.231637"/>
+        <testcase name="testSaveAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="32" assertions="2" time="0.331792"/>
+        <testcase name="testLoadAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="62" assertions="2" time="0.218414"/>
       </testsuite>
-      <testsuite name="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" tests="2" assertions="4" failures="0" errors="0" time="0.761670">
-        <testcase name="testStoreAction" class="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" line="28" assertions="2" time="0.511653"/>
-        <testcase name="testShowAction" class="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" line="43" assertions="2" time="0.250017"/>
+      <testsuite name="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" tests="2" assertions="4" failures="0" errors="0" time="0.636838">
+        <testcase name="testStoreAction" class="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" line="28" assertions="2" time="0.393078"/>
+        <testcase name="testShowAction" class="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" line="43" assertions="2" time="0.243760"/>
       </testsuite>
-      <testsuite name="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" tests="6" assertions="15" failures="0" errors="0" time="1.463553">
-        <testcase name="testIndexAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="27" assertions="2" time="0.276664"/>
-        <testcase name="testCreateAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="34" assertions="2" time="0.197998"/>
-        <testcase name="testStoreAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="41" assertions="3" time="0.267251"/>
-        <testcase name="testEditAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="67" assertions="2" time="0.252473"/>
-        <testcase name="testUpdateAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="80" assertions="3" time="0.234818"/>
-        <testcase name="testDestroyAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="107" assertions="3" time="0.234349"/>
+      <testsuite name="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" tests="6" assertions="15" failures="0" errors="0" time="1.458484">
+        <testcase name="testIndexAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="27" assertions="2" time="0.260675"/>
+        <testcase name="testCreateAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="34" assertions="2" time="0.196939"/>
+        <testcase name="testStoreAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="41" assertions="3" time="0.243970"/>
+        <testcase name="testEditAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="67" assertions="2" time="0.226899"/>
+        <testcase name="testUpdateAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="80" assertions="3" time="0.241732"/>
+        <testcase name="testDestroyAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="107" assertions="3" time="0.288269"/>
       </testsuite>
-      <testsuite name="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" tests="6" assertions="14" failures="0" errors="0" time="1.335176">
-        <testcase name="testIndexStatus" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="27" assertions="2" time="0.331677"/>
-        <testcase name="testStoreAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="34" assertions="2" time="0.210090"/>
-        <testcase name="testEditAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="51" assertions="2" time="0.195920"/>
-        <testcase name="testUpdateAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="64" assertions="3" time="0.201970"/>
-        <testcase name="testDestroyAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="93" assertions="3" time="0.204218"/>
-        <testcase name="testGetListAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="109" assertions="2" time="0.191301"/>
+      <testsuite name="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" tests="6" assertions="14" failures="0" errors="0" time="1.225317">
+        <testcase name="testIndexStatus" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="27" assertions="2" time="0.198476"/>
+        <testcase name="testStoreAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="34" assertions="2" time="0.217806"/>
+        <testcase name="testEditAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="51" assertions="2" time="0.208102"/>
+        <testcase name="testUpdateAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="64" assertions="3" time="0.205152"/>
+        <testcase name="testDestroyAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="93" assertions="3" time="0.204226"/>
+        <testcase name="testGetListAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="109" assertions="2" time="0.191555"/>
       </testsuite>
-      <testsuite name="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" tests="7" assertions="19" failures="0" errors="0" time="1.746307">
-        <testcase name="testIndexStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="30" assertions="2" time="0.440240"/>
-        <testcase name="testChangeIsAdmin" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="37" assertions="3" time="0.200650"/>
-        <testcase name="testChangeIsTeacher" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="53" assertions="3" time="0.201833"/>
-        <testcase name="testChangeIsDebug" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="69" assertions="3" time="0.232638"/>
-        <testcase name="testEditStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="85" assertions="2" time="0.220627"/>
-        <testcase name="testUpdateDB" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="97" assertions="3" time="0.240130"/>
-        <testcase name="testDestroyStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="125" assertions="3" time="0.210189"/>
+      <testsuite name="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" tests="7" assertions="19" failures="0" errors="0" time="1.522845">
+        <testcase name="testIndexStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="30" assertions="2" time="0.244873"/>
+        <testcase name="testChangeIsAdmin" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="37" assertions="3" time="0.200534"/>
+        <testcase name="testChangeIsTeacher" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="53" assertions="3" time="0.225374"/>
+        <testcase name="testChangeIsDebug" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="69" assertions="3" time="0.232619"/>
+        <testcase name="testEditStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="85" assertions="2" time="0.202708"/>
+        <testcase name="testUpdateDB" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="97" assertions="3" time="0.201279"/>
+        <testcase name="testDestroyStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="125" assertions="3" time="0.215458"/>
       </testsuite>
-      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/html/tests/Feature/ExampleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.197908">
-        <testcase name="testBasicTest" class="Tests\Feature\ExampleTest" file="/var/www/html/tests/Feature/ExampleTest.php" line="17" assertions="1" time="0.197908"/>
+      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/html/tests/Feature/ExampleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.026365">
+        <testcase name="testBasicTest" class="Tests\Feature\ExampleTest" file="/var/www/html/tests/Feature/ExampleTest.php" line="17" assertions="1" time="0.026365"/>
       </testsuite>
     </testsuite>
-    <testsuite name="Unit Tests" tests="15" assertions="15" failures="0" errors="0" time="0.435583">
-      <testsuite name="Tests\Unit\AgeCategoryTest" file="/var/www/html/tests/Unit/AgeCategoryTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.009777">
-        <testcase name="testExample" class="Tests\Unit\AgeCategoryTest" file="/var/www/html/tests/Unit/AgeCategoryTest.php" line="16" assertions="1" time="0.009777"/>
+    <testsuite name="Unit Tests" tests="15" assertions="15" failures="0" errors="0" time="0.400809">
+      <testsuite name="Tests\Unit\AgeCategoryTest" file="/var/www/html/tests/Unit/AgeCategoryTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006549">
+        <testcase name="testExample" class="Tests\Unit\AgeCategoryTest" file="/var/www/html/tests/Unit/AgeCategoryTest.php" line="16" assertions="1" time="0.006549"/>
       </testsuite>
-      <testsuite name="Tests\Unit\AlbumTest" file="/var/www/html/tests/Unit/AlbumTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.008964">
-        <testcase name="testExample" class="Tests\Unit\AlbumTest" file="/var/www/html/tests/Unit/AlbumTest.php" line="16" assertions="1" time="0.008964"/>
+      <testsuite name="Tests\Unit\AlbumTest" file="/var/www/html/tests/Unit/AlbumTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006564">
+        <testcase name="testExample" class="Tests\Unit\AlbumTest" file="/var/www/html/tests/Unit/AlbumTest.php" line="16" assertions="1" time="0.006564"/>
       </testsuite>
-      <testsuite name="Tests\Unit\ArticleTest" file="/var/www/html/tests/Unit/ArticleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.009076">
-        <testcase name="testExample" class="Tests\Unit\ArticleTest" file="/var/www/html/tests/Unit/ArticleTest.php" line="16" assertions="1" time="0.009076"/>
+      <testsuite name="Tests\Unit\ArticleTest" file="/var/www/html/tests/Unit/ArticleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007716">
+        <testcase name="testExample" class="Tests\Unit\ArticleTest" file="/var/www/html/tests/Unit/ArticleTest.php" line="16" assertions="1" time="0.007716"/>
       </testsuite>
-      <testsuite name="Tests\Unit\CategoryTest" file="/var/www/html/tests/Unit/CategoryTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.008031">
-        <testcase name="testExample" class="Tests\Unit\CategoryTest" file="/var/www/html/tests/Unit/CategoryTest.php" line="16" assertions="1" time="0.008031"/>
+      <testsuite name="Tests\Unit\CategoryTest" file="/var/www/html/tests/Unit/CategoryTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006727">
+        <testcase name="testExample" class="Tests\Unit\CategoryTest" file="/var/www/html/tests/Unit/CategoryTest.php" line="16" assertions="1" time="0.006727"/>
       </testsuite>
-      <testsuite name="Tests\Unit\CourseTest" file="/var/www/html/tests/Unit/CourseTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007729">
-        <testcase name="testExample" class="Tests\Unit\CourseTest" file="/var/www/html/tests/Unit/CourseTest.php" line="16" assertions="1" time="0.007729"/>
+      <testsuite name="Tests\Unit\CourseTest" file="/var/www/html/tests/Unit/CourseTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006631">
+        <testcase name="testExample" class="Tests\Unit\CourseTest" file="/var/www/html/tests/Unit/CourseTest.php" line="16" assertions="1" time="0.006631"/>
       </testsuite>
-      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/html/tests/Unit/ExampleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007856">
-        <testcase name="testBasicTest" class="Tests\Unit\ExampleTest" file="/var/www/html/tests/Unit/ExampleTest.php" line="16" assertions="1" time="0.007856"/>
+      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/html/tests/Unit/ExampleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006520">
+        <testcase name="testBasicTest" class="Tests\Unit\ExampleTest" file="/var/www/html/tests/Unit/ExampleTest.php" line="16" assertions="1" time="0.006520"/>
       </testsuite>
-      <testsuite name="Tests\Unit\InscriptionTest" file="/var/www/html/tests/Unit/InscriptionTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.013070">
-        <testcase name="testExample" class="Tests\Unit\InscriptionTest" file="/var/www/html/tests/Unit/InscriptionTest.php" line="16" assertions="1" time="0.013070"/>
+      <testsuite name="Tests\Unit\InscriptionTest" file="/var/www/html/tests/Unit/InscriptionTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006462">
+        <testcase name="testExample" class="Tests\Unit\InscriptionTest" file="/var/www/html/tests/Unit/InscriptionTest.php" line="16" assertions="1" time="0.006462"/>
       </testsuite>
-      <testsuite name="Tests\Unit\JudoeventTest" file="/var/www/html/tests/Unit/JudoeventTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007140">
-        <testcase name="testExample" class="Tests\Unit\JudoeventTest" file="/var/www/html/tests/Unit/JudoeventTest.php" line="16" assertions="1" time="0.007140"/>
+      <testsuite name="Tests\Unit\JudoeventTest" file="/var/www/html/tests/Unit/JudoeventTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006497">
+        <testcase name="testExample" class="Tests\Unit\JudoeventTest" file="/var/www/html/tests/Unit/JudoeventTest.php" line="16" assertions="1" time="0.006497"/>
       </testsuite>
-      <testsuite name="Tests\Unit\MemberTest" file="/var/www/html/tests/Unit/MemberTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006914">
-        <testcase name="testExample" class="Tests\Unit\MemberTest" file="/var/www/html/tests/Unit/MemberTest.php" line="16" assertions="1" time="0.006914"/>
+      <testsuite name="Tests\Unit\MemberTest" file="/var/www/html/tests/Unit/MemberTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006518">
+        <testcase name="testExample" class="Tests\Unit\MemberTest" file="/var/www/html/tests/Unit/MemberTest.php" line="16" assertions="1" time="0.006518"/>
       </testsuite>
-      <testsuite name="Tests\Unit\PictureTest" file="/var/www/html/tests/Unit/PictureTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006685">
-        <testcase name="testExample" class="Tests\Unit\PictureTest" file="/var/www/html/tests/Unit/PictureTest.php" line="16" assertions="1" time="0.006685"/>
+      <testsuite name="Tests\Unit\PictureTest" file="/var/www/html/tests/Unit/PictureTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006648">
+        <testcase name="testExample" class="Tests\Unit\PictureTest" file="/var/www/html/tests/Unit/PictureTest.php" line="16" assertions="1" time="0.006648"/>
       </testsuite>
-      <testsuite name="Tests\Unit\ResultTest" file="/var/www/html/tests/Unit/ResultTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006470">
-        <testcase name="testExample" class="Tests\Unit\ResultTest" file="/var/www/html/tests/Unit/ResultTest.php" line="16" assertions="1" time="0.006470"/>
+      <testsuite name="Tests\Unit\ResultTest" file="/var/www/html/tests/Unit/ResultTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006514">
+        <testcase name="testExample" class="Tests\Unit\ResultTest" file="/var/www/html/tests/Unit/ResultTest.php" line="16" assertions="1" time="0.006514"/>
       </testsuite>
-      <testsuite name="Tests\Unit\SeasonTest" file="/var/www/html/tests/Unit/SeasonTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006495">
-        <testcase name="testExample" class="Tests\Unit\SeasonTest" file="/var/www/html/tests/Unit/SeasonTest.php" line="16" assertions="1" time="0.006495"/>
+      <testsuite name="Tests\Unit\SeasonTest" file="/var/www/html/tests/Unit/SeasonTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006416">
+        <testcase name="testExample" class="Tests\Unit\SeasonTest" file="/var/www/html/tests/Unit/SeasonTest.php" line="16" assertions="1" time="0.006416"/>
       </testsuite>
-      <testsuite name="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" tests="3" assertions="3" failures="0" errors="0" time="0.337377">
-        <testcase name="testBasicUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="20" assertions="1" time="0.135108"/>
-        <testcase name="testAdminUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="29" assertions="1" time="0.103215"/>
-        <testcase name="testDebugUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="36" assertions="1" time="0.099054"/>
+      <testsuite name="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" tests="3" assertions="3" failures="0" errors="0" time="0.321047">
+        <testcase name="testBasicUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="20" assertions="1" time="0.117752"/>
+        <testcase name="testAdminUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="29" assertions="1" time="0.102839"/>
+        <testcase name="testDebugUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="36" assertions="1" time="0.100456"/>
       </testsuite>
     </testsuite>
   </testsuite>

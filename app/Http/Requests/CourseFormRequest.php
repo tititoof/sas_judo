@@ -25,7 +25,7 @@ class CourseFormRequest extends FormRequest
      */
     public function rules()
     {
-        $course    = (null !== $this->route('course')) ? $this->segment('course') : null;
+        $course    = (null !== $this->route('course')) ? $this->route('course') : null;
         $rules = [
             'name'          => 'required|max:255|unique:courses,name',
             'season_id'     => self::REQUIRED,
