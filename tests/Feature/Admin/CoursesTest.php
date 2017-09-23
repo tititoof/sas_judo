@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\User;
-use App\Models\Courses;
+use App\Models\Course;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tests\Feature\Admin\UserTrait;
 
