@@ -119,5 +119,5 @@ $factory->define(App\Models\Picture::class, function(Faker\Generator $faker) {
         'red_list'      => true,
         'mobile'        => $faker->phoneNumber,
         'email'         => $faker->safeEmail,
-    ]
-})
+    ];
+});
