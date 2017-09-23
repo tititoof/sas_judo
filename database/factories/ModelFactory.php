@@ -134,7 +134,7 @@ $factory->define(App\Models\Inscription::class, function(Faker\Generator $faker)
 });
 
 $factory->define(App\Models\Judoevent::class, function(Faker\Generator $faker) {
-    $dateEvent = $faker->dateTimeThisCentury;
+    $dateEvent          = $faker->dateTimeThisCentury;
     $dateEventStartAt   = $dateEvent;
     $dateEventEndAt     = $dateEvent->modify('+1 hour');
     return [
@@ -145,5 +145,23 @@ $factory->define(App\Models\Judoevent::class, function(Faker\Generator $faker) {
         'end_at'        => $dateEventEndAt, //->format('Y-m-d H:i:s'),
         // 'end_time_at'   => $dateEventEndAt->format('H:i:s'),
         // 'start_time_at' => $dateEventStartAt->format('H:i:s'),
+    ];
+});
+
+$factory->define(App\Models\Course::class, function(Faker\Generator $faker) {
+    $dateCourse          = $faker->dateTimeThisCentury;
+    $dateCourseStartAt   = $dateCourse;
+    $dateCourseEndAt     = $dateCourse->modify('+1 hour');
+    return [
+        'name'          => $faker->name,
+        'season_id'     => function() {
+            return factory(App\Models\Season::class)->create()->id;
+        },
+        'day'           => 'Lundi',
+        'start_at'      => $dateCourseStartAt->format('H:i:s'),
+        'end_at'        => $dateCourseEndAt->format('H:i:s'),
+        'teacher_id'    => function() {
+            return factory(App\Models\User::class)->create()->id;
+        },
     ];
 });

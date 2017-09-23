@@ -28,6 +28,7 @@ class CoursesTest extends TestCase
     public function testIndexAction()
     {
         $this->setupTests();
+        $course = factory(Course::class)->create();
         $response = $this->get('/api/course', [ 'Authorization' => "Bearer ".(string)($this->token) ]);
         $response->assertStatus(200);
     }
