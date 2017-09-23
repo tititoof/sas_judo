@@ -30,11 +30,42 @@ class MemberTest extends TestCase
 
     public function testSaveAction()
     {
-        
+        $this->setupTests();
+        $member = factory(Member::class)->make();
+        $response = $this->json(
+            'POST',
+            'api/inscriptions/save',
+            [
+                'lastname'      => $member->lastname,
+                'firstname'     => $member->firstname,
+                'sexe'          => $member->sexe,
+                'birthday'      => $member->birthday,
+                'address'       => $member->address,
+                'postal_code'   => $member->postal_code,
+                'city'          => $member->city,
+                'phone'         => $member->phone,
+                'red_list'      => $member->red_list,
+                'mobile'        => $member->mobile,
+                'email'         => $member->email,
+            ],
+            [ 'Authorization' => "Bearer ".(string)($this->token) ]
+        );
+        $response->assertStatus(200);
     }
 
     public function testLoadAction()
     {
-
+        $this->setupTests();
+        $member = factory(Member::class)->create();
+        $response = $this->json(
+            'POST',
+            'api/inscriptions/load',
+            [
+                'lastname'      => $member->lastname,
+                'firstname'     => $member->firstname,
+            ],
+            [ 'Authorization' => "Bearer ".(string)($this->token) ]
+        );
+        $response->assertStatus(200);
     }
 }

@@ -101,3 +101,23 @@ $factory->define(App\Models\Picture::class, function(Faker\Generator $faker) {
         'filename'  => $image
     ];
 });
+
+/**
+ * 
+ * 
+ */
+$factory->define(App\Models\Picture::class, function(Faker\Generator $faker) {
+    return [
+        'lastname'      => $faker->firstName,
+        'firstname'     => $faker->lastName,
+        'sexe'          => 'Masculin',
+        'birthday'      => $faker->dateTimeThisCentury,
+        'address'       => $faker->streetAddress,
+        'postal_code'   => $faker->postcode,
+        'city'          => $faker->city,
+        'phone'         => $faker->phoneNumber,
+        'red_list'      => true,
+        'mobile'        => $faker->phoneNumber,
+        'email'         => $faker->safeEmail,
+    ]
+})
