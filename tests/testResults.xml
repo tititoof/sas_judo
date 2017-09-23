@@ -1,92 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="44" assertions="89" failures="0" errors="0" time="5.515317">
-    <testsuite name="Feature Tests" tests="29" assertions="74" failures="0" errors="0" time="5.156297">
-      <testsuite name="Tests\Feature\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\AgeCategoryTest.php" tests="6" assertions="19" failures="0" errors="0" time="1.231071">
-        <testcase name="testIndexStatus" class="Tests\Feature\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\AgeCategoryTest.php" line="40" assertions="2" time="0.302018"/>
-        <testcase name="testStoreStatus" class="Tests\Feature\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\AgeCategoryTest.php" line="50" assertions="6" time="0.259014"/>
-        <testcase name="testEditStatus" class="Tests\Feature\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\AgeCategoryTest.php" line="73" assertions="3" time="0.172010"/>
-        <testcase name="testUpdateStatus" class="Tests\Feature\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\AgeCategoryTest.php" line="102" assertions="3" time="0.165010"/>
-        <testcase name="testDestroyStatus" class="Tests\Feature\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\AgeCategoryTest.php" line="127" assertions="3" time="0.164009"/>
-        <testcase name="testWrongCreateStatus" class="Tests\Feature\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\AgeCategoryTest.php" line="149" assertions="2" time="0.169010"/>
+  <testsuite name="" tests="46" assertions="93" failures="0" errors="0" time="16.338423">
+    <testsuite name="Feature Tests" tests="31" assertions="78" failures="0" errors="0" time="14.710671">
+      <testsuite name="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" tests="6" assertions="19" failures="0" errors="0" time="2.966601">
+        <testcase name="testIndexStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="40" assertions="2" time="1.104293"/>
+        <testcase name="testStoreStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="50" assertions="6" time="0.346888"/>
+        <testcase name="testEditStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="73" assertions="3" time="0.239239"/>
+        <testcase name="testUpdateStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="102" assertions="3" time="0.862040"/>
+        <testcase name="testDestroyStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="127" assertions="3" time="0.221190"/>
+        <testcase name="testWrongCreateStatus" class="Tests\Feature\AgeCategoryTest" file="/var/www/html/tests/Feature/Admin/AgeCategoryTest.php" line="149" assertions="2" time="0.192951"/>
       </testsuite>
-      <testsuite name="Tests\Feature\MemberTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\MemberTest.php" tests="1" assertions="2" failures="0" errors="0" time="0.170010">
-        <testcase name="testIndexAction" class="Tests\Feature\MemberTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\MemberTest.php" line="24" assertions="2" time="0.170010"/>
+      <testsuite name="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" tests="3" assertions="6" failures="0" errors="0" time="1.330849">
+        <testcase name="testIndexAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="25" assertions="2" time="0.204757"/>
+        <testcase name="testSaveAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="32" assertions="2" time="0.261748"/>
+        <testcase name="testLoadAction" class="Tests\Feature\MemberTest" file="/var/www/html/tests/Feature/Admin/MemberTest.php" line="62" assertions="2" time="0.864344"/>
       </testsuite>
-      <testsuite name="Tests\Feature\PictureTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\PictureTest.php" tests="2" assertions="4" failures="0" errors="0" time="0.390022">
-        <testcase name="testStoreAction" class="Tests\Feature\PictureTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\PictureTest.php" line="28" assertions="2" time="0.208012"/>
-        <testcase name="testShowAction" class="Tests\Feature\PictureTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\PictureTest.php" line="43" assertions="2" time="0.182010"/>
+      <testsuite name="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" tests="2" assertions="4" failures="0" errors="0" time="4.525385">
+        <testcase name="testStoreAction" class="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" line="28" assertions="2" time="4.314639"/>
+        <testcase name="testShowAction" class="Tests\Feature\PictureTest" file="/var/www/html/tests/Feature/Admin/PictureTest.php" line="43" assertions="2" time="0.210746"/>
       </testsuite>
-      <testsuite name="Tests\Feature\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\ResultTest.php" tests="6" assertions="15" failures="0" errors="0" time="1.097064">
-        <testcase name="testIndexAction" class="Tests\Feature\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\ResultTest.php" line="27" assertions="2" time="0.220013"/>
-        <testcase name="testCreateAction" class="Tests\Feature\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\ResultTest.php" line="34" assertions="2" time="0.168009"/>
-        <testcase name="testStoreAction" class="Tests\Feature\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\ResultTest.php" line="41" assertions="3" time="0.176011"/>
-        <testcase name="testEditAction" class="Tests\Feature\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\ResultTest.php" line="67" assertions="2" time="0.180011"/>
-        <testcase name="testUpdateAction" class="Tests\Feature\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\ResultTest.php" line="80" assertions="3" time="0.173010"/>
-        <testcase name="testDestroyAction" class="Tests\Feature\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\ResultTest.php" line="107" assertions="3" time="0.180010"/>
+      <testsuite name="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" tests="6" assertions="15" failures="0" errors="0" time="1.556528">
+        <testcase name="testIndexAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="27" assertions="2" time="0.223045"/>
+        <testcase name="testCreateAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="34" assertions="2" time="0.193035"/>
+        <testcase name="testStoreAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="41" assertions="3" time="0.390520"/>
+        <testcase name="testEditAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="67" assertions="2" time="0.267511"/>
+        <testcase name="testUpdateAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="80" assertions="3" time="0.235531"/>
+        <testcase name="testDestroyAction" class="Tests\Feature\ResultTest" file="/var/www/html/tests/Feature/Admin/ResultTest.php" line="107" assertions="3" time="0.246886"/>
       </testsuite>
-      <testsuite name="Tests\Feature\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\SeasonTest.php" tests="6" assertions="14" failures="0" errors="0" time="1.050060">
-        <testcase name="testIndexStatus" class="Tests\Feature\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\SeasonTest.php" line="27" assertions="2" time="0.163009"/>
-        <testcase name="testStoreAction" class="Tests\Feature\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\SeasonTest.php" line="34" assertions="2" time="0.210012"/>
-        <testcase name="testEditAction" class="Tests\Feature\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\SeasonTest.php" line="51" assertions="2" time="0.167010"/>
-        <testcase name="testUpdateAction" class="Tests\Feature\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\SeasonTest.php" line="64" assertions="3" time="0.174010"/>
-        <testcase name="testDestroyAction" class="Tests\Feature\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\SeasonTest.php" line="93" assertions="3" time="0.166009"/>
-        <testcase name="testGetListAction" class="Tests\Feature\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\SeasonTest.php" line="109" assertions="2" time="0.170010"/>
+      <testsuite name="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" tests="6" assertions="14" failures="0" errors="0" time="1.483993">
+        <testcase name="testIndexStatus" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="27" assertions="2" time="0.193908"/>
+        <testcase name="testStoreAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="34" assertions="2" time="0.232409"/>
+        <testcase name="testEditAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="51" assertions="2" time="0.204477"/>
+        <testcase name="testUpdateAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="64" assertions="3" time="0.204511"/>
+        <testcase name="testDestroyAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="93" assertions="3" time="0.201711"/>
+        <testcase name="testGetListAction" class="Tests\Feature\SeasonTest" file="/var/www/html/tests/Feature/Admin/SeasonTest.php" line="109" assertions="2" time="0.446977"/>
       </testsuite>
-      <testsuite name="Tests\Feature\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\UserTest.php" tests="7" assertions="19" failures="0" errors="0" time="1.201069">
-        <testcase name="testIndexStatus" class="Tests\Feature\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\UserTest.php" line="30" assertions="2" time="0.221013"/>
-        <testcase name="testChangeIsAdmin" class="Tests\Feature\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\UserTest.php" line="37" assertions="3" time="0.157009"/>
-        <testcase name="testChangeIsTeacher" class="Tests\Feature\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\UserTest.php" line="53" assertions="3" time="0.155009"/>
-        <testcase name="testChangeIsDebug" class="Tests\Feature\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\UserTest.php" line="69" assertions="3" time="0.168009"/>
-        <testcase name="testEditStatus" class="Tests\Feature\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\UserTest.php" line="85" assertions="2" time="0.162010"/>
-        <testcase name="testUpdateDB" class="Tests\Feature\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\UserTest.php" line="97" assertions="3" time="0.166009"/>
-        <testcase name="testDestroyStatus" class="Tests\Feature\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\Admin\UserTest.php" line="125" assertions="3" time="0.172010"/>
+      <testsuite name="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" tests="7" assertions="19" failures="0" errors="0" time="2.829046">
+        <testcase name="testIndexStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="30" assertions="2" time="0.200275"/>
+        <testcase name="testChangeIsAdmin" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="37" assertions="3" time="0.222324"/>
+        <testcase name="testChangeIsTeacher" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="53" assertions="3" time="0.203694"/>
+        <testcase name="testChangeIsDebug" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="69" assertions="3" time="0.233537"/>
+        <testcase name="testEditStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="85" assertions="2" time="0.191018"/>
+        <testcase name="testUpdateDB" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="97" assertions="3" time="0.200779"/>
+        <testcase name="testDestroyStatus" class="Tests\Feature\UserTest" file="/var/www/html/tests/Feature/Admin/UserTest.php" line="125" assertions="3" time="1.577419"/>
       </testsuite>
-      <testsuite name="Tests\Feature\ExampleTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\ExampleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.017001">
-        <testcase name="testBasicTest" class="Tests\Feature\ExampleTest" file="C:\DevPHP\Web\sas_judo\tests\Feature\ExampleTest.php" line="17" assertions="1" time="0.017001"/>
+      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/html/tests/Feature/ExampleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.018269">
+        <testcase name="testBasicTest" class="Tests\Feature\ExampleTest" file="/var/www/html/tests/Feature/ExampleTest.php" line="17" assertions="1" time="0.018269"/>
       </testsuite>
     </testsuite>
-    <testsuite name="Unit Tests" tests="15" assertions="15" failures="0" errors="0" time="0.359020">
-      <testsuite name="Tests\Unit\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\AgeCategoryTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.008000">
-        <testcase name="testExample" class="Tests\Unit\AgeCategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\AgeCategoryTest.php" line="16" assertions="1" time="0.008000"/>
+    <testsuite name="Unit Tests" tests="15" assertions="15" failures="0" errors="0" time="1.627751">
+      <testsuite name="Tests\Unit\AgeCategoryTest" file="/var/www/html/tests/Unit/AgeCategoryTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007174">
+        <testcase name="testExample" class="Tests\Unit\AgeCategoryTest" file="/var/www/html/tests/Unit/AgeCategoryTest.php" line="16" assertions="1" time="0.007174"/>
       </testsuite>
-      <testsuite name="Tests\Unit\AlbumTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\AlbumTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007001">
-        <testcase name="testExample" class="Tests\Unit\AlbumTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\AlbumTest.php" line="16" assertions="1" time="0.007001"/>
+      <testsuite name="Tests\Unit\AlbumTest" file="/var/www/html/tests/Unit/AlbumTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006947">
+        <testcase name="testExample" class="Tests\Unit\AlbumTest" file="/var/www/html/tests/Unit/AlbumTest.php" line="16" assertions="1" time="0.006947"/>
       </testsuite>
-      <testsuite name="Tests\Unit\ArticleTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\ArticleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007000">
-        <testcase name="testExample" class="Tests\Unit\ArticleTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\ArticleTest.php" line="16" assertions="1" time="0.007000"/>
+      <testsuite name="Tests\Unit\ArticleTest" file="/var/www/html/tests/Unit/ArticleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006829">
+        <testcase name="testExample" class="Tests\Unit\ArticleTest" file="/var/www/html/tests/Unit/ArticleTest.php" line="16" assertions="1" time="0.006829"/>
       </testsuite>
-      <testsuite name="Tests\Unit\CategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\CategoryTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007001">
-        <testcase name="testExample" class="Tests\Unit\CategoryTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\CategoryTest.php" line="16" assertions="1" time="0.007001"/>
+      <testsuite name="Tests\Unit\CategoryTest" file="/var/www/html/tests/Unit/CategoryTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006653">
+        <testcase name="testExample" class="Tests\Unit\CategoryTest" file="/var/www/html/tests/Unit/CategoryTest.php" line="16" assertions="1" time="0.006653"/>
       </testsuite>
-      <testsuite name="Tests\Unit\CourseTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\CourseTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007000">
-        <testcase name="testExample" class="Tests\Unit\CourseTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\CourseTest.php" line="16" assertions="1" time="0.007000"/>
+      <testsuite name="Tests\Unit\CourseTest" file="/var/www/html/tests/Unit/CourseTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006710">
+        <testcase name="testExample" class="Tests\Unit\CourseTest" file="/var/www/html/tests/Unit/CourseTest.php" line="16" assertions="1" time="0.006710"/>
       </testsuite>
-      <testsuite name="Tests\Unit\ExampleTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\ExampleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007001">
-        <testcase name="testBasicTest" class="Tests\Unit\ExampleTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\ExampleTest.php" line="16" assertions="1" time="0.007001"/>
+      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/html/tests/Unit/ExampleTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006910">
+        <testcase name="testBasicTest" class="Tests\Unit\ExampleTest" file="/var/www/html/tests/Unit/ExampleTest.php" line="16" assertions="1" time="0.006910"/>
       </testsuite>
-      <testsuite name="Tests\Unit\InscriptionTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\InscriptionTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007000">
-        <testcase name="testExample" class="Tests\Unit\InscriptionTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\InscriptionTest.php" line="16" assertions="1" time="0.007000"/>
+      <testsuite name="Tests\Unit\InscriptionTest" file="/var/www/html/tests/Unit/InscriptionTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006706">
+        <testcase name="testExample" class="Tests\Unit\InscriptionTest" file="/var/www/html/tests/Unit/InscriptionTest.php" line="16" assertions="1" time="0.006706"/>
       </testsuite>
-      <testsuite name="Tests\Unit\JudoeventTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\JudoeventTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007001">
-        <testcase name="testExample" class="Tests\Unit\JudoeventTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\JudoeventTest.php" line="16" assertions="1" time="0.007001"/>
+      <testsuite name="Tests\Unit\JudoeventTest" file="/var/www/html/tests/Unit/JudoeventTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006657">
+        <testcase name="testExample" class="Tests\Unit\JudoeventTest" file="/var/www/html/tests/Unit/JudoeventTest.php" line="16" assertions="1" time="0.006657"/>
       </testsuite>
-      <testsuite name="Tests\Unit\MemberTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\MemberTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.007000">
-        <testcase name="testExample" class="Tests\Unit\MemberTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\MemberTest.php" line="16" assertions="1" time="0.007000"/>
+      <testsuite name="Tests\Unit\MemberTest" file="/var/www/html/tests/Unit/MemberTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006785">
+        <testcase name="testExample" class="Tests\Unit\MemberTest" file="/var/www/html/tests/Unit/MemberTest.php" line="16" assertions="1" time="0.006785"/>
       </testsuite>
-      <testsuite name="Tests\Unit\PictureTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\PictureTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.008000">
-        <testcase name="testExample" class="Tests\Unit\PictureTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\PictureTest.php" line="16" assertions="1" time="0.008000"/>
+      <testsuite name="Tests\Unit\PictureTest" file="/var/www/html/tests/Unit/PictureTest.php" tests="1" assertions="1" failures="0" errors="0" time="1.239240">
+        <testcase name="testExample" class="Tests\Unit\PictureTest" file="/var/www/html/tests/Unit/PictureTest.php" line="16" assertions="1" time="1.239240"/>
       </testsuite>
-      <testsuite name="Tests\Unit\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\ResultTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.008000">
-        <testcase name="testExample" class="Tests\Unit\ResultTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\ResultTest.php" line="16" assertions="1" time="0.008000"/>
+      <testsuite name="Tests\Unit\ResultTest" file="/var/www/html/tests/Unit/ResultTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006567">
+        <testcase name="testExample" class="Tests\Unit\ResultTest" file="/var/www/html/tests/Unit/ResultTest.php" line="16" assertions="1" time="0.006567"/>
       </testsuite>
-      <testsuite name="Tests\Unit\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\SeasonTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006000">
-        <testcase name="testExample" class="Tests\Unit\SeasonTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\SeasonTest.php" line="16" assertions="1" time="0.006000"/>
+      <testsuite name="Tests\Unit\SeasonTest" file="/var/www/html/tests/Unit/SeasonTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.006723">
+        <testcase name="testExample" class="Tests\Unit\SeasonTest" file="/var/www/html/tests/Unit/SeasonTest.php" line="16" assertions="1" time="0.006723"/>
       </testsuite>
-      <testsuite name="Tests\Unit\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\UserTest.php" tests="3" assertions="3" failures="0" errors="0" time="0.273016">
-        <testcase name="testBasicUser" class="Tests\Unit\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\UserTest.php" line="20" assertions="1" time="0.092006"/>
-        <testcase name="testAdminUser" class="Tests\Unit\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\UserTest.php" line="29" assertions="1" time="0.091005"/>
-        <testcase name="testDebugUser" class="Tests\Unit\UserTest" file="C:\DevPHP\Web\sas_judo\tests\Unit\UserTest.php" line="36" assertions="1" time="0.090005"/>
+      <testsuite name="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" tests="3" assertions="3" failures="0" errors="0" time="0.313850">
+        <testcase name="testBasicUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="20" assertions="1" time="0.116102"/>
+        <testcase name="testAdminUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="29" assertions="1" time="0.098887"/>
+        <testcase name="testDebugUser" class="Tests\Unit\UserTest" file="/var/www/html/tests/Unit/UserTest.php" line="36" assertions="1" time="0.098861"/>
       </testsuite>
     </testsuite>
   </testsuite>

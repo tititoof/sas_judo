@@ -111,7 +111,7 @@ $factory->define(App\Models\Member::class, function(Faker\Generator $faker) {
         'lastname'      => $faker->firstName,
         'firstname'     => $faker->lastName,
         'sexe'          => 'Masculin',
-        'birthday'      => $faker->dateTimeThisCentury,
+        'birthday'      => $faker->dateTimeThisCentury->format('Y-m-d H:i:s'),
         'address'       => $faker->streetAddress,
         'postal_code'   => $faker->postcode,
         'city'          => $faker->city,
@@ -119,5 +119,16 @@ $factory->define(App\Models\Member::class, function(Faker\Generator $faker) {
         'red_list'      => true,
         'mobile'        => $faker->phoneNumber,
         'email'         => $faker->safeEmail,
+    ];
+});
+
+$factory->define(App\Models\Inscription::class, function(Faker\Generator $faker) {
+    return [
+        'complementary_insurance'   => $faker->boolean,
+        'minor_go_alone'            => $faker->boolean,
+        'major_take_off'            => $faker->boolean,
+        'season_id'     => function() {
+            return factory(App\Models\Season::class)->create()->id;
+        },
     ];
 });

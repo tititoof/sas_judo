@@ -39,8 +39,8 @@ class Director
     public function build(Request $request)
     {
         $answer = $this->memberBuilder->build($request);
-        if (!empty($answer['success'])) {
-            $request->request->add(['member_id' => $answer['entity']->id]);
+        if (!empty($answer['success']) && ($answer['success']) ) {
+            $request->request->add(['member_id' => $answer['data']->id]);
             $answer = $this->inscriptionBuilder->build($request);
         }
         return $answer;

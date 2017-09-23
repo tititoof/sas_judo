@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Repositories\InscriptionsRepository;
 use App\Models\Inscription;
+use App\Helpers\Answer;
 
 class InscriptionBuilder implements BuilderInterface
 {
