@@ -132,3 +132,18 @@ $factory->define(App\Models\Inscription::class, function(Faker\Generator $faker)
         },
     ];
 });
+
+$factory->define(App\Models\Judoevent::class, function(Faker\Generator $faker) {
+    $dateEvent = $faker->dateTimeThisCentury;
+    $dateEventStartAt   = $dateEvent;
+    $dateEventEndAt     = $dateEvent->modify('+1 hour');
+    return [
+        'name'          => $faker->name,
+        'type'          => 'tournament',
+        'description'   => $faker->text,
+        'start_at'      => $dateEventStartAt, //->format('Y-m-d H:i:s'),
+        'end_at'        => $dateEventEndAt, //->format('Y-m-d H:i:s'),
+        // 'end_time_at'   => $dateEventEndAt->format('H:i:s'),
+        // 'start_time_at' => $dateEventStartAt->format('H:i:s'),
+    ];
+});
