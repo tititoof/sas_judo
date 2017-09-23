@@ -63,7 +63,7 @@ $factory->define(App\Models\AgeCategory::class, function(Faker\Generator $faker)
  * Seasons
  */
 $factory->define(App\Models\Season::class, function(Faker\Generator $faker) {
-    $startingDate = $faker->dateTimeThisDecade();
+    $startingDate = $faker->dateTimeThisYear();
     $endingDate   = new \DateTime();
     $endingDate->setTimestamp(strtotime('+1 year', $startingDate->getTimestamp()));
 
