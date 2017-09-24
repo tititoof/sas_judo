@@ -172,3 +172,32 @@ $factory->define(App\Models\Category::class, function(Faker\Generator $faker) {
         'type'          => 'NewsFactory',
     ];
 });
+
+$factory->define(App\Models\Article::class, function(Faker\Generator $faker) {
+    return [
+        'name'          => $faker->name,
+        'content'       => $faker->sentence,
+        'user_id'       => function() {
+            return factory(App\Models\User::class)->create()->id;
+        },
+        // 'categories'    => function() {
+        //     return factory(App\Models\Category::class)->create()->id;
+        // },
+        // 'albums'        => function() {
+        //     return factory(App\Models\Album::class)->create()->id;
+        // },
+    ];
+});
+
+$factory->define(App\Models\Album::class, function(Faker\Generator $faker) {
+    return [
+        'name'          => $faker->name,
+        'user_id'       => function() {
+            return factory(App\Models\User::class)->create()->id;
+        },
+        // 'pictures'      => function() {
+        //     return factory(App\Models\Picture::class)->create()->id;
+        // },
+        
+    ];
+});
