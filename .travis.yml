@@ -1,7 +1,5 @@
 dist: trusty
-
-sudo: true
-
+sudo: required
 language: php
 
 php:
@@ -31,7 +29,6 @@ addons:
 
 script:
   - vendor/bin/phpunit
-  - php artisan dusk
   - sonar-scanner
 
 services:
