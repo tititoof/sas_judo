@@ -4,7 +4,7 @@
  * include Vue and Vue Resource. This gives a great starting point for
  * building robust, powerful web applications using Vue and Laravel.
  */
- import 'es6-promise/auto'
+ // import 'es6-promise/auto'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
