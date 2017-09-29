@@ -23,17 +23,15 @@ install:
   - npm run dev
 
 before_script:
-  - phantomjs --webdriver=127.0.0.1:9515 & # Start PhantomJS driver
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - ./vendor/laravel/dusk/bin/chromedriver-linux &
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - php artisan serve > /dev/null 2>&1 &
   - sleep 5
 
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
   sonarcloud:
     organization: "tititoof-github"
     token:
@@ -41,7 +39,6 @@ addons:
 
 script:
   - vendor/bin/phpunit
-  - php artisan dusk
   - sonar-scanner
 
 services:
