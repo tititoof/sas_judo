@@ -18,9 +18,9 @@ before_script:
   - php artisan migrate:install
   - php artisan migrate
   - php artisan dusk:install
+  - phantomjs --webdriver=127.0.0.1:9515 & # Start PhantomJS driver
   - php artisan serve > /dev/null 2>&1 &
   - sleep 5
-  - php artisan dusk
 
 addons:
   sonarcloud:
@@ -30,6 +30,7 @@ addons:
 
 script:
   - vendor/bin/phpunit
+  - php artisan dusk
   - sonar-scanner
 
 services:
