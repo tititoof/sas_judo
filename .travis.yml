@@ -35,6 +35,7 @@ addons:
       secure: 0e30935ba286454a9a68e24eb560f8b02eb3ad4c
 
 script:
+  - php artisan dusk
   - vendor/bin/phpunit
   - sonar-scanner
 
