@@ -26,10 +26,11 @@ install:
   - npm run dev
 
 before_script:
-  - ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - ./vendor/laravel/dusk/bin/chromedriver-linux &
   - php artisan serve > /dev/null 2>&1 &
   - sleep 5
-
 
 script:
   - php artisan dusk
