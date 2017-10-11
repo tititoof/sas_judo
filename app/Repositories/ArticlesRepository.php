@@ -84,7 +84,7 @@ class ArticlesRepository
     public function getAdminArticles()
     {
         try {
-            $articles = Article::all();
+            $articles = Article::all()->reverse();
             return $articles->map(function($article) {
                 $menus = $article->categories->map(function($menu) {
                     return $menu->name;

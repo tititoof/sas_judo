@@ -3,6 +3,7 @@
 namespace App\Factories\Articles;
 
 use App\Models\Category;
+use App\Helpers\Answer;
 
 /**
  *

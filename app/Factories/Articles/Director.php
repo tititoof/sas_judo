@@ -19,7 +19,7 @@ class Director
      * @var Array $listFactories
      */
     private static $listFactories = [
-        [ self::LABEL => 'News',        self::NAME => 'NewsFactory'],
+        [ self::LABEL => 'News',        self::NAME  => 'NewsFactory'],
         [ self::LABEL => 'Articles',    self::NAME  => 'ArticlesFactory'],
         [ self::LABEL => 'Résultats',   self::NAME  => 'ResultatsFactory'],
     ];

@@ -8,6 +8,7 @@
             <hr/>
         </template>
     </div>
+    
 </template>
 <script>
 import vMenu    from '../../v-menu.vue';
@@ -31,7 +32,8 @@ export default {
             ).then(
                 response => {
                     const data = response.data;
-                    _self.articles = data;
+                    _self.articles   = data.articles
+                    _self.nbArticles = data.nbArticles
                 }
             ).catch(
                 error   => {
