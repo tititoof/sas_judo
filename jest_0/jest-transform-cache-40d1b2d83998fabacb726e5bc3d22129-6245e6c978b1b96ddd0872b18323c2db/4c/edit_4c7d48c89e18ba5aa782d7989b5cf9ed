@@ -1,0 +1,218 @@
+c56a74cacc717fb2c99ddb2c118f5adc
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _keenUi = require('keen-ui');
+
+var _keenUi2 = _interopRequireDefault(_keenUi);
+
+var _app = require('./../../../app.js');
+
+var _app2 = _interopRequireDefault(_app);
+
+var _common = require('./common.js');
+
+var _common2 = _interopRequireDefault(_common);
+
+var _back = require('./../back.js');
+
+var _back2 = _interopRequireDefault(_back);
+
+var _vuex = require('vuex');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    data: function data() {
+        return {
+            albumId: ''
+        };
+    },
+
+    mixins: [_common2.default, _back2.default],
+    components: {
+        FileUpload: require('../../v-upload-files.vue')
+    },
+    computed: {
+        user_id: {
+            get: function get() {
+                return this.$store.state.user.user.profile.data.id;
+            }
+        },
+        presentInArray: function presentInArray(picture) {
+            return !this.pictures.includes(picture);
+        }
+    },
+    methods: {
+        togglePicture: function togglePicture(id) {
+            var _self = this;
+            _self.$http.get('api/picture/' + id + '/sync/album/' + _self.albumId).then(function (response) {
+                var data = response.data;
+                _self.pictures = [];
+                _self.allPictures = [];
+                _self.setPictures(data);
+            }).catch(function (error) {
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
+            });
+        },
+        update: function update() {
+            var _self = this;
+            if (_self.files.length > 0) {
+                _self.$refs.fu.fileUpload();
+            } else {
+                _self.onAllFilesUploaded();
+            }
+        },
+        index: function index() {
+            var _self = this;
+            _self.$http.get('api/album/' + _self.albumId + '/edit').then(function (response) {
+                var data = response.data;
+                _self.name = data.object.name;
+                _self.setPictures(data);
+            }).catch(function (error) {
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
+            });
+        },
+        setPictures: function setPictures(data) {
+            var _self = this;
+            data.pictures.forEach(function (picture) {
+                _self.pictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
+            });
+            data.all_pictures.forEach(function (picture) {
+                _self.allPictures.push({ 'id': picture.id, 'url': '/get/picture/' + picture.id });
+            });
+        },
+
+        onAllFilesUploaded: function onAllFilesUploaded(allFiles) {
+            var _self = this;
+            _self.filesIds = allFiles;
+            _self.$http.patch('api/album/' + _self.albumId, { 'name': _self.name, 'pictures': _self.getFilesIds, 'user_id': _self.user_id }).then(function () {
+                _self.$emit('sas-snackbar', 'Les images ont bien été enregistrées');
+                _self.$emit('sas-snackbar', 'Album modifié');
+                _app.router.push({ name: 'admin_albums_index' });
+            }).catch(function (error) {
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
+            });
+        }
+    },
+    mounted: function mounted() {
+        this.$nextTick(function () {
+            var _self = this;
+            _self.$store.dispatch("check", { app: _self, router: _app.router });
+            _self.albumId = _self.$route.params.albumId;
+            _self.index();
+        });
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_c('small',[_c('ui-icon-button',{attrs:{"icon":"arrow_left","size":"small","color":"green"},on:{"click":function($event){$event.preventDefault();_vm.back()}}})],1),_vm._v("\n        Edition de l'album "+_vm._s(_vm.name)+"\n        "),_c('small',[_c('ui-button',{staticClass:"pull-right",attrs:{"type":"primary","color":"primary","size":"large"},on:{"click":function($event){$event.preventDefault();_vm.update()}}},[_vm._v("\n                Modifier\n            ")])],1)]),_vm._v(" "),_c('ui-textbox',{attrs:{"label":"Nom","name":"name","type":"text","placeholder":"Entrer le nom de l'album"},model:{value:(_vm.name),callback:function ($$v) {_vm.name=$$v},expression:"name"}}),_vm._v(" "),_c('file-upload',{ref:"fu",staticClass:"bg-info",attrs:{"name":"pictures","id":"pictures","accept":"image/*","action":"/api/picture","button-text":_vm.uploadName,"multiple":""},on:{"onFileChange":_vm.onFileChange,"onFileUpload":_vm.onFileUpload,"onAllFilesUploaded":_vm.onAllFilesUploaded}}),_vm._v(" "),_c('ul',{staticClass:"pagination"},_vm._l((_vm.files),function(file){return _c('li',[_vm._v("\n            "+_vm._s(file.name)+" ("+_vm._s(file.size)+")\n        ")])})),_vm._v(" "),_c('ui-collapsible',{attrs:{"open":false}},[_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('h4',[_vm._v("Images de l'abum")])]),_vm._v(" "),_c('div',{staticClass:"row text-center portfolio",staticStyle:{"height":"500px","max-height":"500px","overflow-y":"auto"}},_vm._l((_vm.pictures),function(picture,index){return _c('div',{staticClass:"col-lg-3 col-sm-3 col-xs-4",staticStyle:{"max-height":"200px"}},[_c('div',{staticClass:"panel panel-default"},[_c('div',{staticClass:"panel-body"},[_c('a',{attrs:{"href":"#","height":"150px"}},[_c('img',{staticClass:"img-thumbnail img-responsive",attrs:{"src":picture.url,"height":"150px"}})])]),_vm._v(" "),_c('div',{staticClass:"panel-footer"},[_c('ui-icon-button',{attrs:{"icon":"delete","type":"secondary","color":"red","size":"small"},on:{"click":function($event){$event.preventDefault();_vm.togglePicture(picture.id)}}})],1)]),_vm._v(" "),((index % 4 == 0) && (index != 0))?_c('div',{staticClass:"clear"}):_vm._e()])}))]),_vm._v(" "),_c('ui-collapsible',{attrs:{"open":false}},[_c('div',{attrs:{"slot":"header"},slot:"header"},[_c('h4',[_vm._v("Images enregistrées")])]),_vm._v(" "),_c('div',{staticClass:"row text-center portfolio",staticStyle:{"height":"500px","max-height":"500px","overflow-y":"auto"}},_vm._l((_vm.allPictures),function(picture,index){return _c('div',{staticClass:"col-lg-3 col-sm-3 col-xs-4",staticStyle:{"max-height":"200px"}},[_c('div',{staticClass:"panel panel-default"},[_c('div',{staticClass:"panel-body"},[_c('a',{attrs:{"href":"#","height":"150px"}},[_c('img',{staticClass:"img-thumbnail img-responsive",attrs:{"src":picture.url,"height":"150px"}})])]),_vm._v(" "),_c('div',{staticClass:"panel-footer"},[_c('ui-icon-button',{attrs:{"icon":"add","type":"secondary","color":"green","size":"small"},on:{"click":function($event){$event.preventDefault();_vm.togglePicture(picture.id)}}})],1)]),_vm._v(" "),((index % 4 == 0) && (index != 0))?_c('div',{staticClass:"clear"}):_vm._e()])}))])],1)}
+__vue__options__.staticRenderFns = []

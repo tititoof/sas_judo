@@ -1,0 +1,19 @@
+6c66200e9c200c9b8db8c0ccdf24a9da
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    methods: {
+        deleteObject: function deleteObject(url, message) {
+            var _self = this;
+            _self.$http.delete(url).then(function () {
+                _self.$emit('sas-snackbar', message);
+                _self.index();
+            }).catch(function (error) {
+                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+            });
+        }
+    }
+};

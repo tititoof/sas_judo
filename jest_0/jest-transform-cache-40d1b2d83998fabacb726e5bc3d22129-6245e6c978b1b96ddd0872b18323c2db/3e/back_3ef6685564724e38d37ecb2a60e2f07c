@@ -1,0 +1,16 @@
+c89d970b302ac3cb53aa881ac2d8abd8
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _app = require('./../../app.js');
+
+exports.default = {
+    methods: {
+        back: function back() {
+            _app.router.go(-1);
+        }
+    }
+};

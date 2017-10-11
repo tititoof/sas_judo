@@ -1,0 +1,17 @@
+9cf6112f1a031fc4f9b5826b3d71df2a
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    data: function data() {
+        return {
+            categories: [],
+            types: [],
+            typeSelected: '',
+            name: '',
+            formErrors: [{ 'name': 'name', 'human': 'Nom du menu' }, { 'name': 'categories', 'human': "Menu(s)" }]
+        };
+    }
+};

@@ -1,0 +1,137 @@
+d441ab0e17b44e41bcd160e1aa6e005d
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    props: {
+        className: String,
+        name: {
+            type: String,
+            required: true
+        },
+        id: String,
+        action: {
+            type: String,
+            required: true
+        },
+        accept: String,
+        multiple: String,
+        headers: Object,
+        method: String,
+        buttonText: {
+            type: String,
+            default: 'Télécharger'
+        }
+    },
+    computed: {
+        getIdName: function getIdName() {
+            return this.id || this.name;
+        }
+    },
+    data: function data() {
+        return {
+            myFiles: [], // a container for the files in our field
+            filesIds: '',
+            my_axios: null
+        };
+    },
+    methods: {
+        fileInputClick: function fileInputClick() {
+            // click actually triggers after the file dialog opens
+            this.$emit('onFileClick', this.myFiles);
+        },
+        fileInputChange: function fileInputChange() {
+            // get the group of files assigned to this field
+            var ident = this.id || this.name;
+            this.filesIds = '';
+            this.myFiles = document.getElementById(ident).files;
+            this.$emit('onFileChange', this.myFiles);
+        },
+        _onProgress: function _onProgress(e) {
+            // this is an internal call in XHR to update the progress
+            e.percent = e.loaded / e.total * 100;
+            this.$emit('onFileProgress', e);
+        },
+        _handleUpload: function _handleUpload(file) {
+            this.$emit('beforeFileUpload', file);
+            var form = new FormData();
+            try {
+                form.append('Content-Type', file.type || 'application/octet-stream');
+
+                // our request will have the file in the ['file'] key
+                form.append('file', file);
+            } catch (err) {
+                this.$emit('onFileError', file, err);
+                return;
+            }
+            return this.my_axios.post('/api/picture', form);
+        },
+        fileUpload: function fileUpload() {
+            var _this = this;
+
+            var _self = this;
+            if (_self.myFiles.length > 0) {
+                _self.my_axios = _axios2.default.create({
+                    baseURL: 'http://localhost',
+                    headers: {
+                        'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
+                        'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+                    }
+                });
+                var arrayOfPromises = Array.prototype.slice.call(this.myFiles, 0).map(function (file) {
+                    return _self._handleUpload(file);
+                });
+                _axios2.default.all(arrayOfPromises).then(_axios2.default.spread(function () {
+                    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                        args[_key] = arguments[_key];
+                    }
+
+                    for (var i = 0; i < args.length; i++) {
+                        _self.filesIds += args[i].data.data + ',';
+                        _this.$emit('onFileUpload', args[i]);
+                    }
+                    _self.$emit('onAllFilesUploaded', _self.filesIds);
+                }));
+            } else {
+                // someone tried to upload without adding files
+                var err = new Error("No files to upload for this field");
+                this.$emit('onFileError', this.myFiles, err);
+            }
+        }
+    },
+    events: {
+        'sendFiles': function sendFiles() {
+            var _self = this;
+            _self.fileUpload();
+        }
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.className},[_c('label',{attrs:{"for":_vm.name}},[_c('input',{attrs:{"type":"file","name":_vm.name,"id":_vm.getIdName,"accept":_vm.accept,"multiple":_vm.multiple},on:{"click":_vm.fileInputClick,"change":_vm.fileInputChange}}),_vm._v(" "),_vm._t("default")],2)])}
+__vue__options__.staticRenderFns = []

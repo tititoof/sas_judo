@@ -1,0 +1,14 @@
+1304dc17a11ed54c5c4384622246469e
+import { shallow } from 'vue-test-utils';
+import App from './../../../resources/assets/js/components/v-app';
+
+describe('App.test.js', () => {
+    let cmp, vm;
+    beforeEach(() => {
+        cmp = shallow(App);
+    });
+    it('have link title', () => {
+        expect(cmp.find('a.sas-menu').html()).to.equal('SAS Judo Jujitsu');
+    });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC50ZXN0LmpzIl0sIm5hbWVzIjpbInNoYWxsb3ciLCJBcHAiLCJkZXNjcmliZSIsImNtcCIsInZtIiwiYmVmb3JlRWFjaCIsIml0IiwiZXhwZWN0IiwiZmluZCIsImh0bWwiLCJ0byIsImVxdWFsIl0sIm1hcHBpbmdzIjoiQUFBQSxTQUFTQSxPQUFULFFBQXdCLGdCQUF4QjtBQUNBLE9BQU9DLEdBQVAsTUFBZ0IsaURBQWhCOztBQUVBQyxTQUFTLGFBQVQsRUFBd0IsTUFBTTtBQUMxQixRQUFJQyxHQUFKLEVBQVNDLEVBQVQ7QUFDQUMsZUFBVyxNQUFNO0FBQ2JGLGNBQU1ILFFBQVFDLEdBQVIsQ0FBTjtBQUNILEtBRkQ7QUFHQUssT0FBRyxpQkFBSCxFQUFzQixNQUFNO0FBQ3hCQyxlQUFPSixJQUFJSyxJQUFKLENBQVMsWUFBVCxFQUF1QkMsSUFBdkIsRUFBUCxFQUFzQ0MsRUFBdEMsQ0FBeUNDLEtBQXpDLENBQStDLGtCQUEvQztBQUNILEtBRkQ7QUFHSCxDQVJEIiwiZmlsZSI6ImFwcC50ZXN0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgc2hhbGxvdyB9IGZyb20gJ3Z1ZS10ZXN0LXV0aWxzJ1xuaW1wb3J0IEFwcCBmcm9tICcuLy4uLy4uLy4uL3Jlc291cmNlcy9hc3NldHMvanMvY29tcG9uZW50cy92LWFwcCdcblxuZGVzY3JpYmUoJ0FwcC50ZXN0LmpzJywgKCkgPT4ge1xuICAgIGxldCBjbXAsIHZtXG4gICAgYmVmb3JlRWFjaCgoKSA9PiB7XG4gICAgICAgIGNtcCA9IHNoYWxsb3coQXBwKVxuICAgIH0pXG4gICAgaXQoJ2hhdmUgbGluayB0aXRsZScsICgpID0+IHtcbiAgICAgICAgZXhwZWN0KGNtcC5maW5kKCdhLnNhcy1tZW51JykuaHRtbCgpKS50by5lcXVhbCgnU0FTIEp1ZG8gSnVqaXRzdScpXG4gICAgfSlcbn0pXG4iXX0=

@@ -1,0 +1,186 @@
+e71948306fbecb9cd5d5c6da7d6e7f61
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _vMenu = require('./v-menu.vue');
+
+var _vMenu2 = _interopRequireDefault(_vMenu);
+
+var _keenUi = require('keen-ui');
+
+var _keenUi2 = _interopRequireDefault(_keenUi);
+
+var _app = require('./../app.js');
+
+var _vuex = require('vuex');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            position: "left",
+            queueSnackbars: true,
+            showAlert: false,
+            errorAlert: '',
+            showLoader: false,
+            showSuccessAlert: false,
+            successAlert: ''
+        };
+    },
+
+    computed: (0, _vuex.mapGetters)({ isRegistred: 'isRegistred', isAdmin: 'isAdmin' }),
+
+    methods: {
+        showSnackBar: function showSnackBar(msg) {
+            var _self = this;
+            _self.$refs.snackbarContainer.createSnackbar({
+                message: msg,
+                actionColor: 'accent',
+                duration: 5000
+            });
+        },
+        showAlertError: function showAlertError(errors) {
+            var _self = this;
+            _self.errorAlert = errors;
+            _self.showAlert = true;
+        },
+        showAlertSuccess: function showAlertSuccess(message) {
+            var _self = this;
+            _self.successAlert = message;
+            _self.showSuccessAlert = true;
+            setTimeout(function () {
+                _self.showSuccessAlert = false;
+            }, 10000);
+        },
+        setAxiosInterceptors: function setAxiosInterceptors() {
+            var _self = this;
+            // Add a request interceptor
+            _app.my_axios.interceptors.request.use(function (config) {
+                // Do something before request is sent
+                _self.showLoader = true;
+                return config;
+            }, function (error) {
+                // Do something with request error
+                _self.showLoader = false;
+                return _promise2.default.reject(error);
+            });
+
+            // Add a response interceptor
+            _app.my_axios.interceptors.response.use(function (response) {
+                // Do something with response data
+                _self.showLoader = false;
+                return response;
+            }, function (error) {
+                // Do something with response error
+                _self.showLoader = false;
+                return _promise2.default.reject(error);
+            });
+        },
+        getFirstRoute: function getFirstRoute() {
+            var _self = this;
+            _self.$http.get('api/visitor/menu').then(function (response) {
+                var data = response.data.data;
+                switch (data[0].type) {
+                    case 'NewsFactory':
+                        _app.router.push({ name: 'visitor_news', params: { 'menu': data[0].id } });
+                        break;
+                    case 'ArticlesFactory':
+                        _app.router.push({ name: 'visitor_news', params: { 'menu': data[0].id } });
+                        break;
+                    case 'ResultatsFactory':
+                        _app.router.push({ name: 'visitor_results', params: { 'menu': data[0].id } });
+                        break;
+                    default:
+                        break;
+                }
+            }).catch(function (error) {
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
+            });
+        }
+    },
+    components: {
+        myMenu: _vMenu2.default
+    },
+
+    mounted: function mounted() {
+        var _self = this;
+        _self.$nextTick(function () {
+            _self.$store.dispatch("check", { app: _self, router: _app.router });
+            _self.setAxiosInterceptors();
+            _self.getFirstRoute();
+        });
+    },
+    watch: {
+        '$route.params.menu': function $routeParamsMenu(newId, oldId) {
+            var _self = this;
+            if (newId == 'reload') {
+                _self.getFirstRoute();
+            }
+        }
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"main-div"},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.showLoader),expression:"showLoader"}],attrs:{"id":"loader-background","transition":"modal"}},[_c('div',{attrs:{"id":"loader"}})]),_vm._v(" "),_c('my-menu'),_vm._v(" "),_c('div',{directives:[{name:"bar",rawName:"v-bar",value:({ preventParentScroll: false, scrollThrottle: 30, }),expression:"{ preventParentScroll: false, scrollThrottle: 30, }"}],staticStyle:{"background-color":"#cccccc"},attrs:{"id":"toto"}},[_c('div',{staticClass:"col-md-10",staticStyle:{"height":"100vh"}},[_c('div',{staticClass:"wrapper-page"},[_c('ui-alert',{directives:[{name:"show",rawName:"v-show",value:(_vm.showAlert),expression:"showAlert"}],attrs:{"type":"error"},on:{"dismiss":function($event){_vm.showAlert = false}}},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.errorAlert)}})]),_vm._v(" "),_c('ui-alert',{directives:[{name:"show",rawName:"v-show",value:(_vm.showSuccessAlert),expression:"showSuccessAlert"}],attrs:{"type":"success"},on:{"dismiss":function($event){_vm.showSuccessAlert = false}}},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.successAlert)}})]),_vm._v(" "),_c('router-view',{on:{"sas-snackbar":_vm.showSnackBar,"sas-errors":_vm.showAlertError,"sas-success":_vm.showAlertSuccess}})],1)])]),_vm._v(" "),_c('ui-snackbar-container',{ref:"snackbarContainer",attrs:{"position":_vm.position,"queue-snackbars":_vm.queueSnackbars,"transition":"slideUp"}})],1)}
+__vue__options__.staticRenderFns = []

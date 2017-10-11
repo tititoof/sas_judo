@@ -25,9 +25,13 @@
       "vue",
       "ts"
     ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
     "testRegex": "/tests/.*\\.(ts|js|vue)$",
     "transform": {
-      ".*\\.(ts|vue)$": "<rootDir>/node_modules/vue-typescript-jest/preprocessor.js"
+      ".*\\.(ts|js)$": "<rootDir>/node_modules/vue-typescript-jest/preprocessor.js",
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
     },
     "mapCoverage": true
   },

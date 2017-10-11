@@ -1,0 +1,132 @@
+1ded4637d8e12dd7c765856232da6087
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.app = exports.my_axios = exports.router = undefined;
+
+require('es6-promise/auto');
+
+var _vueRouter = require('vue-router');
+
+var _vueRouter2 = _interopRequireDefault(_vueRouter);
+
+var _routes = require('./routes/routes');
+
+var _routes2 = _interopRequireDefault(_routes);
+
+var _vApp = require('./components/v-app.vue');
+
+var _vApp2 = _interopRequireDefault(_vApp);
+
+var _keenUi = require('keen-ui');
+
+var _keenUi2 = _interopRequireDefault(_keenUi);
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _store = require('./store');
+
+var _store2 = _interopRequireDefault(_store);
+
+var _vueLazyImages = require('vue-lazy-images');
+
+var _vueLazyImages2 = _interopRequireDefault(_vueLazyImages);
+
+var _vueJsToggleButton = require('vue-js-toggle-button');
+
+var _vueJsToggleButton2 = _interopRequireDefault(_vueJsToggleButton);
+
+var _vuebar = require('vuebar');
+
+var _vuebar2 = _interopRequireDefault(_vuebar);
+
+var _vue2Filters = require('vue2-filters');
+
+var _vue2Filters2 = _interopRequireDefault(_vue2Filters);
+
+var _vueditor = require('vueditor');
+
+var _vueditor2 = _interopRequireDefault(_vueditor);
+
+var _vue2Timepicker = require('vue2-timepicker');
+
+var _vue2Timepicker2 = _interopRequireDefault(_vue2Timepicker);
+
+var _vue2GoogleMaps = require('vue2-google-maps');
+
+var VueGoogleMaps = _interopRequireWildcard(_vue2GoogleMaps);
+
+require('vueditor/dist/style/vueditor.min.css');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the body of the page. From here, you may begin adding components to
+ * the application, or feel free to tweak this setup for your needs.
+ */
+var Vue = require('vue');
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * include Vue and Vue Resource. This gives a great starting point for
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+
+var config = {
+    toolbar: ['removeFormat', 'undo', 'redo', '|', 'element', 'fontName', 'fontSize', 'foreColor', 'backColor', 'divider', 'bold', 'italic', 'underline', 'strikeThrough', 'link', 'unLink', 'divider', 'subscript', 'superscript', 'divider', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', '|', 'indent', 'outdent', 'insertOrderedList', 'insertUnorderedList', '|', 'emoji', 'picture', 'table', '|', 'fullscreen', 'sourceCode', 'markdown'],
+    fontName: [{ val: 'arial black' }, { val: 'times new roman' }, { val: 'Courier New' }],
+    fontSize: ['12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px', '36px'],
+    uploadUrl: '',
+    id: '',
+    classList: []
+};
+
+Vue.use(_vueditor2.default, config);
+
+Vue.use(_vuebar2.default);
+Vue.use(_vueRouter2.default);
+Vue.use(_keenUi2.default);
+Vue.use(_vueLazyImages2.default);
+Vue.use(_vueJsToggleButton2.default);
+Vue.use(_vue2Filters2.default);
+Vue.use(_vue2Timepicker2.default);
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyAQBD8i2RudMf6-YPEkk2HQEFPwoCPBwV4',
+        libraries: 'places' // This is required if you use the Autocomplete plugin
+        // OR: libraries: 'places,drawing'
+        // OR: libraries: 'places,drawing,visualization'
+        // (as you require)
+    }
+});
+
+var router = exports.router = new _vueRouter2.default({
+    mode: 'history',
+    routes: _routes2.default
+});
+
+var my_axios = exports.my_axios = _axios2.default.create({
+    baseURL: 'http://localhost',
+    headers: {
+        'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
+        'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+    }
+});
+
+Vue.prototype.$http = my_axios;
+
+var app = exports.app = new Vue({
+    router: router,
+    Keen: _keenUi2.default,
+    store: _store2.default,
+    render: function render(h) {
+        return h(_vApp2.default);
+    }
+}).$mount('#app');

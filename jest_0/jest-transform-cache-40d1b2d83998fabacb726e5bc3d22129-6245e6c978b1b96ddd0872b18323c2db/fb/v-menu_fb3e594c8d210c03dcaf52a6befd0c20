@@ -1,0 +1,204 @@
+752cbebae567956303d006333f68ee3f
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _vSidebar = require('./sidebar/v-sidebar.vue');
+
+var _vSidebar2 = _interopRequireDefault(_vSidebar);
+
+var _vSidebarRight = require('./sidebar/v-sidebar-right.vue');
+
+var _vSidebarRight2 = _interopRequireDefault(_vSidebarRight);
+
+var _app = require('./../app.js');
+
+var _keenUi = require('keen-ui');
+
+var _keenUi2 = _interopRequireDefault(_keenUi);
+
+var _vuex = require('vuex');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: 'myMenu',
+    data: function data() {
+        return {
+            loading: false,
+            siteTitle: "SAS Judo Jujitsu",
+            sidebarShow: false,
+            sideBarMenu: [],
+            menuOptions: [{
+                id: 'disconnect',
+                icon: 'exit_to_app',
+                label: 'Déconnexion'
+            }],
+            sideBarMenuAdmin: [{
+                id: 'admin_albums_index',
+                text: 'Albums'
+            }, {
+                id: 'admin_articles_index',
+                text: 'Articles'
+            }, {
+                id: 'admin_age_categories_index',
+                text: "Catégories d'âge"
+            }, {
+                id: 'admin_courses_index',
+                text: 'Cours'
+            }, {
+                id: 'admin_judo_event_index',
+                text: 'Evènements'
+            }, {
+                id: 'inscriptions_index',
+                text: 'Inscriptions'
+            }, {
+                id: 'admin_categories_index',
+                text: 'Menus'
+            }, {
+                id: 'admin_resultats_index',
+                text: 'Résultats'
+            }, {
+                id: 'admin_seasons_index',
+                text: 'Saisons'
+            }, {
+                id: 'admin_users_index',
+                text: 'Utilisateurs'
+            }]
+        };
+    },
+
+    components: {
+        sidebar: _vSidebar2.default, sidebarRight: _vSidebarRight2.default
+    },
+    directives: {},
+    computed: (0, _vuex.mapGetters)({ isRegistred: 'isRegistred', isAdmin: 'isAdmin' }),
+
+    methods: {
+        index: function index() {},
+        checkMenuAdmin: function checkMenuAdmin() {
+            var _self = this;
+            _self.index();
+        },
+        clickMenuAdmin: function clickMenuAdmin() {
+            this.$refs.sidebarRight.toggle();
+        },
+        menuClick: function menuClick() {
+            this.$refs.sidebar.toggle();
+        },
+        selectUserMenu: function selectUserMenu(option) {
+            switch (option.id) {
+                case 'disconnect':
+                    this.$store.dispatch("signout", _app.router);
+                    break;
+                default:
+                    break;
+            }
+        },
+        selectAdminMenu: function selectAdminMenu(option) {
+            _app.router.push({ name: option.id });
+        },
+        calendriersAction: function calendriersAction() {},
+        signinAction: function signinAction() {
+            _app.router.push({ name: 'signin' });
+        },
+        registerAction: function registerAction() {
+            _app.router.push({ name: 'register' });
+        }
+    },
+    mounted: function mounted() {
+        var _self = this;
+        _self.$nextTick(function () {
+            _self.$store.dispatch("check", { app: _self, router: _app.router });
+            _self.index();
+        });
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{on:{"sas-admin":_vm.checkMenuAdmin}},[_c('sidebar',{ref:"sidebar",staticClass:"animated sidebar-menu",attrs:{"menu":_vm.sideBarMenu,"transition":"left"}}),_vm._v(" "),_c('sidebar-right',{ref:"sidebarRight",staticClass:"animated sidebar-menu",attrs:{"menu":_vm.sideBarMenuAdmin,"transition":"right"}}),_vm._v(" "),_c('ui-toolbar',{attrs:{"type":"colored","text-color":"white"},on:{"nav-icon-click":_vm.menuClick}},[_c('div',[_c('img',{attrs:{"src":"/api/visitor/menu/picture/logo_judo.png","height":"30px"}}),_vm._v(" "),_c('router-link',{staticClass:"sas-menu",staticStyle:{"color":"#FFFFFF","text-decoration":"none"},attrs:{"to":{ name: 'home' }}},[_vm._v("SAS Judo Jujitsu")])],1),_vm._v(" "),_c('div',{attrs:{"slot":"actions"},slot:"actions"},[(_vm.isRegistred)?[_c('ui-button',{ref:"dropdownButton",attrs:{"type":"colored","color":"green","size":"large","icon":"account_circle","has-dropdown":""},on:{"click":function($event){$event.preventDefault();_vm.checkMenuAdmin($event)}}},[_c('ui-menu',{attrs:{"slot":"dropdown","contain-focus":"","has-icons":"","has-secondary-text":"","options":_vm.menuOptions},on:{"select":_vm.selectUserMenu,"close":function($event){_vm.$refs.dropdownButton.closeDropdown()}},slot:"dropdown"})],1),_vm._v(" "),(_vm.isAdmin)?_c('ui-icon-button',{attrs:{"type":"colored","color":"green","size":"large","icon":"more_vert"},on:{"click":function($event){$event.preventDefault();_vm.clickMenuAdmin($event)}}}):_vm._e()]:[_c('ui-icon-button',{ref:"signinButton",attrs:{"type":"colored","icon":"input","size":"small"},on:{"click":function($event){$event.preventDefault();_vm.signinAction()}}}),_vm._v(" "),_c('ui-icon-button',{ref:"registerButton",attrs:{"type":"colored","icon":"fiber_new","size":"small"},on:{"click":function($event){$event.preventDefault();_vm.registerAction()}}})]],2)])],1)}
+__vue__options__.staticRenderFns = []

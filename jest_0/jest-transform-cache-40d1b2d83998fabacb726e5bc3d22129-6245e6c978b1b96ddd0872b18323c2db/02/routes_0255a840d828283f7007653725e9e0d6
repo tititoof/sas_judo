@@ -1,0 +1,103 @@
+dea2a46e0d1cae842279e0e9a576d480
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _routes = require('./../components/admin/albums/routes.js');
+
+var _routes2 = _interopRequireDefault(_routes);
+
+var _routes3 = require('./../components/admin/articles/routes.js');
+
+var _routes4 = _interopRequireDefault(_routes3);
+
+var _routes5 = require('./../components/admin/categories/routes.js');
+
+var _routes6 = _interopRequireDefault(_routes5);
+
+var _routes7 = require('./../components/admin/courses/routes.js');
+
+var _routes8 = _interopRequireDefault(_routes7);
+
+var _routes9 = require('./../components/admin/judo_events/routes.js');
+
+var _routes10 = _interopRequireDefault(_routes9);
+
+var _routes11 = require('./../components/admin/seasons/routes.js');
+
+var _routes12 = _interopRequireDefault(_routes11);
+
+var _routes13 = require('./../components/admin/users/routes.js');
+
+var _routes14 = _interopRequireDefault(_routes13);
+
+var _routes15 = require('./../components/admin/resultats/routes.js');
+
+var _routes16 = _interopRequireDefault(_routes15);
+
+var _routes17 = require('./../components/admin/age_categories/routes.js');
+
+var _routes18 = _interopRequireDefault(_routes17);
+
+var _routes19 = require('./../components/all/inscriptions/routes.js');
+
+var _routes20 = _interopRequireDefault(_routes19);
+
+var _routes21 = require('./../components/all/articles/routes.js');
+
+var _routes22 = _interopRequireDefault(_routes21);
+
+var _routes23 = require('./../components/all/courses/routes.js');
+
+var _routes24 = _interopRequireDefault(_routes23);
+
+var _routes25 = require('./../components/all/judo_events/routes.js');
+
+var _routes26 = _interopRequireDefault(_routes25);
+
+var _routes27 = require('./../components/all/contact/routes.js');
+
+var _routes28 = _interopRequireDefault(_routes27);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var routes = [{
+  name: 'home',
+  path: '/',
+  component: require('./../components/all/articles/v-home.vue')
+}, {
+  name: 'dashboard',
+  path: '/dashboard',
+  component: require('./../components/v-dashboard.vue')
+}, {
+  name: 'register',
+  path: '/register',
+  component: require('./../components/v-register.vue')
+}, {
+  name: 'signin',
+  path: '/signin',
+  component: require('./../components/v-signin.vue')
+}, {
+  name: 'admin_dashboard',
+  path: '/admin',
+  component: require('./../components/admin/v-admin.vue')
+}];
+
+Array.prototype.push.apply(routes, _routes2.default);
+Array.prototype.push.apply(routes, _routes4.default);
+Array.prototype.push.apply(routes, _routes6.default);
+Array.prototype.push.apply(routes, _routes8.default);
+Array.prototype.push.apply(routes, _routes10.default);
+Array.prototype.push.apply(routes, _routes12.default);
+Array.prototype.push.apply(routes, _routes14.default);
+Array.prototype.push.apply(routes, _routes16.default);
+Array.prototype.push.apply(routes, _routes18.default);
+Array.prototype.push.apply(routes, _routes20.default);
+Array.prototype.push.apply(routes, _routes22.default);
+Array.prototype.push.apply(routes, _routes24.default);
+Array.prototype.push.apply(routes, _routes26.default);
+Array.prototype.push.apply(routes, _routes28.default);
+
+exports.default = routes;

@@ -11,7 +11,7 @@
  * the body of the page. From here, you may begin adding components to
  * the application, or feel free to tweak this setup for your needs.
  */
-const Vue           = require('vue');
+const Vue = require('vue');
 import VueRouter            from 'vue-router';
 import routes               from './routes/routes';
 import App                  from './components/v-app.vue';
@@ -25,6 +25,7 @@ import Vue2Filters          from 'vue2-filters'
 import Vueditor             from 'vueditor'
 import VueTimepicker        from 'vue2-timepicker'
 import * as VueGoogleMaps   from 'vue2-google-maps'
+import baseURL              from './baseUrl/baseUrl'
 
 import 'vueditor/dist/style/vueditor.min.css'
 
@@ -73,7 +74,7 @@ export const router = new VueRouter({
 });
 
 export const my_axios = axios.create({
-  baseURL: 'http://localhost',
+  baseURL: baseURL,
   headers: {
       'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
       'Authorization': 'Bearer ' + localStorage.getItem('id_token')

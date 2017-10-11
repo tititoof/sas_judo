@@ -1,0 +1,174 @@
+3b51dcb97ccac5a4174f04bb0e16fbf8
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _keenUi = require('keen-ui');
+
+var _keenUi2 = _interopRequireDefault(_keenUi);
+
+var _app = require('./../../../app.js');
+
+var _common = require('./common.js');
+
+var _common2 = _interopRequireDefault(_common);
+
+var _back = require('./../back.js');
+
+var _back2 = _interopRequireDefault(_back);
+
+var _vuex = require('vuex');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    data: function data() {
+        return {};
+    },
+
+    mixins: [_common2.default, _back2.default],
+    directives: {},
+    computed: {
+        editor: function editor() {
+            return this.$refs.qc;
+        },
+
+        user_id: {
+            get: function get() {
+                return this.$store.state.user.user.profile.data.id;
+            }
+        }
+    },
+    methods: {
+        store: function store() {
+            var _self = this;
+            _self.save();
+        },
+        index: function index() {
+            var _self = this;
+            var maxRows = 10;
+            var maxCols = 5;
+            for (var r = 1; r <= maxRows; r++) {
+                for (var c = 1; c <= maxCols; c++) {
+                    _self.tableOptions.push('newtable_' + r + '_' + c);
+                }
+            }
+            _self.$http.get('api/article/create').then(function (response) {
+                _self.menus = response.data.categories;
+                _self.albums = response.data.albums;
+            }).catch(function (error) {
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
+            });
+        },
+        save: function save() {
+            var album = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            var _self = this,
+                categories = [],
+                albums = [];
+            _self.content = _self.$refs.qc.getContent();
+            _self.categoriesSelected.forEach(function (category) {
+                categories.push(category.value);
+            });
+            _self.albumsSelected.forEach(function (album) {
+                albums.push(album.value);
+            });
+
+            _self.$http.post('api/article', {
+                'name': _self.name,
+                'categories': categories,
+                'content': _self.content,
+                'user_id': _self.user_id,
+                'albums': albums
+            }).then(function (response) {
+                _self.$emit('sas-snackbar', 'Article ajouté');
+                var id = response.data.data.article_id;
+                if (album) {
+                    _app.router.push({ name: 'admin_albums_new', params: { articleId: id } });
+                } else {
+                    _app.router.push({ name: 'admin_articles_index' });
+                }
+            }).catch(function (error) {
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
+            });
+        },
+        addAlbum: function addAlbum() {
+            var _self = this;
+            _self.save(true);
+        }
+    },
+    mounted: function mounted() {
+        this.$nextTick(function () {
+            var _self = this;
+            _self.$store.dispatch("check", { app: _self, router: _app.router });
+            _self.index();
+        });
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_c('small',[_c('ui-icon-button',{attrs:{"icon":"arrow_left","size":"small","color":"green"},on:{"click":function($event){$event.preventDefault();_vm.back()}}})],1),_vm._v("\n        Nouvel article\n        "),_c('small',[_c('ui-button',{staticClass:"pull-right",attrs:{"type":"primary","color":"primary","size":"large"},on:{"click":function($event){$event.preventDefault();_vm.store()}}},[_vm._v("\n                Créer\n            ")])],1)]),_vm._v(" "),_c('ui-select',{attrs:{"name":"categories","label":"Menus","options":_vm.menus,"placeholder":"Choisir le ou les menus","show-search":"","multiple":"","z-index":"1"},model:{value:(_vm.categoriesSelected),callback:function ($$v) {_vm.categoriesSelected=$$v},expression:"categoriesSelected"}}),_vm._v(" "),_c('ui-textbox',{attrs:{"label":"Nom","name":"name","type":"text","placeholder":"Entrer le nom de l'article"},model:{value:(_vm.name),callback:function ($$v) {_vm.name=$$v},expression:"name"}}),_vm._v(" "),_c('div',{attrs:{"id":"editor-vue"}},[_c('Vueditor',{ref:"qc",staticStyle:{"height":"400px"}})],1),_vm._v(" "),_c('p',{staticStyle:{"height":"10vh"}}),_vm._v(" "),_c('ui-select',{attrs:{"name":"albums","label":"Albums","options":_vm.albums,"placeholder":"Choisir le ou les albums","show-search":"","multiple":"","z-index":"1"},model:{value:(_vm.albumsSelected),callback:function ($$v) {_vm.albumsSelected=$$v},expression:"albumsSelected"}}),_vm._v(" "),_c('ui-button',{attrs:{"type":"primary","color":"primary","size":"large"},on:{"click":function($event){_vm.addAlbum()}}},[_vm._v("\n        Ajouter un album\n    ")])],1)}
+__vue__options__.staticRenderFns = []

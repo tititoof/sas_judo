@@ -43,7 +43,6 @@ export default {
     },
     watch: {
         '$route.params.menu'(newId, oldId) {
-            console.log('toto')
             this.index()
         }
     }

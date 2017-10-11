@@ -1,0 +1,191 @@
+54680cdc76a2de35f211ee25966db93c
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _app = require('./../../app.js');
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    name: "sidebar",
+    props: {
+        menu: Array
+    },
+    data: function data() {
+        return {
+            visible: false
+        };
+    },
+
+    methods: {
+        index: function index() {
+            var _self = this;
+            _self.$http.get('api/visitor/menu').then(function (response) {
+                var data = response.data.data;
+                data.forEach(function (element) {
+                    _self.menu.push({ id: element.id, text: element.name, type: element.type });
+                });
+                _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
+                _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
+                _self.menu.push({ id: 'nous_contacter', text: 'Contact' });
+            }).catch(function (error) {
+                _self.$store.dispatch("showError", {
+                    response: error.response,
+                    formElements: _self.formErrors,
+                    vue: _self
+                });
+            });
+        },
+        toggle: function toggle() {
+            var _self = this;
+            _self.visible = !_self.visible;
+        },
+        getPage: function getPage(link) {
+            var _self = this;
+            switch (link) {
+                case 'plannings_des_cours':
+                    _app.router.push({ name: 'visitor_courses' });
+                    break;
+                case 'calendriers':
+                    _app.router.push({ name: 'visitor_judo_events' });
+                    break;
+                case 'nous_contacter':
+                    _app.router.push({ name: 'visitor_contact' });
+                    break;
+                default:
+                    _self.getTypePage(link);
+                    break;
+            }
+            _self.toggle();
+        },
+        getTypePage: function getTypePage(link) {
+            var _self = this;
+            _self.menu.forEach(function (element) {
+                if (element.id === link) {
+                    switch (element.type) {
+                        case 'NewsFactory':
+                            _app.router.push({ name: 'visitor_news', params: { 'menu': link } });
+                            break;
+                        case 'ArticlesFactory':
+                            _app.router.push({ name: 'visitor_news', params: { 'menu': link } });
+                            break;
+                        case 'ResultatsFactory':
+                            _app.router.push({ name: 'visitor_results', params: { 'menu': link } });
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+    },
+    mounted: function mounted() {
+        this.$nextTick(function () {
+            var _self = this;
+            this.$root.$on('v-sidebar-toggle', this.toggle);
+            _self.index();
+        });
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('transition',{attrs:{"name":"slideLeft"}},[_c('nav',{directives:[{name:"show",rawName:"v-show",value:(_vm.visible),expression:"visible"}],staticClass:"sidenav"},[_c('button',{staticClass:"ui-icon-button closebtn ui-icon-button--type-primary ui-icon-button--color-green ui-icon-button--size-small",on:{"click":function($event){$event.preventDefault();_vm.toggle($event)}}},[_c('i',{staticClass:"ui-icon material-icons ui-icon-button-icon clear",attrs:{"aria-hidden":"true"}},[_vm._v("clear")])]),_vm._v(" "),_c('ul',{},_vm._l((_vm.menu),function(item){return _c('li',{},[_c('img',{attrs:{"src":"/api/visitor/menu/picture/logo_judo.png","height":"30px"}}),_vm._v(" "),_c('p',[_c('a',{attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.getPage(item.id)}}},[_vm._v(" "+_vm._s(item.text))])])])}))])])],1)}
+__vue__options__.staticRenderFns = []

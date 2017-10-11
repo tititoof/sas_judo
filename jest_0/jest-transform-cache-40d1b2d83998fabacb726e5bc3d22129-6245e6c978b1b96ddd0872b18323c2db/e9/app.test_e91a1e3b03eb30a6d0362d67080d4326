@@ -1,0 +1,21 @@
+76e612184b59fa5f2f5e387f8ce12804
+'use strict';
+
+var _vueTestUtils = require('vue-test-utils');
+
+var _vApp = require('./../../../resources/assets/js/components/v-app');
+
+var _vApp2 = _interopRequireDefault(_vApp);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+describe('App.test.js', function () {
+    var cmp = void 0,
+        vm = void 0;
+    beforeEach(function () {
+        cmp = (0, _vueTestUtils.shallow)(_vApp2.default);
+    });
+    it('have link title', function () {
+        expect(cmp.find('a.sas-menu').html()).to.equal('SAS Judo Jujitsu');
+    });
+});

@@ -19,7 +19,6 @@ class MenusTableSeeder extends Seeder
             ['name' => 'Le bureau', 'type' => 'ArticlesFactory',],
             ['name' => 'Les bons moments', 'type' => 'NewsFactory',],
             ['name' => 'Compétitions', 'type' => 'NewsFactory',],
-            ['name' => 'Calendrier', 'type' => 'NewsFactory',],
             ['name' => 'Cotisations', 'type' => 'NewsFactory',],
             ['name' => 'Résultats', 'type' => 'ArticlesFactory',],
         ];

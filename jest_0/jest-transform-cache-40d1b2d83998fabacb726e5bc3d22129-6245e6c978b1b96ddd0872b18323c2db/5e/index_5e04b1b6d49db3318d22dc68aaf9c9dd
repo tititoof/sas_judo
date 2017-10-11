@@ -1,0 +1,127 @@
+a0c5eee93cf0333c2c45dc85cc77c768
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _vMenu = require('../../v-menu.vue');
+
+var _vMenu2 = _interopRequireDefault(_vMenu);
+
+var _keenUi = require('keen-ui');
+
+var _keenUi2 = _interopRequireDefault(_keenUi);
+
+var _app = require('./../../../app.js');
+
+var _app2 = _interopRequireDefault(_app);
+
+var _common = require('./../common.js');
+
+var _common2 = _interopRequireDefault(_common);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            albums: [],
+            deleteId: Number,
+            show: {
+                deleteConfirm: false
+            }
+        };
+    },
+
+    mixins: [_common2.default],
+    methods: {
+        index: function index() {
+            var _self = this;
+            _self.$http.get('api/album').then(function (response) {
+                _self.albums = response.data.albums;
+            }).catch(function (error) {
+                _self.$emit('sas-errors', _self.$store.getters.showError(error.response, _self.formErrors));
+            });
+        },
+        destroy: function destroy(id) {
+            var _self = this;
+            _self.deleteId = id;
+            _self.$refs['deleteConfirm'].open();
+        },
+        deleteConfirmed: function deleteConfirmed() {
+            var _self = this;
+            _self.deleteObject('api/album/' + _self.deleteId, 'Album supprimé');
+        },
+        deleteDenied: function deleteDenied() {},
+        edit: function edit(id) {
+            _app.router.push({ name: 'admin_albums_edit', params: { albumId: id } });
+        },
+        create: function create() {
+            _app.router.push({ name: 'admin_albums_new' });
+        }
+    },
+    mounted: function mounted() {
+        this.$nextTick(function () {
+            var _self = this;
+            _self.$store.dispatch("check", { app: _self, router: _app.router });
+            _self.index();
+        });
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_vm._v("\n        Liste des albums\n        "),_c('small',[_c('ui-icon-button',{staticClass:"pull-right",attrs:{"type":"primary","icon":"add","color":"primary","size":"large"},on:{"click":function($event){$event.preventDefault();_vm.create()}}})],1)]),_vm._v(" "),(_vm.albums.length > 0)?_c('table',{staticClass:"table table-striped"},[_vm._m(0),_vm._v(" "),_c('tbody',_vm._l((_vm.albums),function(album){return _c('tr',[_c('td',[_c('ui-icon-button',{attrs:{"type":"secondary","icon":"edit","color":"orange","size":"large"},on:{"click":function($event){_vm.edit(album.id)}}}),_vm._v(" "),_c('ui-icon-button',{attrs:{"type":"secondary","size":"large","icon":"delete","color":"red"},on:{"click":function($event){_vm.destroy(album.id)}}})],1),_vm._v(" "),_c('td',[_vm._v(_vm._s(album.name))])])}))]):_vm._e(),_vm._v(" "),_c('ui-confirm',{ref:"deleteConfirm",attrs:{"title":"Suppression","type":"primary","confirm-button-icon":"delete","confirm-button-text":"Supprimer","deny-button-text":"Annuler","close-on-confirm":""},on:{"confirm":_vm.deleteConfirmed,"deny":_vm.deleteDenied}},[_vm._v("\n        êtes-vous sûr de vouloir supprimer l'album ?\n    ")])],1)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('thead',[_c('tr',[_c('th',[_vm._v("#")]),_vm._v(" "),_c('th',[_vm._v("Nom")])])])}]
