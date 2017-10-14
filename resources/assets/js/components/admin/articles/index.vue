@@ -13,7 +13,7 @@
         </h1>
         <table
             class="table table-striped"
-            v-if="articles.length > 0"
+            v-if="Object.keys(articles).length > 0"
             >
             <thead>
             <tr>

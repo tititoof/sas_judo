@@ -156,13 +156,13 @@
                     if (element.id === link) {
                         switch(element.type) {
                             case 'NewsFactory':
-                                router.push({ name: 'visitor_news', params: { 'menu': link } });
+                                router.push({ name: 'visitor_news', params: { 'menu': link, 'page': 1 } });
                                 break;
                             case 'ArticlesFactory':
-                                router.push({ name: 'visitor_news', params: { 'menu': link } });
+                                router.push({ name: 'visitor_news', params: { 'menu': link, 'page': 1 } });
                                 break;
                             case 'ResultatsFactory':
-                                router.push({ name: 'visitor_results', params: { 'menu': link } });
+                                router.push({ name: 'visitor_results', params: { 'menu': link, 'page': 1 } });
                                 break;
                             default:
                                 break;

@@ -120,10 +120,10 @@
                         const data = response.data.data;
                         switch(data[0].type) {
                             case 'NewsFactory':
-                                router.push({ name: 'visitor_news', params: { 'menu': data[0].id } });
+                                router.push({ name: 'visitor_news', params: { 'menu': data[0].id, 'page': 1 } });
                                 break;
                             case 'ArticlesFactory':
-                                router.push({ name: 'visitor_news', params: { 'menu': data[0].id } });
+                                router.push({ name: 'visitor_news', params: { 'menu': data[0].id, 'page': 1 } });
                                 break;
                             case 'ResultatsFactory':
                                 router.push({ name: 'visitor_results', params: { 'menu': data[0].id } });

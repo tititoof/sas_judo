@@ -33,7 +33,7 @@ Route::get('/visitor/{page}/articles', [
     'uses' => 'Visitor\ArticleController@index',
 ])->where(['page' => '[0-9]+']);
 Route::get('/visitor/menu', ['uses' => 'Visitor\MenuController@index']);
-Route::get('/visitor/menu/{category}', ['uses' => 'Visitor\MenuController@show']);
+Route::get('/visitor/menu/{category}/{page}', ['uses' => 'Visitor\MenuController@show']);
 Route::get('/visitor/menu/picture/{name}', ['uses' => 'Visitor\MenuController@image']);
 
 Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@show'])->middleware('throttle:1024,1');

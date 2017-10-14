@@ -42,10 +42,10 @@ class MenuController extends Controller
     /**
      * @return JsonResponse
      */
-    public function show(Category $category)
+    public function show(Category $category, $page)
     {
         $director = new Director;
-        $articles = $director->build($category);
+        $articles = $director->build($category, $page);
         return response()->json($articles);
     }
 }

@@ -27,14 +27,14 @@ class Director
     /**
      * @param Menu $menu
      */
-    public static function build(Category $menu)
+    public static function build(Category $menu, $page)
     {
         $strType = 'App\\Factories\\Articles\\'.$menu->type;
         $style = new \ReflectionClass($strType);
         if ($style->hasMethod('build')) {
             $object = $style->newInstance();
             $method = $style->getMethod('build');
-            return $method->invoke($object, $menu, []);
+            return $method->invoke($object, $menu, ['page' => $page]);
         }
         return Answer::error(
             new \InvalidArgumentException('Impossible de trouver le factory', 404),
