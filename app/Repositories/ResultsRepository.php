@@ -57,12 +57,19 @@ class ResultsRepository
 
     public function getAll($page)
     {
-        $collect = Result::orderByDesc('id')->get();
-        $resultatsPerPage = $collect->forPage($page, 10)->map(function($result) {
+        $collect    = Result::orderByDesc('id')->get();
+        $nbResults  = $collect->count();
+        $nbPerPage  = 10;
+        $resultatsPerPage = $collect->forPage($page, $nbPerPage)->map(function($result) {
             return $this->formatResultsBySeason($result);
         });
 
-        return $resultatsPerPage->all();
+        return [ 
+            'results'   => $resultatsPerPage->all(), 
+            'nbResults' => $nbResults,
+            'nbPerPage' => $nbPerPage,
+            'name'      => 'Résultats'
+        ];
     }
 
     public function formatResultsBySeason($result, $admin = false)

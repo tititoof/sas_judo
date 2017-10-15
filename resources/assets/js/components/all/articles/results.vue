@@ -20,6 +20,30 @@
             <br/>
             <hr/>
         </template>
+        <nav aria-label="...">
+            <ul class="pager">
+                <li class="previous disabled">
+                    <ui-icon-button 
+                        color="green" 
+                        icon="keyboard_arrow_left" 
+                        size="small"
+                        :disabled="firstPage"
+                        @click.prevent="PreviousPage"
+                        >
+                    </ui-icon-button>
+                </li>
+                <li class="next">
+                    <ui-icon-button 
+                        color="green" 
+                        icon="keyboard_arrow_right" 
+                        size="small"
+                        :disabled="lastPage"
+                        @click.prevent="nextPage"
+                        >
+                    </ui-icon-button>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 <script>
@@ -35,7 +59,20 @@ export default {
             results:        [],
             ageCategories:  [],
             menu:           '',
-            page:           1
+            page:           1,
+            name:           '',
+            nbArticles:     0,
+            nbPerPage:      0
+        }
+    },
+    computed: {
+        firstPage: function() {
+            const _self = this
+            return (_self.page === 1)
+        },
+        lastPage: function() {
+            const _self = this;
+            return ( (_self.nbPerPage * _self.page) >= _self.nbArticles )
         }
     },
     methods: {
@@ -44,14 +81,16 @@ export default {
             _self.menu = _self.$route.params.menu;
             _self.$http
             .get(
-                'api/visitor/menu/' + _self.menu
+                'api/visitor/menu/' + _self.menu + '/' + _self.page
             ).then(
                 response => {
-                    const data = response.data;
+                    const data = response.data.data;
                     data.results.forEach(function(element) {
                         _self.formatData(element);
                     })
                     _self.ageCategories = data.ageCategories
+                    _self.nbArticles    = data.nbResults
+                    _self.nbPerPage     = data.nbPerPage
                 }
             ).catch(
                 error   => {
@@ -71,6 +110,14 @@ export default {
             line.locality   = data.locality
             line.informations = JSON.parse(data.informations);
             _self.results.push(line);
+        },
+        PreviousPage() {
+            const _self = this
+            router.push({ name: 'visitor_news', params: { 'menu': _self.menu, 'page': (_self.page - 1) } });
+        },
+        nextPage() {
+            const _self = this
+            router.push({ name: 'visitor_news', params: { 'menu': _self.menu, 'page': (_self.page + 1) } });
         }
     },
     mounted() {
@@ -82,6 +129,15 @@ export default {
     },
     watch: {
         '$route.params.menu'(newId, oldId) {
+           const _self = this;
+            _self.page = _self.$route.params.page
+            _self.menu = _self.$route.params.menu
+            this.index()
+        },
+        '$route.params.page'(newId, oldId) {
+           const _self = this;
+            _self.page = _self.$route.params.page
+            _self.menu = _self.$route.params.menu
             this.index()
         }
     }
