@@ -1,5 +1,5 @@
 
 
-const baseUrl = (process.env.NODE_ENV === 'production') ? 'http://test.sas_judo.fr' : 'http://localhost' 
+const baseUrl = (process.env.NODE_ENV === 'production') ? 'http://new.judo-sas.fr' : 'http://localhost' 
 
 export default baseUrl

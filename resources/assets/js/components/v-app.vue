@@ -1,5 +1,7 @@
 <template>
-    <div class="main-div">
+    <div class="main-div"
+        :style="[{ 'background-image': 'url(' + backgroundImage + ')' }, {'background-size': 'contain' }]"
+        >
         <div id="loader-background"
             v-show="showLoader"
             transition="modal"
@@ -9,7 +11,6 @@
         <my-menu></my-menu>
         <div
             id="toto"
-            style="background-color: #cccccc"
             v-bar="{ preventParentScroll: false, scrollThrottle: 30, }"
             >
             <div class="col-md-10" style="height: 100vh">
@@ -61,7 +62,9 @@
                 errorAlert:         '',
                 showLoader:         false,
                 showSuccessAlert:   false,
-                successAlert:       ''
+                successAlert:       '',
+                backgroundImage:    'http://localhost/api/visitor/menu/background',
+                heightClient:       0
             }
         },
         computed:
@@ -155,6 +158,7 @@
                 )
                 _self.setAxiosInterceptors()
                 _self.getFirstRoute()
+                _self.$el.clientHeight
             });
         },
         watch: {

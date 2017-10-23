@@ -48,4 +48,17 @@ class MenuController extends Controller
         $articles = $director->build($category, $page);
         return response()->json($articles);
     }
+    
+    /**
+     * 
+     */
+    public function background()
+    {
+        if (!File::exists(storage_path("app/public/background.jpg"))) {
+            return ['success' => false, 'errors' => 'File not found'];
+        }
+        $img         = File::get(storage_path("app/public/background.jpg"));
+        $returnImage = Image::make($img);
+        return $returnImage->response();
+    }
 }
