@@ -60,6 +60,7 @@ class CoursesTest extends TestCase
                 'start_at'      => ['HH' => $startAt[0], 'mm' => $startAt[1]],
                 'end_at'        => ['HH' => $endAt[0], 'mm' => $endAt[1]],
                 'teacher_id'    => $this->course->teacher_id,
+                'color'         => '#555555',
             ],
             [ 'Authorization' => "Bearer ".(string)($this->token) ]
         );
@@ -99,6 +100,7 @@ class CoursesTest extends TestCase
                 'start_at'      => ['HH' => $startAt[0], 'mm' => $startAt[1]],
                 'end_at'        => ['HH' => $endAt[0], 'mm' => $endAt[1]],
                 'teacher_id'    => $this->course->teacher_id,
+                'color'         => '#555555',
             ],
             [ 'Authorization' => "Bearer ".(string)($this->token) ]
         );
