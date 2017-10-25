@@ -62,6 +62,8 @@
             z-index="1"
             >
         </ui-select>
+        Couleur pour le planning
+        <color-picker :colors.sync="colors" scheme="light" @change="handleChange" @update="handleUpdate"></color-picker>
     </div>
 </template>
 <script>
@@ -72,6 +74,7 @@
     import moment           from 'moment';
     import common           from './common.js'
     import back             from './../back.js'
+    import colorPicker      from 'vue-sketch-color-picker'
     export default {
         data() {
             return {
@@ -80,7 +83,8 @@
         },
         mixins: [common, back],
         components: {
-            VueTimepicker
+            VueTimepicker,
+            colorPicker
         },
         methods: {
             index() {
@@ -111,9 +115,10 @@
             update() {
                 const _self = this;
                 _self.$http.patch('api/course/' + _self.id, {
-                    'name': _self.name, 'day': _self.daySelected.value,
-                    'start_at': _self.startTimeAt, 'end_at': _self.endTimeAt,
-                    'teacher_id': _self.teacherSelected.value, 'season_id': _self.seasonSelected.value
+                    'name':         _self.name,                  'day':         _self.daySelected.value,
+                    'start_at':     _self.startTimeAt,           'end_at':      _self.endTimeAt,
+                    'teacher_id':   _self.teacherSelected.value, 'season_id':   _self.seasonSelected.value,
+                    'color':        _self.colors.hex
                 }).then(
                     () => {
                         _self.$emit('sas-snackbar', 'Cours modifié');
@@ -155,6 +160,7 @@
                         _self.daySelected = element;
                     }
                 });
+                _self.colors.hex = course.color
                 _self.refreshHighlightNextTick();
             },
             refreshHighlightNextTick () {

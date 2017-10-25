@@ -57,16 +57,19 @@
             placeholder="Choisir le professeur" show-search z-index="1"
             >
         </ui-select>
+        Couleur pour le planning
+        <color-picker :colors.sync="colors" scheme="light" @change="handleChange" @update="handleUpdate"></color-picker>
     </div>
 </template>
 <script>
-    import Keen         from 'keen-ui';
-    import {app}        from './../../../app.js';
-    import {router}     from './../../../app.js';
-    import VueTimepicker from 'vue2-timepicker';
-    import moment       from 'moment';
-    import common       from './common.js'
-    import back         from './../back.js'
+    import Keen             from 'keen-ui';
+    import {app}            from './../../../app.js';
+    import {router}         from './../../../app.js';
+    import VueTimepicker    from 'vue2-timepicker';
+    import moment           from 'moment';
+    import common           from './common.js'
+    import back             from './../back.js'
+    import colorPicker      from 'vue-sketch-color-picker'
     export default {
         data() {
             return {
@@ -74,7 +77,8 @@
         },
         mixins: [common, back],
         components: {
-            VueTimepicker
+            VueTimepicker,
+            colorPicker
         },
         methods: {
           index() {
@@ -98,10 +102,12 @@
           },
           store() {
             const _self = this;
-            _self.$http.post('api/course', { 'name': _self.name, 'day': _self.daySelected.value,
-                'start_at': _self.startTimeAt, 'end_at': _self.endTimeAt,
-                'teacher_id': _self.teacherSelected.value, 'season_id': _self.seasonSelected.value }
-            ).then(
+            _self.$http.post('api/course', { 
+                'name':         _self.name,                  'day':         _self.daySelected.value,
+                'start_at':     _self.startTimeAt,           'end_at':      _self.endTimeAt,
+                'teacher_id':   _self.teacherSelected.value, 'season_id':   _self.seasonSelected.value,
+                'color':        _self.colors.hex
+            }).then(
                 () => {
                     _self.$emit('sas-snackbar', 'Saison ajoutée');
                     router.push({ name: 'admin_courses_index' });

@@ -132,7 +132,8 @@
                         _self.tasksList[i][_self.taskIndex].styleObj  = {
                             height: difMin * 100 / 60 + 'px',
                             top: ((startMin - (_self.timeGround[0].split(":")[0] * 60 + _self.timeGround[0].split(":")[1] * 1)) * 100 / 60) + 50 + 'px',
-                            backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
+                            // backgroundColor: _self.color[~~(Math.random() * _self.color.length)],
+                            backgroundColor: _self.taskDetail[i][j].color,
                             left: (3.8 + (13.80 * i)) + '%',
                             width: '12.28%'
                         };

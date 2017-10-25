@@ -39,6 +39,7 @@ import Vue          from './../../../app.js'
 import { router }   from './../../../app.js'
 import common       from './common.js'
 import back         from './../back.js'
+
 export default {
     data() {
         return {
@@ -52,8 +53,8 @@ export default {
             _self.$http.get('api/age_category/' + _self.id + '/edit')
             .then(
                 response => {
-                    _self.name  = response.data.ageCategory.name;
-                    _self.years = response.data.ageCategory.years;
+                    _self.name       = response.data.ageCategory.name;
+                    _self.years      = response.data.ageCategory.years;
                 }
             ).catch(
                 error   => {
@@ -65,36 +66,40 @@ export default {
                 }
             )
         },
-    update() {
+        update() {
+            const _self = this;
+            _self.$http.patch(
+                'api/age_category/' + _self.id,
+                { name: _self.name, years: _self.years }
+            ).then(
+                () => {
+                    _self.$emit('sas-snackbar', 'Catégorie d\'âge modifiée');
+                    router.push({ name: 'admin_age_categories_index' });
+                }
+            ).catch(
+                error   => {
+                    _self.$store.dispatch("showError", {
+                        response:       error.response,
+                        formElements:   _self.formErrors,
+                        vue:            _self
+                    })
+                }
+            )
+        },
+        setColorCode(color_code) {
+			this.color_code = color_code;
+		},
+
+    },
+    mounted() {
         const _self = this;
-        _self.$http.patch(
-            'api/age_category/' + _self.id,
-            { name: _self.name, years: _self.years }
-        ).then(
-            () => {
-                _self.$emit('sas-snackbar', 'Catégorie d\'âge modifiée');
-                router.push({ name: 'admin_age_categories_index' });
-            }
-        ).catch(
-            error   => {
-                _self.$store.dispatch("showError", {
-                    response:       error.response,
-                    formElements:   _self.formErrors,
-                    vue:            _self
-                })
-            }
-        )
+        this.$nextTick(function () {
+            _self.$store.dispatch("check",
+                { app: _self, router: router }
+            )
+            _self.id = _self.$route.params.id;
+            _self.index();
+        });
     }
-  },
-  mounted() {
-    const _self = this;
-    this.$nextTick(function () {
-        _self.$store.dispatch("check",
-            { app: _self, router: router }
-        )
-        _self.id = _self.$route.params.id;
-        _self.index();
-    });
-  }
 }
 </script>

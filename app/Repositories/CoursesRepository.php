@@ -36,6 +36,7 @@ class CoursesRepository
             $course->end_at     = $endAt->format('H:i');
             $course->teacher_id = $request->input('teacher_id');
             $course->season_id  = $request->input('season_id');
+            $course->color      = $request->input('color');
             $course->save();
         } catch (\Exception $exception) {
             return Answer::error($exception);
@@ -110,6 +111,7 @@ class CoursesRepository
                     $course->dateStart  = $item->start_at;
                     $course->dateEnd    = $item->end_at;
                     $course->title      = $item->name;
+                    $course->color      = $item->color;
                 }
                 return $course;
             });
