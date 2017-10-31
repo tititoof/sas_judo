@@ -48,11 +48,12 @@
     </div>
 </template>
 <script>
-    import myMenu       from './v-menu.vue';
-    import Keen         from 'keen-ui';
-    import { router }   from './../app.js';
-    import { my_axios } from './../app.js';
-    import { mapGetters } from 'vuex';
+    import myMenu           from './v-menu.vue';
+    import Keen             from 'keen-ui';
+    import { router }       from './../app.js';
+    import { my_axios }     from './../app.js';
+    import { mapGetters }   from 'vuex';
+    import baseURL          from './../baseUrl/baseUrl'
     export default {
         data() {
             return {
@@ -159,6 +160,7 @@
                 _self.setAxiosInterceptors()
                 _self.getFirstRoute()
                 _self.$el.clientHeight
+                _self.backgroundImage = baseURL + '/api/visitor/menu/background'
             });
         },
         watch: {
