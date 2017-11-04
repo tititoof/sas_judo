@@ -14,7 +14,8 @@
     </div>
 </template>
 <script>
-    import axios from 'axios';
+    import axios    from 'axios'
+    import baseURL  from './../baseUrl/baseUrl'
     export default {
         props: {
             className: String,
@@ -83,7 +84,7 @@
                 const _self = this
                 if (_self.myFiles.length > 0) {
                     _self.my_axios = axios.create({
-                        baseURL: 'http://localhost',
+                        baseURL: baseURL,
                         headers: {
                           'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].getAttribute('content'),
                           'Authorization': 'Bearer ' + localStorage.getItem('id_token')
