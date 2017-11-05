@@ -1,6 +1,6 @@
 <template>
     <div class="main-div"
-        :style="[{ 'background-image': 'url(' + backgroundImage + ')' }, {'background-size': 'contain' }]"
+        :style="[{ 'background-image': 'url(' + backgroundImage + ')' }, {'background-size': 'cover' }]"
         >
         <div id="loader-background"
             v-show="showLoader"
@@ -9,35 +9,39 @@
             <div id="loader"></div>
         </div>
         <my-menu></my-menu>
-        <div
-            id="toto"
-            v-bar="{ preventParentScroll: false, scrollThrottle: 30, }"
-            >
-            <div class="col-md-10" style="height: 100vh">
-                <div class="wrapper-page">
-                    <ui-alert
-                        @dismiss="showAlert = false"
-                        type="error"
-                        v-show="showAlert"
-                        >
-                        <p v-html="errorAlert"></p>
-                    </ui-alert>
-                    <ui-alert
-                        @dismiss="showSuccessAlert = false"
-                        type="success"
-                        v-show="showSuccessAlert"
-                        >
-                        <p v-html="successAlert"></p>
-                    </ui-alert>
-                    <router-view
-                        v-on:sas-snackbar="showSnackBar"
-                        v-on:sas-errors="showAlertError"
-                        v-on:sas-success="showAlertSuccess"
-                        >
-                    </router-view>
+        <template>
+            <v-bar wrapper="wrapper"
+                vBar=""
+                vBarInternal=""
+                hBar=""
+                hBarInternal="">
+                <!-- your content -->
+                <div class="col-md-12">
+                    <div class="wrapper-page">
+                        <ui-alert
+                            @dismiss="showAlert = false"
+                            type="error"
+                            v-show="showAlert"
+                            >
+                            <p v-html="errorAlert"></p>
+                        </ui-alert>
+                        <ui-alert
+                            @dismiss="showSuccessAlert = false"
+                            type="success"
+                            v-show="showSuccessAlert"
+                            >
+                            <p v-html="successAlert"></p>
+                        </ui-alert>
+                        <router-view
+                            v-on:sas-snackbar="showSnackBar"
+                            v-on:sas-errors="showAlertError"
+                            v-on:sas-success="showAlertSuccess"
+                            >
+                        </router-view>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </v-bar>
+        </template>
         <ui-snackbar-container
             ref="snackbarContainer"
             :position="position"
@@ -54,6 +58,7 @@
     import { my_axios }     from './../app.js';
     import { mapGetters }   from 'vuex';
     import baseURL          from './../baseUrl/baseUrl'
+    import VBar from 'v-bar'
     export default {
         data() {
             return {
@@ -148,7 +153,7 @@
             }
         },
         components: {
-            myMenu
+            myMenu, VBar
         },
 
         mounted: function() {
@@ -262,5 +267,9 @@
     .modal-leave #loader-background {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+    .wrapper {
+        height: 90vh;
+        width: 98vw;
     }
 </style>

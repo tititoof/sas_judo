@@ -71,7 +71,6 @@
     "node-sass": "4.5.3",
     "v-bar": "^3.0.0",
     "v-img": "^0.1.9",
-    "v-viewer": "^0.2.0",
     "vue": "2.5.2",
     "vue-template-compiler": "2.5.2",
     "vue-bulma-quill": "",

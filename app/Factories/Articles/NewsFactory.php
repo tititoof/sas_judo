@@ -29,7 +29,7 @@ class NewsFactory extends AbstractFactory
         $collect         = $menu->articles;
         $collect         = $collect->reverse();
         $page            = $options['page'] ?? 1;
-        $articlesPerPage = $collect->forPage($page, 10);
+        $articlesPerPage = $collect->forPage($page, $nbPerPage);
         $nbArticles      = $collect->count();
         $articlesPerPage = $articlesPerPage->map(function($item, $key) {
             return [

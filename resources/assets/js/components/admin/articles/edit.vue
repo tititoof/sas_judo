@@ -82,8 +82,8 @@
                             _self.categoriesSelected.push({ 'label': category.name, 'value': category.id });
                         });
                         _self.albums = data.allAlbums;
-                        data.albums.forEach(function(album) {
-                            _self.albums.push({ 'label': album.name, 'value': album.id });
+                        data.object.albums.forEach(function(album) {
+                            _self.albumsSelected.push({ 'label': album.name, 'value': album.id });
                         });
 
                         if (newAlbumId !== 0) {

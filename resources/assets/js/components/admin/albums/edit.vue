@@ -46,7 +46,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#" height="150px">
-                                <img :src="picture.url" class="img-thumbnail img-responsive" height="150px">
+                                <img v-img:name :src="picture.url" class="img-thumbnail img-responsive" height="150px">
                             </a>
                         </div>
                         <div class="panel-footer">
@@ -70,8 +70,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <a href="#" height="150px">
-                                <img :src="picture.url" class="img-thumbnail img-responsive" height="150px">
-                                
+                                <img v-img:name :src="picture.url" class="img-thumbnail img-responsive" height="150px">
                             </a>
                         </div>
                         <div class="panel-footer">
