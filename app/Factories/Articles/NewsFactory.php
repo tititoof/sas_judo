@@ -36,6 +36,7 @@ class NewsFactory extends AbstractFactory
                 'name'      => $item->name,
                 'content'   => $item->content,
                 'albums'    => $item->albums,
+                'images'    => $this->getPictures($item->albums),
             ];
         });
         return [ 
@@ -44,5 +45,16 @@ class NewsFactory extends AbstractFactory
             'nbPerPage'     => $nbPerPage, 
             'name'          => $menu->name 
         ];
+    }
+    
+    private function getPictures($albums)
+    {
+        $pictures = [];
+        foreach ($albums as $album) {
+            if ( is_array($album->pictures) && (count($album->pictures) > 0) ) {
+                $pictures = array_merge($pictures, $album->pictures);
+            }
+        }
+        return $pictures;
     }
 }

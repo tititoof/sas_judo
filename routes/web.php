@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Auth::routes();
 
 Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@miniShow']);
+Route::get('/get/picture/{id}/{resize}', ['uses' => 'Admin\PictureController@show']);
 // Route::get('/home', 'HomeController@index');
 
 //Route::get('*', 'HomeController@index');

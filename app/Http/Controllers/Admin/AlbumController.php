@@ -59,8 +59,8 @@ class AlbumController extends Controller
      */
     public function edit(Album $album)
     {
-        $pictures = $album->pictures;
-        $albumRepo = new AlbumRepository;
+        $pictures    = $album->pictures;
+        $albumRepo   = new AlbumRepository;
         $allPictures = $albumRepo->getOtherPictures($pictures);
         return response()->json(['success' => true, 'object' => $album, 'pictures' => $pictures, 'all_pictures' => $allPictures]);
     }

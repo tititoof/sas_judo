@@ -38,6 +38,7 @@ class ArticlesFactory extends AbstractFactory
                 'name'      => $item->name,
                 'content'   => $item->content,
                 'albums'    => $item->albums,
+                'images'    => $item->albums()->pictures,
             ];
         });
         return [ 

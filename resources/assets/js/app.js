@@ -26,7 +26,7 @@ import Vueditor             from 'vueditor'
 import VueTimepicker        from 'vue2-timepicker'
 import * as VueGoogleMaps   from 'vue2-google-maps'
 import baseURL              from './baseUrl/baseUrl'
-
+import VueImg               from 'v-img'
 import 'vueditor/dist/style/vueditor.min.css'
 
 let config = {
@@ -66,7 +66,7 @@ Vue.use(VueGoogleMaps, {
         // (as you require)
     }
 })
-
+Vue.use(VueImg)
 
 export const router = new VueRouter({
     mode: 'history',

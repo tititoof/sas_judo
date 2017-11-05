@@ -6,6 +6,20 @@
             >
             <h3>{{ article.name }}</h3>
             <p v-html="article.content"></p>
+            <p>
+                <div 
+                    class="row text-center portfolio" style="height:500px; max-height:500px; overflow-y: auto"
+                    v-show="article.albums.length > 0">
+                    <template v-for="(albums, iAlbums) in article.albums">
+                        <div class="col-lg-3 col-sm-3 col-xs-4"
+                             v-for="(picture, index) in albums.pictures" style="max-height: 200px">
+                            <img v-img:name :src="'/get/picture/' + picture.id + '/false'" class="img-thumbnail img-responsive" height="150px">
+                            
+                            <div class="clear" v-if="(index % 4 == 0) && (index != 0)"></div>
+                        </div>
+                    </template>
+                </div>
+            </p>
             <hr/>
         </template>
         <nav aria-label="...">
@@ -91,6 +105,9 @@ export default {
         nextPage() {
             const _self = this
             router.push({ name: 'visitor_news', params: { 'menu': _self.menu, 'page': (_self.page + 1) } });
+        },
+        pictureUrl(id) {
+            return '/get/picture/' + id
         }
     },
     mounted() {
