@@ -1,6 +1,7 @@
 <template>
     <div>
-        <template
+        <article 
+            class="article-section article-section-1"
             v-for="result in results"
             >
             <h3>
@@ -19,7 +20,7 @@
             </ul>
             <br/>
             <hr/>
-        </template>
+        </article>
         <nav aria-label="...">
             <ul class="pager">
                 <li class="previous disabled">

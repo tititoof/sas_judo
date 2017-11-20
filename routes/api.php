@@ -36,6 +36,7 @@ Route::get('/visitor/menu', ['uses' => 'Visitor\MenuController@index']);
 Route::get('/visitor/menu/{category}/{page}', ['uses' => 'Visitor\MenuController@show']);
 Route::get('/visitor/menu/picture/{name}', ['uses' => 'Visitor\MenuController@image']);
 Route::get('/visitor/menu/background', ['uses' => 'Visitor\MenuController@background']);
+Route::get('/visitor/menu/logo', ['uses' => 'Visitor\MenuController@logo']);
 
 Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@show'])->middleware('throttle:1024,1');
 Route::get('visitor/courses', ['uses' => 'Visitor\CourseController@index']);

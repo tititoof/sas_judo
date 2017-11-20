@@ -61,4 +61,14 @@ class MenuController extends Controller
         $returnImage = Image::make($img);
         return $returnImage->response();
     }
+    
+    public function logo()
+    {
+        if (!File::exists(storage_path("app/public/logo_judo.png"))) {
+            return ['success' => false, 'errors' => 'File not found'];
+        }
+        $img         = File::get(storage_path("app/public/logo_judo.png"));
+        $returnImage = Image::make($img);
+        return $returnImage->response();
+    }
 }

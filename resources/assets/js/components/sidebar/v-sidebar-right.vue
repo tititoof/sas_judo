@@ -36,7 +36,7 @@
 }
 
 .sidenav-right ul li {
-    float: left;
+    float: right;
     min-height: 1px;
     line-height: 1em;
     /*line-height: 60px;*/
@@ -70,10 +70,11 @@
                 </button>
                 <ul class="">
                     <li v-for="item in menu" class="">
-                        <img src="/api/visitor/menu/picture/logo_judo.png" height="30px"/>
+                        <img src="/api/visitor/menu/logo" height="30px"/>
                         <p>
                             <a @click.prevent="getPage(item.id)" href="#"> {{ item.text }}</a>
                         </p>
+                        <hr/>
                     </li>
                 </ul>
             </nav>

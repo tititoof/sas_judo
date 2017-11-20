@@ -20,7 +20,7 @@
             @nav-icon-click="menuClick"
             >
             <div>
-                <img src="/api/visitor/menu/picture/logo_judo.png" height="30px"/>
+                <img src="/api/visitor/menu/logo" height="30px"/>
                 <router-link :to="{ name: 'home' }" class="sas-menu" style="color: #FFFFFF; text-decoration: none">SAS Judo Jujitsu</router-link>
             </div>
             <div slot="actions">
