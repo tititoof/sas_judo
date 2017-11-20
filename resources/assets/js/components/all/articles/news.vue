@@ -1,33 +1,34 @@
 <template>
     <div>
         <h1>{{ name }}</h1>
-        <template
+        <article
+            class="article-section article-section-1"
             v-for="article in articles"
             >
             <h3>{{ article.name }}</h3>
             <p v-html="article.content"></p>
             <p>
-                <div 
+                <div
                     class="row text-center portfolio" style="height:500px; max-height:500px; overflow-y: auto"
                     v-show="article.albums.length > 0">
-                    <template v-for="(albums, iAlbums) in article.albums">
+                    <section v-for="(albums, iAlbums) in article.albums">
                         <div class="col-lg-3 col-sm-3 col-xs-4"
                              v-for="(picture, index) in albums.pictures" style="max-height: 200px">
                             <img v-img:name :src="'/get/picture/' + picture.id + '/false'" class="img-thumbnail img-responsive" height="150px">
-                            
+
                             <div class="clear" v-if="(index % 4 == 0) && (index != 0)"></div>
                         </div>
-                    </template>
+                    </section>
                 </div>
             </p>
             <hr/>
-        </template>
+        </article>
         <nav aria-label="...">
             <ul class="pager">
                 <li class="previous disabled">
-                    <ui-icon-button 
-                        color="green" 
-                        icon="keyboard_arrow_left" 
+                    <ui-icon-button
+                        color="green"
+                        icon="keyboard_arrow_left"
                         size="small"
                         :disabled="firstPage"
                         @click.prevent="PreviousPage"
@@ -35,9 +36,9 @@
                     </ui-icon-button>
                 </li>
                 <li class="next">
-                    <ui-icon-button 
-                        color="green" 
-                        icon="keyboard_arrow_right" 
+                    <ui-icon-button
+                        color="green"
+                        icon="keyboard_arrow_right"
                         size="small"
                         :disabled="lastPage"
                         @click.prevent="nextPage"
