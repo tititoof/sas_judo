@@ -21,7 +21,6 @@
                     </section>
                 </div>
             </p>
-            <hr/>
         </article>
         <nav aria-label="...">
             <ul class="pager">

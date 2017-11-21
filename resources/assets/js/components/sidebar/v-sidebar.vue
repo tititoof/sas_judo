@@ -58,6 +58,18 @@
         display: block;
     }
 
+    .sidenav ul li:hover {
+        float: left;
+        min-height: 1px;
+        line-height: 1em;
+        /*line-height: 60px;*/
+        vertical-align: middle;
+        text-decoration: none;
+        list-style-type: none;
+        display: block;
+        box-shadow: 0 2px 6px #0f0f0f;
+    }
+
     .sidenav ul li img {
         float: left;
         margin: 0 0 10px 0;
@@ -86,7 +98,6 @@
                         <p>
                             <a @click.prevent="getPage(item.id)" href="#"> {{ item.text }}</a>
                         </p>
-                        <hr/>
                     </li>
                 </ul>
             </nav>
