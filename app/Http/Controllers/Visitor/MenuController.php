@@ -54,21 +54,20 @@ class MenuController extends Controller
      */
     public function background()
     {
-        if (!File::exists(storage_path("app/public/background.jpg"))) {
-            return ['success' => false, 'errors' => 'File not found'];
-        }
-        $img         = File::get(storage_path("app/public/background.jpg"));
-        $returnImage = Image::make($img);
-        return $returnImage->response();
+        return $this->getFile('background.jpg')->response();
     }
     
     public function logo()
     {
-        if (!File::exists(storage_path("app/public/logo_judo.png"))) {
+        return $this->getFile('logo_judo.png')->response();
+    }
+    
+    private function getFile($file)
+    {
+        if (!File::exists(storage_path("app/public/".$file))) {
             return ['success' => false, 'errors' => 'File not found'];
         }
-        $img         = File::get(storage_path("app/public/logo_judo.png"));
-        $returnImage = Image::make($img);
-        return $returnImage->response();
+        $img         = File::get(storage_path("app/public/".$file));
+        return Image::make($img);
     }
 }

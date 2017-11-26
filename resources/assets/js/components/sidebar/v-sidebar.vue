@@ -11,6 +11,7 @@
         overflow-x: hidden;
         padding-top: 60px;
         text-decoration: none;
+        box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.4);
     }
 
     .sidenav a {
@@ -26,10 +27,11 @@
     .sidenav li a:hover, .offcanvas a:focus{
         color: #FFFFFF;
         /*font-family: 'Lato', sans-serif;*/
-        background: #006428;
+        background: #009032;
         font-size: 15px;
         width: 250px;
         font-weight: bold;
+        box-shadow: 0 2px 6px #0f0f0f;
     }
 
     .sidenav .closebtn {
@@ -58,17 +60,17 @@
         display: block;
     }
 
-    .sidenav ul li:hover {
-        float: left;
-        min-height: 1px;
-        line-height: 1em;
+    /*.sidenav ul li:hover {*/
+    /*    float: left;*/
+    /*    min-height: 1px;*/
+    /*    line-height: 1em;*/
         /*line-height: 60px;*/
-        vertical-align: middle;
-        text-decoration: none;
-        list-style-type: none;
-        display: block;
-        box-shadow: 0 2px 6px #0f0f0f;
-    }
+    /*    vertical-align: middle;*/
+    /*    text-decoration: none;*/
+    /*    list-style-type: none;*/
+    /*    display: block;*/
+    /*    box-shadow: 0 2px 6px #0f0f0f;*/
+    /*}*/
 
     .sidenav ul li img {
         float: left;

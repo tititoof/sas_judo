@@ -23,8 +23,9 @@
 }
 
 .sidenav-right a:hover, .offcanvas a:focus{
-    background: #006428;
+    background: #009032;
     color: #f1f1f1;
+    box-shadow: 0 2px 6px #009032;
 }
 
 .sidenav-right .closebtn {
@@ -74,7 +75,6 @@
                         <p>
                             <a @click.prevent="getPage(item.id)" href="#"> {{ item.text }}</a>
                         </p>
-                        <hr/>
                     </li>
                 </ul>
             </nav>

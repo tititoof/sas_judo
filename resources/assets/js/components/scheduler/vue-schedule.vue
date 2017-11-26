@@ -202,6 +202,7 @@
         height: 50px;
         cursor: pointer;
         list-style-type: none;
+        box-shadow: 0px 1px 50px #5E5E5E;
     }
     .task-list-item p{
         text-align: left;
