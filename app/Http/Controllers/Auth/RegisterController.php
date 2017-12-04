@@ -35,7 +35,7 @@ class RegisterController extends Controller
     /**
      * Password constant
      */
-    const PWD       = 'password';
+    const PASS       = 'password';
 
     /**
      * Name constant
@@ -72,7 +72,7 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
-        $token = JWTAuth::attempt($request->only(self::EMAIL, self::PWD) ,
+        $token = JWTAuth::attempt($request->only(self::EMAIL, self::PASS) ,
             ['exp'   => Carbon::now()->addWeek()->timestamp,]);
         $data = [];
         $meta = [];
@@ -97,7 +97,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             self::NAME      => 'required|max:255',
             self::EMAIL     => 'required|email|max:255|unique:users',
-            self::PWD       => 'required|min:6|confirmed',
+            self::PASS      => 'required|min:6|confirmed',
         ]);
     }
 
@@ -112,7 +112,7 @@ class RegisterController extends Controller
         return User::create([
             self::NAME      => $data[self::NAME],
             self::EMAIL     => $data[self::EMAIL],
-            self::PWD       => bcrypt($data[self::PWD]),
+            self::PASS      => bcrypt($data[self::PWD]),
         ]);
     }
 }

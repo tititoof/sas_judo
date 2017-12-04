@@ -73,7 +73,7 @@ class ArticlesRepository
             $perPage     = 5;
             $currentPage = $page - 1;
             if ($pagedData->count() > $perPage) {
-                $pagedData   = array_slice($collect, $currentPage * $perPage, $perPage);
+                $pagedData   = array_slice($articles, $currentPage * $perPage, $perPage);
             }
             return Answer::success(200, $pagedData);
         } catch (\Exception $exception) {

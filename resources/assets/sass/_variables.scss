@@ -20,7 +20,7 @@ $brand-danger: #bf5329;
 
 // Typography
 $font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 14px;
+$font-size-base: 14vh;
 $line-height-base: 1.6;
 $text-color: #636b6f;
 
@@ -137,7 +137,7 @@ hr {
   //height: 300px;
   margin: 1rem;
   position: relative;
-  width: 90vw;
+  width: 100%;
 }
 
 .article-section-1 {
