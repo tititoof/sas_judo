@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CourseFormRequest extends FormRequest
 {
-    CONST REQUIRED = 'required';
+    const REQUIRED = 'required';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class CourseFormRequest extends FormRequest
     {
         $course    = (null !== $this->route('course')) ? $this->route('course') : null;
         $rules = [
-            'name'          => 'required|max:255', //|unique:courses,name',
+            'name'          => 'required|max:255',
             'season_id'     => self::REQUIRED,
             'day'           => self::REQUIRED,
             'start_at'      => self::REQUIRED,
@@ -35,9 +35,9 @@ class CourseFormRequest extends FormRequest
             'teacher_id'    => self::REQUIRED,
             'color'         => self::REQUIRED,
         ];
-        // if (null !== $course) {
-        //     $rules = array_merge($rules, ['name' => 'required|max:255|unique:courses,name,'.$course['attributes']['id'],]);
-        // }
+        if (null !== $course) {
+            $rules = array_merge($rules, ['name' => 'required|max:255|unique:courses,name,'.$course['attributes']['id'],]);
+        }
         return $rules;
     }
 }
