@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1>{{ name }}</h1>
+        <h1>
+            {{ name }}
+        </h1>
         <article
             class="article-section article-section-1"
             v-for="article in articles"
@@ -9,13 +11,16 @@
             <p v-html="article.content"></p>
             <p>
                 <div
-                    class="row text-center portfolio" style="height:500px; max-height:500px; overflow-y: auto"
+                    class="row text-center portfolio" 
+                    style="height:30vh; max-height: 30vh; overflow-y: auto"
                     v-show="article.albums.length > 0">
                     <section v-for="(albums, iAlbums) in article.albums">
                         <div class="col-lg-3 col-sm-3 col-xs-4"
-                             v-for="(picture, index) in albums.pictures" style="max-height: 200px">
-                            <img v-img:name :src="'/get/picture/' + picture.id + '/false'" class="img-thumbnail img-responsive" height="150px">
-
+                             v-for="(picture, index) in albums.pictures" style="max-height: 20vh">
+                            <img v-img:name 
+                                :src="'/get/picture/' + picture.id + '/false'" 
+                                class="img-thumbnail img-responsive" 
+                                height="20vh">
                             <div class="clear" v-if="(index % 4 == 0) && (index != 0)"></div>
                         </div>
                     </section>

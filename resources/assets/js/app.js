@@ -27,6 +27,7 @@ import VueTimepicker        from 'vue2-timepicker'
 import * as VueGoogleMaps   from 'vue2-google-maps'
 import baseURL              from './baseUrl/baseUrl'
 import VueImg               from 'v-img'
+import VueMq                from 'vue-mq'
 import 'vueditor/dist/style/vueditor.min.css'
 
 let config = {
@@ -68,6 +69,15 @@ Vue.use(VueGoogleMaps, {
 })
 Vue.use(VueImg)
 
+
+Vue.use(VueMq, {
+  breakpoints: { // default breakpoints - customize this
+    sm: 450,
+    md: 1250,
+    lg: Infinity,
+  }
+})
+
 export const router = new VueRouter({
     mode: 'history',
     routes
@@ -82,6 +92,11 @@ export const my_axios = axios.create({
 });
 
 Vue.prototype.$http = my_axios;
+
+Vue.filter('truncate', function(string, value) {
+    return string.substring(0, value);
+})
+
 
 export const app = new Vue({
     router,

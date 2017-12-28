@@ -68,8 +68,8 @@ $brand-warning: #cbb956;
 }
 .wrapper-page {
   background: white;
-  margin: 32px;
-  padding: 32px;
+  margin: 1vw;
+  padding: 1vw 2vw 1vw 1vw;
   overflow-y: visible;
 }
 
@@ -135,7 +135,7 @@ hr {
   padding-left: 1vw;
   padding-bottom: 1vh;
   //height: 300px;
-  margin: 1rem;
+  margin: 1rem 0 1rem 0;
   position: relative;
   width: 100%;
 }
