@@ -1,48 +1,74 @@
 <template>
     <div class="schedule">
-        <div class="time-ground">
-            <ul style="list-style-type: none;">
-                <li v-for="time in timeGround">
-                    <mq-layout mq="lg">
+        <mq-layout mq="lg">
+            <div class="time-ground">
+                <ul style="list-style-type: none;">
+                    <li v-for="time in timeGround">
                         <span>
                             {{ time }}
                         </span>
                         <p :style="timeListSty"></p>
-                    </mq-layout>
-                    <mq-layout mq="sm">
-                        <span>
-                            {{ time }}
-                        </span>
-                        <p :style="timeListSty"></p>
-                    </mq-layout>
-                </li>
-            </ul>
-        </div>
-        <div class="task-ground">
-            <ul style="list-style-type: none;">
-                <li 
-                    v-for="(week, index) in weekGround" 
-                    class="task-list"
-                    >
-                    <p> 
-                        {{ week }} 
-                    </p>
-                    <ul :style="taskListSty">
-                        <template
-                            v-for="detail in tasksList[index]"
-                            >
-                            <li class="task-list-item"
-                                :style="detail.styleObj"
-                                v-if="detail.hasOwnProperty('styleObj')"
+                    </li>
+                </ul>
+            </div>
+            <div class="task-ground">
+                <ul style="list-style-type: none;">
+                    <li 
+                        v-for="(week, index) in weekGround" 
+                        class="task-list"
+                        >
+                        <p> 
+                            {{ week }} 
+                        </p>
+                        <ul :style="taskListSty">
+                            <template
+                                v-for="detail in tasksList[index]"
                                 >
+                                <li class="task-list-item"
+                                    :style="detail.styleObj"
+                                    v-if="detail.hasOwnProperty('styleObj')"
+                                    >
+                                    <p> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
+                                    <h5> {{ detail.title }} </h5>
+                                </li>
+                            </template>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </mq-layout>
+        <mq-layout mq="sm">
+            <ul style="list-style-type: none;">
+                <li v-for="(week, index) in weekGround">
+                    <h1>{{ week }}</h1>
+                    <ul style="list-style-type: none;">
+                        <template v-for="detail in tasksList[index]">
+                            <li v-if="detail.hasOwnProperty('styleObj')"
+                                :style="detail.styleObj">
                                 <p> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
-                                <h5> {{ detail.title }} </h5>
+                                <h3> {{ detail.title }} </h3>
                             </li>
                         </template>
                     </ul>
                 </li>
             </ul>
-        </div>
+        </mq-layout>
+        <mq-layout mq="md">
+            <ul style="list-style-type: none;">
+                <li v-for="(week, index) in weekGround">
+                    <h1>{{ week }}</h1>
+                    <ul style="list-style-type: none;">
+                        <template v-for="detail in tasksList[index]">
+                            <li v-if="detail.hasOwnProperty('styleObj')"
+                                :style="detail.styleObj">
+                                <p class="task-list-item-phone"> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
+                                <h3 class="task-list-item-phone"> {{ detail.title }} </h3>
+                            </li>
+                        </template>
+                    </ul>
+                </li>
+            </ul>
+        </mq-layout>
     </div>
 </template>
 <script>
@@ -232,69 +258,17 @@
 	color: #E0E7E9;
 	margin: 1rem 0 0 1rem;
 }
-    /*.schedule {*/
-    /*    width: 80vw;*/
-    /*    max-width: 80vw;*/
-    /*    margin: 0 auto;*/
-    /*    position: relative;*/
-    /*}*/
-    /*.time-ground {*/
-    /*    display: block;*/
-    /*    position: absolute;*/
-    /*    left: 0;*/
-    /*    top: 0;*/
-    /*    width: 100vw;*/
-    /*}*/
-    /*.time-ground ul li {*/
-    /*    margin-top: 5vh;*/
-    /*    font-size: 0.7rem;*/
-    /*    height: 5vh;*/
-    /*}*/
-    /*.time-ground ul li span {*/
-    /*    position: absolute;*/
-    /*    left: -2vw;*/
-    /*    transform: translateY(-1vh);*/
-    /*}*/
-    /*.time-ground ul li p {*/
-    /*    position:absolute;*/
-        /*left: 0;*/
-    /*    height: 1px;*/
-    /*    background-color: #EAEAEA;*/
-    /*    width: 84vw;*/
-    /*    max-width: 84vw;*/
-    /*}*/
-    /*.task-ground {*/
-    /*    width: 100vw;*/
-    /*}*/
-    /*.task-list {*/
-    /*    float: left;*/
-    /*    width: 12vw;*/
-    /*    box-sizing:border-box;*/
-    /*    border:1px solid #EAEAEA;*/
-    /*}*/
-    /*.task-list p {*/
-    /*    text-align: center;*/
-    /*    font-size: 1rem;*/
-    /*    padding: 1rem;*/
-    /*}*/
-    /*.task-list-item {*/
-    /*    position: absolute;*/
-    /*    background-color: #577F92;*/
-    /*    width: 12vw;*/
-    /*    height: 5vh;*/
-    /*    cursor: pointer;*/
-    /*    list-style-type: none;*/
-    /*    box-shadow: 0px 1px 50px #5E5E5E;*/
-    /*}*/
-    /*.task-list-item p {*/
-    /*    text-align: left;*/
-    /*    padding: 0;*/
-    /*    margin: 1rem 0 0 1rem;*/
-    /*    font-size: 0.8rem;*/
-    /*    color: #EDF2F6;*/
-    /*}*/
-    /*.task-list-item h5 {*/
-    /*    color: #E0E7E9;*/
-    /*    margin: 1rem 0 0 1rem;*/
-    /*}*/
+
+.task-list-item-phone p{
+	text-align: left;
+	padding: 0;
+	margin: 1rem 0 0 1rem;
+	font-size: 0.8rem;
+	color: #EDF2F6;
+}
+
+.task-list-item-phone h3 {
+    color: #E0E7E9;
+	margin: 1rem 0 0 1rem;
+}
 </style>

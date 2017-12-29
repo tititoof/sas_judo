@@ -72,7 +72,7 @@ Vue.use(VueImg)
 
 Vue.use(VueMq, {
   breakpoints: { // default breakpoints - customize this
-    sm: 450,
+    sm: 800,
     md: 1250,
     lg: Infinity,
   }
