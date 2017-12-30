@@ -45,8 +45,8 @@
                         <template v-for="detail in tasksList[index]">
                             <li v-if="detail.hasOwnProperty('styleObj')"
                                 :style="detail.styleObj">
-                                <p> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
-                                <h3> {{ detail.title }} </h3>
+                                <p class="task-list-item-phone-p"> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
+                                <h5 class="task-list-item-phone-h"> {{ detail.title }} </h5>
                             </li>
                         </template>
                     </ul>
@@ -61,8 +61,8 @@
                         <template v-for="detail in tasksList[index]">
                             <li v-if="detail.hasOwnProperty('styleObj')"
                                 :style="detail.styleObj">
-                                <p class="task-list-item-phone"> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
-                                <h3 class="task-list-item-phone"> {{ detail.title }} </h3>
+                                <p class="task-list-item-phone-p"> {{ detail.dateStart }} - {{ detail.dateEnd }}</p>
+                                <h5 class="task-list-item-phone-h"> {{ detail.title }} </h5>
                             </li>
                         </template>
                     </ul>
@@ -259,7 +259,7 @@
 	margin: 1rem 0 0 1rem;
 }
 
-.task-list-item-phone p{
+.task-list-item-phone-p{
 	text-align: left;
 	padding: 0;
 	margin: 1rem 0 0 1rem;
@@ -267,7 +267,7 @@
 	color: #EDF2F6;
 }
 
-.task-list-item-phone h3 {
+.task-list-item-phone-h {
     color: #E0E7E9;
 	margin: 1rem 0 0 1rem;
 }
