@@ -72,20 +72,24 @@ const getters = {
             if ("undefined" === data[formElements[0]['name']]) {
                 data    = response.data
             }
+            
             formElements.forEach( (element) => {
                 if ('undefined' !== typeof data[element.name]) {
                     data[element.name].forEach(
                         error => {
                             switch(error) {
                                 case "validation.required":
-                                    errors += element.human + " obligatoire(s).<br/>";
-                                    break;
+                                    errors += element.human + " obligatoire(s).<br/>"
+                                    break
                                 case "validation.integer":
-                                    errors += element.human + " doit être un entier.<br/>";
-                                    break;
+                                    errors += element.human + " doit être un entier.<br/>"
+                                    break
+                                case "validation.email":
+                                    errors += element.human + " doit être une adresse mail valide.<br/>"
+                                    break
                                 default:
-                                    errors += 'Erreur non gérée';
-                                    break;
+                                    errors += 'Erreur non gérée'
+                                    break
                             }
                         }
                     );
@@ -187,6 +191,9 @@ const actions = {
         } else {
             vue.$emit('sas-snackbar', state.errorBasic);
         }
+    },
+    showContactError({ state, rootState, commit, dispatch, getters }, { response, formElements, vue }) {
+        vue.$emit('sas-errors', getters.checkDebug(response, formElements, getters));
     },
     startLoader({ state, commit, getters }) {
         commit(types.SET_LOADER, true)

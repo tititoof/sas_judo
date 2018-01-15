@@ -89,6 +89,12 @@
                 const _self = this;
                 _self.errorAlert    = errors;
                 _self.showAlert     = true;
+                if (_self.errorAlert.length == 0) {
+                    _self.showAlert = false
+                }
+                setTimeout(function() {
+                    _self.showAlert = false
+                }, 20000)
             },
             showAlertSuccess(message) {
                 const _self = this;
@@ -150,6 +156,15 @@
                         })
                     }
                 );
+            },
+            getLastPage() {
+                const _self     = this
+                let lasturiEl   = document.getElementById('olduri'),
+                    lasturi     = lasturiEl.dataset.uri
+                if ( (lasturi == "null") || (lasturi == null) ) {
+                    _self.getFirstRoute()
+                }
+                router.push(lasturi)
             }
         },
         components: {
@@ -163,7 +178,7 @@
                     { app: _self, router: router }
                 )
                 _self.setAxiosInterceptors()
-                _self.getFirstRoute()
+                _self.getLastPage()
                 _self.$el.clientHeight
                 _self.backgroundImage = baseURL + '/api/visitor/menu/background'
             });

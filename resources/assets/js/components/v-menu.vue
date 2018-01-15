@@ -21,7 +21,13 @@
             >
             <div>
                 <img src="/api/visitor/menu/logo" height="30px"/>
-                <router-link :to="{ name: 'home' }" class="sas-menu" style="color: #FFFFFF; text-decoration: none">SAS Judo Jujitsu</router-link>
+                <router-link 
+                    :to="{ name: 'home', params: { menu: 'reload' } }" 
+                    class="sas-menu" 
+                    style="color: #FFFFFF; text-decoration: none"
+                    >
+                    SAS Judo Jujitsu
+                </router-link>
             </div>
             <div slot="actions">
                 <template v-if="isRegistred">

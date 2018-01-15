@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,16 +13,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [ 'olduri' => 'null' ]);
 });
+
+Route::get('/{olduri?}', function ($olduri = null) {
+    return view('welcome', [ 'olduri' => urldecode($olduri) ]);
+})->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-// Auth::routes();
+Route::get('/home', 'HomeController@index')->name('homesite');
 
 Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@miniShow']);
 Route::get('/get/picture/{id}/{resize}', ['uses' => 'Admin\PictureController@show']);
-// Route::get('/home', 'HomeController@index');
-
-//Route::get('*', 'HomeController@index');
