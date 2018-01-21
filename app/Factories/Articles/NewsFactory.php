@@ -2,6 +2,7 @@
 
 namespace App\Factories\Articles;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Helpers\Answer;
 
@@ -39,8 +40,9 @@ class NewsFactory extends AbstractFactory
                 'images'    => $this->getPictures($item->albums),
             ];
         });
+        $allArticles     = $articlesPerPage->all();
         return [ 
-            'articles'      => $articlesPerPage->all(), 
+            'articles'      => array_reverse($allArticles), 
             'nbArticles'    => $nbArticles, 
             'nbPerPage'     => $nbPerPage, 
             'name'          => $menu->name 

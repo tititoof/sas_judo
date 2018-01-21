@@ -77,6 +77,9 @@ export default {
         lastPage: function() {
             const _self = this;
             return ( (_self.nbPerPage * _self.page) >= _self.nbArticles )
+        },
+        reverseArticles: function() {
+            return this.articles.reverse();
         }
     },
     methods: {
@@ -105,11 +108,11 @@ export default {
         },
         PreviousPage() {
             const _self = this
-            router.push({ name: 'visitor_news', params: { 'menu': _self.menu, 'page': (_self.page - 1) } });
+            router.push({ name: 'visitor_news', params: { 'menu': _self.menu, 'page': (parseInt(_self.page) - 1) } });
         },
         nextPage() {
             const _self = this
-            router.push({ name: 'visitor_news', params: { 'menu': _self.menu, 'page': (_self.page + 1) } });
+            router.push({ name: 'visitor_news', params: { 'menu': _self.menu, 'page': (parseInt(_self.page) + 1) } });
         },
         pictureUrl(id) {
             return '/get/picture/' + id

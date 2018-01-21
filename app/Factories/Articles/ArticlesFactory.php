@@ -2,6 +2,7 @@
 
 namespace App\Factories\Articles;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Helpers\Answer;
 
@@ -33,6 +34,7 @@ class ArticlesFactory extends AbstractFactory
         $page            = $options['page'] ?? 1;
         $articlesPerPage = $collect->forPage($page, 10);
         $nbArticles      = $collect->count();
+        
         $articlesPerPage = $articlesPerPage->map(function($item, $key) {
             return [
                 'name'      => $item->name,
@@ -41,8 +43,9 @@ class ArticlesFactory extends AbstractFactory
                 'images'    => $item->albums()->pictures,
             ];
         });
+        $allArticles     = $articlesPerPage->all();
         return [ 
-            'articles'      => $articlesPerPage->all(), 
+            'articles'      => array_reverse($allArticles), 
             'nbArticles'    => $nbArticles, 
             'nbPerPage'     => $nbPerPage, 
             'name'          => $menu->name 
