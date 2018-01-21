@@ -63,7 +63,7 @@ export default {
         return {
             articles:   [],
             nbArticles: 0,
-            nbPerPage:  0,
+            nbPerPage:  5,
             menu:       '',
             page:       1,
             name:       ''
@@ -121,7 +121,7 @@ export default {
     mounted() {
         this.$nextTick(function() {
            const _self = this;
-           _self.page = _self.$route.params.page
+           _self.page = parseInt(_self.$route.params.page)
            _self.menu = _self.$route.params.menu
            _self.index()
         });

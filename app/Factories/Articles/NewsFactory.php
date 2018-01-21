@@ -4,6 +4,7 @@ namespace App\Factories\Articles;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
+use App\Models\Article;
 use App\Helpers\Answer;
 
 /**
@@ -27,22 +28,30 @@ class NewsFactory extends AbstractFactory
     private function getArticles(Category $menu, $options)
     {
         $nbPerPage       = 5;
-        $collect         = $menu->articles;
-        $collect         = $collect->reverse();
+        $collect         = DB::table('articles')
+                                ->join('articles_categories', 'articles_categories.article_id', '=', 'articles.id')
+                                ->join('categories', 'categories.id', '=', 'articles_categories.category_id')
+                                ->leftJoin('albums_articles', 'albums_articles.article_id', '=', 'articles.id')
+                                ->leftJoin('albums', 'albums_articles.album_id', '=', 'albums.id')
+                                ->select('articles.*')
+                                ->where('categories.id', '=', $menu->id)
+                                ->orderBy('articles_categories.id', 'desc')
+                                ->get();
         $page            = $options['page'] ?? 1;
         $articlesPerPage = $collect->forPage($page, $nbPerPage);
         $nbArticles      = $collect->count();
         $articlesPerPage = $articlesPerPage->map(function($item, $key) {
+            $article     = Article::find($item->id);
             return [
                 'name'      => $item->name,
                 'content'   => $item->content,
-                'albums'    => $item->albums,
-                'images'    => $this->getPictures($item->albums),
+                'albums'    => $article->albums,
+                'images'    => $this->getPictures($article->albums),
             ];
         });
         $allArticles     = $articlesPerPage->all();
         return [ 
-            'articles'      => array_reverse($allArticles), 
+            'articles'      => $allArticles,
             'nbArticles'    => $nbArticles, 
             'nbPerPage'     => $nbPerPage, 
             'name'          => $menu->name 
