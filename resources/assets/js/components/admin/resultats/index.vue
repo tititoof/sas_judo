@@ -104,6 +104,7 @@ export default {
             router.push({ name: 'admin_resultats_new' });
         },
         edit(id) {
+            console.log(id);
             router.push({ name: 'admin_resultats_edit', params: { id: id } });
         },
         deleteConfirmed() {
@@ -126,6 +127,7 @@ export default {
         formatData(data) {
             const _self = this,
                  line   = {};
+            line.id             = data.id;
             line.name           = data.name;
             line.season         = data.season;
             line.contest_at     = moment(data.contest_at, "YYYY-MM-DD HH:mm:ss").format("dddd Do MMMM YYYY");
