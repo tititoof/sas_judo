@@ -36,7 +36,7 @@ class CourseFormRequest extends FormRequest
             'color'         => self::REQUIRED,
         ];
         if (null !== $course) {
-            $rules = array_merge($rules, ['name' => 'required|max:255|unique:courses,name,'.$course['attributes']['id'],]);
+            $rules = array_merge($rules, ['name' => 'required|max:255|unique:courses,id,'.$course['attributes']['id'],]);
         }
         return $rules;
     }
