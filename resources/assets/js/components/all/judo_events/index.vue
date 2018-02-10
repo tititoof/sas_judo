@@ -47,7 +47,7 @@
         methods: {
             index() {
                 const _self = this;
-                _self.$http.get('api/judoevent').then(
+                _self.$http.get('api/visitor/judoevent').then(
                     (response) => {
                     _self.fcEvents = response.data.events;
                 }).catch(

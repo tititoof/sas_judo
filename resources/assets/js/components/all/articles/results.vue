@@ -19,7 +19,6 @@
                 </li>
             </ul>
             <br/>
-            <hr/>
         </article>
         <nav aria-label="...">
             <ul class="pager">

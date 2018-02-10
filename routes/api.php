@@ -41,6 +41,8 @@ Route::get('/visitor/menu/logo', ['uses' => 'Visitor\MenuController@logo']);
 Route::get('/get/picture/{id}', ['uses' => 'Admin\PictureController@show'])->middleware('throttle:1024,1');
 Route::get('visitor/courses', ['uses' => 'Visitor\CourseController@index']);
 Route::post('visitor/contact', ['uses' => 'Visitor\ContactController@sendMail']);
+Route::get('visitor/judoevent', ['uses' => 'Visitor\JudoEventController@index']);
+
 
 // Admin
 Route::group(['middleware' => ['jwt.auth', 'can:is-admin']], function () {

@@ -68,6 +68,8 @@
                         size="small"
                         @click.prevent="signinAction()"
                         ref="signinButton"
+                        tooltip="Se connecter"
+                        tooltip-position="bottom center"
                         >
                     </ui-icon-button>
                     <ui-icon-button
@@ -76,6 +78,8 @@
                         size="small"
                         ref="registerButton"
                         @click.prevent="registerAction()"
+                        tooltip="S'enregistrer"
+                        tooltip-position="bottom center"
                         >
                     </ui-icon-button>
                 </template>
