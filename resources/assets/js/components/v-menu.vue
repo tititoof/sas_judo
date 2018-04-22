@@ -1,3 +1,8 @@
+<style>
+    .ui-button--type-primary.ui-button--color-green {
+        background-color: #009032
+    }
+</style>
 <template>
     <div v-on:sas-admin="checkMenuAdmin">
         <sidebar
@@ -19,6 +24,17 @@
             text-color="white"
             @nav-icon-click="menuClick"
             >
+            <div slot="icon">
+                <ui-button 
+                    icon="menu" 
+                    icon-position="left" 
+                    size="small" 
+                    color="green"
+                    @click.prevent="menuClick"
+                    >
+                    Menu
+                </ui-button>
+            </div>
             <div>
                 <img src="/api/visitor/menu/logo" height="30px"/>
                 <router-link 

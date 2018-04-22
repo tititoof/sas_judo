@@ -35,6 +35,8 @@ $input-border: lighten($text-color, 40%);
 $input-border-focus: lighten($brand-primary, 25%);
 $input-color-placeholder: lighten($text-color, 30%);
 
+$md-green: #009032;
+
 // Panels
 $panel-default-heading-bg: #fff;
 $brand-warning: #cbb956;
@@ -57,6 +59,14 @@ $brand-warning: #cbb956;
 }
 .sas-menu a:hover, a:focus{
     color: #FFFFFF;
+}
+
+.ui-button--type-primary {
+    background-color: #009032;
+}
+
+.ui-button--color-green {
+    background-color: #009032;
 }
 
 .panel-footer {
