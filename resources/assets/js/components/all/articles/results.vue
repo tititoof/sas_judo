@@ -1,11 +1,11 @@
 <template>
     <div>
-        <article 
+        <article
             class="article-section article-section-1"
             v-for="result in results"
             >
             <h3>
-                <img src="/api/visitor/menu/picture/logo_judo.png" height="30px"/>
+                <img src="/api/visitor/menu/logo" height="30px"/>
                 {{ result.name }}, le {{ result.contest_at }} à {{ result.locality }}
             </h3>
             <ul>
@@ -23,9 +23,9 @@
         <nav aria-label="...">
             <ul class="pager">
                 <li class="previous disabled">
-                    <ui-icon-button 
-                        color="green" 
-                        icon="keyboard_arrow_left" 
+                    <ui-icon-button
+                        color="green"
+                        icon="keyboard_arrow_left"
                         size="small"
                         :disabled="firstPage"
                         @click.prevent="PreviousPage"
@@ -33,9 +33,9 @@
                     </ui-icon-button>
                 </li>
                 <li class="next">
-                    <ui-icon-button 
-                        color="green" 
-                        icon="keyboard_arrow_right" 
+                    <ui-icon-button
+                        color="green"
+                        icon="keyboard_arrow_right"
                         size="small"
                         :disabled="lastPage"
                         @click.prevent="nextPage"
