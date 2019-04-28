@@ -128,7 +128,7 @@
                         data.forEach(function(element) {
                             _self.menu.push({ id: element.id, text: element.name, type: element.type });
                         });
-                        _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
+                        // _self.menu.push({ id: 'calendriers', text: 'Calendrier' });
                         _self.menu.push({ id: 'plannings_des_cours', text: 'Planning des cours' });
                         _self.menu.push({ id: 'nous_contacter', text: 'Contact' });
                     }
